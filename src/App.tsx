@@ -2,7 +2,7 @@ import Sidebar from "./components/Sidebar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Schedule from "./pages/Schedule";
-
+import Header from "./components/Header";
 function App() {
   return (
     <main className="p-10">
@@ -12,7 +12,9 @@ function App() {
         </div>
         <div className="flex-[4]">
           {/* Header of the section */}
-          <div></div>
+          <div>
+          <Header/>
+          </div>
           {/* Header of the section */}
           <Router>
             <Routes>
