@@ -1,8 +1,9 @@
 import Sidebar from "./components/Sidebar";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Schedule from "./pages/Schedule";
 import Header from "./components/Header";
+import Grades from "./pages/Grades";
 function App() {
   return (
     <main className="p-10">
@@ -13,15 +14,14 @@ function App() {
         <div className="flex-[4]">
           {/* Header of the section */}
           <div>
-          <Header/>
+            <Header />
           </div>
           {/* Header of the section */}
-          <Router>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/" element={<Schedule />} />
-            </Routes>
-          </Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<Grades />} />
+            <Route path="/contact" element={<Schedule />} />
+          </Routes>
         </div>
       </div>
     </main>

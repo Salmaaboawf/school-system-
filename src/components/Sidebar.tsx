@@ -1,21 +1,41 @@
+import { Link } from "react-router-dom";
+import imgProfile from "../assets/images/profileImg.png";
+import { RiLogoutBoxRLine } from "react-icons/ri";
+import { FaEdit } from "react-icons/fa";
+
 const Sidebar = () => {
   return (
-    <div className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
-      <div className="mb-2 p-4">
-        <h5 className="text-blue-gray-900 text-lg font-semibold">Sidebar</h5>
+    <div className="h-[calc(100vh-2rem)] w-full max-w-[20rem] shadow-xl shadow-blue-gray-900/5">
+      <div className="mb-2 p-4 flex flex-col md:flex-row gap-x-2 items-center">
+        <div className="w-[50px] h-[50px]  bg-black rounded-full overflow-hidden border-[3px] border-green-600">
+          <img src={imgProfile} alt="profile" className="w-full h-full" />
+        </div>
+        {/*  */}
+        <div className="flex-1">
+          <h2 className="font-bold text-base my-2 md:my-0">Ahmed Mohamed</h2>
+          <div className="flex">
+            <Link to="#" className="mr-4">
+              <RiLogoutBoxRLine />
+            </Link>
+            <Link to="#">
+              <FaEdit />
+            </Link>
+          </div>
+        </div>
       </div>
       <ul className="list-none p-0">
-        <li className="flex items-center mb-4">Dashboard</li>
-        <li className="flex items-center mb-4">E-Commerce</li>
-        <li className="flex items-center justify-between mb-4">
-          <div className="flex items-center">Inbox</div>
-          <span className="bg-blue-gray-100 text-blue-gray-800 text-sm rounded-full px-2 py-1">
-            14
-          </span>
+        <li className="flex items-center mb-4">
+          <Link to="/">Home</Link>
         </li>
-        <li className="flex items-center mb-4">Profile</li>
-        <li className="flex items-center mb-4">Settings</li>
-        <li className="flex items-center">Log Out</li>
+        <li className="flex items-center mb-4">
+          <Link to="/">My Schedule</Link>
+        </li>
+        <li className="flex items-center mb-4">
+          <Link to="/">My exams</Link>
+        </li>
+        <li className="flex items-center mb-4">
+          <Link to="/">My classes</Link>
+        </li>
       </ul>
     </div>
   );
