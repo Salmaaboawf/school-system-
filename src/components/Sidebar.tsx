@@ -36,6 +36,20 @@ const Sidebar = () => {
         <li className="flex items-center mb-4">
           <Link to="/">My classes</Link>
         </li>
+        <li>
+          Add
+          <ul className="ml-3">
+            <li>
+              <Link to="/">Teacher</Link>
+            </li>
+            <li>
+              <Link to="/">Parent</Link>
+            </li>
+            <li>
+              <Link to="/">Student</Link>
+            </li>
+          </ul>
+        </li>
       </ul>
     </div>
   );
