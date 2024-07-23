@@ -2,13 +2,15 @@ import Sidebar from "./components/Sidebar";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Schedule from "./pages/Schedule";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import Grades from "./pages/Grades";
 import TeacherRoutine from "./pages/TeacherRoutine";
 import StudentRoutine from "./pages/StudentRoutine";
 import AddParent from "./pages/AddParent";
 import AddStudent from "./pages/AddStudent";
 import AddTeacher from "./pages/AddTeacher";
+import { Button } from "flowbite-react";
+
 function App() {
   return (
     <main className="p-10">
@@ -32,6 +34,7 @@ function App() {
             <Route path="/add-student" element={<AddStudent />} />
             <Route path="/add-teacher" element={<AddTeacher />} />
           </Routes>
+          <Button>Click me</Button>
         </div>
       </div>
     </main>
