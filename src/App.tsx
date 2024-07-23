@@ -1,14 +1,14 @@
 import Sidebar from "./components/Sidebar";
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Schedule from "./pages/Schedule";
+import Schedule from "./pages/Dashboard/Schedule";
 import Header from "./components/Header";
-import Grades from "./pages/Grades";
-import TeacherRoutine from "./pages/TeacherRoutine";
-import StudentRoutine from "./pages/StudentRoutine";
-import AddParent from "./pages/AddParent";
-import AddStudent from "./pages/AddStudent";
-import AddTeacher from "./pages/AddTeacher";
+import Grades from "./pages/Dashboard/Grades";
+import TeacherRoutine from "./pages/Dashboard/TeacherRoutine";
+import StudentRoutine from "./pages/Dashboard/StudentRoutine";
+import AddParent from "./pages/Dashboard/AddParent";
+import AddStudent from "./pages/Dashboard/AddStudent";
+import AddTeacher from "./pages/Dashboard/AddTeacher";
+import HomeDashboard from "./pages/Dashboard/HomeDashboard";
 function App() {
   return (
     <main className="p-10">
@@ -23,7 +23,7 @@ function App() {
           </div>
           {/* Header of the section */}
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<HomeDashboard />} />
             <Route path="/about" element={<Grades />} />
             <Route path="/contact" element={<Schedule />} />
             <Route path="/teacher-table" element={<TeacherRoutine />} />

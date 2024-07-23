@@ -1,4 +1,4 @@
-const Home = () => {
+const HomeDashboard = () => {
   return (
     <div>
       <h1>Hello</h1>
@@ -6,4 +6,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeDashboard;
