@@ -3,7 +3,7 @@ import SliderMain from "../../components/SliderMain";
 
 const HomeLanding = () => {
   return (
-    <main>
+    <main className="">
       <section>
         <SliderMain />
       </section>
