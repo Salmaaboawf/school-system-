@@ -53,8 +53,7 @@ const StudentRoutine = () => {
             </tr>
             <tr className="border-b dark:border-neutral-500">
               <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
-                {" "}
-                Tue{" "}
+                Tue
               </td>
               <td className="whitespace-nowrap px-6 py-4 text-2xl">
                 math <h6 className="text-sm">Ahmed ali</h6>
@@ -68,7 +67,6 @@ const StudentRoutine = () => {
             </tr>
             <tr className="border-b dark:border-neutral-500">
               <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
-                {" "}
                 Wed
               </td>
               <td className="whitespace-nowrap px-6 py-4 text-2xl">
