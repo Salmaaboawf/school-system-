@@ -79,13 +79,13 @@ const SliderMain = () => {
         </SwiperSlide>
         <div
           ref={navigationPrevRef}
-          className="bg-[#00000071] cursor-pointer absolute z-[400] flex items-center justify-center rounded-full p-2 bottom-5 right-10"
+          className="bg-[#00000071] z-30  cursor-pointer absolute flex items-center justify-center rounded-full p-2 bottom-5 right-10"
         >
           <IoIosArrowForward color="white" size={30} />
         </div>
         <div
           ref={navigationNextRef}
-          className="bg-[#00000071] cursor-pointer absolute z-[400] flex items-center justify-center rounded-full p-2 bottom-5 left-10"
+          className="bg-[#00000071] z-30 cursor-pointer absolute flex items-center justify-center rounded-full p-2 bottom-5 left-10"
         >
           <IoIosArrowBack color="white" size={30} />
         </div>
