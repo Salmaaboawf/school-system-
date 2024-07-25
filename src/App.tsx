@@ -7,6 +7,10 @@ import AddParent from "./pages/Dashboard/AddParent";
 import AddStudent from "./pages/Dashboard/AddStudent";
 import AddTeacher from "./pages/Dashboard/AddTeacher";
 import HomeLanding from "./pages/Landing/HomeLanding";
+import Teachers from "./pages/Landing/Teachers";
+import 'flowbite/dist/flowbite.css';
+
+
 function App() {
   return (
     <>
@@ -21,6 +25,7 @@ function App() {
         <Route path="/add-student" element={<AddStudent />} />
         <Route path="/add-teacher" element={<AddTeacher />} />
       </Routes>
+     
     </>
   );
 }

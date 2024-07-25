@@ -1,11 +1,11 @@
 const StudentRoutine = () => {
   return (
-    <div className="inline-block min-w-90 w-full py-2 sm:px-6 lg:px-8 ">
+    <div className="inline-block min-w-90 w-full py-2 sm:px-6 lg:px-8 text-[#002749] ">
       <h1 className="text-3xl">classs routine</h1>
       <span className="text-2xl">A-1</span>
       <div className="overflow-hidden min-w-full ">
         <table className="min-w-full text-center text-sm font-light ">
-          <thead className="border-b bg-neutral-700 font-medium text-white dark:border-neutral-500 dark:bg-neutral-900">
+          <thead className="border-b bg-[#002749] border-[#002749] font-medium text-white ">
             <tr>
               <th scope="col" className="px-6 py-4">
                 day
