@@ -1,5 +1,6 @@
-import Header from "../../components/Header";
+import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
+import AddTeacher from "./AddTeacher";
 
 const HomeDashboard = () => {
   return (
@@ -13,7 +14,9 @@ const HomeDashboard = () => {
           <Header />
         </div>
         {/* Header of the section */}
-        <h1>Hello from dashboard</h1>
+        <div className="my-5">
+          <AddTeacher />
+        </div>
       </div>
     </div>
   );

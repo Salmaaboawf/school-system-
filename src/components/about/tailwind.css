@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .OurHistory {
+    @apply flex flex-col md:flex-row text-center md:text-start md:items-start items-center gap-[2rem] px-5;
+  }
+
+  .counter {
+    @apply bg-slideOne bg-cover bg-center bg-fixed mb-5 flex justify-center items-center;
+  }
+
+  .icondiv {
+    @apply flex md:justify-start justify-center;
+  }
+  .iconfooter {
+    @apply text-blue-500 hover:text-[#ff4e31] hover:scale-125 hover:border-[#ff4e31] border-2 border-gray-200;
+  }
+  .contact_button {
+    @apply py-3 px-6 border-2 border-white rounded-[28px] text-white hover:bg-[#ff4e31] hover:scale-[1.18] transition-transform duration-300 ease-in-out;
+  }
+  .enrollment {
+    @apply select-none z-30 cursor-pointer border-4 border-[#FF4E31] px-3 py-1 flex items-center justify-center  font-bold;
+  }
+}

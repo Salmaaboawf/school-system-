@@ -1,10 +1,11 @@
-const AddTeacher = () => {
+export default function AddTeacher() {
   return (
-    <section className="w-full shadow-md">
-      <h3 className="bg-emerald-500 text-white font-bold py-4 pl-4 text-lg">
+    <section className="shadow-md text-[#002749]">
+      <h3 className=" bg-[#002749] text-white font-bold py-4 pl-4 text-lg">
         Add Teacher
       </h3>
       <form action="#" className="p-4 w-full">
+        {/*  name div  */}
         <div className="lg:flex justify-between gap-6 mb-4">
           <div className="lg:lg:w-2/4">
             <label htmlFor="fname">First Name</label>
@@ -13,7 +14,6 @@ const AddTeacher = () => {
               className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded mb-4 lg:mb-0"
               id="fname"
               placeholder="First name"
-              required
             />
           </div>
 
@@ -24,11 +24,11 @@ const AddTeacher = () => {
               className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded"
               id="lname"
               placeholder="Last name"
-              required
             />
           </div>
         </div>
 
+        {/* email and phone div */}
         <div className="lg:flex justify-between gap-6 mb-4">
           <div className="lg:lg:w-2/4">
             <label htmlFor="mail">Email</label>
@@ -37,7 +37,6 @@ const AddTeacher = () => {
               className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded mb-4 lg:mb-0"
               id="mail"
               placeholder="Email"
-              required
             />
           </div>
 
@@ -48,38 +47,25 @@ const AddTeacher = () => {
               className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded"
               id="phone"
               placeholder="Phone Number"
-              required
             />
           </div>
         </div>
 
+        {/* password div and submit btn div */}
         <div className="lg:flex justify-between gap-6 mb-4">
           <div className="lg:w-2/4">
             <label htmlFor="password">Password</label>
             <input
               type="password"
-              className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded mb-4 lg:mb-0"
+              className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded mb-4 lg:mb-0 "
               id="password"
               placeholder="Password"
-              required
             />
           </div>
 
-          <div className="lg:w-2/4">
-            <label htmlFor="confirm">Confirm Password</label>
-            <input
-              type="password"
-              className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded"
-              id="confirm"
-              placeholder="Confirm Password"
-              required
-            />
-          </div>
-        </div>
-
-        <div className="lg:flex justify-between gap-6 mb-4">
           <div className="lg:w-2/4">
             <label htmlFor="user_photo">Upload Photo</label>
+
             <input
               type="file"
               id="user_photo"
@@ -87,9 +73,17 @@ const AddTeacher = () => {
             />
           </div>
         </div>
+
+        {/* buutton */}
+        <div className="lg:w-2/4">
+          <button
+            type="submit"
+            className="text-[#002749] bg-gray-200 font-bold w-full rounded text-xl lg:mt-6 py-2"
+          >
+            Add
+          </button>
+        </div>
       </form>
     </section>
   );
-};
-
-export default AddTeacher;
+}

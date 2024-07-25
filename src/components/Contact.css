@@ -1,0 +1,125 @@
+
+/* .main-content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+} */
+
+.contact-section {
+    width: 100%;
+    /* max-width: 1200px; */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.hello-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.hello-container h2 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.hello-container p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.underline {
+    width: 100px;
+    border: 2px solid red;
+    margin: 20px auto;
+}
+
+.contact-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.contact-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* .contact-form label {
+    font-size: 14px;
+} */
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.contact-form .send-message {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-info {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e5e5e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.address-icon::before {
+    content: "\1F3E2"; /* رمز المدرسة */
+}
+
+.phone-email-icon::before {
+    content: "\2709"; /* رمز الرسالة */
+}
+
+.business-hours-icon::before {
+    content: "\1F4BC"; /* رمز المكتب */
+}
+
+.enfant-hours-icon::before {
+    content: "\231A"; /* رمز الساعة */
+}
+
+/* .info-text h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.info-text p {
+    margin: 0;
+    font-size: 14px;
+}
+.to-top {
+    text-decoration: none;
+    color: #00bfff;
+} */

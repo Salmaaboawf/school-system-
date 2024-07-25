@@ -1,0 +1,295 @@
+.main-heading p::before {
+  content: "";
+  position: absolute;
+  background-color: #ff4e31;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 2px;
+}
+.main-heading p::after {
+  content: "";
+  position: absolute;
+  background-color: white;
+  bottom: -39px;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  transform: translateX(-50%);
+  border: 2px solid;
+  border-radius: 50%;
+  color: #ff4e31;
+}
+/* ----------- */
+
+/* li {
+  perspective: 400px;
+} */
+
+.info {
+  transform: rotate3d(1, 0, 0, 90deg);
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 4px;
+  pointer-events: none;
+  background-color: rgba(26, 188, 156, 0.9);
+}
+
+.in-top .info {
+  transform-origin: 50% 0%;
+  -webkit-animation: in-top 300ms ease 0ms 1 forwards;
+  animation: in-top 300ms ease 0ms 1 forwards;
+}
+
+.in-right .info {
+  transform-origin: 100% 0%;
+  -webkit-animation: in-right 300ms ease 0ms 1 forwards;
+  animation: in-right 300ms ease 0ms 1 forwards;
+}
+
+.in-bottom .info {
+  transform-origin: 50% 100%;
+  -webkit-animation: in-bottom 300ms ease 0ms 1 forwards;
+  animation: in-bottom 300ms ease 0ms 1 forwards;
+}
+
+.in-left .info {
+  transform-origin: 0% 0%;
+  -webkit-animation: in-left 300ms ease 0ms 1 forwards;
+  animation: in-left 300ms ease 0ms 1 forwards;
+}
+
+.out-top .info {
+  transform-origin: 50% 0%;
+  -webkit-animation: out-top 300ms ease 0ms 1 forwards;
+  animation: out-top 300ms ease 0ms 1 forwards;
+}
+
+.out-right .info {
+  transform-origin: 100% 50%;
+  -webkit-animation: out-right 300ms ease 0ms 1 forwards;
+  animation: out-right 300ms ease 0ms 1 forwards;
+}
+
+.out-bottom .info {
+  transform-origin: 50% 100%;
+  -webkit-animation: out-bottom 300ms ease 0ms 1 forwards;
+  animation: out-bottom 300ms ease 0ms 1 forwards;
+}
+
+.out-left .info {
+  transform-origin: 0% 0%;
+  -webkit-animation: out-left 300ms ease 0ms 1 forwards;
+  animation: out-left 300ms ease 0ms 1 forwards;
+}
+
+@-webkit-keyframes in-top {
+  from {
+    transform: rotate3d(-1, 0, 0, 90deg);
+  }
+  to {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+}
+
+@keyframes in-top {
+  from {
+    transform: rotate3d(-1, 0, 0, 90deg);
+  }
+  to {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+}
+@-webkit-keyframes in-right {
+  from {
+    transform: rotate3d(0, -1, 0, 90deg);
+  }
+  to {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+}
+@keyframes in-right {
+  from {
+    transform: rotate3d(0, -1, 0, 90deg);
+  }
+  to {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+}
+@-webkit-keyframes in-bottom {
+  from {
+    transform: rotate3d(1, 0, 0, 90deg);
+  }
+  to {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+}
+@keyframes in-bottom {
+  from {
+    transform: rotate3d(1, 0, 0, 90deg);
+  }
+  to {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+}
+@-webkit-keyframes in-left {
+  from {
+    transform: rotate3d(0, 1, 0, 90deg);
+  }
+  to {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+}
+@keyframes in-left {
+  from {
+    transform: rotate3d(0, 1, 0, 90deg);
+  }
+  to {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+}
+@-webkit-keyframes out-top {
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(-1, 0, 0, 104deg);
+  }
+}
+@keyframes out-top {
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(-1, 0, 0, 104deg);
+  }
+}
+@-webkit-keyframes out-right {
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(0, -1, 0, 104deg);
+  }
+}
+@keyframes out-right {
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(0, -1, 0, 104deg);
+  }
+}
+@-webkit-keyframes out-bottom {
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(1, 0, 0, 104deg);
+  }
+}
+@keyframes out-bottom {
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(1, 0, 0, 104deg);
+  }
+}
+@-webkit-keyframes out-left {
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(0, 1, 0, 104deg);
+  }
+}
+@keyframes out-left {
+  from {
+    transform: rotate3d(0, 0, 0, 0deg);
+  }
+  to {
+    transform: rotate3d(0, 1, 0, 104deg);
+  }
+}
+
+
+
+li h3 {
+  margin: 0;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
+}
+li p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+
+/* .container {
+  width: 840px;
+  margin: 0 auto;
+} */
+
+/* Container for centering the gallery */
+.container {
+  display: flex;
+  justify-content: center; /* Center the gallery horizontally */
+  flex-wrap: wrap; /* Allow items to wrap to the next line */
+  gap: 10px; /* Space between items */
+  width: 100%; /* Ensure container takes full width */
+  max-width: 840px; /* Optional: Maximum width */
+  margin: 0 auto; /* Center the container horizontally */
+}
+
+/* Style for list items */
+.container ul {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  gap: 10px; /* Space between items */
+  justify-content: center;
+}
+
+.container li {
+  position: relative;
+  width: 200px; /* Fixed size for items */
+  height: 200px;
+  overflow: hidden;
+}
+
+.container li a {
+  display: inline-block;
+  vertical-align: top;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.container li img {
+  width: 100%; /* Scale image to fit container */
+  height: 100%; /* Ensure image takes full height */
+  object-fit: cover; 
+}
+
+
+/* accordion */
+
+.accordion-panel {
+  overflow: hidden; /* Hide overflowing content */
+  transition: max-height 0.3s ease; /* Smooth transition for height change */
+  max-height: 0; /* Start with a height of 0 for closed panels */
+}
+
+.accordion-panel.open {
+  max-height: 1000px; /* Large enough to fit the content */
+}
+
+

@@ -7,6 +7,8 @@ import { TbMathMaxMin } from "react-icons/tb";
 import { FaTree } from "react-icons/fa6";
 
 import StatusCard from "../../components/StatusCard";
+import Service_Section from "../../components/ServiceSection";
+import PlanUpgrades from "../../components/PlaneUpgrades";
 
 const HomeLanding = () => {
   return (
@@ -17,6 +19,8 @@ const HomeLanding = () => {
       <section className="px-10 my-5">
         <EnrollmentSlider />
       </section>
+      <Service_Section />
+
       <SchoolStatus>
         <>
           <StatusCard
@@ -42,6 +46,7 @@ const HomeLanding = () => {
         </>
       </SchoolStatus>
       {/* <h1 className="h-80">Hello</h1> */}
+      <PlanUpgrades />
     </main>
   );
 };
