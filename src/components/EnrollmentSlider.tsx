@@ -16,6 +16,7 @@ import {
   Pagination,
 } from "swiper/modules";
 import { useRef } from "react";
+import SectionTitle from "./SectionTitle";
 
 const enrollArr = [
   {
@@ -46,15 +47,29 @@ const EnrollmentSlider = () => {
 
   return (
     <div>
+      <SectionTitle
+        title="Enrollment"
+        desc="Steps done with heart, soul, mind & strength"
+      />
       <Swiper
-        className="w-full relative"
+        className="w-full relative py-5"
         navigation={{
           prevEl: navigationPrevRef.current,
           nextEl: navigationNextRef.current,
         }}
         spaceBetween={30}
         modules={[Navigation, Pagination, Autoplay, A11y, EffectFade]}
-        slidesPerView={3}
+        slidesPerView={1}
+        breakpoints={{
+          // when window width is >= 640px
+          640: {
+            slidesPerView: 2,
+          },
+          // when window width is >= 768px
+          768: {
+            slidesPerView: 3,
+          },
+        }}
       >
         {enrollArr.map((item, index) => (
           <SwiperSlide
@@ -72,7 +87,21 @@ const EnrollmentSlider = () => {
             <p className="text-center">{item.desc}</p>
           </SwiperSlide>
         ))}
-        <span className="w-full h-1 border-dashed border-b-gray-950 border-2 top-[40px] z-[0] left-0 absolute"></span>
+        <span className="w-full h-1 border-dashed border-b-gray-950 border-2 top-[60px] z-[0] left-0 absolute"></span>
+        <div className="flex justify-center my-5 gap-x-4 z-30">
+          <div
+            ref={navigationPrevRef}
+            className="select-none z-30 cursor-pointer border-2 border-[#FF4E31] px-3 py-1 flex items-center justify-center rounded-l-3xl font-bold hover:bg-[#FF4E31] hover:text-white transition-all"
+          >
+            Prev
+          </div>
+          <div
+            ref={navigationNextRef}
+            className="select-none z-30 cursor-pointer border-2 border-[#FF4E31] px-3 py-1 flex items-center justify-center rounded-r-3xl font-bold hover:bg-[#FF4E31] hover:text-white transition-all"
+          >
+            Next
+          </div>
+        </div>
       </Swiper>
     </div>
   );
