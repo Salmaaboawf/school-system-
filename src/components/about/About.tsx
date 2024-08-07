@@ -1,16 +1,15 @@
+import Contact from "../Contact";
 import Counter from "../Counter";
-import "./about.css";
+import EnrollmentSlider from "../EnrollmentSlider";
 import Feature from "./Feature";
-import OurHistory from "./Ourhistory";
-import "./tailwind.css";
-import Contact from "./Contact";
-import Heading from "./Heading";
 import Gallery from "./Gallery";
-import EnrollmentSlider from "./EnrollmentSlider";
+import Heading from "./Heading";
+import OurHistory from "./Ourhistory";
+
 export default function About() {
   return (
     <>
-      <div className="bg-gray-100  text-center py-10 text-3xl mb-5 ">
+      <div className="bg-gray-100  text-center py-10 text-3xl mb-5 about-parent">
         <h2> About us </h2>
       </div>
       <div className="counter bg-slideOne">

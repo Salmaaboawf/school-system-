@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FiFacebook } from "react-icons/fi";
 import { SlSocialLinkedin } from "react-icons/sl";
 import { LuTwitter } from "react-icons/lu";
 
 function Teachers() {
-  let [teachers, setTeachers] = useState([
+  const [teachers] = useState([
     {
       name: "Teacher 1",
       src: "src/assets/images/5-min-1.jpg",
@@ -53,7 +53,9 @@ function Teachers() {
     <div className="px-4 md:px-8 lg:px-16 text-[#002749]">
       {/* Header start */}
       <div className="bg-gray-300 py-8 my-8 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-full text-center">
-        <h1 className="text-3xl font-bold text-[#002749] dark:text-white">Teachers</h1>
+        <h1 className="text-3xl font-bold text-[#002749] dark:text-white">
+          Teachers
+        </h1>
       </div>
       {/* Header end */}
 
@@ -65,7 +67,11 @@ function Teachers() {
           >
             {/* Image */}
             <a href="#">
-              <img className="rounded-t-lg md:rounded-l-lg md:rounded-t-none w-full md:w-48" src={teacher.src} alt="" />
+              <img
+                className="rounded-t-lg md:rounded-l-lg md:rounded-t-none w-full md:w-48"
+                src={teacher.src}
+                alt=""
+              />
             </a>
             {/* Info */}
             <div className="p-5 flex-1">
