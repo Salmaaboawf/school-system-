@@ -1,9 +1,9 @@
-import { Sidebar } from "flowbite-react";
 import Header from "./Header/Header";
+import Sidebar from "./Sidebar";
 
 function Gard() {
   return (
-    <div className="container flex gap-x-5  ">
+    <div className="container flex gap-x-5">
       <div className="flex-[1]">
         <Sidebar />
       </div>
@@ -96,18 +96,7 @@ function Gard() {
                     1
                   </td>
                   <td className="whitespace-nowrap py-3 text-lg">
-                    <input
-                      list="chooseStudent"
-                      name="chooseStudent"
-                      placeholder="Choose Student"
-                      className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40"
-                    />
-                    <datalist id="chooseStudent">
-                      <option value="Mona Ahmed">Mona Ahmed</option>
-                      <option value="Ahmed Ali">Ahmed Ali</option>
-                      <option value="Ali Ahmed">Ali Ahmed</option>
-                      <option value="Salma Ahmed">Salma Ahmed</option>
-                    </datalist>
+                    <p>Haddeer</p>
                   </td>
                   <td className="whitespace-nowrap py-3 text-lg">
                     <input
