@@ -7,7 +7,7 @@ const PrivateRoute = ({
 }: {
   element: React.ElementType;
 }) => {
-  const [userLogged] = useState(false);
+  const [userLogged] = useState(true);
 
   return userLogged ? <Element {...rest} /> : <Navigate to="/login" />;
 };
