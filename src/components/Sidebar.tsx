@@ -38,26 +38,26 @@ const Sidebar = () => {
         </li>
         <li className="flex items-center">
           <NavLink
-            to="/schedule"
+            to="/teacher-table"
             className={({ isActive }) => {
               return `font-bold px-3 py-3 w-full transition-all ${
                 isActive ? "bg-slate-200" : ""
               }`;
             }}
           >
-            My Schedule
+            Schedule
           </NavLink>
         </li>
         <li className="flex items-center">
           <NavLink
-            to="/student-table"
+            to="/grad"
             className={({ isActive }) => {
               return `font-bold px-3 py-3 w-full transition-all ${
                 isActive ? "bg-slate-200" : ""
               }`;
             }}
           >
-            My exams
+            Grades
           </NavLink>
         </li>
         <li className="flex items-center">

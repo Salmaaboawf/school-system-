@@ -2,10 +2,10 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { Button, Checkbox, Label, TextInput, Select } from "flowbite-react";
+import { Label, TextInput, Select } from "flowbite-react";
 import auth from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore"; 
+import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
 export default function Register() {
@@ -54,7 +54,7 @@ export default function Register() {
       );
       const user = userCredential.user;
       console.log(user);
- 
+
       const docRef = collection(db, "users");
       await addDoc(docRef, {
         firstName: value.firstName,
@@ -62,7 +62,7 @@ export default function Register() {
         age: value.age,
         gender: value.gender,
         email: value.email,
-        type:"teacher"
+        type: "teacher",
       });
       console.log("User added to Firestore");
       navigate("/about");
