@@ -1,88 +1,145 @@
-export default function AddTeacher() {
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { Button, Checkbox, Label, TextInput, Select } from "flowbite-react";
+import auth from "../../config/firebase";
+import { useNavigate } from "react-router-dom";
+import { collection, addDoc } from "firebase/firestore"; 
+import { db } from "../../config/firebase";
+
+export default function Register() {
+  const schema = yup.object().shape({
+    firstName: yup
+      .string()
+      .required("First name is required")
+      .max(20, "First name cannot exceed 20 characters"),
+    lastName: yup
+      .string()
+      .required("Last name is required")
+      .matches(/^[A-Za-z]+$/i, "Last name must only contain letters"),
+    age: yup
+      .number()
+      .required("Age is required")
+      .min(18, "You must be at least 18")
+      .max(99, "You must be younger than 99"),
+    gender: yup.string().required("Gender is required"),
+    email: yup
+      .string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: yup
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .max(32, "Password cannot exceed 32 characters")
+      .required("Password is required"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const navigate = useNavigate();
+
+  const save = async (value) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        value.email,
+        value.password
+      );
+      const user = userCredential.user;
+      console.log(user);
+ 
+      const docRef = collection(db, "users");
+      await addDoc(docRef, {
+        firstName: value.firstName,
+        lastName: value.lastName,
+        age: value.age,
+        gender: value.gender,
+        email: value.email,
+        type:"teacher"
+      });
+      console.log("User added to Firestore");
+      navigate("/about");
+    } catch (error) {
+      console.error("Error adding user: ", error);
+    }
+  };
+
   return (
-    <section className="shadow-md text-[#002749]">
-      <h3 className=" bg-[#002749] text-white font-bold py-4 pl-4 text-lg">
-        Add Teacher
-      </h3>
-      <form action="#" className="p-4 w-full">
-        {/*  name div  */}
-        <div className="lg:flex justify-between gap-6 mb-4">
-          <div className="lg:lg:w-2/4">
-            <label htmlFor="fname">First Name</label>
-            <input
-              type="text"
-              className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded mb-4 lg:mb-0"
-              id="fname"
-              placeholder="First name"
-            />
-          </div>
-
-          <div className="lg:lg:w-2/4">
-            <label htmlFor="lname">Last Name</label>
-            <input
-              type="text"
-              className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded"
-              id="lname"
-              placeholder="Last name"
-            />
-          </div>
+    <section className="shadow-md text-[#002749] ps-48">
+      <h1 className="text-2xl mb-10">add teacher</h1>
+      <form
+        onSubmit={handleSubmit(save, (err) => console.log(err))}
+        className="flex max-w-md flex-col gap-4"
+      >
+        <div>
+          <Label htmlFor="firstName" value="First Name" />
+          <TextInput
+            {...register("firstName")}
+            id="firstName"
+            type="text"
+            placeholder="First name"
+          />
+          <p className="text-red-500">{errors.firstName?.message}</p>
+        </div>
+        <div>
+          <Label htmlFor="lastName" value="Last Name" />
+          <TextInput
+            {...register("lastName")}
+            id="lastName"
+            type="text"
+            placeholder="Last name"
+          />
+          <p className="text-red-500">{errors.lastName?.message}</p>
+        </div>
+        <div>
+          <Label htmlFor="age" value="Age" />
+          <TextInput
+            {...register("age")}
+            id="age"
+            type="number"
+            placeholder="Age"
+          />
+          <p className="text-red-500">{errors.age?.message}</p>
+        </div>
+        <div>
+          <Label htmlFor="gender" value="Gender" />
+          <Select {...register("gender")} id="gender">
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+            <option value="other">Other</option>
+          </Select>
+          <p className="text-red-500">{errors.gender?.message}</p>
         </div>
 
-        {/* email and phone div */}
-        <div className="lg:flex justify-between gap-6 mb-4">
-          <div className="lg:lg:w-2/4">
-            <label htmlFor="mail">Email</label>
-            <input
-              type="email"
-              className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded mb-4 lg:mb-0"
-              id="mail"
-              placeholder="Email"
-            />
-          </div>
-
-          <div className="lg:lg:w-2/4">
-            <label htmlFor="phone">Phone Number</label>
-            <input
-              type="tel"
-              className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded"
-              id="phone"
-              placeholder="Phone Number"
-            />
-          </div>
+        <div>
+          <Label htmlFor="email1" value="Your Email" />
+          <TextInput
+            {...register("email")}
+            id="email1"
+            type="email"
+            placeholder="name@flowbite.com"
+          />
+          <p className="text-red-500">{errors.email?.message}</p>
+        </div>
+        <div>
+          <Label htmlFor="password1" value="Your Password" />
+          <TextInput
+            {...register("password")}
+            id="password1"
+            type="password"
+            placeholder="Password"
+          />
+          <p className="text-red-500">{errors.password?.message}</p>
         </div>
 
-        {/* password div and submit btn div */}
-        <div className="lg:flex justify-between gap-6 mb-4">
-          <div className="lg:w-2/4">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded mb-4 lg:mb-0 "
-              id="password"
-              placeholder="Password"
-            />
-          </div>
-
-          <div className="lg:w-2/4">
-            <label htmlFor="user_photo">Upload Photo</label>
-
-            <input
-              type="file"
-              id="user_photo"
-              className="block pl-2 w-full mt-2 py-1 border-gray-300 rounded"
-            />
-          </div>
-        </div>
-
-        {/* buutton */}
-        <div className="lg:w-2/4">
-          <button
-            type="submit"
-            className="text-[#002749] bg-gray-200 font-bold w-full rounded text-xl lg:mt-6 py-2"
-          >
-            Add
-          </button>
-        </div>
+        <input type="submit" title="submit" />
       </form>
     </section>
   );
