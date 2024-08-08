@@ -26,7 +26,7 @@ const Sidebar = () => {
       <ul className="list-none ">
         <li className="flex items-center">
           <NavLink
-            to="/dash-home"
+            to="/dashboard"
             className={({ isActive }) => {
               return `font-bold px-3 py-3 w-full transition-all ${
                 isActive ? "bg-slate-200" : ""
@@ -38,7 +38,7 @@ const Sidebar = () => {
         </li>
         <li className="flex items-center">
           <NavLink
-            to="/dash-schedule"
+            to="/schedule"
             className={({ isActive }) => {
               return `font-bold px-3 py-3 w-full transition-all ${
                 isActive ? "bg-slate-200" : ""
@@ -77,7 +77,7 @@ const Sidebar = () => {
           <ul className="ml-3">
             <li className="my-3">
               <NavLink
-                to="/"
+                to="/teacher-table"
                 className={({ isActive }) => {
                   return `font-bold px-3 py-3 w-full transition-all ${
                     isActive ? "bg-slate-200" : ""
