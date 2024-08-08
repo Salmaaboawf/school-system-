@@ -23,9 +23,9 @@
 }
 /* ----------- */
 
-/* li {
+li {
   perspective: 400px;
-} */
+}
 
 .info {
   transform: rotate3d(1, 0, 0, 90deg);
@@ -240,28 +240,27 @@ li p {
 /* Container for centering the gallery */
 .container {
   display: flex;
-  justify-content: center; /* Center the gallery horizontally */
-  flex-wrap: wrap; /* Allow items to wrap to the next line */
-  gap: 10px; /* Space between items */
-  width: 100%; /* Ensure container takes full width */
-  max-width: 840px; /* Optional: Maximum width */
-  margin: 0 auto; /* Center the container horizontally */
+  justify-content: center; 
+  flex-wrap: wrap; 
+  width: 100%; 
+  max-width: 840px; 
+  margin: 0 auto; 
 }
 
 /* Style for list items */
 .container ul {
   display: flex;
-  flex-wrap: wrap; /* Allow items to wrap */
+  flex-wrap: wrap;
   padding: 0;
   margin: 0;
   list-style: none;
-  gap: 10px; /* Space between items */
+  gap: 10px; 
   justify-content: center;
 }
 
 .container li {
   position: relative;
-  width: 200px; /* Fixed size for items */
+  width: 200px; 
   height: 200px;
   overflow: hidden;
 }

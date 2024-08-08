@@ -1,16 +1,17 @@
 import Counter from "../Counter";
-import "./about.css";
+import EnrollmentSlider from "./EnrollmentSlider";
 import Feature from "./Feature";
+import Gallery from "./Gallery";
+import Heading from "./Heading";
 import OurHistory from "./Ourhistory";
 import "./tailwind.css";
-import Contact from "./Contact";
-import Heading from "./Heading";
-import Gallery from "./Gallery";
-import EnrollmentSlider from "./EnrollmentSlider";
+import "./about.css";
+import Contact from "./ContactAbout";
+
 export default function About() {
   return (
     <>
-      <div className="bg-gray-100  text-center py-10 text-3xl mb-5 ">
+      <div className="bg-gray-100  text-center py-10 text-3xl mb-5 about-parent">
         <h2> About us </h2>
       </div>
       <div className="counter bg-slideOne">
@@ -26,7 +27,7 @@ export default function About() {
         </div>
       </div>
       <Heading
-        h2="OUR OUR EVENTS"
+        h2="OUR  EVENTS"
         p="We make your We do all the work, you get all the credit happy day after day"
       />
       <Contact />

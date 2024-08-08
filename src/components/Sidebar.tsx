@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import imgProfile from "../assets/images/profileImg.png";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
@@ -23,30 +23,93 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <ul className="list-none p-0">
-        <li className="flex items-center mb-4">
-          <Link to="/">Home</Link>
+      <ul className="list-none ">
+        <li className="flex items-center">
+          <NavLink
+            to="/dash-home"
+            className={({ isActive }) => {
+              return `font-bold px-3 py-3 w-full transition-all ${
+                isActive ? "bg-slate-200" : ""
+              }`;
+            }}
+          >
+            Home
+          </NavLink>
         </li>
-        <li className="flex items-center mb-4">
-          <Link to="/">My Schedule</Link>
+        <li className="flex items-center">
+          <NavLink
+            to="/dash-schedule"
+            className={({ isActive }) => {
+              return `font-bold px-3 py-3 w-full transition-all ${
+                isActive ? "bg-slate-200" : ""
+              }`;
+            }}
+          >
+            My Schedule
+          </NavLink>
         </li>
-        <li className="flex items-center mb-4">
-          <Link to="/">My exams</Link>
+        <li className="flex items-center">
+          <NavLink
+            to="/dash-exams"
+            className={({ isActive }) => {
+              return `font-bold px-3 py-3 w-full transition-all ${
+                isActive ? "bg-slate-200" : ""
+              }`;
+            }}
+          >
+            My exams
+          </NavLink>
         </li>
-        <li className="flex items-center mb-4">
-          <Link to="/">My classes</Link>
+        <li className="flex items-center">
+          <NavLink
+            to="/dash-classes"
+            className={({ isActive }) => {
+              return `font-bold px-3 py-3 w-full transition-all ${
+                isActive ? "bg-slate-200" : ""
+              }`;
+            }}
+          >
+            My classes
+          </NavLink>
         </li>
         <li>
-          Add
+          <p className="text-center font-bold my-3">ADD ACCOUNTS</p>
           <ul className="ml-3">
-            <li>
-              <Link to="/">Teacher</Link>
+            <li className="my-3">
+              <NavLink
+                to="/"
+                className={({ isActive }) => {
+                  return `font-bold px-3 py-3 w-full transition-all ${
+                    isActive ? "bg-slate-200" : ""
+                  }`;
+                }}
+              >
+                Teacher
+              </NavLink>
             </li>
-            <li>
-              <Link to="/">Parent</Link>
+            <li className="my-3">
+              <NavLink
+                to="/"
+                className={({ isActive }) => {
+                  return `font-bold px-3 py-3 w-full transition-all ${
+                    isActive ? "bg-slate-200" : ""
+                  }`;
+                }}
+              >
+                Parent
+              </NavLink>
             </li>
-            <li>
-              <Link to="/">Student</Link>
+            <li className="my-3">
+              <NavLink
+                to="/"
+                className={({ isActive }) => {
+                  return `font-bold px-3 py-3 w-full transition-all ${
+                    isActive ? "bg-slate-200" : ""
+                  }`;
+                }}
+              >
+                Student
+              </NavLink>
             </li>
           </ul>
         </li>
