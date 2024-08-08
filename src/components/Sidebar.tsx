@@ -50,7 +50,7 @@ const Sidebar = () => {
         </li>
         <li className="flex items-center">
           <NavLink
-            to="/dash-exams"
+            to="/student-table"
             className={({ isActive }) => {
               return `font-bold px-3 py-3 w-full transition-all ${
                 isActive ? "bg-slate-200" : ""
