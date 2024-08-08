@@ -4,6 +4,8 @@
 function Gard() {
     return (
         <>
+                    {/* <!--  Header start --> */}
+
             <div>
 
                 <div className="forms p-6 rounded-lg ">
@@ -45,6 +47,8 @@ function Gard() {
 
 
             </div>
+                        {/* <!--  Header End --> */}
+
             {/* <!--  table start --> */}
 
 
@@ -62,17 +66,8 @@ function Gard() {
                         <tr className="border-b border-[#00274991]">
                             <td className="whitespace-nowrap px-6  font-medium text-2xl text-[#002749]">1</td>
                             <td className="whitespace-nowrap py-3 text-lg">
-                                <input
-                                    list="chooseStudent"
-                                    name="chooseStudent"
-                                    placeholder="Choose Student"
-                                    className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" />
-                                <datalist id="chooseStudent">
-                                    <option value="Mona Ahmed">Mona Ahmed</option>
-                                    <option value="Ahmed Ali">Ahmed Ali</option>
-                                    <option value="Ali Ahmed">Ali Ahmed</option>
-                                    <option value="Salma Ahmed">Salma Ahmed</option>
-                                </datalist>
+                            <p>Hadeer</p>
+
                             </td>
                             <td className="whitespace-nowrap py-3 text-lg">
 
@@ -98,18 +93,8 @@ function Gard() {
                             </td>
 
                             <td className="whitespace-nowrap py-3 text-lg">
-                                <input
-                                    list="chooseStudent"
-                                    name="chooseStudent"
-                                    placeholder="Choose Student"
-                                    className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40"
-                                />
-                                <datalist id="chooseStudent">
-                                    <option value="Mona Ahmed">Mona Ahmed</option>
-                                    <option value="Ahmed Ali">Ahmed Ali</option>
-                                    <option value="Ali Ahmed">Ali Ahmed</option>
-                                    <option value="Salma Ahmed">Salma Ahmed</option>
-                                </datalist>
+                            <p>Hadeer</p>
+
                             </td>
                             <td className="whitespace-nowrap py-3 text-lg">
 
@@ -135,18 +120,8 @@ function Gard() {
                             </td>
 
                             <td className="whitespace-nowrap py-3 text-lg">
-                                <input
-                                    list="chooseStudent"
-                                    name="chooseStudent"
-                                    placeholder="Choose Teacher"
-                                    className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40"
-                                />
-                                <datalist id="chooseStudent">
-                                    <option value="Mona Ahmed">Mona Ahmed</option>
-                                    <option value="Ahmed Ali">Ahmed Ali</option>
-                                    <option value="Ali Ahmed">Ali Ahmed</option>
-                                    <option value="Salma Ahmed">Salma Ahmed</option>
-                                </datalist>
+                            <p>Hadeer</p>
+
                             </td>
                             <td className="whitespace-nowrap py-3 text-lg">
                                 <input
@@ -173,18 +148,8 @@ function Gard() {
                             </td>
 
                             <td className="whitespace-nowrap py-3 text-lg">
-                                <input
-                                    list="chooseStudent"
-                                    name="chooseStudent"
-                                    placeholder="Choose Student"
-                                    className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40"
-                                />
-                                <datalist id="chooseStudent">
-                                    <option value="Mona Ahmed">Mona Ahmed</option>
-                                    <option value="Ahmed Ali">Ahmed Ali</option>
-                                    <option value="Ali Ahmed">Ali Ahmed</option>
-                                    <option value="Salma Ahmed">Salma Ahmed</option>
-                                </datalist>
+                            <p>Hadeer</p>
+
                             </td>
 
                             <td className="whitespace-nowrap py-3 text-lg">
@@ -210,18 +175,8 @@ function Gard() {
                             </td>
 
                             <td className="whitespace-nowrap py-3 text-lg">
-                                <input
-                                    list="chooseStudent"
-                                    name="chooseStudent"
-                                    placeholder="Choose Student"
-                                    className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40"
-                                />
-                                <datalist id="chooseStudent">
-                                    <option value="Mona Ahmed">Mona Ahmed</option>
-                                    <option value="Ahmed Ali">Ahmed Ali</option>
-                                    <option value="Ali Ahmed">Ali Ahmed</option>
-                                    <option value="Salma Ahmed">Salma Ahmed</option>
-                                </datalist>
+                            <p>Hadeer</p>
+
                             </td>
 
                             <td className="whitespace-nowrap py-3 text-lg">
