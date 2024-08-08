@@ -132,18 +132,7 @@ function Gard() {
                   </td>
 
                   <td className="whitespace-nowrap py-3 text-lg">
-                    <input
-                      list="chooseStudent"
-                      name="chooseStudent"
-                      placeholder="Choose Student"
-                      className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40"
-                    />
-                    <datalist id="chooseStudent">
-                      <option value="Mona Ahmed">Mona Ahmed</option>
-                      <option value="Ahmed Ali">Ahmed Ali</option>
-                      <option value="Ali Ahmed">Ali Ahmed</option>
-                      <option value="Salma Ahmed">Salma Ahmed</option>
-                    </datalist>
+                    <p>Hadeer</p>
                   </td>
                   <td className="whitespace-nowrap py-3 text-lg">
                     <input
@@ -168,18 +157,7 @@ function Gard() {
                   </td>
 
                   <td className="whitespace-nowrap py-3 text-lg">
-                    <input
-                      list="chooseStudent"
-                      name="chooseStudent"
-                      placeholder="Choose Teacher"
-                      className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40"
-                    />
-                    <datalist id="chooseStudent">
-                      <option value="Mona Ahmed">Mona Ahmed</option>
-                      <option value="Ahmed Ali">Ahmed Ali</option>
-                      <option value="Ali Ahmed">Ali Ahmed</option>
-                      <option value="Salma Ahmed">Salma Ahmed</option>
-                    </datalist>
+                    <p>Hadeer</p>
                   </td>
                   <td className="whitespace-nowrap py-3 text-lg">
                     <input
@@ -204,18 +182,7 @@ function Gard() {
                   </td>
 
                   <td className="whitespace-nowrap py-3 text-lg">
-                    <input
-                      list="chooseStudent"
-                      name="chooseStudent"
-                      placeholder="Choose Student"
-                      className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40"
-                    />
-                    <datalist id="chooseStudent">
-                      <option value="Mona Ahmed">Mona Ahmed</option>
-                      <option value="Ahmed Ali">Ahmed Ali</option>
-                      <option value="Ali Ahmed">Ali Ahmed</option>
-                      <option value="Salma Ahmed">Salma Ahmed</option>
-                    </datalist>
+                    <p>Hadeer</p>
                   </td>
 
                   <td className="whitespace-nowrap py-3 text-lg">
@@ -241,18 +208,7 @@ function Gard() {
                   </td>
 
                   <td className="whitespace-nowrap py-3 text-lg">
-                    <input
-                      list="chooseStudent"
-                      name="chooseStudent"
-                      placeholder="Choose Student"
-                      className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40"
-                    />
-                    <datalist id="chooseStudent">
-                      <option value="Mona Ahmed">Mona Ahmed</option>
-                      <option value="Ahmed Ali">Ahmed Ali</option>
-                      <option value="Ali Ahmed">Ali Ahmed</option>
-                      <option value="Salma Ahmed">Salma Ahmed</option>
-                    </datalist>
+                    <p>Hadeer</p>
                   </td>
 
                   <td className="whitespace-nowrap py-3 text-lg">
