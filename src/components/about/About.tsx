@@ -1,10 +1,12 @@
-import Contact from "../Contact";
 import Counter from "../Counter";
-import EnrollmentSlider from "../EnrollmentSlider";
+import EnrollmentSlider from "./EnrollmentSlider";
 import Feature from "./Feature";
 import Gallery from "./Gallery";
 import Heading from "./Heading";
 import OurHistory from "./Ourhistory";
+import "./tailwind.css";
+import "./about.css";
+import Contact from "./ContactAbout";
 
 export default function About() {
   return (
@@ -25,7 +27,7 @@ export default function About() {
         </div>
       </div>
       <Heading
-        h2="OUR OUR EVENTS"
+        h2="OUR  EVENTS"
         p="We make your We do all the work, you get all the credit happy day after day"
       />
       <Contact />

@@ -23,9 +23,9 @@
 }
 /* ----------- */
 
-/* li {
+li {
   perspective: 400px;
-} */
+}
 
 .info {
   transform: rotate3d(1, 0, 0, 90deg);
@@ -218,63 +218,66 @@
   }
 }
 
-.about-parent li h3 {
+
+
+li h3 {
   margin: 0;
   font-size: 16px;
   color: rgba(255, 255, 255, 0.9);
 }
-.about-parent li p {
+li p {
   font-size: 12px;
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.8);
 }
 
-/* .about-parent .container {
+
+/* .container {
   width: 840px;
   margin: 0 auto;
 } */
 
 /* Container for centering the gallery */
-.about-parent .container {
+.container {
   display: flex;
-  justify-content: center; /* Center the gallery horizontally */
-  flex-wrap: wrap; /* Allow items to wrap to the next line */
-  gap: 10px; /* Space between items */
-  width: 100%; /* Ensure container takes full width */
-  max-width: 840px; /* Optional: Maximum width */
-  margin: 0 auto; /* Center the container horizontally */
+  justify-content: center; 
+  flex-wrap: wrap; 
+  width: 100%; 
+  max-width: 840px; 
+  margin: 0 auto; 
 }
 
 /* Style for list items */
-.about-parent .container ul {
+.container ul {
   display: flex;
-  flex-wrap: wrap; /* Allow items to wrap */
+  flex-wrap: wrap;
   padding: 0;
   margin: 0;
   list-style: none;
-  gap: 10px; /* Space between items */
+  gap: 10px; 
   justify-content: center;
 }
 
-.about-parent .container li {
+.container li {
   position: relative;
-  width: 200px; /* Fixed size for items */
+  width: 200px; 
   height: 200px;
   overflow: hidden;
 }
 
-.about-parent .container li a {
+.container li a {
   display: inline-block;
   vertical-align: top;
   text-decoration: none;
   border-radius: 4px;
 }
 
-.about-parent .container li img {
+.container li img {
   width: 100%; /* Scale image to fit container */
   height: 100%; /* Ensure image takes full height */
-  object-fit: cover;
+  object-fit: cover; 
 }
+
 
 /* accordion */
 
@@ -287,3 +290,5 @@
 .accordion-panel.open {
   max-height: 1000px; /* Large enough to fit the content */
 }
+
+
