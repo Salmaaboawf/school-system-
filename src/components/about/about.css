@@ -218,19 +218,16 @@ li {
   }
 }
 
-
-
-li h3 {
+.about-parent li h3 {
   margin: 0;
   font-size: 16px;
   color: rgba(255, 255, 255, 0.9);
 }
-li p {
+.about-parent li p {
   font-size: 12px;
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.8);
 }
-
 
 /* .container {
   width: 840px;
@@ -238,46 +235,45 @@ li p {
 } */
 
 /* Container for centering the gallery */
-.container {
+.about-parent .container {
   display: flex;
-  justify-content: center; 
-  flex-wrap: wrap; 
-  width: 100%; 
-  max-width: 840px; 
-  margin: 0 auto; 
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 840px;
+  margin: 0 auto;
 }
 
 /* Style for list items */
-.container ul {
+.about-parent .container ul {
   display: flex;
   flex-wrap: wrap;
   padding: 0;
   margin: 0;
   list-style: none;
-  gap: 10px; 
+  gap: 10px;
   justify-content: center;
 }
 
-.container li {
+.about-parent .container li {
   position: relative;
-  width: 200px; 
+  width: 200px;
   height: 200px;
   overflow: hidden;
 }
 
-.container li a {
+.about-parent .container li a {
   display: inline-block;
   vertical-align: top;
   text-decoration: none;
   border-radius: 4px;
 }
 
-.container li img {
+.about-parent .container li img {
   width: 100%; /* Scale image to fit container */
   height: 100%; /* Ensure image takes full height */
-  object-fit: cover; 
+  object-fit: cover;
 }
-
 
 /* accordion */
 
@@ -290,5 +286,3 @@ li p {
 .accordion-panel.open {
   max-height: 1000px; /* Large enough to fit the content */
 }
-
-
