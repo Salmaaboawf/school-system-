@@ -110,7 +110,7 @@ function Nav() {
               {user.type == "admin" && (
                 <li>
                   <NavLink
-                    to="/dashboard"
+                    to="/add-teacher"
                     className={({ isActive }) =>
                       `block py-2 px-3 bg-orange-700 rounded md:bg-transparent md:p-0 ${
                         isActive ? "text-orange-400" : ""

@@ -20,7 +20,6 @@ import Login from "./components/Login";
 import NotFound from "./components/NotFund";
 import Grad from "./components/Grad";
 import Showgrad from "./components/Showgrad";
-import HomeDashboard from "./pages/Dashboard/HomeDashboard";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserById } from "./services/userServices";
@@ -73,10 +72,7 @@ function App() {
 
 
         {/* Protected routes */}
-        <Route
-          path="/dashboard"
-          element={<PrivateRoute element={HomeDashboard} />}
-        />
+        
         <Route path="/grades" element={<PrivateRoute element={Grades} />} />
         <Route path="/schedule" element={<PrivateRoute element={Schedule} />} />
         <Route
