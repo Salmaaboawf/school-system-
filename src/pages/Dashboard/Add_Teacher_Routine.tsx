@@ -1,6 +1,20 @@
+import Header from "../../components/Header/Header";
+import Sidebar from "../../components/Sidebar";
+
 export default function Add_Teacher_Routine() {
   return (
-    <div className="flex">
+    <div className="container flex gap-x-5  ">
+      <div className="flex-[1]">
+        <Sidebar />
+      </div>
+      <div className="flex-[4]">
+        {/* Header of the section */}
+        <div>
+          <Header />
+        </div>
+        {/* Header of the section */}
+        <div className="my-5">
+        <div className="flex">
       <div className="inline-block lg:w-full py-2 sm:px-6 lg:px-8 ">
         <h1 className="text-3xl text-[#002749] my-3">Teacher Routine</h1>
         {/* <span className="text-2xl">teacher/salma</span> */}
@@ -422,6 +436,9 @@ export default function Add_Teacher_Routine() {
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
         </div>
       </div>
     </div>

@@ -64,7 +64,7 @@ const Sidebar = () => {
         <ul className="list-none">
           <li className="mb-3">
             <NavLink
-              to="/teacher-table"
+              to="/add-teacher"
               className={({ isActive }) => {
                 return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
                   isActive ? "bg-gray-700" : ""
@@ -77,7 +77,7 @@ const Sidebar = () => {
           </li>
           <li className="mb-3">
             <NavLink
-              to="/parent"
+              to="/add-parent"
               className={({ isActive }) => {
                 return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
                   isActive ? "bg-gray-700" : ""
@@ -90,7 +90,7 @@ const Sidebar = () => {
           </li>
           <li className="mb-3">
             <NavLink
-              to="/student"
+              to="/add-student"
               className={({ isActive }) => {
                 return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
                   isActive ? "bg-gray-700" : ""
@@ -103,7 +103,7 @@ const Sidebar = () => {
           </li>
           <li className="mb-3">
             <NavLink
-              to="/grades"
+              to="/add-class"
               className={({ isActive }) => {
                 return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
                   isActive ? "bg-gray-700" : ""
@@ -111,7 +111,46 @@ const Sidebar = () => {
               }}
             >
               <FaChartLine className="text-2xl text-gray-400" />
-              <span>Add Grades</span>
+              <span>Add Class</span>
+            </NavLink>
+          </li>
+          <li className="mb-3">
+            <NavLink
+              to="/add-teacher-routine "
+              className={({ isActive }) => {
+                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
+                  isActive ? "bg-gray-700" : ""
+                }`;
+              }}
+            >
+              <FaChartLine className="text-2xl text-gray-400" />
+              <span>Add Teacher routine</span>
+            </NavLink>
+          </li>
+          <li className="mb-3">
+            <NavLink
+              to="/add-class-routine"
+              className={({ isActive }) => {
+                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
+                  isActive ? "bg-gray-700" : ""
+                }`;
+              }}
+            >
+              <FaChartLine className="text-2xl text-gray-400" />
+              <span>Add Class routine</span>
+            </NavLink>
+          </li>
+          <li className="mb-3">
+            <NavLink
+              to="/add-subject"
+              className={({ isActive }) => {
+                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
+                  isActive ? "bg-gray-700" : ""
+                }`;
+              }}
+            >
+              <FaChartLine className="text-2xl text-gray-400" />
+              <span>Add Subject</span>
             </NavLink>
           </li>
         </ul>

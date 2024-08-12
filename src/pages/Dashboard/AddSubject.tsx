@@ -1,6 +1,21 @@
+
+import Header from "../../components/Header/Header";
+import Sidebar from "../../components/Sidebar";
+
 export default function AddSubject() {
   return (
-    <section className="shadow-md text-[#002749]">
+    <div className="container flex gap-x-5  ">
+    <div className="flex-[1]">
+      <Sidebar />
+    </div>
+    <div className="flex-[4]">
+      {/* Header of the section */}
+      <div>
+        <Header />
+      </div>
+      {/* Header of the section */}
+      <div className="my-5">
+      <section className="shadow-md text-[#002749]">
       <h3 className=" bg-[#002749] text-white font-bold py-4 pl-4 text-lg">
         Add Subject
       </h3>
@@ -59,5 +74,8 @@ export default function AddSubject() {
         </div>
       </form>
     </section>
+      </div>
+    </div>
+  </div>
   );
 }

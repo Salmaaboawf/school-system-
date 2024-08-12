@@ -20,6 +20,11 @@ import NotFound from "./components/NotFund";
 import Grad from "./components/Grad";
 import Showgrad from "./components/Showgrad";
 import HomeDashboard from "./pages/Dashboard/HomeDashboard";
+import AddClass from "./pages/Dashboard/AddClass";
+import Add_Teacher_Routine from "./pages/Dashboard/Add_Teacher_Routine";
+import Add_Class_Routine from "./pages/Dashboard/Add_Class_Routine";
+import AddSubject from "./pages/Dashboard/AddSubject";
+
 
 function App() {
   const location = useLocation();
@@ -32,6 +37,10 @@ function App() {
     "/add-parent",
     "/add-student",
     "/add-teacher",
+    "/add-class",
+    "/add-teacher-routine",
+    "/add-class-routine",
+    "/add-subject",
   ];
 
   const showNavAndFooter = !privateRoutes.includes(location.pathname);
@@ -45,6 +54,8 @@ function App() {
         <Route path="/stuff" element={<Teachers />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+        {/* <Route path="/class" element={<AddClass />} /> */}
+
 
         {/* Protected routes */}
         <Route
@@ -72,6 +83,22 @@ function App() {
         <Route
           path="/add-teacher"
           element={<PrivateRoute element={AddTeacher} />}
+        />
+        <Route
+          path="/add-class"
+          element={<PrivateRoute element={AddClass} />}
+        />
+         <Route
+          path="/add-class-routine"
+          element={<PrivateRoute element={Add_Class_Routine} />}
+        />
+         <Route
+          path="/add-teacher-routine"
+          element={<PrivateRoute element={Add_Teacher_Routine} />}
+        />
+           <Route
+          path="/add-subject"
+          element={<PrivateRoute element={AddSubject} />}
         />
         <Route path="/grad" element={<PrivateRoute element={Grad} />} />
         <Route path="/grad-two" element={<PrivateRoute element={Showgrad} />} />

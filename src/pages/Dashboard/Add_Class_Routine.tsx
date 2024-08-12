@@ -1,6 +1,20 @@
+
+import Header from "../../components/Header/Header";
+import Sidebar from "../../components/Sidebar";
 const Add_Class_Routine = () => {
   return (
-    <div className="inline-block min-w-90 w-full py-2 sm:px-6 lg:px-8 ">
+    <div className="container flex gap-x-5  ">
+      <div className="flex-[1]">
+        <Sidebar />
+      </div>
+      <div className="flex-[4]">
+        {/* Header of the section */}
+        <div>
+          <Header />
+        </div>
+        {/* Header of the section */}
+        <div className="my-5">
+        <div className="inline-block min-w-90 w-full py-2 sm:px-6 lg:px-8 ">
       <h3 className="text-3xl my-4 text-[#002749]">Add Classs Routine</h3>
       <p className="text-xl mb-3">
         {/* datalist to choose the class */}
@@ -601,6 +615,10 @@ const Add_Class_Routine = () => {
         </table>
       </div>
     </div>
+        </div>
+      </div>
+    </div>
+   
   );
 };
 

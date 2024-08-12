@@ -7,7 +7,8 @@ import auth from '../../config/firebase';
 import { useNavigate } from "react-router-dom";
 import { collection ,addDoc} from "firebase/firestore";
 import { db } from "../../config/firebase";
-
+import Header from "../../components/Header/Header";
+import Sidebar from "../../components/Sidebar";
 export default function Register() {
   const schema = yup.object().shape({
     firstName: yup.string().required("First name is required").max(20, "First name cannot exceed 20 characters"),
@@ -33,7 +34,9 @@ export default function Register() {
       const userCredential = await createUserWithEmailAndPassword(auth, value.email, value.password);
       const user = userCredential.user;
       console.log(user);
- 
+     
+      
+      
       const docRef = collection(db, "users");
       await addDoc(docRef, {
         firstName: value.firstName,
@@ -48,10 +51,22 @@ export default function Register() {
     } catch (error) {
       console.error("Error adding user: ", error);
     }
+    
   };
 
   return (
-    <section className="shadow-md text-[#002749] ps-48">
+    <div className="container flex gap-x-5  ">
+      <div className="flex-[1]">
+        <Sidebar />
+      </div>
+      <div className="flex-[4]">
+        {/* Header of the section */}
+        <div>
+          <Header />
+        </div>
+        {/* Header of the section */}
+        <div className="my-5">
+        <section className="shadow-md text-[#002749] ps-48">
       <h1 className="text-2xl mb-10">add student</h1>
       <form onSubmit={handleSubmit(save)} className="flex max-w-md flex-col gap-4">
         <div>
@@ -103,5 +118,8 @@ export default function Register() {
        
       </form>
     </section>
+        </div>
+      </div>
+    </div>
   );
 }

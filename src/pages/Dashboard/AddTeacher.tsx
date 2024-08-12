@@ -7,7 +7,8 @@ import auth from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
-
+import Header from "../../components/Header/Header";
+import Sidebar from "../../components/Sidebar";
 export default function Register() {
   const schema = yup.object().shape({
     firstName: yup
@@ -72,7 +73,18 @@ export default function Register() {
   };
 
   return (
-    <section className="shadow-md text-[#002749] ps-48">
+    <div className="container flex gap-x-5  ">
+    <div className="flex-[1]">
+      <Sidebar />
+    </div>
+    <div className="flex-[4]">
+      {/* Header of the section */}
+      <div>
+        <Header />
+      </div>
+      {/* Header of the section */}
+      <div className="my-5">
+      <section className="shadow-md text-[#002749] ps-48">
       <h1 className="text-2xl mb-10">add teacher</h1>
       <form
         onSubmit={handleSubmit(save, (err) => console.log(err))}
@@ -142,5 +154,8 @@ export default function Register() {
         <input type="submit" title="submit" />
       </form>
     </section>
+      </div>
+    </div>
+  </div>
   );
 }
