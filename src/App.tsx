@@ -21,8 +21,12 @@ import NotFound from "./components/NotFund";
 import Grad from "./components/Grad";
 import Showgrad from "./components/Showgrad";
 import HomeDashboard from "./pages/Dashboard/HomeDashboard";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getUserById } from "./services/userServices";
 
 function App() {
+  const dispatch = useDispatch();
   const location = useLocation();
   const privateRoutes = [
     "/dashboard",
@@ -34,6 +38,13 @@ function App() {
     "/add-student",
     "/add-teacher",
   ];
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      getUserById(userId, dispatch);
+    }
+  }, []);
 
   const showNavAndFooter = !privateRoutes.includes(location.pathname);
 
