@@ -1,8 +1,19 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "../hooks/reduxHooks";
+
+export type UserType = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  email: string;
+  age: number;
+  type: string;
+};
 
 function Nav() {
-  const [userLogged] = useState(true);
+  const user = useAppSelector((state) => state.user.user);
+  const userId = localStorage.getItem("userId");
 
   return (
     <div>
@@ -82,7 +93,7 @@ function Nav() {
                   Contact
                 </NavLink>
               </li>
-              {!userLogged && (
+              {!userId && (
                 <li>
                   <NavLink
                     to="/login"
@@ -96,7 +107,7 @@ function Nav() {
                   </NavLink>
                 </li>
               )}
-              {userLogged && (
+              {user.type == "admin" && (
                 <li>
                   <NavLink
                     to="/dashboard"

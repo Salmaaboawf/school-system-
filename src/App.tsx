@@ -8,6 +8,7 @@ import TeacherRoutine from "./pages/Dashboard/TeacherRoutine";
 import StudentRoutine from "./pages/Dashboard/StudentRoutine";
 import AddParent from "./pages/Dashboard/AddParent";
 import AddStudent from "./pages/Dashboard/AddStudent";
+// import MyGrades from "./pages/Dashboard/MyGrades";    // add to private route
 import AddTeacher from "./pages/Dashboard/AddTeacher";
 import HomeLanding from "./pages/Landing/HomeLanding";
 import About from "./components/about/About";
@@ -20,6 +21,9 @@ import NotFound from "./components/NotFund";
 import Grad from "./components/Grad";
 import Showgrad from "./components/Showgrad";
 import HomeDashboard from "./pages/Dashboard/HomeDashboard";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { getUserById } from "./services/userServices";
 import AddClass from "./pages/Dashboard/AddClass";
 import Add_Teacher_Routine from "./pages/Dashboard/Add_Teacher_Routine";
 import Add_Class_Routine from "./pages/Dashboard/Add_Class_Routine";
@@ -27,6 +31,7 @@ import AddSubject from "./pages/Dashboard/AddSubject";
 
 
 function App() {
+  const dispatch = useDispatch();
   const location = useLocation();
   const privateRoutes = [
     "/dashboard",
@@ -43,6 +48,13 @@ function App() {
     "/add-subject",
   ];
 
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      getUserById(userId, dispatch);
+    }
+  }, []);
+
   const showNavAndFooter = !privateRoutes.includes(location.pathname);
 
   return (
@@ -55,6 +67,9 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         {/* <Route path="/class" element={<AddClass />} /> */}
+
+
+        {/* <Route path="/teach" element={<TeacherRoutine />} /> */}
 
 
         {/* Protected routes */}

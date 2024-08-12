@@ -1,20 +1,12 @@
-// import {configureStore} from '@reduxjs/toolkit'
-// import markReducer from './Slices/marksSlice'
-// import teacherReducer from './Slices/teacherSlice'
-// import studentReducer from './Slices/studentSlice'
-// import parentReducer from './Slices/parentSlice'
-// import studentScheduleReducer from './Slices/studentScheduleSlice'
-// import teacherScheduleReducer from './Slices/teacherScheduleSlice'
+import { configureStore } from "@reduxjs/toolkit";
+import userReducer from "./Slices/userSlice";
 
-// export const Store = configureStore({
-//     reducer: {
-//         markReducer ,
-//         teacherReducer ,
-//         parentReducer ,
-//         studentReducer ,
-//         studentScheduleReducer,
-//         teacherScheduleReducer
-//     }
-// })
-
-// enhancement add keys to the reducer values
+export const Store = configureStore({
+  reducer: {
+    user: userReducer,
+  },
+});
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof Store.getState>;
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof Store.dispatch;
