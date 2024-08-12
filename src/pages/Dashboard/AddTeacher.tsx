@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Label, TextInput, Select } from "flowbite-react";
 import auth from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 
 export default function Register() {
@@ -45,7 +45,14 @@ export default function Register() {
 
   const navigate = useNavigate();
 
-  const save = async (value) => {
+  const save = async (value: {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    age: number;
+    gender: string;
+  }) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -53,10 +60,11 @@ export default function Register() {
         value.password
       );
       const user = userCredential.user;
+
       console.log(user);
 
-      const docRef = collection(db, "users");
-      await addDoc(docRef, {
+      await setDoc(doc(db, "users", user.uid), {
+        id: user.uid,
         firstName: value.firstName,
         lastName: value.lastName,
         age: value.age,
@@ -64,7 +72,7 @@ export default function Register() {
         email: value.email,
         type: "teacher",
       });
-      console.log("User added to Firestore");
+
       navigate("/about");
     } catch (error) {
       console.error("Error adding user: ", error);
