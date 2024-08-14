@@ -1,5 +1,5 @@
 // App.jsx
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Schedule from "./pages/Dashboard/Schedule";
@@ -20,59 +20,69 @@ import Login from "./components/Login";
 import NotFound from "./components/NotFund";
 import Grad from "./components/Grad";
 import Showgrad from "./components/Showgrad";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserById } from "./services/userServices";
 import AddClass from "./pages/Dashboard/AddClass";
 import Add_Teacher_Routine from "./pages/Dashboard/Add_Teacher_Routine";
 import Add_Class_Routine from "./pages/Dashboard/Add_Class_Routine";
 import AddSubject from "./pages/Dashboard/AddSubject";
-
+import { useAuth } from "./hooks/useAuth";
 
 function App() {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const privateRoutes = [
-    "/dashboard",
-    "/grades",
-    "/schedule",
-    "/teacher-table",
-    "/student-table",
-    "/add-parent",
-    "/add-student",
-    "/add-teacher",
-    "/add-class",
-    "/add-teacher-routine",
-    "/add-class-routine",
-    "/add-subject",
-  ];
+  const userId = useAuth();
+  // const privateRoutes = [
+  //   "/dashboard",
+  //   "/grades",
+  //   "/schedule",
+  //   "/teacher-table",
+  //   "/student-table",
+  //   "/add-parent",
+  //   "/add-student",
+  //   "/add-teacher",
+  //   "/add-class",
+  //   "/add-teacher-routine",
+  //   "/add-class-routine",
+  //   "/add-subject",
+  // ];
 
-  useEffect(() => {
-    const userId = localStorage.getItem("userId");
+  useLayoutEffect(() => {
     if (userId) {
       getUserById(userId, dispatch);
     }
   }, []);
 
-  const showNavAndFooter = !privateRoutes.includes(location.pathname);
+  console.log("app rendered");
 
   return (
     <>
-      {showNavAndFooter && <Nav />}
       <Routes>
-        <Route path="/" element={<HomeLanding />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/stuff" element={<Teachers />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        {/* <Route path="/class" element={<AddClass />} /> */}
+        <Route
+          element={
+            <>
+              <Nav />
+              <Outlet />
+              <Footer />
+            </>
+          }
+        >
+          <Route path="/" element={<HomeLanding />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/stuff" element={<Teachers />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/login"
+            element={userId ? <Navigate to="/" /> : <Login />}
+          />
+        </Route>
 
+        {/* <Route path="/class" element={<AddClass />} /> */}
 
         {/* <Route path="/teach" element={<TeacherRoutine />} /> */}
 
-
         {/* Protected routes */}
-        
+
         <Route path="/grades" element={<PrivateRoute element={Grades} />} />
         <Route path="/schedule" element={<PrivateRoute element={Schedule} />} />
         <Route
@@ -99,15 +109,15 @@ function App() {
           path="/add-class"
           element={<PrivateRoute element={AddClass} />}
         />
-         <Route
+        <Route
           path="/add-class-routine"
           element={<PrivateRoute element={Add_Class_Routine} />}
         />
-         <Route
+        <Route
           path="/add-teacher-routine"
           element={<PrivateRoute element={Add_Teacher_Routine} />}
         />
-           <Route
+        <Route
           path="/add-subject"
           element={<PrivateRoute element={AddSubject} />}
         />
@@ -115,7 +125,6 @@ function App() {
         <Route path="/grad-two" element={<PrivateRoute element={Showgrad} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      {showNavAndFooter && <Footer />}
     </>
   );
 }
