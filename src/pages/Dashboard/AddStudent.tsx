@@ -34,7 +34,7 @@ export default function Register() {
       const userCredential = await createUserWithEmailAndPassword(auth, value.email, value.password);
       const user = userCredential.user;
       console.log(user);
-     
+      
       
       
       const docRef = collection(db, "users");
