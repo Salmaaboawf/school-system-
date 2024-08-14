@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { Navigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 const PrivateRoute = ({
   element: Element,
@@ -7,9 +7,13 @@ const PrivateRoute = ({
 }: {
   element: React.ElementType;
 }) => {
-  const [userLogged] = useState(true);
+  const userLogged = useAuth();
 
-  return userLogged ? <Element {...rest} /> : <Navigate to="/login" />;
+  return userLogged.toString().includes("admin") ? (
+    <Element {...rest} />
+  ) : (
+    <Navigate to="/" />
+  );
 };
 
 export default PrivateRoute;

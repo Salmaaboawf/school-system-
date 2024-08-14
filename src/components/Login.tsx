@@ -6,11 +6,9 @@ import { Label, TextInput } from "flowbite-react";
 import auth from "../config/firebase";
 import { saveLoggedUser } from "../services/userServices";
 import { useAppDispatch } from "../hooks/reduxHooks";
-import { useEffect, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Register() {
-  const userId = localStorage.getItem("userId");
   const dispatch = useAppDispatch();
 
   const schema = yup.object().shape({
@@ -49,13 +47,6 @@ export default function Register() {
         console.log(errorCode, errorMessage);
       });
   };
-
-  useEffect(() => {
-    if (userId) {
-      navigate("/about", { replace: true });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <section className="shadow-md text-[#002749] ps-48">
