@@ -39,7 +39,8 @@ export default function Counter() {
               />
             </CounterPlus>
             <CounterPlus title="Outdoor Activities">
-              <IoAmericanFootballOutline style={{ color: "white", fontSize: "4em" }}
+              <IoAmericanFootballOutline
+                style={{ color: "white", fontSize: "4em" }}
               />
               <CountUp
                 className=" text-[5rem] text-white"

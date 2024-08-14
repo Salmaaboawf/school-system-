@@ -1,22 +1,38 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import {  Label, TextInput, Select } from "flowbite-react";
-import auth from '../../config/firebase';
-import { useNavigate } from "react-router-dom";
-import { collection ,addDoc} from "firebase/firestore";
-import { db } from "../../config/firebase";
+import { Label, TextInput, Select } from "flowbite-react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
+import { addParent } from "../../services/userServices";
+import { ParentType } from "../../utils/types";
 export default function Register() {
   const schema = yup.object().shape({
-    firstName: yup.string().required("First name is required").max(20, "First name cannot exceed 20 characters"),
-    lastName: yup.string().required("Last name is required").matches(/^[A-Za-z]+$/i, "Last name must only contain letters"),
-    age: yup.number().required("Age is required").min(18, "You must be at least 18").max(99, "You must be younger than 99"),
+    name: yup
+      .string()
+      .required("First name is required")
+      .max(20, "First name cannot exceed 20 characters"),
+
+    phoneNumber: yup
+      .string()
+      .required("Age is required")
+      .min(18, "You must be at least 18")
+      .max(99, "You must be younger than 99"),
     gender: yup.string().required("Gender is required"),
-    email: yup.string().email("Invalid email address").required("Email is required"),
-    password: yup.string().min(8, "Password must be at least 8 characters").max(32, "Password cannot exceed 32 characters").required("Password is required"),
+    email: yup
+      .string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: yup
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .max(32, "Password cannot exceed 32 characters")
+      .required("Password is required"),
+    address: yup
+      .string()
+      .required()
+      .min(8, "Password must be at least 8 characters")
+      .max(32, "Password cannot exceed 32 characters"),
   });
 
   const {
@@ -27,31 +43,16 @@ export default function Register() {
     resolver: yupResolver(schema),
   });
 
-  const navigate = useNavigate();
-
-  const save = async (value) => {
+  const save = async (value: ParentType) => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, value.email, value.password);
-      const user = userCredential.user;
-      console.log(user);
- 
-      const docRef = collection(db, "users");
-      await addDoc(docRef, {
-        firstName: value.firstName,
-        lastName: value.lastName,
-        age: value.age,
-        gender: value.gender,
-        email: value.email,
-        type:"parent"
-      });
-     
+      addParent(value);
     } catch (error) {
       console.error("Error adding user: ", error);
     }
   };
 
   return (
-<div className="container flex gap-x-5  ">
+    <div className="container flex gap-x-5  ">
       <div className="flex-[1]">
         <Sidebar />
       </div>
@@ -62,58 +63,76 @@ export default function Register() {
         </div>
         {/* Header of the section */}
         <div className="my-5">
-        <section className="shadow-md text-[#002749] ps-48">
-        
+          <section className="shadow-md text-[#002749] ps-48">
+            <h1 className="text-2xl mb-10">add parent</h1>
+            <form
+              onSubmit={handleSubmit(save)}
+              className="flex max-w-md flex-col gap-4"
+            >
+              <div>
+                <Label htmlFor="name" value="First Name" />
+                <TextInput
+                  {...register("name")}
+                  id="name"
+                  type="text"
+                  placeholder="Parent Name"
+                />
+                <p className="text-red-500">{errors.name?.message}</p>
+              </div>
+              <div>
+                <Label htmlFor="address" value="address" />
+                <TextInput
+                  {...register("address")}
+                  id="address"
+                  placeholder="address"
+                />
+                <p className="text-red-500">{errors.address?.message}</p>
+              </div>
+              <div>
+                <Label htmlFor="gender" value="Gender" />
+                <Select {...register("gender")} id="gender">
+                  <option value="female">Female</option>
+                  <option value="male">Male</option>
+                  <option value="other">Other</option>
+                </Select>
+                <p className="text-red-500">{errors.gender?.message}</p>
+              </div>
+              <div>
+                <Label htmlFor="phoneNumber" value="Your phone number" />
+                <TextInput
+                  {...register("phoneNumber")}
+                  id="phoneNumber"
+                  type="text"
+                  placeholder="01023456789"
+                />
+                <p className="text-red-500">{errors.phoneNumber?.message}</p>
+              </div>
+              <div>
+                <Label htmlFor="email1" value="Your Email" />
+                <TextInput
+                  {...register("email")}
+                  id="email1"
+                  type="email"
+                  placeholder="name@flowbite.com"
+                />
+                <p className="text-red-500">{errors.email?.message}</p>
+              </div>
+              <div>
+                <Label htmlFor="password1" value="Your Password" />
+                <TextInput
+                  {...register("password")}
+                  id="password1"
+                  type="password"
+                  placeholder="Password"
+                />
+                <p className="text-red-500">{errors.password?.message}</p>
+              </div>
 
-        <h1 className="text-2xl mb-10">add parent</h1>
-       <form onSubmit={handleSubmit(save)} className="flex max-w-md flex-col gap-4">
-         <div>
-           <Label htmlFor="firstName" value="First Name" />
-           <TextInput {...register("firstName")} id="firstName" type="text" placeholder="First name" />
-           <p className="text-red-500">{errors.firstName?.message}</p>
-         </div>
-         <div>
-           <Label htmlFor="lastName" value="Last Name" />
-           <TextInput {...register("lastName")} id="lastName" type="text" placeholder="Last name" />
-           <p className="text-red-500">{errors.lastName?.message}</p>
-         </div>
-         <div>
-           <Label htmlFor="age" value="Age" />
-           <TextInput {...register("age")} id="age" type="number" placeholder="Age" />
-           <p className="text-red-500">{errors.age?.message}</p>
-         </div>
-         <div>
-           <Label htmlFor="gender" value="Gender" />
-           <Select {...register("gender")} id="gender">
-             <option value="female">Female</option>
-             <option value="male">Male</option>
-             <option value="other">Other</option>
-           </Select>
-           <p className="text-red-500">{errors.gender?.message}</p>
-         </div>
-         <div>
-           <Label htmlFor="phone" value="Your phone number" />
-           <TextInput {...register("phone")} id="phone" type="number" placeholder="01023456789" />
-           <p className="text-red-500">{errors.phone?.message}</p>
-         </div>
-         <div>
-           <Label htmlFor="email1" value="Your Email" />
-           <TextInput {...register("email")} id="email1" type="email" placeholder="name@flowbite.com" />
-           <p className="text-red-500">{errors.email?.message}</p>
-         </div>
-         <div>
-           <Label htmlFor="password1" value="Your Password" />
-           <TextInput {...register("password")} id="password1" type="password" placeholder="Password" />
-           <p className="text-red-500">{errors.password?.message}</p>
-         </div>
-       
-         <input type="submit" title="submit" />
-       </form>
-     </section>
+              <input type="submit" title="submit" />
+            </form>
+          </section>
         </div>
       </div>
     </div>
-
-   
   );
 }
