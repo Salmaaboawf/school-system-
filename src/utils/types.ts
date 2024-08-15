@@ -4,6 +4,7 @@ export interface BaseUserType {
   password: string;
   gender: string;
   phoneNumber: string;
+  type?: string;
 }
 
 export interface ParentType extends BaseUserType {

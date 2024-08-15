@@ -14,8 +14,6 @@ export type UserType = {
 function Nav() {
   const userId = useAuth();
 
-  console.log(userId);
-
   return (
     <div>
       <nav className="bg-white border-gray-800">
