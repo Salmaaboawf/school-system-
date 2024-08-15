@@ -8,21 +8,10 @@ import { StudentType } from "../../utils/types";
 import { addStudent } from "../../services/userServices";
 export default function Register() {
   const schema = yup.object().shape({
-    name: yup
-      .string()
-      .required("name is required")
-      .max(20, "name cannot exceed 20 characters"),
-    phoneNumber: yup
-      .string()
-      .required("Last name is required")
-      .matches(/^[A-Za-z]+$/i, "Last name must only contain letters"),
-    age: yup
-      .number()
-      .required("Age is required")
-      .min(18, "You must be at least 18")
-      .max(99, "You must be younger than 99"),
+    name: yup.string().required("name is required"),
+    phoneNumber: yup.string().required("Last name is required"),
+    age: yup.number().required("Age is required"),
     gender: yup.string().required("Gender is required"),
-    type: yup.string().required("Gender is required"),
     class: yup.string().required("Gender is required"),
     address: yup.string().required("Gender is required"),
     email: yup
@@ -46,6 +35,8 @@ export default function Register() {
 
   const save = async (value: StudentType) => {
     try {
+      console.log("pressed");
+
       addStudent(value);
     } catch (error) {
       console.error("Error adding user: ", error);
@@ -67,7 +58,7 @@ export default function Register() {
           <section className="shadow-md text-[#002749] ps-48">
             <h1 className="text-2xl mb-10">add student</h1>
             <form
-              onSubmit={handleSubmit(save)}
+              onSubmit={handleSubmit(save, (err) => console.log(err))}
               className="flex max-w-md flex-col gap-4"
             >
               <div>
@@ -111,7 +102,7 @@ export default function Register() {
                 <p className="text-red-500">{errors.age?.message}</p>
               </div>
               <div>
-                <Label htmlFor="gender" value="Gender" />
+                {/* <Label htmlFor="gender" value="Gender" /> */}
                 <Select {...register("gender")} id="gender">
                   <option value="female">Female</option>
                   <option value="male">Male</option>
