@@ -38,13 +38,7 @@ function App() {
     "/schedule",
     "/teacher-table",
     "/student-table",
-    "/add-parent",
-    "/add-student",
-    "/add-teacher",
-    "/add-class",
-    "/add-teacher-routine",
-    "/add-class-routine",
-    "/add-subject",
+  
   ];
 
   useEffect(() => {
@@ -65,10 +59,7 @@ function App() {
         <Route path="/stuff" element={<Teachers />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/class" element={<AddClass />} /> */}
-
-
-        {/* <Route path="/teach" element={<TeacherRoutine />} /> */}
+        
 
 
         {/* Protected routes */}

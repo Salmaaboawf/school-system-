@@ -6,8 +6,9 @@ import { Label, TextInput } from "flowbite-react";
 import auth from "../config/firebase";
 import { saveLoggedUser } from "../services/userServices";
 import { useAppDispatch } from "../hooks/reduxHooks";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import RaisingHandImage from "../assets/images/Raising hand-pana.png"; // Import the image
 
 export default function Register() {
   const userId = localStorage.getItem("userId");
@@ -38,9 +39,7 @@ export default function Register() {
     signInWithEmailAndPassword(auth, value.email, value.password)
       .then((userCredential) => {
         const user = userCredential.user;
-        // dispatch(setUser({ email: user.email, displayName: user.displayName || 'User' }));
         saveLoggedUser(user.uid, dispatch);
-
         navigate("/", { replace: true });
       })
       .catch((error) => {
@@ -54,38 +53,61 @@ export default function Register() {
     if (userId) {
       navigate("/about", { replace: true });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [userId, navigate]);
 
   return (
-    <section className="shadow-md text-[#002749] ps-48">
+    <section className="bg-orange-50 p-8 rounded-lg shadow-lg text-gray-800">
+      {/* Add the image above the form */}
+      <div className="flex justify-center mb-6">
+  <img src={RaisingHandImage} alt="Raising hand" className="w-64 h-64" />
+</div>
+
+      <h2 className="text-2xl font-bold mb-6 text-center text-blue-800">
+        School Registration
+      </h2>
       <form
         onSubmit={handleSubmit(save, (err) => console.log(err))}
-        className="flex max-w-md flex-col gap-4"
+        className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md space-y-6"
       >
         <div>
-          <Label htmlFor="email1" value="Your Email" />
+          <Label
+            htmlFor="email1"
+            value="Your Email"
+            className="text-lg font-medium text-blue-800"
+          />
           <TextInput
             {...register("email")}
             id="email1"
             type="email"
-            placeholder="name@flowbite.com"
+            placeholder="name@school.com"
+            className="mt-1 p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-800"
           />
-          <p className="text-red-500">{errors.email?.message}</p>
+          <p className="text-red-500 mt-1">{errors.email?.message}</p>
         </div>
         <div>
-          <Label htmlFor="password1" value="Your Password" />
+          <Label
+            htmlFor="password1"
+            value="Your Password"
+            className="text-lg font-medium text-blue-800"
+          />
           <TextInput
             {...register("password")}
             id="password1"
             type="password"
             placeholder="Password"
+            className="mt-1 p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-800"
           />
-          <p className="text-red-500">{errors.password?.message}</p>
+          <p className="text-red-500 mt-1">{errors.password?.message}</p>
         </div>
 
-        <input type="submit" title="submit" />
+        <button
+          type="submit"
+          className="w-full bg-orange-600 text-white py-2 rounded-lg hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500"
+        >
+          Login
+        </button>
       </form>
     </section>
   );
 }
+``
