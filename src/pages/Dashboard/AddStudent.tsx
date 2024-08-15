@@ -17,7 +17,7 @@ export default function Register() {
       .required("Last name is required")
       .matches(/^[A-Za-z]+$/i, "Last name must only contain letters"),
     age: yup
-      .string()
+      .number()
       .required("Age is required")
       .min(18, "You must be at least 18")
       .max(99, "You must be younger than 99"),
