@@ -1,149 +1,15 @@
-// import React, { useState } from 'react';
-// import { NavLink } from "react-router-dom";
-
-
-// function Nav() {
-//   const [userLogged] = useState(true);
-
-//   const [isDropdownOpen, setIsDropdownOpen] = useState(false); 
-
-//   const toggleDropdown = () => {
-//     setIsDropdownOpen(!isDropdownOpen);
-//   }
-//   return (
-//     <div>
-//       <nav className="bg-white border-gray-800">
-//         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-// {/* start */}
-
-// <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-//       <button type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-//         <span className="sr-only">Open user menu</span>
-//         <img className="w-8 h-8 rounded-full" src="src/assets/images/4-min.jpg" alt="user photo"/>
-//       </button>
-//       {/* <!-- Dropdown menu --> */}
-//       <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
-//         <div className="px-4 py-3">
-//           <span className="block text-sm text-gray-900 dark:text-white">Bonnie Green</span>
-//           <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">name@flowbite.com</span>
-//         </div>
-//         <ul className="py-2" aria-labelledby="user-menu-button">
-//           <li>
-//             <a href="src/components/Grad.tsx" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">My Grad</a>
-//           </li>
-//           <li>
-//             <a href="src/pages/Dashboard/TeacherRoutine.tsx" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">MY Schedule</a>
-//           </li>
-//           <li>
-//             <a href="src/pages/Dashboard/StudentRoutine.tsx" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">MY Schedule </a>
-//           </li>
-//         </ul>
-//       </div>
-//       <button data-collapse-toggle="navbar-user" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-user" aria-expanded="false">
-//         <span className="sr-only">Open main menu</span>
-//         <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-//             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-//         </svg>
-//     </button>
-//   </div>
-
-
-//   {/* end */}
-//           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-//             <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-//               <li>
-//                 <NavLink
-//                   to="/"
-//                   className={({ isActive }) =>
-//                     `block py-2 px-3 bg-orange-700 rounded md:bg-transparent md:p-0 ${
-//                       isActive ? "text-orange-400" : ""
-//                     }`
-//                   }
-//                   aria-current="page"
-//                 >
-//                   Home
-//                 </NavLink>
-//               </li>
-//               <li>
-//                 <NavLink
-//                   to="/about"
-//                   className={({ isActive }) =>
-//                     `block py-2 px-3 bg-orange-700 rounded md:bg-transparent md:p-0 ${
-//                       isActive ? "text-orange-400" : ""
-//                     }`
-//                   }
-//                 >
-//                   About
-//                 </NavLink>
-//               </li>
-//               <li>
-//                 <NavLink
-//                   to="/stuff"
-//                   className={({ isActive }) =>
-//                     `block py-2 px-3 bg-orange-700 rounded md:bg-transparent md:p-0 ${
-//                       isActive ? "text-orange-400" : ""
-//                     }`
-//                   }
-//                 >
-//                   Stuff
-//                 </NavLink>
-//               </li>
-//               <li>
-//                 <NavLink
-//                   to="/contact"
-//                   className={({ isActive }) =>
-//                     `block py-2 px-3 bg-orange-700 rounded md:bg-transparent md:p-0 ${
-//                       isActive ? "text-orange-400" : ""
-//                     }`
-//                   }
-//                 >
-//                   Contact
-//                 </NavLink>
-//               </li>
-//               {!userLogged && (
-//                 <li>
-//                   <NavLink
-//                     to="/login"
-//                     className={({ isActive }) =>
-//                       `block py-2 px-3 bg-orange-700 rounded md:bg-transparent md:p-0 ${
-//                         isActive ? "text-orange-400" : ""
-//                       }`
-//                     }
-//                   >
-//                     Login
-//                   </NavLink>
-//                 </li>
-//               )}
-//               {userLogged && (
-//                 <li>
-//                   <NavLink
-//                     to="/dashboard"
-//                     className={({ isActive }) =>
-//                       `block py-2 px-3 bg-orange-700 rounded md:bg-transparent md:p-0 ${
-//                         isActive ? "text-orange-400" : ""
-//                       }`
-//                     }
-//                   >
-//                     Dashboard
-//                   </NavLink>
-//                 </li>
-//               )}
-//             </ul>
-//           </div>
-//         </div>
-//       </nav>
-//     </div>
-//   );
-// }
-
-// export default Nav;
-
-
-
-
-
-import React, { useState } from 'react';
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+
+export type UserType = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  gender: string;
+  email: string;
+  age: number;
+  type: string;
+};
 
 function Nav() {
   const [userLogged] = useState(true);
@@ -154,6 +20,7 @@ function Nav() {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+  const userId = useAuth();
 
   return (
     <div>
@@ -280,7 +147,7 @@ function Nav() {
                   Contact
                 </NavLink>
               </li>
-              {!userLogged && (
+              {!userId && (
                 <li>
                   <NavLink
                     to="/login"
@@ -294,10 +161,10 @@ function Nav() {
                   </NavLink>
                 </li>
               )}
-              {userLogged && (
+              {userId.toString().includes("admin") && (
                 <li>
                   <NavLink
-                    to="/dashboard"
+                    to="/add-teacher"
                     className={({ isActive }) =>
                       `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
                         isActive ? "text-orange-400" : ""

@@ -1,121 +1,172 @@
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import imgProfile from "../assets/images/profileImg.png";
-import { RiLogoutBoxRLine } from "react-icons/ri";
-import { FaEdit } from "react-icons/fa";
+import { RiLogoutBoxRLine, RiMenuLine, RiCloseLine } from "react-icons/ri";
+import {
+  FaEdit,
+  FaUserPlus,
+  FaUserGraduate,
+  FaChalkboardTeacher,
+  FaChartLine,
+} from "react-icons/fa";
 
 const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <div className="h-[calc(100vh-2rem)] w-full max-w-[20rem] shadow-xl shadow-blue-gray-900/5">
-      <div className="mb-2 p-4 flex flex-col md:flex-row gap-x-2 items-center">
-        <div className="w-[50px] h-[50px]  bg-black rounded-full overflow-hidden border-[3px] border-green-600">
-          <img src={imgProfile} alt="profile" className="w-full h-full" />
-        </div>
-        {/*  */}
-        <div className="flex-1">
-          <h2 className="font-bold text-base my-2 md:my-0">Ahmed Mohamed</h2>
-          <div className="flex">
-            <Link to="#" className="mr-4">
+    <div className="relative h-[calc(100vh-2rem)] w-full max-w-[20rem]">
+      {/* Toggle Icon for Small Screens */}
+      <button
+        onClick={toggleSidebar}
+        className="md:hidden fixed top-4 left-4 z-30 text-white bg-gray-800 p-2 rounded-full focus:outline-none"
+      >
+        {isOpen ? (
+          <RiCloseLine className="text-3xl" />
+        ) : (
+          <RiMenuLine className="text-3xl" />
+        )}
+      </button>
+
+      {/* Sidebar */}
+      <div
+        className={`fixed inset-y-0 left-0 h-[100vh] w-full max-w-[20rem] bg-gray-800 text-white shadow-xl transition-transform transform ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 md:static md:w-64 z-20`}
+      >
+        <div className="mb-4 p-4 flex flex-col items-center">
+          <div className="w-[60px] h-[60px] bg-black rounded-full overflow-hidden border-4 border-green-500">
+            <img
+              src={imgProfile}
+              alt="profile"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <h2 className="font-bold text-lg mt-4">Ahmed Mohamed</h2>
+          <div className="flex mt-2 space-x-4">
+            <Link
+              to="#"
+              className="text-xl text-gray-400 hover:text-white transition"
+            >
               <RiLogoutBoxRLine />
             </Link>
-            <Link to="#">
+            <Link
+              to="#"
+              className="text-xl text-gray-400 hover:text-white transition"
+            >
               <FaEdit />
             </Link>
           </div>
         </div>
+        <ul className="list-none">
+          <li className="mb-3">
+            <NavLink
+              to="/add-teacher"
+              className={({ isActive }) => {
+                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
+                  isActive ? "bg-gray-700" : ""
+                }`;
+              }}
+            >
+              <FaChalkboardTeacher className="text-2xl text-gray-400" />
+              <span>Add Teacher</span>
+            </NavLink>
+          </li>
+          <li className="mb-3">
+            <NavLink
+              to="/add-parent"
+              className={({ isActive }) => {
+                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
+                  isActive ? "bg-gray-700" : ""
+                }`;
+              }}
+            >
+              <FaUserPlus className="text-2xl text-gray-400" />
+              <span>Add Parent</span>
+            </NavLink>
+          </li>
+          <li className="mb-3">
+            <NavLink
+              to="/add-student"
+              className={({ isActive }) => {
+                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
+                  isActive ? "bg-gray-700" : ""
+                }`;
+              }}
+            >
+              <FaUserGraduate className="text-2xl text-gray-400" />
+              <span>Add Student</span>
+            </NavLink>
+          </li>
+          <li className="mb-3">
+            <NavLink
+              to="/add-class"
+              className={({ isActive }) => {
+                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
+                  isActive ? "bg-gray-700" : ""
+                }`;
+              }}
+            >
+              <FaChartLine className="text-2xl text-gray-400" />
+              <span>Add Class</span>
+            </NavLink>
+          </li>
+          <li className="mb-3">
+            <NavLink
+              to="/add-teacher-routine "
+              className={({ isActive }) => {
+                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
+                  isActive ? "bg-gray-700" : ""
+                }`;
+              }}
+            >
+              <FaChartLine className="text-2xl text-gray-400" />
+              <span>Add Teacher routine</span>
+            </NavLink>
+          </li>
+          <li className="mb-3">
+            <NavLink
+              to="/add-class-routine"
+              className={({ isActive }) => {
+                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
+                  isActive ? "bg-gray-700" : ""
+                }`;
+              }}
+            >
+              <FaChartLine className="text-2xl text-gray-400" />
+              <span>Add Class routine</span>
+            </NavLink>
+          </li>
+          <li className="mb-3">
+            <NavLink
+              to="/add-subject"
+              className={({ isActive }) => {
+                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
+                  isActive ? "bg-gray-700" : ""
+                }`;
+              }}
+            >
+              <FaChartLine className="text-2xl text-gray-400" />
+              <span>Add Subject</span>
+            </NavLink>
+          </li>
+        </ul>
       </div>
-      <ul className="list-none ">
-        <li className="flex items-center">
-          <NavLink
-            to="/dashboard"
-            className={({ isActive }) => {
-              return `font-bold px-3 py-3 w-full transition-all ${
-                isActive ? "bg-slate-200" : ""
-              }`;
-            }}
-          >
-            Home
-          </NavLink>
-        </li>
-        <li className="flex items-center">
-          <NavLink
-            to="/teacher-table"
-            className={({ isActive }) => {
-              return `font-bold px-3 py-3 w-full transition-all ${
-                isActive ? "bg-slate-200" : ""
-              }`;
-            }}
-          >
-            Schedule
-          </NavLink>
-        </li>
-        <li className="flex items-center">
-          <NavLink
-            to="/grad"
-            className={({ isActive }) => {
-              return `font-bold px-3 py-3 w-full transition-all ${
-                isActive ? "bg-slate-200" : ""
-              }`;
-            }}
-          >
-            Grades
-          </NavLink>
-        </li>
-        <li className="flex items-center">
-          <NavLink
-            to="/dash-classes"
-            className={({ isActive }) => {
-              return `font-bold px-3 py-3 w-full transition-all ${
-                isActive ? "bg-slate-200" : ""
-              }`;
-            }}
-          >
-            My classes
-          </NavLink>
-        </li>
-        <li>
-          <p className="text-center font-bold my-3">ADD ACCOUNTS</p>
-          <ul className="ml-3">
-            <li className="my-3">
-              <NavLink
-                to="/teacher-table"
-                className={({ isActive }) => {
-                  return `font-bold px-3 py-3 w-full transition-all ${
-                    isActive ? "bg-slate-200" : ""
-                  }`;
-                }}
-              >
-                Teacher
-              </NavLink>
-            </li>
-            <li className="my-3">
-              <NavLink
-                to="/"
-                className={({ isActive }) => {
-                  return `font-bold px-3 py-3 w-full transition-all ${
-                    isActive ? "bg-slate-200" : ""
-                  }`;
-                }}
-              >
-                Parent
-              </NavLink>
-            </li>
-            <li className="my-3">
-              <NavLink
-                to="/"
-                className={({ isActive }) => {
-                  return `font-bold px-3 py-3 w-full transition-all ${
-                    isActive ? "bg-slate-200" : ""
-                  }`;
-                }}
-              >
-                Student
-              </NavLink>
-            </li>
-          </ul>
-        </li>
-      </ul>
+
+      {/* Overlay for Small Screens */}
+      {isOpen && (
+        <div
+          onClick={toggleSidebar}
+          className="fixed inset-0 bg-black opacity-50 z-10 md:hidden"
+        ></div>
+      )}
     </div>
   );
 };
 
 export default Sidebar;
+
+
