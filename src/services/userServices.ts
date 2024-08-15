@@ -27,7 +27,11 @@ export const saveLoggedUser = async (userId: string, dispatch: any) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getUserById = async (userId: string, dispatch: any) => {
   try {
-    const userDocRef = doc(db, "users", userId);
+    const userDocRef = doc(
+      db,
+      "users",
+      userId.toString().split(" ")[0].slice(1)
+    );
     const userDocSnap = await getDoc(userDocRef);
 
     if (userDocSnap.exists()) {
@@ -91,6 +95,24 @@ export const addTeacher = async (value: TeacherType) => {
 
 // add sudent
 export const addStudent = async (value: StudentType) => {
+  const subjectsArr = [
+    {
+      subjectName: "math",
+      grade: "",
+      totalGrade: "100",
+    },
+    {
+      subjectName: "arabic",
+      grade: "",
+      totalGrade: "100",
+    },
+    {
+      subjectName: "english",
+      grade: "",
+      totalGrade: "100",
+    },
+  ];
+
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -99,15 +121,42 @@ export const addStudent = async (value: StudentType) => {
     );
     const user = userCredential.user;
 
-    const studentDoref = doc(db, "levels/five/students", `${user.email}`);
+    const studentDoref = doc(
+      db,
+      `levels/${value.class}/students`,
+      `${user.email}`
+    );
 
-    await setDoc(studentDoref, { name: "momen" });
+    const {
+      name,
+      address,
+      age,
+      class: studentClass,
+      email,
+      gender,
+      phoneNumber,
+      type = "student",
+    }: StudentType = value;
+
+    await setDoc(studentDoref, {
+      name,
+      address,
+      age,
+      studentClass,
+      email,
+      gender,
+      phoneNumber,
+      type,
+    });
 
     const subjectCollecRef = collection(studentDoref, "subjects");
-    await setDoc(doc(subjectCollecRef, "math"), {
-      subjectName: "math",
-      grade: "",
-      totalGrade: "100",
+
+    subjectsArr.forEach(async (item) => {
+      await setDoc(doc(subjectCollecRef, item.subjectName), {
+        subjectName: item.subjectName,
+        grade: "",
+        totalGrade: "100",
+      });
     });
 
     console.log("Subjects added successfully! and student aswell");
