@@ -9,8 +9,10 @@ import { useAppDispatch } from "../hooks/reduxHooks";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import RaisingHandImage from "../assets/images/Raising hand-pana.png"; // Import the image
+import { useAuth } from "../hooks/useAuth";
 
 export default function Register() {
+  const userId = useAuth();
   const dispatch = useAppDispatch();
 
   const schema = yup.object().shape({
@@ -58,8 +60,8 @@ export default function Register() {
     <section className="bg-orange-50 p-8 rounded-lg shadow-lg text-gray-800">
       {/* Add the image above the form */}
       <div className="flex justify-center mb-6">
-  <img src={RaisingHandImage} alt="Raising hand" className="w-64 h-64" />
-</div>
+        <img src={RaisingHandImage} alt="Raising hand" className="w-64 h-64" />
+      </div>
 
       <h2 className="text-2xl font-bold mb-6 text-center text-blue-800">
         School Registration
@@ -109,4 +111,4 @@ export default function Register() {
     </section>
   );
 }
-``
+``;
