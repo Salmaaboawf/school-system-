@@ -99,7 +99,7 @@ export const addStudent = async (value: StudentType) => {
     );
     const user = userCredential.user;
 
-    const studentDoref = doc(db, "levels/One/students", `${user.email}`);
+    const studentDoref = doc(db, "levels/five/students", `${user.email}`);
 
     await setDoc(studentDoref, { name: "momen" });
 
