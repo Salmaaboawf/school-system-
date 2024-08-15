@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 import RaisingHandImage from "../assets/images/Raising hand-pana.png"; // Import the image
 
 export default function Register() {
-  const userId = localStorage.getItem("userId");
   const dispatch = useAppDispatch();
 
   const schema = yup.object().shape({

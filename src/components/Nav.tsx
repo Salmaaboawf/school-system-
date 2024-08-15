@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useAppSelector } from "../hooks/reduxHooks";
+import { useAuth } from "../hooks/useAuth";
 
 export type UserType = {
   id: string;
@@ -12,8 +12,7 @@ export type UserType = {
 };
 
 function Nav() {
-  const user = useAppSelector((state) => state.user.user);
-  const userId = localStorage.getItem("userId");
+  const userId = useAuth();
 
   return (
     <div>
@@ -107,7 +106,7 @@ function Nav() {
                   </NavLink>
                 </li>
               )}
-              {user.type == "admin" && (
+              {userId.toString().includes("admin") && (
                 <li>
                   <NavLink
                     to="/add-teacher"

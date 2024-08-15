@@ -1,21 +1,18 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { Button, Checkbox, Label, TextInput, Select } from "flowbite-react";
-import auth from "../../config/firebase";
-import { useNavigate } from "react-router-dom";
-import { collection, addDoc, doc, setDoc } from "firebase/firestore";
-import { db } from "../../config/firebase";
+import { Label, TextInput, Select } from "flowbite-react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
+import { StudentType } from "../../utils/types";
+import { addStudent } from "../../services/userServices";
 export default function Register() {
   const schema = yup.object().shape({
-    firstName: yup
+    name: yup
       .string()
-      .required("First name is required")
-      .max(20, "First name cannot exceed 20 characters"),
-    lastName: yup
+      .required("name is required")
+      .max(20, "name cannot exceed 20 characters"),
+    phoneNumber: yup
       .string()
       .required("Last name is required")
       .matches(/^[A-Za-z]+$/i, "Last name must only contain letters"),
@@ -25,6 +22,9 @@ export default function Register() {
       .min(18, "You must be at least 18")
       .max(99, "You must be younger than 99"),
     gender: yup.string().required("Gender is required"),
+    type: yup.string().required("Gender is required"),
+    class: yup.string().required("Gender is required"),
+    address: yup.string().required("Gender is required"),
     email: yup
       .string()
       .email("Invalid email address")
@@ -44,27 +44,9 @@ export default function Register() {
     resolver: yupResolver(schema),
   });
 
-  const navigate = useNavigate();
-
-  const save = async (value) => {
+  const save = async (value: StudentType) => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        value.email,
-        value.password
-      );
-      const user = userCredential.user;
-
-      const studentDoref = doc(db, `levels/One/students`, `${user.email}`);
-
-      await setDoc(studentDoref, { name: "momen" });
-
-      const subjectCollecRef = collection(studentDoref, "subjects");
-      await setDoc(doc(subjectCollecRef, "math"), {
-        subjectName: "math",
-        grade: "",
-        totalGrade: "100",
-      });
+      addStudent(value);
     } catch (error) {
       console.error("Error adding user: ", error);
     }
@@ -89,24 +71,24 @@ export default function Register() {
               className="flex max-w-md flex-col gap-4"
             >
               <div>
-                <Label htmlFor="firstName" value="First Name" />
+                <Label htmlFor="name" value="Name" />
                 <TextInput
-                  {...register("firstName")}
-                  id="firstName"
+                  {...register("name")}
+                  id="name"
                   type="text"
-                  placeholder="First name"
+                  placeholder="Name"
                 />
-                <p className="text-red-500">{errors.firstName?.message}</p>
+                <p className="text-red-500">{errors.name?.message}</p>
               </div>
               <div>
-                <Label htmlFor="lastName" value="Last Name" />
+                <Label htmlFor="address" value="address" />
                 <TextInput
-                  {...register("lastName")}
-                  id="lastName"
+                  {...register("address")}
+                  id="address"
                   type="text"
-                  placeholder="Last name"
+                  placeholder="Address"
                 />
-                <p className="text-red-500">{errors.lastName?.message}</p>
+                <p className="text-red-500">{errors.address?.message}</p>
               </div>
               <div>
                 <Label htmlFor="age" value="Age" />
@@ -138,14 +120,14 @@ export default function Register() {
                 <p className="text-red-500">{errors.gender?.message}</p>
               </div>
               <div>
-                <Label htmlFor="phone" value="Your phone number" />
+                <Label htmlFor="phoneNumber" value="Your phone number" />
                 <TextInput
-                  {...register("phone")}
-                  id="phone"
+                  {...register("phoneNumber")}
+                  id="phoneNumber"
                   type="number"
                   placeholder="01023456789"
                 />
-                <p className="text-red-500">{errors.phone?.message}</p>
+                <p className="text-red-500">{errors.phoneNumber?.message}</p>
               </div>
               <div>
                 <Label htmlFor="email1" value="Your Email" />
