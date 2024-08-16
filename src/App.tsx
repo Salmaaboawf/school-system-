@@ -54,8 +54,6 @@ function App() {
     }
   }, []);
 
-  console.log("app rendered");
-
   return (
     <>
       <Routes>
