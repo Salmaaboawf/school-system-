@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { Label, TextInput, Select } from "flowbite-react";
+import { Label, TextInput, Select ,Button} from "flowbite-react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import { StudentType } from "../../utils/types";
@@ -140,8 +140,15 @@ export default function Register() {
                 />
                 <p className="text-red-500">{errors.password?.message}</p>
               </div>
-
-              <input type="submit" title="submit" />
+              <Button
+                outline
+                gradientDuoTone="pinkToOrange"
+                className="my-5 w-72"
+                type="submit"
+              >
+            submit
+              </Button>
+              {/* <input type="submit" title="submit" /> */}
             </form>
           </section>
         </div>
