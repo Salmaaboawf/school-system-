@@ -81,17 +81,10 @@ function Nav() {
                     MY Schedule student
                   </NavLink>
                 </li>
+
                 <li>
                   <NavLink
-                    to="/Login"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Log in
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/HomeLanding"
+                    to="/"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
                     Log out
