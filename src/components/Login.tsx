@@ -65,7 +65,7 @@ export default function Register() {
       </div>
 
       <h2 className="text-2xl font-bold mb-6 text-center text-blue-800">
-        School Registration
+        School Login
       </h2>
       <form
         onSubmit={handleSubmit(save, (err) => console.log(err))}
