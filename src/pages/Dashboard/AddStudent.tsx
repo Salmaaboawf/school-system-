@@ -1,40 +1,36 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { Label, TextInput, Select } from "flowbite-react";
+import { Label, TextInput, Select, Button } from "flowbite-react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import { StudentType } from "../../utils/types";
 import { addStudent } from "../../services/userServices";
+import { useEffect } from "react";
+import { fetchLevels } from "../../services/levelsServices";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+const schema = yup.object().shape({
+  name: yup.string().required("name is required"),
+  phoneNumber: yup.string().required("Last name is required"),
+  age: yup.number().required("Age is required"),
+  gender: yup.string().required("Gender is required"),
+  class: yup.string().required("Gender is required"),
+  address: yup.string().required("Gender is required"),
+  email: yup
+    .string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .max(32, "Password cannot exceed 32 characters")
+    .required("Password is required"),
+  parent: yup.string().default(""),
+});
+
 export default function Register() {
-  const schema = yup.object().shape({
-    name: yup
-      .string()
-      .required("name is required")
-      .max(20, "name cannot exceed 20 characters"),
-    phoneNumber: yup
-      .string()
-      .required("Last name is required")
-      .matches(/^[A-Za-z]+$/i, "Last name must only contain letters"),
-    age: yup
-      .number()
-      .required("Age is required")
-      .min(18, "You must be at least 18")
-      .max(99, "You must be younger than 99"),
-    gender: yup.string().required("Gender is required"),
-    type: yup.string().required("Gender is required"),
-    class: yup.string().required("Gender is required"),
-    address: yup.string().required("Gender is required"),
-    email: yup
-      .string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: yup
-      .string()
-      .min(8, "Password must be at least 8 characters")
-      .max(32, "Password cannot exceed 32 characters")
-      .required("Password is required"),
-  });
+  const levels = useAppSelector((state) => state.levels.levels);
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -46,11 +42,18 @@ export default function Register() {
 
   const save = async (value: StudentType) => {
     try {
+      console.log("pressed");
+
       addStudent(value);
     } catch (error) {
       console.error("Error adding user: ", error);
     }
   };
+
+  useEffect(() => {
+    fetchLevels(dispatch);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="container flex gap-x-5  ">
@@ -67,7 +70,7 @@ export default function Register() {
           <section className="shadow-md text-[#002749] ps-48">
             <h1 className="text-2xl mb-10">add student</h1>
             <form
-              onSubmit={handleSubmit(save)}
+              onSubmit={handleSubmit(save, (err) => console.log(err))}
               className="flex max-w-md flex-col gap-4"
             >
               <div>
@@ -101,17 +104,31 @@ export default function Register() {
                 <p className="text-red-500">{errors.age?.message}</p>
               </div>
               <div>
-                <Label htmlFor="class" value="class" />
-                <TextInput
-                  {...register("class")}
-                  id="class"
-                  type="text"
-                  placeholder="class"
-                />
+                <Label htmlFor="parent" value="parent" />
+                <Select {...register("parent")} id="parent">
+                  <option value="">Select</option>
+                  {levels.map((lvl) => (
+                    <option key={lvl.id} value={lvl.id}>
+                      {lvl.name}
+                    </option>
+                  ))}
+                </Select>
                 <p className="text-red-500">{errors.age?.message}</p>
               </div>
               <div>
-                <Label htmlFor="gender" value="Gender" />
+                <Label htmlFor="class" value="class" />
+                <Select {...register("class")} id="class">
+                  <option value="">Select</option>
+                  {levels.map((lvl) => (
+                    <option key={lvl.id} value={lvl.id}>
+                      {lvl.name}
+                    </option>
+                  ))}
+                </Select>
+                <p className="text-red-500">{errors.age?.message}</p>
+              </div>
+              <div>
+                {/* <Label htmlFor="gender" value="Gender" /> */}
                 <Select {...register("gender")} id="gender">
                   <option value="female">Female</option>
                   <option value="male">Male</option>
@@ -149,8 +166,15 @@ export default function Register() {
                 />
                 <p className="text-red-500">{errors.password?.message}</p>
               </div>
-
-              <input type="submit" title="submit" />
+              <Button
+                outline
+                gradientDuoTone="pinkToOrange"
+                className="my-5 w-72"
+                type="submit"
+              >
+                submit
+              </Button>
+              {/* <input type="submit" title="submit" /> */}
             </form>
           </section>
         </div>

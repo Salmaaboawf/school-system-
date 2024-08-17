@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import auth, { db } from "../config/firebase";
 import { setUser } from "../Redux/Slices/userSlice";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -12,7 +12,11 @@ export const saveLoggedUser = async (userId: string, dispatch: any) => {
     if (userDocSnap.exists()) {
       localStorage.setItem(
         "userId",
-        JSON.stringify(`${userDocSnap.data().id} ${userDocSnap.data().type}`)
+        JSON.stringify(
+          `${userDocSnap.data().id.toString().trim()} ${
+            userDocSnap.data().role
+          }`
+        )
       );
       dispatch(setUser(userDocSnap.data()));
       console.log("Document data:", userDocSnap.data());
@@ -27,7 +31,11 @@ export const saveLoggedUser = async (userId: string, dispatch: any) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getUserById = async (userId: string, dispatch: any) => {
   try {
-    const userDocRef = doc(db, "users", userId);
+    const userDocRef = doc(
+      db,
+      "users",
+      userId.toString().split(" ")[0].slice(1)
+    );
     const userDocSnap = await getDoc(userDocRef);
 
     if (userDocSnap.exists()) {
@@ -99,15 +107,31 @@ export const addStudent = async (value: StudentType) => {
     );
     const user = userCredential.user;
 
-    const studentDoref = doc(db, "levels/five/students", `${user.email}`);
+    const studentDoref = doc(db, `students`, `${user.uid}`);
 
-    await setDoc(studentDoref, { name: "momen" });
+    const {
+      name,
+      address,
+      age,
+      class: class_id,
+      email,
+      gender,
+      phoneNumber,
+      parent,
+      role = "student",
+    }: StudentType = value;
 
-    const subjectCollecRef = collection(studentDoref, "subjects");
-    await setDoc(doc(subjectCollecRef, "math"), {
-      subjectName: "math",
-      grade: "",
-      totalGrade: "100",
+    await setDoc(studentDoref, {
+      id: user.uid,
+      name,
+      address,
+      age,
+      class_id,
+      email,
+      gender,
+      phoneNumber,
+      role,
+      parent,
     });
 
     console.log("Subjects added successfully! and student aswell");

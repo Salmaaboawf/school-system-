@@ -1,6 +1,7 @@
 
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
+import {  Button} from "flowbite-react";
 
 export default function AddSubject() {
   return (
@@ -71,6 +72,14 @@ export default function AddSubject() {
           >
             Add
           </button>
+          <Button
+                outline
+                gradientDuoTone="pinkToOrange"
+                className="my-5 w-72 "
+                type="submit"
+              >
+                Add 
+              </Button>
         </div>
       </form>
     </section>

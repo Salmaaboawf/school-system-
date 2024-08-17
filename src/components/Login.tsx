@@ -40,6 +40,7 @@ export default function Register() {
     signInWithEmailAndPassword(auth, value.email, value.password)
       .then((userCredential) => {
         const user = userCredential.user;
+        console.log(user.uid);
         saveLoggedUser(user.uid, dispatch);
         navigate("/", { replace: true });
       })

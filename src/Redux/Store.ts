@@ -1,11 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./Slices/userSlice";
+
 import gradesReducer from "./Slices/subjectSlice"
+
+import levelsReducer from "./Slices/levelsSlice";
+
 
 export const Store = configureStore({
   reducer: {
     user: userReducer,
-    grades :gradesReducer
+
+    grades :gradesReducer,
+
+    levels: levelsReducer,
+
   },
 });
 // Infer the `RootState` and `AppDispatch` types from the store itself

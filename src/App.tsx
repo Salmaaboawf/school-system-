@@ -8,7 +8,7 @@ import TeacherRoutine from "./pages/Dashboard/TeacherRoutine";
 import StudentRoutine from "./pages/Dashboard/StudentRoutine";
 import AddParent from "./pages/Dashboard/AddParent";
 import AddStudent from "./pages/Dashboard/AddStudent";
-import MyGrades from "./pages/Dashboard/MyGrades";    // add to private route
+// import MyGrades from "./pages/Dashboard/MyGrades";    // add to private route
 import AddTeacher from "./pages/Dashboard/AddTeacher";
 import HomeLanding from "./pages/Landing/HomeLanding";
 import About from "./components/about/About";
@@ -28,6 +28,7 @@ import Add_Teacher_Routine from "./pages/Dashboard/Add_Teacher_Routine";
 import Add_Class_Routine from "./pages/Dashboard/Add_Class_Routine";
 import AddSubject from "./pages/Dashboard/AddSubject";
 import { useAuth } from "./hooks/useAuth";
+import MyGrades from "./pages/Dashboard/MyGrades";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,8 +54,6 @@ function App() {
     }
   }, []);
 
-  console.log("app rendered");
-
   return (
     <>
       <Routes>
@@ -71,7 +70,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/stuff" element={<Teachers />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/my-grades" element={<MyGrades />} />
+          {/* <Route path="/my-grades" element={<MyGrades />} /> */}
           <Route
             path="/login"
             element={userId ? <Navigate to="/" /> : <Login />}
