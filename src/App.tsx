@@ -28,7 +28,7 @@ import Add_Teacher_Routine from "./pages/Dashboard/Add_Teacher_Routine";
 import Add_Class_Routine from "./pages/Dashboard/Add_Class_Routine";
 import AddSubject from "./pages/Dashboard/AddSubject";
 import { useAuth } from "./hooks/useAuth";
-import MyGrades from "./pages/Dashboard/MyGrades";
+// import MyGrades from "./pages/Dashboard/MyGrades";
 
 function App() {
   const dispatch = useDispatch();
@@ -70,7 +70,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/stuff" element={<Teachers />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/my-grades" element={<MyGrades />} />
+          {/* <Route path="/my-grades" element={<MyGrades />} /> */}
           <Route
             path="/login"
             element={userId ? <Navigate to="/" /> : <Login />}
