@@ -9,7 +9,8 @@ export interface BaseUserType {
 
 export interface ParentType extends BaseUserType {
   address: string;
-  children?: string[];
+  children?: StudentType[];
+  id?: string;
 }
 
 export interface TeacherType extends BaseUserType {

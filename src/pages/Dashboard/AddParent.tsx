@@ -7,11 +7,9 @@ import makeAnimated from "react-select/animated";
 
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
-import { addParent } from "../../services/userServices";
+import { addParent, fetchStudents } from "../../services/userServices";
 import { ParentType, StudentType } from "../../utils/types";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../config/firebase";
 const schema = yup.object().shape({
   name: yup
     .string()
@@ -44,14 +42,15 @@ const schema = yup.object().shape({
 const animatedComponents = makeAnimated();
 
 export default function Register() {
-  const [students, setStudents] = useState<
-    StudentType[] | { id: string; name: string }[]
-  >([]);
-  const [chidlrenValues, setSelectedChildrenValues] = useState([]);
+  const [students, setStudents] = useState<StudentType[]>([]);
+  const [chidlrenValues, setSelectedChildrenValues] = useState<StudentType[]>(
+    []
+  );
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
     control,
   } = useForm({
     resolver: yupResolver(schema),
@@ -60,38 +59,15 @@ export default function Register() {
   const save = async (value: ParentType) => {
     try {
       addParent(value);
+      setSelectedChildrenValues([]);
+      reset();
     } catch (error) {
       console.error("Error adding user: ", error);
     }
   };
 
   useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        // Reference to the levels collection
-        const studentsCollection = collection(db, "students");
-
-        // Fetch all documents from the collection
-        const studentsSnapshot = await getDocs(studentsCollection);
-
-        // Extract the data from each document
-        const studentsList = studentsSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        // Update state with the fetched levels
-        // dispatch(setLevels([...studentsList]));
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        setStudents([...studentsList]);
-      } catch (error) {
-        console.error("Error fetching levels: ", error);
-      }
-    };
-
-    fetchStudents();
-    console.log(students);
+    fetchStudents(setStudents);
   }, []);
 
   return (
@@ -109,7 +85,9 @@ export default function Register() {
           <section className="shadow-md text-[#002749] ps-48">
             <h1 className="text-2xl mb-10">add parent</h1>
             <form
-              onSubmit={handleSubmit(save, (e) => console.log(e.children))}
+              onSubmit={handleSubmit(save, (e) => {
+                console.log(e.children);
+              })}
               className="flex max-w-md flex-col gap-4"
             >
               <div>
@@ -144,19 +122,14 @@ export default function Register() {
                       isMulti
                       components={animatedComponents}
                       placeholder="Choose Children"
-                      getOptionLabel={(
-                        item: { id: string; name: string } | StudentType
-                      ) => item.name}
-                      getOptionValue={(
-                        item: { id: string; name: string } | StudentType
-                      ) => `${item.id}`}
-                      onChange={(e) => {
-                        setSelectedChildrenValues([...e]);
-                        console.log(chidlrenValues);
+                      getOptionLabel={(item: StudentType) => item.name}
+                      getOptionValue={(item: StudentType) => `${item.id}`}
+                      onChange={(selectedOptions) => {
+                        field.onChange(selectedOptions);
+                        setSelectedChildrenValues([...selectedOptions]);
                       }}
                     />
                   )}
-                  rules={{ required: true }}
                 />
                 <p className="text-red-500">{errors.gender?.message}</p>
               </div>
@@ -207,7 +180,6 @@ export default function Register() {
               >
                 submit
               </Button>
-              {/* <input type="submit" title="submit" /> */}
             </form>
           </section>
         </div>

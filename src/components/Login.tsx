@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import RaisingHandImage from "../assets/images/Raising hand-pana.png"; // Import the image
 import { useAuth } from "../hooks/useAuth";
 
-export default function Register() {
+export default function Login() {
   const userId = useAuth();
   const dispatch = useAppDispatch();
 
@@ -65,7 +65,7 @@ export default function Register() {
       </div>
 
       <h2 className="text-2xl font-bold mb-6 text-center text-blue-800">
-        School Registration
+        School Login
       </h2>
       <form
         onSubmit={handleSubmit(save, (err) => console.log(err))}

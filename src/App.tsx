@@ -20,7 +20,7 @@ import Login from "./components/Login";
 import NotFound from "./components/NotFund";
 import Grad from "./components/Grad";
 import Showgrad from "./components/Showgrad";
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserById } from "./services/userServices";
 import AddClass from "./pages/Dashboard/AddClass";
@@ -28,34 +28,23 @@ import Add_Teacher_Routine from "./pages/Dashboard/Add_Teacher_Routine";
 import Add_Class_Routine from "./pages/Dashboard/Add_Class_Routine";
 import AddSubject from "./pages/Dashboard/AddSubject";
 import { useAuth } from "./hooks/useAuth";
-// import MyGrades from "./pages/Dashboard/MyGrades";
+import MyGrades from "./pages/Dashboard/MyGrades";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const dispatch = useDispatch();
   const userId = useAuth();
-  // const privateRoutes = [
-  //   "/dashboard",
-  //   "/grades",
-  //   "/schedule",
-  //   "/teacher-table",
-  //   "/student-table",
-  //   "/add-parent",
-  //   "/add-student",
-  //   "/add-teacher",
-  //   "/add-class",
-  //   "/add-teacher-routine",
-  //   "/add-class-routine",
-  //   "/add-subject",
-  // ];
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (userId) {
       getUserById(userId, dispatch);
     }
-  }, []);
+  }, [userId, dispatch]);
 
   return (
     <>
+      <ScrollToTop />
+
       <Routes>
         <Route
           element={

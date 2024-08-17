@@ -4,9 +4,9 @@ import { useForm } from "react-hook-form";
 import { Label, TextInput, Select, Button } from "flowbite-react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
-import { StudentType } from "../../utils/types";
-import { addStudent } from "../../services/userServices";
-import { useEffect } from "react";
+import { ParentType, StudentType } from "../../utils/types";
+import { addStudent, fetchParents } from "../../services/userServices";
+import { useEffect, useState } from "react";
 import { fetchLevels } from "../../services/levelsServices";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 const schema = yup.object().shape({
@@ -29,6 +29,7 @@ const schema = yup.object().shape({
 });
 
 export default function Register() {
+  const [parents, setParents] = useState<ParentType[]>([]);
   const levels = useAppSelector((state) => state.levels.levels);
   const dispatch = useAppDispatch();
 
@@ -36,6 +37,7 @@ export default function Register() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -43,17 +45,18 @@ export default function Register() {
   const save = async (value: StudentType) => {
     try {
       console.log("pressed");
-
       addStudent(value);
+      reset();
     } catch (error) {
       console.error("Error adding user: ", error);
     }
   };
 
   useEffect(() => {
+    fetchParents(setParents);
     fetchLevels(dispatch);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="container flex gap-x-5  ">
@@ -107,9 +110,9 @@ export default function Register() {
                 <Label htmlFor="parent" value="parent" />
                 <Select {...register("parent")} id="parent">
                   <option value="">Select</option>
-                  {levels.map((lvl) => (
-                    <option key={lvl.id} value={lvl.id}>
-                      {lvl.name}
+                  {parents.map((parent) => (
+                    <option key={parent.id} value={parent.id}>
+                      {parent.name}
                     </option>
                   ))}
                 </Select>
