@@ -30,7 +30,6 @@ import AddSubject from "./pages/Dashboard/AddSubject";
 import { useAuth } from "./hooks/useAuth";
 import MyGrades from "./pages/Dashboard/MyGrades";
 import ScrollToTop from "./components/ScrollToTop";
-
 function App() {
   const dispatch = useDispatch();
   const userId = useAuth();
