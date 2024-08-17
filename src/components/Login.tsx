@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import RaisingHandImage from "../assets/images/Raising hand-pana.png"; // Import the image
 import { useAuth } from "../hooks/useAuth";
 
-export default function Register() {
+export default function Login() {
   const userId = useAuth();
   const dispatch = useAppDispatch();
 

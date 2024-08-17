@@ -11,11 +11,7 @@ export default function AddClass() {
   const save = async (event) => {
     event.preventDefault();
     try {
-      // const docRef = collection(db, "classes");
-      // await addDoc(docRef, {
-      //   className: className,
-      //   student: [],
-      // });
+  
       addClass();
       console.log("Class added to Firestore");
     } catch (error) {
