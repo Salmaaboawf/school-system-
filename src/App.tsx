@@ -59,7 +59,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/stuff" element={<Teachers />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/my-grades" element={<MyGrades />} />
+          {/* <Route path="/my-grades" element={<MyGrades />} /> */}
           <Route
             path="/login"
             element={userId ? <Navigate to="/" /> : <Login />}
