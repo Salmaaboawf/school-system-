@@ -9,7 +9,7 @@ export type UserType = {
   gender: string;
   email: string;
   age: number;
-  type: string;
+  role: string;
 };
 
 function Nav() {
@@ -24,7 +24,7 @@ function Nav() {
 
   return (
     <div className="">
-      <nav className="bg-gray-100 border-2 border-[#ff4e31] rounded-lg p-4 m-4 bg-white border-gray-800 relative ">
+      <nav className=" border-2 rounded-lg p-4 m-4 bg-white border-gray-800 relative ">
         <div className=" max-w-screen-xl flex flex-row-reverse md:flex md:flex-row items-center justify-between mx-auto p-4">
           <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse ">
             <button
@@ -196,7 +196,7 @@ function Nav() {
                       </NavLink>
                     </li>
                   )}
-                  {userInfo.type == "admin" && (
+                  {userInfo.role == "admin" && (
                     <li>
                       <NavLink
                         to="/add-teacher"

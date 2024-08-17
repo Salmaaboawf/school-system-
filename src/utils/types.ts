@@ -4,7 +4,7 @@ export interface BaseUserType {
   password: string;
   gender: string;
   phoneNumber: string;
-  type?: string;
+  role?: string;
 }
 
 export interface ParentType extends BaseUserType {
@@ -18,7 +18,9 @@ export interface TeacherType extends BaseUserType {
 }
 
 export interface StudentType extends BaseUserType {
+  id?: string;
   class: string;
   age: number;
   address: string;
+  parent: string;
 }

@@ -1,29 +1,36 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { Label, TextInput, Select ,Button} from "flowbite-react";
+import { Label, TextInput, Select, Button } from "flowbite-react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import { StudentType } from "../../utils/types";
 import { addStudent } from "../../services/userServices";
+import { useEffect } from "react";
+import { fetchLevels } from "../../services/levelsServices";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+const schema = yup.object().shape({
+  name: yup.string().required("name is required"),
+  phoneNumber: yup.string().required("Last name is required"),
+  age: yup.number().required("Age is required"),
+  gender: yup.string().required("Gender is required"),
+  class: yup.string().required("Gender is required"),
+  address: yup.string().required("Gender is required"),
+  email: yup
+    .string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .max(32, "Password cannot exceed 32 characters")
+    .required("Password is required"),
+  parent: yup.string().default(""),
+});
+
 export default function Register() {
-  const schema = yup.object().shape({
-    name: yup.string().required("name is required"),
-    phoneNumber: yup.string().required("Last name is required"),
-    age: yup.number().required("Age is required"),
-    gender: yup.string().required("Gender is required"),
-    class: yup.string().required("Gender is required"),
-    address: yup.string().required("Gender is required"),
-    email: yup
-      .string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: yup
-      .string()
-      .min(8, "Password must be at least 8 characters")
-      .max(32, "Password cannot exceed 32 characters")
-      .required("Password is required"),
-  });
+  const levels = useAppSelector((state) => state.levels.levels);
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -42,6 +49,11 @@ export default function Register() {
       console.error("Error adding user: ", error);
     }
   };
+
+  useEffect(() => {
+    fetchLevels(dispatch);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="container flex gap-x-5  ">
@@ -92,13 +104,27 @@ export default function Register() {
                 <p className="text-red-500">{errors.age?.message}</p>
               </div>
               <div>
+                <Label htmlFor="parent" value="parent" />
+                <Select {...register("parent")} id="parent">
+                  <option value="">Select</option>
+                  {levels.map((lvl) => (
+                    <option key={lvl.id} value={lvl.id}>
+                      {lvl.name}
+                    </option>
+                  ))}
+                </Select>
+                <p className="text-red-500">{errors.age?.message}</p>
+              </div>
+              <div>
                 <Label htmlFor="class" value="class" />
-                <TextInput
-                  {...register("class")}
-                  id="class"
-                  type="text"
-                  placeholder="class"
-                />
+                <Select {...register("class")} id="class">
+                  <option value="">Select</option>
+                  {levels.map((lvl) => (
+                    <option key={lvl.id} value={lvl.id}>
+                      {lvl.name}
+                    </option>
+                  ))}
+                </Select>
                 <p className="text-red-500">{errors.age?.message}</p>
               </div>
               <div>
@@ -146,7 +172,7 @@ export default function Register() {
                 className="my-5 w-72"
                 type="submit"
               >
-            submit
+                submit
               </Button>
               {/* <input type="submit" title="submit" /> */}
             </form>

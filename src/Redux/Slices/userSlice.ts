@@ -12,7 +12,7 @@ const initialState: UserState = {
     gender: "",
     email: "",
     age: 0,
-    type: "",
+    role: "",
   },
 };
 

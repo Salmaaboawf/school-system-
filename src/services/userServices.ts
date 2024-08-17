@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import auth, { db } from "../config/firebase";
 import { setUser } from "../Redux/Slices/userSlice";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -12,7 +12,11 @@ export const saveLoggedUser = async (userId: string, dispatch: any) => {
     if (userDocSnap.exists()) {
       localStorage.setItem(
         "userId",
-        JSON.stringify(`${userDocSnap.data().id} ${userDocSnap.data().type}`)
+        JSON.stringify(
+          `${userDocSnap.data().id.toString().trim()} ${
+            userDocSnap.data().role
+          }`
+        )
       );
       dispatch(setUser(userDocSnap.data()));
       console.log("Document data:", userDocSnap.data());
@@ -95,24 +99,6 @@ export const addTeacher = async (value: TeacherType) => {
 
 // add sudent
 export const addStudent = async (value: StudentType) => {
-  const subjectsArr = [
-    {
-      subjectName: "math",
-      grade: "",
-      totalGrade: "100",
-    },
-    {
-      subjectName: "arabic",
-      grade: "",
-      totalGrade: "100",
-    },
-    {
-      subjectName: "english",
-      grade: "",
-      totalGrade: "100",
-    },
-  ];
-
   try {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -121,42 +107,31 @@ export const addStudent = async (value: StudentType) => {
     );
     const user = userCredential.user;
 
-    const studentDoref = doc(
-      db,
-      `levels/${value.class}/students`,
-      `${user.email}`
-    );
+    const studentDoref = doc(db, `students`, `${user.uid}`);
 
     const {
       name,
       address,
       age,
-      class: studentClass,
+      class: class_id,
       email,
       gender,
       phoneNumber,
-      type = "student",
+      parent,
+      role = "student",
     }: StudentType = value;
 
     await setDoc(studentDoref, {
+      id: user.uid,
       name,
       address,
       age,
-      studentClass,
+      class_id,
       email,
       gender,
       phoneNumber,
-      type,
-    });
-
-    const subjectCollecRef = collection(studentDoref, "subjects");
-
-    subjectsArr.forEach(async (item) => {
-      await setDoc(doc(subjectCollecRef, item.subjectName), {
-        subjectName: item.subjectName,
-        grade: "",
-        totalGrade: "100",
-      });
+      role,
+      parent,
     });
 
     console.log("Subjects added successfully! and student aswell");
