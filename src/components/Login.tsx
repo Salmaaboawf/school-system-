@@ -6,13 +6,10 @@ import { Label, TextInput } from "flowbite-react";
 import auth from "../config/firebase";
 import { saveLoggedUser } from "../services/userServices";
 import { useAppDispatch } from "../hooks/reduxHooks";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import RaisingHandImage from "../assets/images/Raising hand-pana.png"; // Import the image
-import { useAuth } from "../hooks/useAuth";
 
 export default function Login() {
-  const userId = useAuth();
   const dispatch = useAppDispatch();
 
   const schema = yup.object().shape({
@@ -51,11 +48,11 @@ export default function Login() {
       });
   };
 
-  useEffect(() => {
-    if (userId) {
-      navigate("/about", { replace: true });
-    }
-  }, [userId, navigate]);
+  // useEffect(() => {
+  //   if (userId) {
+  //     navigate("/about", { replace: true });
+  //   }
+  // }, [userId, navigate]);
 
   return (
     <section className="bg-orange-50 p-8 rounded-lg shadow-lg text-gray-800">
