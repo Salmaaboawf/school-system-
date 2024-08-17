@@ -4,7 +4,7 @@ export default function PlanUpgrades() {
   return (
     <>
       <SectionTitle title="Activites" desc="Here is the activities" />
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-3">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 mt-3 justify-center items-center bg-slate-200">
         {/* first div */}
         <div className="flex gap-4 p-4 ">
           <div className="border rounded-full w-28 h-28 bg-[#002749] text-center pt-9 text-white text-3xl ">

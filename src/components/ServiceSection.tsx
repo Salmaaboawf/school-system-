@@ -19,7 +19,7 @@ export default function Service_Section() {
       <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-col-1 xl:gap-y-9 md:gap-y-9 gap-y-8 gap-x-16  items-center text-center m-auto w-4/5 mt-6">
         {/* first service div */}
         <div className="px-6 shadow-md py-4 rounded">
-          <div className="text-5xl text-red-500 border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
+          <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
             <FaSchool />
           </div>
           <h5 className="text-lg my-3">SCIENCE LABS</h5>
@@ -31,7 +31,7 @@ export default function Service_Section() {
 
         {/* second service div */}
         <div className="px-6 shadow-md py-4 rounded">
-          <div className="text-5xl text-red-500 border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
+          <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
             <MdOutlineScience />
           </div>
 
@@ -44,7 +44,7 @@ export default function Service_Section() {
 
         {/* third service div */}
         <div className="px-6 shadow-md py-4 rounded">
-          <div className="text-5xl text-red-500 border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
+          <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
             <BiSolidBusSchool />
           </div>
 
@@ -57,7 +57,7 @@ export default function Service_Section() {
 
         {/* fourth service div */}
         <div className="px-6 shadow-md py-4 rounded">
-          <div className="text-5xl text-red-500 border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
+          <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
             <GiTeacher />
           </div>
 
@@ -70,7 +70,7 @@ export default function Service_Section() {
 
         {/* fifth service div */}
         <div className="px-6 shadow-md py-4 rounded">
-          <div className="text-5xl text-red-500 border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
+          <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
             <PiExam />
           </div>
 
@@ -83,7 +83,7 @@ export default function Service_Section() {
 
         {/* sixth service div */}
         <div className="px-6 shadow-md py-4 rounded">
-          <div className="text-4xl text-red-500 border rounded-full w-32 h-32 text-center items-center pl-11 pt-10 m-auto">
+          <div className="text-4xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-11 pt-10 m-auto">
             <FaPaintBrush />
           </div>
 

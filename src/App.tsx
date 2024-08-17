@@ -8,7 +8,7 @@ import TeacherRoutine from "./pages/Dashboard/TeacherRoutine";
 import StudentRoutine from "./pages/Dashboard/StudentRoutine";
 import AddParent from "./pages/Dashboard/AddParent";
 import AddStudent from "./pages/Dashboard/AddStudent";
-// import MyGrades from "./pages/Dashboard/MyGrades";    // add to private route
+import MyGrades from "./pages/Dashboard/MyGrades";    // add to private route
 import AddTeacher from "./pages/Dashboard/AddTeacher";
 import HomeLanding from "./pages/Landing/HomeLanding";
 import About from "./components/about/About";
@@ -71,6 +71,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/stuff" element={<Teachers />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/my-grades" element={<MyGrades />} />
           <Route
             path="/login"
             element={userId ? <Navigate to="/" /> : <Login />}
