@@ -1,11 +1,14 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import {Controller, useForm } from "react-hook-form";
+import ReactSelect from 'react-select'
+import makeAnimated from 'react-select/animated';
 import { Label, TextInput, Select,Button} from "flowbite-react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import { addTeacher } from "../../services/userServices";
 import { TeacherType } from "../../utils/types";
+// import { useState } from "react";
 export default function Register() {
   const schema = yup.object().shape({
     name: yup
@@ -43,6 +46,11 @@ export default function Register() {
     }
   };
 
+  
+  // const animatedComponents = makeAnimated();
+  
+  // const [subjects,setSubjects] = useState()
+  // const subjects = ['arabic','english','maths']
   return (
     <div className="container flex gap-x-5  ">
       <div className="flex-[1]">
@@ -62,7 +70,7 @@ export default function Register() {
               className="flex max-w-md flex-col gap-4"
             >
               <div>
-                <Label htmlFor="name" value="First Name" />
+                <Label htmlFor="name" value="Teacher Name" />
                 <TextInput
                   {...register("name")}
                   id="name"
@@ -72,22 +80,46 @@ export default function Register() {
                 <p className="text-red-500">{errors.name?.message}</p>
               </div>
               <div>
-                <Label htmlFor="subject" value="Last Name" />
+                <Label htmlFor="subject" value="Teacher Subject" />
                 <TextInput
                   {...register("subject")}
                   id="subject"
                   type="text"
                   placeholder="Teacher Subject"
                 />
+
+
                 <p className="text-red-500">{errors.subject?.message}</p>
               </div>
+
+{/* <Controller
+  name="children"
+  control={control}
+  render={({ field }) => (
+    <ReactSelect
+      {...field}
+      value={subjects} 
+      options={subjects} // change this with the useState after fetch from subjects
+      isMulti
+      components={animatedComponents}
+      placeholder="Choose Children"
+      getOptionLabel={(item) => item.name}
+      getOptionValue={(item) => `${item.id}`}
+      onChange={(e) => {
+        setSelectedChildrenValues([...e]);
+        console.log(childrenValues); // Corrected typo
+      }}
+    />
+  )}
+/>                */}
+
               <div>
-                <Label htmlFor="phoneNumber" value="Last Name" />
+                <Label htmlFor="phoneNumber" value="Teacher Phone Number" />
                 <TextInput
                   {...register("phoneNumber")}
                   id="phoneNumber"
                   type="text"
-                  placeholder="Teacher phoneNumber"
+                  placeholder="Teacher Phone Number"
                 />
                 <p className="text-red-500">{errors.phoneNumber?.message}</p>
               </div>

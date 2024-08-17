@@ -74,28 +74,45 @@ export const addParent = async (value: ParentType) => {
 
 // add teacher
 
-export const addTeacher = async (value: TeacherType) => {
-  try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      value.email,
-      value.password
-    );
-    const user = userCredential.user;
+export const addTeacher = async (teacherInfo : TeacherType) => {
+  try{
 
-    await setDoc(doc(db, "teachers", user.uid), {
-      teacherId: user.uid,
-      name: value.name,
-      gender: value.gender,
-      email: value.email,
-      phone: value.phoneNumber,
-      subject: value.subject,
-      age: value.age,
-    });
-  } catch (error) {
-    console.log(error);
+    const userCredential = await createUserWithEmailAndPassword(auth,teacherInfo.email , teacherInfo.password);
+    console.log(`esraa ${userCredential}`)
+    const user =  userCredential.user;
+    console.log(`esraa ${user}`)
+
+    const teacherRef = doc(db,'teachers',`${user.uid}`)
+
+    const {
+      name,
+      email,
+      gender,
+      phoneNumber,
+      age,
+      subject = 'subjectID',
+      role = 'teacher',
+      levels = ['one','two'],
+    }: TeacherType = teacherInfo
+
+    await setDoc(teacherRef,{
+      name,
+      email,
+      gender,
+      phoneNumber,
+      age,
+      subject,
+      role,
+      levels,
+    })
+    console.log('Teacher added successfully!');
   }
-};
+
+  catch(error){
+    console.log(error)
+  }
+
+}
 
 // add sudent
 export const addStudent = async (value: StudentType) => {

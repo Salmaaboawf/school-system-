@@ -15,6 +15,7 @@ export interface ParentType extends BaseUserType {
 export interface TeacherType extends BaseUserType {
   age: number;
   subject: string;
+  levels : string[] 
 }
 
 export interface StudentType extends BaseUserType {
