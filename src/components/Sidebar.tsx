@@ -9,13 +9,20 @@ import {
   FaChalkboardTeacher,
   FaChartLine,
 } from "react-icons/fa";
+import { useAppDispatch } from "../hooks/reduxHooks";
+import { resetUser } from "../Redux/Slices/userSlice";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
+  function logout() {
+    localStorage.removeItem("userId");
+    dispatch(resetUser());
+  }
 
   return (
     <div className="relative h-[calc(100vh-2rem)] w-full max-w-[20rem]">
@@ -48,8 +55,9 @@ const Sidebar = () => {
           <h2 className="font-bold text-lg mt-4">Ahmed Mohamed</h2>
           <div className="flex mt-2 space-x-4">
             <Link
-              to="#"
+              to="/"
               className="text-xl text-gray-400 hover:text-white transition"
+              onClick={logout}
             >
               <RiLogoutBoxRLine />
             </Link>
@@ -168,5 +176,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
-

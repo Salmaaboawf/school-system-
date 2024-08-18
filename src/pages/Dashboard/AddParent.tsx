@@ -1,44 +1,57 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import { Label, TextInput, Select } from "flowbite-react";
+import { Controller, useForm } from "react-hook-form";
+import { Label, TextInput, Select, Button } from "flowbite-react";
+import ReactSelect from "react-select";
+import makeAnimated from "react-select/animated";
+
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
-import { addParent } from "../../services/userServices";
-import { ParentType } from "../../utils/types";
+import { addParent, fetchStudents } from "../../services/userServices";
+import { ParentType, StudentType } from "../../utils/types";
+import { useEffect, useState } from "react";
+const schema = yup.object().shape({
+  name: yup
+    .string()
+    .required("First name is required")
+    .max(20, "First name cannot exceed 20 characters"),
+
+  phoneNumber: yup
+    .string()
+    .required("Age is required")
+    .min(18, "You must be at least 18")
+    .max(99, "You must be younger than 99"),
+  gender: yup.string().required("Gender is required"),
+  email: yup
+    .string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .max(32, "Password cannot exceed 32 characters")
+    .required("Password is required"),
+  address: yup
+    .string()
+    .required()
+    .min(8, "Password must be at least 8 characters")
+    .max(32, "Password cannot exceed 32 characters"),
+  children: yup.array().required(),
+});
+
+const animatedComponents = makeAnimated();
+
 export default function Register() {
-  const schema = yup.object().shape({
-    name: yup
-      .string()
-      .required("First name is required")
-      .max(20, "First name cannot exceed 20 characters"),
-
-    phoneNumber: yup
-      .string()
-      .required("Age is required")
-      .min(18, "You must be at least 18")
-      .max(99, "You must be younger than 99"),
-    gender: yup.string().required("Gender is required"),
-    email: yup
-      .string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: yup
-      .string()
-      .min(8, "Password must be at least 8 characters")
-      .max(32, "Password cannot exceed 32 characters")
-      .required("Password is required"),
-    address: yup
-      .string()
-      .required()
-      .min(8, "Password must be at least 8 characters")
-      .max(32, "Password cannot exceed 32 characters"),
-  });
-
+  const [students, setStudents] = useState<StudentType[]>([]);
+  const [chidlrenValues, setSelectedChildrenValues] = useState<StudentType[]>(
+    []
+  );
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
+    control,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -46,10 +59,16 @@ export default function Register() {
   const save = async (value: ParentType) => {
     try {
       addParent(value);
+      setSelectedChildrenValues([]);
+      reset();
     } catch (error) {
       console.error("Error adding user: ", error);
     }
   };
+
+  useEffect(() => {
+    fetchStudents(setStudents);
+  }, []);
 
   return (
     <div className="container flex gap-x-5  ">
@@ -66,7 +85,9 @@ export default function Register() {
           <section className="shadow-md text-[#002749] ps-48">
             <h1 className="text-2xl mb-10">add parent</h1>
             <form
-              onSubmit={handleSubmit(save)}
+              onSubmit={handleSubmit(save, (e) => {
+                console.log(e.children);
+              })}
               className="flex max-w-md flex-col gap-4"
             >
               <div>
@@ -87,6 +108,30 @@ export default function Register() {
                   placeholder="address"
                 />
                 <p className="text-red-500">{errors.address?.message}</p>
+              </div>
+              <div>
+                <Label htmlFor="children" value="children" />
+                <Controller
+                  name="children"
+                  control={control}
+                  render={({ field }) => (
+                    <ReactSelect
+                      {...field}
+                      value={chidlrenValues}
+                      options={students}
+                      isMulti
+                      components={animatedComponents}
+                      placeholder="Choose Children"
+                      getOptionLabel={(item: StudentType) => item.name}
+                      getOptionValue={(item: StudentType) => `${item.id}`}
+                      onChange={(selectedOptions) => {
+                        field.onChange(selectedOptions);
+                        setSelectedChildrenValues([...selectedOptions]);
+                      }}
+                    />
+                  )}
+                />
+                <p className="text-red-500">{errors.gender?.message}</p>
               </div>
               <div>
                 <Label htmlFor="gender" value="Gender" />
@@ -127,8 +172,14 @@ export default function Register() {
                 />
                 <p className="text-red-500">{errors.password?.message}</p>
               </div>
-
-              <input type="submit" title="submit" />
+              <Button
+                outline
+                gradientDuoTone="pinkToOrange"
+                className="my-5 w-72"
+                type="submit"
+              >
+                submit
+              </Button>
             </form>
           </section>
         </div>

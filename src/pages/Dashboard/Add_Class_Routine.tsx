@@ -1,212 +1,620 @@
 
-
-import { ChangeEvent, useState } from "react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
-import { collection, doc, setDoc } from "firebase/firestore";
-import { db } from "../../config/firebase";
-
 const Add_Class_Routine = () => {
-  const [selectedSubjects, setSelectedSubjects] = useState<{
-    [key: string]: { [key: string]: string };
-  }>({});
-  const [selectedTeachers, setSelectedTeachers] = useState<{
-    [key: string]: { [key: string]: string };
-  }>({});
-
-  const handleSubjectChange = (
-    day: string,
-    period: string,
-    event: ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = event.target.value;
-    setSelectedSubjects((prevState) => ({
-      ...prevState,
-      [day]: {
-        ...prevState[day],
-        [period]: value,
-      },
-    }));
-  };
-
-  const handleTeacherChange = (
-    day: string, 
-    period: string,
-    event: ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = event.target.value;
-    setSelectedTeachers((prevState) => ({
-      ...prevState,
-      [day]: {
-        ...prevState[day],
-        [period]: value,
-      },
-    }));
-  };
-
-  const saveSchedule = async () => {
-    try {
-      const scheduleRef = collection(db, "levels/One/studentsSchedules1");
-      for (const day of Object.keys(selectedSubjects)) {
-        const daySubjects = selectedSubjects[day];
-        const dayTeachers = selectedTeachers[day];
-
-        await setDoc(doc(scheduleRef, day), {
-          subjects: daySubjects,
-          teachers: dayTeachers,
-        });
-      }
-      console.log("Schedule saved successfully!");
-    } catch (error) {
-      console.error("Error saving schedule: ", error);
-    }
-  };
-  const saveSchedule1 = async () => {
-    try {
-      const scheduleRef = collection(db, "levels/Two/studentsSchedules1");
-      for (const day of Object.keys(selectedSubjects)) {
-        const daySubjects = selectedSubjects[day];
-        const dayTeachers = selectedTeachers[day];
-
-        await setDoc(doc(scheduleRef, day), {
-          subjects: daySubjects,
-          teachers: dayTeachers,
-        });
-      }
-      console.log("Schedule saved successfully!");
-    } catch (error) {
-      console.error("Error saving schedule: ", error);
-    }
-  };
-
   return (
     <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 bg-gray-100 min-h-screen p-4">
       <div className="lg:w-1/4 bg-white shadow-lg rounded-lg">
         <Sidebar />
       </div>
-      <Header />
-      <div className="lg:w-3/4 p-4 lg:p-6">
-        <div className="bg-white p-4 lg:p-6 rounded-lg shadow-lg mt-6">
-          <h3 className="text-2xl lg:text-3xl font-semibold text-[#002749] mb-4">
-            Add Class Routine
-          </h3>
-          <div className="mb-4">
-            <input
-              list="chooseClass"
-              name="chooseClass"
-              placeholder="Choose Class"
-              className="p-2 border border-[#00274957] rounded-lg w-full lg:w-60 transition-transform duration-300 ease-in-out hover:border-[#002749] hover:scale-105 focus:border-[#002749] focus:outline-none"
-            />
-            <datalist id="chooseClass" className="text-[#002749]">
-              {[
-                "A1",
-                "A2",
-                "B1",
-                "B2",
-                "C1",
-                "C2",
-                "D1",
-                "D2",
-                "E1",
-                "E2",
-                "F1",
-                "F2",
-              ].map((cls) => (
-                <option key={cls} value={cls} />
-              ))}
-            </datalist>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-left text-sm font-light">
-              <thead className="border-b bg-[#002749] text-white">
-                <tr>
-                  <th scope="col" className="px-4 py-2 lg:px-6 lg:py-4">
-                    Day
-                  </th>
-                  <th scope="col" className="px-4 py-2 lg:px-6 lg:py-4">
-                    7:00-9:00
-                  </th>
-                  <th scope="col" className="px-4 py-2 lg:px-6 lg:py-4">
-                    9:00-11:00
-                  </th>
-                  <th scope="col" className="px-4 py-2 lg:px-6 lg:py-4">
-                    11:00-1:00
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"].map(
-                  (day) => (
-                    <tr
-                      key={day}
-                      className="border-b border-[#00274991] hover:bg-gray-50 transition-colors duration-300"
-                    >
-                      <td className="px-4 py-2 lg:px-6 lg:py-4 font-medium text-[#002749] text-base lg:text-lg">
-                        {day}
-                      </td>
-                      {["7-9", "9-11", "11-1"].map((period) => (
-                        <td key={period} className="px-4 py-2 lg:px-6 lg:py-4">
-                          <div className="flex flex-col gap-2">
-                            <div>
-                              <input
-                                list={`chooseSubject-${day}-${period}`}
-                                name={`chooseSubject-${day}-${period}`}
-                                placeholder="Choose Subject"
-                                className="p-2 border border-[#00274957] rounded-lg w-full lg:w-60 transition-transform duration-300 ease-in-out hover:border-[#002749] hover:scale-105 focus:border-[#002749] focus:outline-none"
-                                onChange={(e) =>
-                                  handleSubjectChange(day, period, e)
-                                }
-                              />
-                              <datalist
-                                id={`chooseSubject-${day}-${period}`}
-                                className="text-[#002749]"
-                              >
-                                <option value="Math">Math</option>
-                                <option value="English">English</option>
-                                <option value="Science">Science</option>
-                                <option value="German">German</option>
-                                <option value="History">History</option>
-                                <option value="Geography">Geography</option>
-                                <option value="Arabic">Arabic</option>
-                                <option value="Arts">Arts</option>
-                              </datalist>
-                            </div>
-                            <div>
-                              <input
-                                list={`chooseTeacher-${day}-${period}`}
-                                name={`chooseTeacher-${day}-${period}`}
-                                placeholder="Choose Teacher"
-                                className="p-2 border border-[#00274957] rounded-lg w-full lg:w-60 transition-transform duration-300 ease-in-out hover:border-[#002749] hover:scale-105 focus:border-[#002749] focus:outline-none"
-                                onChange={(e) =>
-                                  handleTeacherChange(day, period, e)
-                                }
-                              />
-                              <datalist
-                                id={`chooseTeacher-${day}-${period}`}
-                                className="text-[#002749]"
-                              >
-                                <option value="Mona Ahmed">Mona Ahmed</option>
-                                <option value="Ahmed Ali">Ahmed Ali</option>
-                                <option value="Ali Ahmed">Ali Ahmed</option>
-                                <option value="Salma Ahmed">Salma Ahmed</option>
-                              </datalist>
-                            </div>
-                          </div>
-                        </td>
-                      ))}
-                    </tr>
-                  )
-                )}
-              </tbody>
-            </table>
-            <button
-              onClick={ saveSchedule1 }
-              // onClick={saveSchedule}
-              className="mt-6 bg-[#002749] text-white px-4 py-2 lg:px-6 lg:py-3 rounded-lg transition-transform duration-300 ease-in-out hover:bg-[#003366] hover:scale-105 focus:outline-none"
-            >
-              Save Schedule
-            </button>
-          </div>
+      <div className="flex-[4]">
+        {/* Header of the section */}
+        <div>
+          <Header />
+        </div>
+        {/* Header of the section */}
+        <div className="my-5">
+        <div className="inline-block min-w-90 w-full py-2 sm:px-6 lg:px-8 ">
+      <h3 className="text-3xl my-4 text-[#002749]">Add Classs Routine</h3>
+      <p className="text-xl mb-3">
+        {/* datalist to choose the class */}
+        <input
+          list="chooseClass"
+          name="chooseClass"
+          placeholder="Choose Class"
+          className="p-2 border text-[#002749] border-[#00274957] rounded w-40"
+        />
+        <datalist id="chooseClass" className="text-[#002749]">
+          <option value="A1">A1</option>
+          <option value="A2">A2</option>
+          <option value="B1">B1</option>
+          <option value="B2">B2</option>
+          <option value="C1">C1</option>
+          <option value="C2">C2</option>
+          <option value="D1">D1</option>
+          <option value="D2">D2</option>
+          <option value="E1">E1</option>
+          <option value="E2">E2</option>
+          <option value="F1">F1</option>
+          <option value="F2">F2</option>
+        </datalist>
+      </p>
+      <div className="overflow-hidden min-w-full ">
+        <table className="min-w-full text-center text-sm font-light ">
+          <thead className="border-b text-white border-[#002749] bg-[#002749]">
+            <tr>
+              <th scope="col" className="px-6 py-4">
+                Day
+              </th>
+              <th scope="col" className="px-6 py-4">
+                7:00-9:00
+              </th>
+              <th scope="col" className="px-6 py-4">
+                9:00-11:00
+              </th>
+              <th scope="col" className="px-6 py-4">
+                11:00-1:00
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b border-[#00274991]">
+              <td className="whitespace-nowrap px-6  font-medium text-2xl text-[#002749]">
+                Sun
+              </td>
+              {/* td for period 7-9 sunday*/}
+              <td className="whitespace-nowrap py-3 text-lg">
+                {/* datalist to choose subjects */}
+                <input
+                  list="chooseSubject"
+                  name="chooseSubject"
+                  placeholder="Choose Subject"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded mb-2 block m-auto w-40 "
+                />
+                <datalist id="chooseSubject" className="text-[#002749]">
+                  <option value="Math">Math</option>
+                  <option value="English">English</option>
+                  <option value="Science">Science</option>
+                  <option value="German">German</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Arts">Arts</option>
+                </datalist>
+
+                {/* datalist to choose teacher */}
+                <input
+                  list="chooseTeacher"
+                  name="chooseTeacher"
+                  placeholder="Choose Teacher"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" 
+                />
+                <datalist id="chooseTeacher" className="text-[#002749]">
+                  <option value="Mona Ahmed">Mona Ahmed</option>
+                  <option value="Ahmed Ali">Ahmed Ali</option>
+                  <option value="Ali Ahmed">Ali Ahmed</option>
+                  <option value="Salma Ahmed">Salma Ahmed</option>
+                </datalist>
+              </td>
+
+               {/* td for period 9-11 sunday*/}
+              <td className="whitespace-nowrap py-3 text-lg">
+                {/* datalist to choose subjects */}
+                <input
+                  list="chooseSubject"
+                  name="chooseSubject"
+                  placeholder="Choose Subject"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded mb-2 block m-auto w-40"
+                />
+                <datalist id="chooseSubject">
+                  <option value="Math">Math</option>
+                  <option value="English">English</option>
+                  <option value="Science">Science</option>
+                  <option value="German">German</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Arts">Arts</option>
+                </datalist>
+
+                {/* datalist to choose teacher */}
+                <input
+                  list="chooseTeacher"
+                  name="chooseTeacher"
+                  placeholder="Choose Teacher"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" 
+                />
+                <datalist id="chooseTeacher">
+                  <option value="Mona Ahmed">Mona Ahmed</option>
+                  <option value="Ahmed Ali">Ahmed Ali</option>
+                  <option value="Ali Ahmed">Ali Ahmed</option>
+                  <option value="Salma Ahmed">Salma Ahmed</option>
+                </datalist>
+              </td>
+
+              
+               {/* td for period 11-1 sunday*/}
+              <td className="whitespace-nowrap py-3 text-lg">
+                {/* datalist to choose subjects */}
+                <input
+                  list="chooseSubject"
+                  name="chooseSubject"
+                  placeholder="Choose Subject"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded mb-2 block m-auto w-40"
+                />
+                <datalist id="chooseSubject">
+                  <option value="Math">Math</option>
+                  <option value="English">English</option>
+                  <option value="Science">Science</option>
+                  <option value="German">German</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Arts">Arts</option>
+                </datalist>
+
+                {/* datalist to choose teacher */}
+                <input
+                  list="chooseTeacher"
+                  name="chooseTeacher"
+                  placeholder="Choose Teacher"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" 
+                />
+                <datalist id="chooseTeacher">
+                  <option value="Mona Ahmed">Mona Ahmed</option>
+                  <option value="Ahmed Ali">Ahmed Ali</option>
+                  <option value="Ali Ahmed">Ali Ahmed</option>
+                  <option value="Salma Ahmed">Salma Ahmed</option>
+                </datalist>
+              </td>
+
+            </tr>
+            <tr className="border-b border-[#00274991]">
+              <td className="whitespace-nowrap px-6 font-medium text-2xl text-[#002749]">
+                Mon
+              </td>
+               {/* td for period 7-9 monday*/}
+              <td className="whitespace-nowrap py-3 text-lg">
+                {/* datalist to choose subjects */}
+                <input
+                  list="chooseSubject"
+                  name="chooseSubject"
+                  placeholder="Choose Subject"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded mb-2 block m-auto w-40"
+                />
+                <datalist id="chooseSubject">
+                  <option value="Math">Math</option>
+                  <option value="English">English</option>
+                  <option value="Science">Science</option>
+                  <option value="German">German</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Arts">Arts</option>
+                </datalist>
+
+                {/* datalist to choose teacher */}
+                <input
+                  list="chooseTeacher"
+                  name="chooseTeacher"
+                  placeholder="Choose Teacher"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" 
+                />
+                <datalist id="chooseTeacher">
+                  <option value="Mona Ahmed">Mona Ahmed</option>
+                  <option value="Ahmed Ali">Ahmed Ali</option>
+                  <option value="Ali Ahmed">Ali Ahmed</option>
+                  <option value="Salma Ahmed">Salma Ahmed</option>
+                </datalist>
+              </td>
+
+               {/* td for period 9-11 monday*/}
+              <td className="whitespace-nowrap py-3 text-lg">
+                {/* datalist to choose subjects */}
+                <input
+                  list="chooseSubject"
+                  name="chooseSubject"
+                  placeholder="Choose Subject"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded mb-2 block m-auto w-40"
+                />
+                <datalist id="chooseSubject">
+                  <option value="Math">Math</option>
+                  <option value="English">English</option>
+                  <option value="Science">Science</option>
+                  <option value="German">German</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Arts">Arts</option>
+                </datalist>
+
+                {/* datalist to choose teacher */}
+                <input
+                  list="chooseTeacher"
+                  name="chooseTeacher"
+                  placeholder="Choose Teacher"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" 
+                />
+                <datalist id="chooseTeacher">
+                  <option value="Mona Ahmed">Mona Ahmed</option>
+                  <option value="Ahmed Ali">Ahmed Ali</option>
+                  <option value="Ali Ahmed">Ali Ahmed</option>
+                  <option value="Salma Ahmed">Salma Ahmed</option>
+                </datalist>
+              </td>
+
+              
+               {/* td for period 11-1 monday*/}
+              <td className="whitespace-nowrap py-3 text-lg">
+                {/* datalist to choose subjects */}
+                <input
+                  list="chooseSubject"
+                  name="chooseSubject"
+                  placeholder="Choose Subject"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded mb-2 block m-auto w-40"
+                />
+                <datalist id="chooseSubject">
+                  <option value="Math">Math</option>
+                  <option value="English">English</option>
+                  <option value="Science">Science</option>
+                  <option value="German">German</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Arts">Arts</option>
+                </datalist>
+
+                {/* datalist to choose teacher */}
+                <input
+                  list="chooseTeacher"
+                  name="chooseTeacher"
+                  placeholder="Choose Teacher"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" 
+                />
+                <datalist id="chooseTeacher">
+                  <option value="Mona Ahmed">Mona Ahmed</option>
+                  <option value="Ahmed Ali">Ahmed Ali</option>
+                  <option value="Ali Ahmed">Ali Ahmed</option>
+                  <option value="Salma Ahmed">Salma Ahmed</option>
+                </datalist>
+              </td>
+            </tr>
+            <tr className="border-b border-[#00274991]">
+              <td className="whitespace-nowrap px-6  font-medium text-2xl text-[#002749]">
+                Tue
+              </td>
+           {/* td for period 7-9 tuesday*/}
+           <td className="whitespace-nowrap py-3 text-lg">
+                {/* datalist to choose subjects */}
+                <input
+                  list="chooseSubject"
+                  name="chooseSubject"
+                  placeholder="Choose Subject"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded mb-2 block m-auto w-40"
+                />
+                <datalist id="chooseSubject">
+                  <option value="Math">Math</option>
+                  <option value="English">English</option>
+                  <option value="Science">Science</option>
+                  <option value="German">German</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Arts">Arts</option>
+                </datalist>
+
+                {/* datalist to choose teacher */}
+                <input
+                  list="chooseTeacher"
+                  name="chooseTeacher"
+                  placeholder="Choose Teacher"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" 
+                />
+                <datalist id="chooseTeacher">
+                  <option value="Mona Ahmed">Mona Ahmed</option>
+                  <option value="Ahmed Ali">Ahmed Ali</option>
+                  <option value="Ali Ahmed">Ali Ahmed</option>
+                  <option value="Salma Ahmed">Salma Ahmed</option>
+                </datalist>
+              </td>
+
+               {/* td for period 9-11 tuesday*/}
+              <td className="whitespace-nowrap py-3 text-lg">
+                {/* datalist to choose subjects */}
+                <input
+                  list="chooseSubject"
+                  name="chooseSubject"
+                  placeholder="Choose Subject"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded mb-2 block m-auto w-40"
+                />
+                <datalist id="chooseSubject">
+                  <option value="Math">Math</option>
+                  <option value="English">English</option>
+                  <option value="Science">Science</option>
+                  <option value="German">German</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Arts">Arts</option>
+                </datalist>
+
+                {/* datalist to choose teacher */}
+                <input
+                  list="chooseTeacher"
+                  name="chooseTeacher"
+                  placeholder="Choose Teacher"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" 
+                />
+                <datalist id="chooseTeacher">
+                  <option value="Mona Ahmed">Mona Ahmed</option>
+                  <option value="Ahmed Ali">Ahmed Ali</option>
+                  <option value="Ali Ahmed">Ali Ahmed</option>
+                  <option value="Salma Ahmed">Salma Ahmed</option>
+                </datalist>
+              </td>
+
+              
+               {/* td for period 11-1 tuesday*/}
+              <td className="whitespace-nowrap py-3 text-lg">
+                {/* datalist to choose subjects */}
+                <input
+                  list="chooseSubject"
+                  name="chooseSubject"
+                  placeholder="Choose Subject"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded mb-2 block m-auto w-40"
+                />
+                <datalist id="chooseSubject">
+                  <option value="Math">Math</option>
+                  <option value="English">English</option>
+                  <option value="Science">Science</option>
+                  <option value="German">German</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Arts">Arts</option>
+                </datalist>
+
+                {/* datalist to choose teacher */}
+                <input
+                  list="chooseTeacher"
+                  name="chooseTeacher"
+                  placeholder="Choose Teacher"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" 
+                />
+                <datalist id="chooseTeacher">
+                  <option value="Mona Ahmed">Mona Ahmed</option>
+                  <option value="Ahmed Ali">Ahmed Ali</option>
+                  <option value="Ali Ahmed">Ali Ahmed</option>
+                  <option value="Salma Ahmed">Salma Ahmed</option>
+                </datalist>
+              </td>
+            </tr>
+            <tr className="border-b border-[#00274991]">
+              <td className="whitespace-nowrap px-6  font-medium text-2xl text-[#002749]">
+                Wed
+              </td>
+              {/* td for period 7-9 wednesday*/}
+              <td className="whitespace-nowrap py-3 text-lg">
+                {/* datalist to choose subjects */}
+                <input
+                  list="chooseSubject"
+                  name="chooseSubject"
+                  placeholder="Choose Subject"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded mb-2 block m-auto w-40"
+                />
+                <datalist id="chooseSubject">
+                  <option value="Math">Math</option>
+                  <option value="English">English</option>
+                  <option value="Science">Science</option>
+                  <option value="German">German</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Arts">Arts</option>
+                </datalist>
+
+                {/* datalist to choose teacher */}
+                <input
+                  list="chooseTeacher"
+                  name="chooseTeacher"
+                  placeholder="Choose Teacher"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" 
+                />
+                <datalist id="chooseTeacher">
+                  <option value="Mona Ahmed">Mona Ahmed</option>
+                  <option value="Ahmed Ali">Ahmed Ali</option>
+                  <option value="Ali Ahmed">Ali Ahmed</option>
+                  <option value="Salma Ahmed">Salma Ahmed</option>
+                </datalist>
+              </td>
+
+               {/* td for period 9-11 wednesday*/}
+              <td className="whitespace-nowrap py-3 text-lg">
+                {/* datalist to choose subjects */}
+                <input
+                  list="chooseSubject"
+                  name="chooseSubject"
+                  placeholder="Choose Subject"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded mb-2 block m-auto w-40"
+                />
+                <datalist id="chooseSubject">
+                  <option value="Math">Math</option>
+                  <option value="English">English</option>
+                  <option value="Science">Science</option>
+                  <option value="German">German</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Arts">Arts</option>
+                </datalist>
+
+                {/* datalist to choose teacher */}
+                <input
+                  list="chooseTeacher"
+                  name="chooseTeacher"
+                  placeholder="Choose Teacher"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" 
+                />
+                <datalist id="chooseTeacher">
+                  <option value="Mona Ahmed">Mona Ahmed</option>
+                  <option value="Ahmed Ali">Ahmed Ali</option>
+                  <option value="Ali Ahmed">Ali Ahmed</option>
+                  <option value="Salma Ahmed">Salma Ahmed</option>
+                </datalist>
+              </td>
+
+              
+               {/* td for period 11-1 wednesday*/}
+              <td className="whitespace-nowrap py-3 text-lg">
+                {/* datalist to choose subjects */}
+                <input
+                  list="chooseSubject"
+                  name="chooseSubject"
+                  placeholder="Choose Subject"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded mb-2 block m-auto w-40"
+                />
+                <datalist id="chooseSubject">
+                  <option value="Math">Math</option>
+                  <option value="English">English</option>
+                  <option value="Science">Science</option>
+                  <option value="German">German</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Arts">Arts</option>
+                </datalist>
+
+                {/* datalist to choose teacher */}
+                <input
+                  list="chooseTeacher"
+                  name="chooseTeacher"
+                  placeholder="Choose Teacher"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" 
+                />
+                <datalist id="chooseTeacher">
+                  <option value="Mona Ahmed">Mona Ahmed</option>
+                  <option value="Ahmed Ali">Ahmed Ali</option>
+                  <option value="Ali Ahmed">Ali Ahmed</option>
+                  <option value="Salma Ahmed">Salma Ahmed</option>
+                </datalist>
+              </td>
+            </tr>
+            <tr className="border-b border-[#00274991]">
+              <td className="whitespace-nowrap px-6  font-medium text-2xl text-[#002749]">
+                Thr
+              </td>
+              
+              {/* td for period 7-9 thursday*/}
+              <td className="whitespace-nowrap py-3 text-lg">
+                {/* datalist to choose subjects */}
+                <input
+                  list="chooseSubject"
+                  name="chooseSubject"
+                  placeholder="Choose Subject"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded mb-2 block m-auto w-40"
+                />
+                <datalist id="chooseSubject">
+                  <option value="Math">Math</option>
+                  <option value="English">English</option>
+                  <option value="Science">Science</option>
+                  <option value="German">German</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Arts">Arts</option>
+                </datalist>
+
+                {/* datalist to choose teacher */}
+                <input
+                  list="chooseTeacher"
+                  name="chooseTeacher"
+                  placeholder="Choose Teacher"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" 
+                />
+                <datalist id="chooseTeacher">
+                  <option value="Mona Ahmed">Mona Ahmed</option>
+                  <option value="Ahmed Ali">Ahmed Ali</option>
+                  <option value="Ali Ahmed">Ali Ahmed</option>
+                  <option value="Salma Ahmed">Salma Ahmed</option>
+                </datalist>
+              </td>
+
+               {/* td for period 9-11 thursday*/}
+              <td className="whitespace-nowrap py-3 text-lg">
+                {/* datalist to choose subjects */}
+                <input
+                  list="chooseSubject"
+                  name="chooseSubject"
+                  placeholder="Choose Subject"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded mb-2 block m-auto w-40"
+                />
+                <datalist id="chooseSubject">
+                  <option value="Math">Math</option>
+                  <option value="English">English</option>
+                  <option value="Science">Science</option>
+                  <option value="German">German</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Arts">Arts</option>
+                </datalist>
+
+                {/* datalist to choose teacher */}
+                <input
+                  list="chooseTeacher"
+                  name="chooseTeacher"
+                  placeholder="Choose Teacher"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" 
+                />
+                <datalist id="chooseTeacher">
+                  <option value="Mona Ahmed">Mona Ahmed</option>
+                  <option value="Ahmed Ali">Ahmed Ali</option>
+                  <option value="Ali Ahmed">Ali Ahmed</option>
+                  <option value="Salma Ahmed">Salma Ahmed</option>
+                </datalist>
+              </td>
+
+              
+               {/* td for period 11-1 thursday*/}
+              <td className="whitespace-nowrap py-3 text-lg">
+                {/* datalist to choose subjects */}
+                <input
+                  list="chooseSubject"
+                  name="chooseSubject"
+                  placeholder="Choose Subject"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded mb-2 block m-auto w-40"
+                />
+                <datalist id="chooseSubject">
+                  <option value="Math">Math</option>
+                  <option value="English">English</option>
+                  <option value="Science">Science</option>
+                  <option value="German">German</option>
+                  <option value="History">History</option>
+                  <option value="Geography">Geography</option>
+                  <option value="Arabic">Arabic</option>
+                  <option value="Arts">Arts</option>
+                </datalist>
+
+                {/* datalist to choose teacher */}
+                <input
+                  list="chooseTeacher"
+                  name="chooseTeacher"
+                  placeholder="Choose Teacher"
+                  className="p-1 border text-[#002749] border-[#00274957] rounded block m-auto w-40" 
+                />
+                <datalist id="chooseTeacher">
+                  <option value="Mona Ahmed">Mona Ahmed</option>
+                  <option value="Ahmed Ali">Ahmed Ali</option>
+                  <option value="Ali Ahmed">Ali Ahmed</option>
+                  <option value="Salma Ahmed">Salma Ahmed</option>
+                </datalist>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
         </div>
       </div>
     </div>
