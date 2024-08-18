@@ -30,7 +30,7 @@ const Add_Class_Routine = () => {
   };
 
   const handleTeacherChange = (
-    day: string, 
+    day: string,
     period: string,
     event: ChangeEvent<HTMLInputElement>
   ) => {
