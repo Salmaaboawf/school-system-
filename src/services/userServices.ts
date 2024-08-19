@@ -144,24 +144,42 @@ export const fetchTeachers = async () => {
   }
 };
 
-export const addTeacher = async (value: TeacherType) => {
+export const addTeacher = async (teacherInfo: TeacherType) => {
   try {
+    const teacherLevelsIds = teacherInfo.levels.map((item) => item.id);
     const userCredential = await createUserWithEmailAndPassword(
       auth,
-      value.email,
-      value.password
+      teacherInfo.email,
+      teacherInfo.password
     );
+    console.log(`esraa ${userCredential}`);
     const user = userCredential.user;
+    console.log(`esraa ${user}`);
 
-    await setDoc(doc(db, "teachers", user.uid), {
-      teacherId: user.uid,
-      name: value.name,
-      gender: value.gender,
-      email: value.email,
-      phone: value.phoneNumber,
-      subject: value.subject,
-      age: value.age,
+    const teacherRef = doc(db, "teachers", `${user.uid}`);
+
+    const {
+      name,
+      email,
+      gender,
+      phoneNumber,
+      age,
+      subject,
+      role = "teacher",
+    }: TeacherType = teacherInfo;
+
+    await setDoc(teacherRef, {
+      id: user.uid,
+      name,
+      email,
+      gender,
+      phoneNumber,
+      age,
+      subject,
+      role,
+      levels_Ids: teacherLevelsIds,
     });
+    console.log("Teacher added successfully!");
   } catch (error) {
     console.log(error);
   }

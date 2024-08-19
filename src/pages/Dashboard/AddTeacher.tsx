@@ -1,11 +1,17 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
+import ReactSelect from "react-select";
+import makeAnimated from "react-select/animated";
 import { Label, TextInput, Select, Button } from "flowbite-react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import { addTeacher } from "../../services/userServices";
 import { TeacherType } from "../../utils/types";
+import { useEffect } from "react";
+import { fetchLevels } from "../../services/levelsServices";
+import { fetchSubjects } from "../../services/subjectServices";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 export default function Register() {
   const schema = yup.object().shape({
     name: yup
@@ -25,15 +31,32 @@ export default function Register() {
       .required("Password is required"),
     subject: yup.string(),
     phoneNumber: yup.string().required("Subject is required"),
+    levels: yup
+      .array()
+      .of(yup.object())
+      .required("At least one level is required"), //schema for levels
   });
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const dispatch = useAppDispatch();
+
+  // State to hold level options
+  const levels = useAppSelector((state) => state.levels.levels);
+  const subjects = useAppSelector((state) => state.subject.subject);
+
+  // Fetch levels from firestore
+  useEffect(() => {
+    fetchLevels(dispatch);
+    fetchSubjects(dispatch);
+  }, []);
 
   const save = async (value: TeacherType) => {
     try {
@@ -42,6 +65,10 @@ export default function Register() {
       console.error("Error adding user: ", error);
     }
   };
+
+  const animatedComponents = makeAnimated();
+
+  // const [subjects,setSubjects] = useState()
 
   return (
     <div className="container flex gap-x-5  ">
@@ -62,7 +89,7 @@ export default function Register() {
               className="flex max-w-md flex-col gap-4"
             >
               <div>
-                <Label htmlFor="name" value="First Name" />
+                <Label htmlFor="name" value="Teacher Name" />
                 <TextInput
                   {...register("name")}
                   id="name"
@@ -72,22 +99,45 @@ export default function Register() {
                 <p className="text-red-500">{errors.name?.message}</p>
               </div>
               <div>
-                <Label htmlFor="subject" value="Last Name" />
-                <TextInput
-                  {...register("subject")}
-                  id="subject"
-                  type="text"
-                  placeholder="Teacher Subject"
-                />
+                <Label htmlFor="subject" value="Teacher Subject" />
+                <Select {...register("subject")} id="subject">
+                  {subjects.map((subject) => (
+                    <option key={subject.id} value={subject.id}>
+                      {subject.name}
+                    </option>
+                  ))}
+                </Select>
+
                 <p className="text-red-500">{errors.subject?.message}</p>
               </div>
+
+              <Controller
+                name="levels"
+                control={control}
+                render={({ field }) => (
+                  <ReactSelect
+                    {...field}
+                    // value={subjects}
+                    options={levels} // change this with the useState after fetch from subjects
+                    isMulti
+                    components={animatedComponents}
+                    placeholder="Choose Level"
+                    getOptionLabel={(option) => option.name}
+                    getOptionValue={(option) => option.id}
+                    onChange={(selected) => {
+                      field.onChange(selected);
+                    }}
+                  />
+                )}
+              />
+
               <div>
-                <Label htmlFor="phoneNumber" value="Last Name" />
+                <Label htmlFor="phoneNumber" value="Teacher Phone Number" />
                 <TextInput
                   {...register("phoneNumber")}
                   id="phoneNumber"
                   type="text"
-                  placeholder="Teacher phoneNumber"
+                  placeholder="Teacher Phone Number"
                 />
                 <p className="text-red-500">{errors.phoneNumber?.message}</p>
               </div>
