@@ -106,6 +106,7 @@ export const addParent = async (value: ParentType) => {
       email: value.email,
       phone: value.phoneNumber,
       Children: childerenIds,
+      //profileImg
     });
 
     childerenIds?.forEach(async (id) => {

@@ -38,7 +38,8 @@ function App() {
     if (userId) {
       getUserById(userId, dispatch);
     }
-  }, [userId, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId]);
 
   return (
     <>
