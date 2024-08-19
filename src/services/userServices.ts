@@ -15,9 +15,10 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ParentType, StudentType, TeacherType } from "../utils/types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const saveLoggedUser = async (userId: string, dispatch: any) => {
+export const saveLoggedUser = async (userId: string, dispatch: any, role:string) => {
   try {
-    const userDocRef = doc(db, "users", userId);
+    
+    const userDocRef = doc(db,role, `${userId}`);
     const userDocSnap = await getDoc(userDocRef);
     if (userDocSnap.exists()) {
       localStorage.setItem(
@@ -30,6 +31,7 @@ export const saveLoggedUser = async (userId: string, dispatch: any) => {
       );
       dispatch(setUser(userDocSnap.data()));
       console.log("Document data:", userDocSnap.data());
+      return true
     } else {
       console.log("No such document!");
     }
