@@ -125,7 +125,7 @@ export const addParent = async (value: ParentType) => {
 
 export const addTeacher = async (teacherInfo : TeacherType) => {
   try{
-
+const teacherLevelsIds = teacherInfo.levels.map((item)=>item.id)
     const userCredential = await createUserWithEmailAndPassword(auth,teacherInfo.email , teacherInfo.password);
     console.log(`esraa ${userCredential}`)
     const user =  userCredential.user;
@@ -139,12 +139,12 @@ export const addTeacher = async (teacherInfo : TeacherType) => {
       gender,
       phoneNumber,
       age,
-      subject = 'subjectID',
+      subject ,
       role = 'teacher',
-      levels = ['one','two'],
     }: TeacherType = teacherInfo
 
     await setDoc(teacherRef,{
+      id:user.uid,
       name,
       email,
       gender,
@@ -152,7 +152,7 @@ export const addTeacher = async (teacherInfo : TeacherType) => {
       age,
       subject,
       role,
-      levels,
+      levels_Ids:teacherLevelsIds,
     })
     console.log('Teacher added successfully!');
   }

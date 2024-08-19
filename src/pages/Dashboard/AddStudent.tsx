@@ -56,7 +56,7 @@ export default function Register() {
     fetchParents(setParents);
     fetchLevels(dispatch);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="container flex gap-x-5  ">
