@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { Label, TextInput, Select,Button} from "flowbite-react";
+import { Label, TextInput, Select, Button } from "flowbite-react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import { addTeacher } from "../../services/userServices";
@@ -23,7 +23,7 @@ export default function Register() {
       .min(8, "Password must be at least 8 characters")
       .max(32, "Password cannot exceed 32 characters")
       .required("Password is required"),
-    subject: yup.string().required("Subject is required"),
+    subject: yup.string(),
     phoneNumber: yup.string().required("Subject is required"),
   });
 
@@ -137,7 +137,7 @@ export default function Register() {
                 className="my-5 w-72"
                 type="submit"
               >
-               submit
+                submit
               </Button>
               {/* <input  type="submit" title="submit" /> */}
             </form>

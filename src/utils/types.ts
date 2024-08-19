@@ -25,3 +25,10 @@ export interface StudentType extends BaseUserType {
   address: string;
   parent: string;
 }
+
+export type SubjectType = {
+  id: string;
+  name: string;
+  level_id: string;
+  teacher: string;
+};

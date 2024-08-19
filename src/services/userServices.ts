@@ -3,6 +3,7 @@ import {
   collection,
   doc,
   getDoc,
+  getDocs,
   onSnapshot,
   query,
   setDoc,
@@ -13,12 +14,15 @@ import auth, { db } from "../config/firebase";
 import { setUser } from "../Redux/Slices/userSlice";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ParentType, StudentType, TeacherType } from "../utils/types";
+import { Dispatch } from "@reduxjs/toolkit";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const saveLoggedUser = async (userId: string, dispatch: any, role:string) => {
+export const saveLoggedUser = async (
+  userId: string,
+  dispatch: Dispatch,
+  role: string
+) => {
   try {
-    
-    const userDocRef = doc(db,role, `${userId}`);
+    const userDocRef = doc(db, role, `${userId}`);
     const userDocSnap = await getDoc(userDocRef);
     if (userDocSnap.exists()) {
       localStorage.setItem(
@@ -31,7 +35,7 @@ export const saveLoggedUser = async (userId: string, dispatch: any, role:string)
       );
       dispatch(setUser(userDocSnap.data()));
       console.log("Document data:", userDocSnap.data());
-      return true
+      return true;
     } else {
       console.log("No such document!");
     }
@@ -40,8 +44,7 @@ export const saveLoggedUser = async (userId: string, dispatch: any, role:string)
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getUserById = async (userId: string, dispatch: any) => {
+export const getUserById = async (userId: string, dispatch: Dispatch) => {
   try {
     const userDocRef = doc(
       db,
@@ -125,6 +128,22 @@ export const addParent = async (value: ParentType) => {
 
 // add teacher
 
+export const fetchTeachers = async () => {
+  try {
+    const teachersCollection = collection(db, "teachers");
+    const teachersSnapshot = await getDocs(teachersCollection);
+    const teachersList = teachersSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...(doc.data() as TeacherType),
+    }));
+
+    // console.log("Teachers List:", teachersList);
+    return teachersList;
+  } catch (error) {
+    console.error("Error fetching levels: ", error);
+  }
+};
+
 export const addTeacher = async (value: TeacherType) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(
@@ -157,7 +176,7 @@ export const fetchStudents = (
     const studentsCollection = collection(db, "students");
     const q = query(studentsCollection, where("parent", "==", ""));
 
-    // Use onSnapshot to listen for real-time updates
+    // Listen for real-time updates
     const unsubscribe = onSnapshot(q, (studentsSnapshot) => {
       const studentsList = studentsSnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -170,7 +189,7 @@ export const fetchStudents = (
     // Cleanup subscription on unmount
     return () => unsubscribe();
   } catch (error) {
-    console.error("Error fetching levels: ", error);
+    console.error("Error fetching students: ", error);
   }
 };
 

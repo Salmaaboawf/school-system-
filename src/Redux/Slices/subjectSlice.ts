@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { SubjectType } from "../../utils/types";
 export interface subState {
-  subject: { id: string; name: string }[];
+  subject: SubjectType[];
 }
 
 const initialState: subState = {
