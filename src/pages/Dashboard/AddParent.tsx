@@ -126,6 +126,8 @@ export default function Register() {
                       getOptionValue={(item: StudentType) => `${item.id}`}
                       onChange={(selectedOptions) => {
                         field.onChange(selectedOptions);
+                        console.log(selectedOptions);
+
                         setSelectedChildrenValues([...selectedOptions]);
                       }}
                     />

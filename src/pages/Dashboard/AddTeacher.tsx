@@ -1,16 +1,16 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
-import ReactSelect from 'react-select'
-import makeAnimated from 'react-select/animated';
+import ReactSelect from "react-select";
+import makeAnimated from "react-select/animated";
 import { Label, TextInput, Select, Button } from "flowbite-react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import { addTeacher } from "../../services/userServices";
 import { TeacherType } from "../../utils/types";
 import { useEffect } from "react";
-import { fetchLevels } from "../../services/levelsServices"
-import { fetchSubjects } from "../../services/subjectServices"
+import { fetchLevels } from "../../services/levelsServices";
+import { fetchSubjects } from "../../services/subjectServices";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 export default function Register() {
   const schema = yup.object().shape({
@@ -29,9 +29,12 @@ export default function Register() {
       .min(8, "Password must be at least 8 characters")
       .max(32, "Password cannot exceed 32 characters")
       .required("Password is required"),
-    subject: yup.string().required("Subject is required"),
+    subject: yup.string(),
     phoneNumber: yup.string().required("Subject is required"),
-    levels: yup.array().of(yup.object()).required("At least one level is required") //schema for levels
+    levels: yup
+      .array()
+      .of(yup.object())
+      .required("At least one level is required"), //schema for levels
   });
 
   const {
@@ -47,8 +50,8 @@ export default function Register() {
   const dispatch = useAppDispatch();
 
   // State to hold level options
-  const levels = useAppSelector(state => state.levels.levels);
-  const subjects = useAppSelector(state => state.subject.subject);
+  const levels = useAppSelector((state) => state.levels.levels);
+  const subjects = useAppSelector((state) => state.subject.subject);
 
   // Fetch levels from firestore
   useEffect(() => {
@@ -64,7 +67,6 @@ export default function Register() {
       console.error("Error adding user: ", error);
     }
   };
-
 
   const animatedComponents = makeAnimated();
 
@@ -108,7 +110,6 @@ export default function Register() {
                   ))}
                 </Select>
 
-
                 <p className="text-red-500">{errors.subject?.message}</p>
               </div>
 
@@ -118,7 +119,7 @@ export default function Register() {
                 render={({ field }) => (
                   <ReactSelect
                     {...field}
-                    // value={subjects} 
+                    // value={subjects}
                     options={levels} // change this with the useState after fetch from subjects
                     isMulti
                     components={animatedComponents}
@@ -126,7 +127,7 @@ export default function Register() {
                     getOptionLabel={(option) => option.name}
                     getOptionValue={(option) => option.id}
                     onChange={(selected) => {
-                      field.onChange(selected)
+                      field.onChange(selected);
                     }}
                   />
                 )}
