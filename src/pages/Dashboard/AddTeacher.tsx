@@ -39,6 +39,7 @@ export default function Register() {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -58,6 +59,7 @@ export default function Register() {
   const save = async (value: TeacherType) => {
     try {
       addTeacher(value);
+      reset();
     } catch (error) {
       console.error("Error adding user: ", error);
     }
