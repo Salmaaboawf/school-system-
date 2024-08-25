@@ -10,11 +10,12 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
-import auth, { db } from "../config/firebase";
+import auth, { db, storage } from "../config/firebase";
 import { setUser } from "../Redux/Slices/userSlice";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ParentType, StudentType, TeacherType } from "../utils/types";
 import { Dispatch } from "@reduxjs/toolkit";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export const saveLoggedUser = async (
   userId: string,
@@ -88,8 +89,14 @@ export const fetchParents = async (
   }
 };
 
-export const addParent = async (value: ParentType) => {
+export const addParent = async (value: ParentType,photo?:File) => {
   try {
+    let photoURL = '';
+    if(photo){
+      const storageRef = ref(storage,`images${photo.name}`)
+      await uploadBytes(storageRef,photo)
+      photoURL = await getDownloadURL(storageRef)
+    }
     const childerenIds = value.children?.map((item) => item.id);
     const userCredential = await createUserWithEmailAndPassword(
       auth,
@@ -106,7 +113,7 @@ export const addParent = async (value: ParentType) => {
       email: value.email,
       phone: value.phoneNumber,
       Children: childerenIds,
-      //profileImg
+      photoURL,
     });
 
     childerenIds?.forEach(async (id) => {
@@ -145,46 +152,46 @@ export const fetchTeachers = async () => {
   }
 };
 
-export const addTeacher = async (teacherInfo: TeacherType) => {
-  try {
-    const teacherLevelsIds = teacherInfo.levels.map((item) => item.id);
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      teacherInfo.email,
-      teacherInfo.password
-    );
-    console.log(`esraa ${userCredential}`);
-    const user = userCredential.user;
-    console.log(`esraa ${user}`);
+// export const addTeacher = async (teacherInfo: TeacherType) => {
+//   try {
+//     const teacherLevelsIds = teacherInfo.levels.map((item) => item.id);
+//     const userCredential = await createUserWithEmailAndPassword(
+//       auth,
+//       teacherInfo.email,
+//       teacherInfo.password
+//     );
+//     console.log(`esraa ${userCredential}`);
+//     const user = userCredential.user;
+//     console.log(`esraa ${user}`);
 
-    const teacherRef = doc(db, "teachers", `${user.uid}`);
+//     const teacherRef = doc(db, "teachers", `${user.uid}`);
 
-    const {
-      name,
-      email,
-      gender,
-      phoneNumber,
-      age,
-      subject,
-      role = "teacher",
-    }: TeacherType = teacherInfo;
+//     const {
+//       name,
+//       email,
+//       gender,
+//       phoneNumber,
+//       age,
+//       subject,
+//       role = "teacher",
+//     }: TeacherType = teacherInfo;
 
-    await setDoc(teacherRef, {
-      id: user.uid,
-      name,
-      email,
-      gender,
-      phoneNumber,
-      age,
-      subject,
-      role,
-      levels_Ids: teacherLevelsIds,
-    });
-    console.log("Teacher added successfully!");
-  } catch (error) {
-    console.log(error);
-  }
-};
+//     await setDoc(teacherRef, {
+//       id: user.uid,
+//       name,
+//       email,
+//       gender,
+//       phoneNumber,
+//       age,
+//       subject,
+//       role,
+//       levels_Ids: teacherLevelsIds,
+//     });
+//     console.log("Teacher added successfully!");
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 // add sudent
 
@@ -212,8 +219,16 @@ export const fetchStudents = (
   }
 };
 
-export const addStudent = async (value: StudentType) => {
+export const addStudent = async (value: StudentType,photo?: File) => {
   try {
+
+    let photoURL = "";
+    if (photo) {
+      const storageRef = ref(storage, `images/${photo.name}`);
+      await uploadBytes(storageRef, photo);
+      photoURL = await getDownloadURL(storageRef);
+    }
+
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       value.email,
@@ -246,6 +261,7 @@ export const addStudent = async (value: StudentType) => {
       phoneNumber,
       role,
       parent,
+      photoURL,
     });
     if (parent.length > 0) {
       addChildToParent(parent, user.uid);
