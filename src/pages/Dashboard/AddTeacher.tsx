@@ -3,15 +3,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import ReactSelect from "react-select";
 import makeAnimated from "react-select/animated";
-import { Label, TextInput, Select, Button } from "flowbite-react";
+import { Label, TextInput, Select, Button, FileInput, Textarea } from "flowbite-react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
-import { addTeacher } from "../../services/userServices";
+import { addTeacher } from "../../services/teacherServices";
 import { TeacherType } from "../../utils/types";
 import { useEffect } from "react";
 import { fetchLevels } from "../../services/levelsServices";
 import { fetchSubjects } from "../../services/subjectServices";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+
+
 export default function Register() {
   const schema = yup.object().shape({
     name: yup
@@ -30,11 +32,15 @@ export default function Register() {
       .max(32, "Password cannot exceed 32 characters")
       .required("Password is required"),
     subject: yup.string(),
-    phoneNumber: yup.string().required("Subject is required"),
+    phoneNumber: yup.string().required("Phone Number is required"),
     levels: yup
       .array()
       .of(yup.object())
       .required("At least one level is required"), //schema for levels
+    photofile: yup.mixed().required("Photo is required").test("fileSize", "File is too large", (value) => {
+      return !value || (value && value.size <= 2 * 1024 * 1024)
+    }),
+    description: yup.string().required("Description is required"),
   });
 
   const {
@@ -42,7 +48,8 @@ export default function Register() {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -61,16 +68,20 @@ export default function Register() {
 
   const save = async (value: TeacherType) => {
     try {
-      addTeacher(value);
+      const photo = value.photofile; // handle the file seperately
+      addTeacher(value, photo);
       reset();
     } catch (error) {
       console.error("Error adding user: ", error);
     }
   };
 
-  const animatedComponents = makeAnimated();
+  const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    setValue("photofile", file); // Manually set the file in form values
+  };
 
-  // const [subjects,setSubjects] = useState()
+  const animatedComponents = makeAnimated();
 
   return (
     <div className="container flex gap-x-5  ">
@@ -112,7 +123,7 @@ export default function Register() {
 
                 <p className="text-red-500">{errors.subject?.message}</p>
               </div>
-
+              <Label htmlFor="levels" value="Teacher levels" />
               <Controller
                 name="levels"
                 control={control}
@@ -132,6 +143,14 @@ export default function Register() {
                   />
                 )}
               />
+
+              <div className="max-w-md">
+                <div className="mb-2 block">
+                  <Label htmlFor="comment" value="Teacher Description" />
+                </div>
+                <Textarea id="comment" placeholder="Leave a comment..." rows={4}   {...register("description")}
+                  id="description"/>
+              </div>
 
               <div>
                 <Label htmlFor="phoneNumber" value="Teacher Phone Number" />
@@ -155,10 +174,10 @@ export default function Register() {
               </div>
               <div>
                 <Label htmlFor="gender" value="Gender" />
-                <Select {...register("gender")} id="gender">
+                <Select {...register("gender")} id="gender" defaultValue="">
+                  <option value="" disabled >Gender</option>
                   <option value="female">Female</option>
                   <option value="male">Male</option>
-                  <option value="other">Other</option>
                 </Select>
                 <p className="text-red-500">{errors.gender?.message}</p>
               </div>
@@ -182,6 +201,14 @@ export default function Register() {
                   placeholder="Password"
                 />
                 <p className="text-red-500">{errors.password?.message}</p>
+              </div>
+              {/* photo field */}
+              <div>
+                <Label htmlFor="photo" value="Teacher Photo" />
+                <FileInput id="photo"
+                  accept="image/*"
+                  onChange={handlePhotoChange} />
+                <p className="text-red-500">{errors.photofile?.message}</p>
               </div>
               <Button
                 outline

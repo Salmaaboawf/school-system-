@@ -5,6 +5,7 @@ export interface BaseUserType {
   gender: string;
   phoneNumber: string;
   role?: string;
+  photofile?: File;
 }
 
 export interface ParentType extends BaseUserType {
@@ -17,6 +18,8 @@ export interface TeacherType extends BaseUserType {
   age: string;
   subject: string;
   levels: { id: string; name: string }[];
+  description: string;
+ 
 }
 
 export interface StudentType extends BaseUserType {

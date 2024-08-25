@@ -13,6 +13,9 @@ const initialState: UserState = {
     email: "",
     age: 0,
     role: "",
+
+    ////////////////////////
+    photoURL:"",
   },
 };
 
@@ -32,6 +35,7 @@ export const userSlice = createSlice({
         email: "",
         age: 0,
         role: "",
+        photoURL:"",
       };
     },
   },
