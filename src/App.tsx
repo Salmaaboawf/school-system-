@@ -23,7 +23,7 @@ import Showgrad from "./components/Showgrad";
 import { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserById } from "./services/userServices";
-import AddClass from "./pages/Dashboard/AddClass";
+import AddClass from "./pages/Dashboard/AddLevels";
 import Add_Teacher_Routine from "./pages/Dashboard/Add_Teacher_Routine";
 import Add_Class_Routine from "./pages/Dashboard/Add_Class_Routine";
 import AddSubject from "./pages/Dashboard/AddSubject";
