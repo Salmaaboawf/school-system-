@@ -13,6 +13,9 @@ const initialState: UserState = {
     email: "",
     age: 0,
     role: "",
+
+    ////////////////////////
+    photoURL:"",
   },
 };
 
@@ -23,10 +26,22 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = { ...action.payload };
     },
+    resetUser: (state) => {
+      state.user = {
+        id: "",
+        firstName: "",
+        lastName: "",
+        gender: "",
+        email: "",
+        age: 0,
+        role: "",
+        photoURL:"",
+      };
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setUser } = userSlice.actions;
+export const { setUser, resetUser } = userSlice.actions;
 
 export default userSlice.reducer;

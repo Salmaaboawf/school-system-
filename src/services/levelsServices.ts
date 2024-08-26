@@ -57,6 +57,7 @@ export const fetchLevels = async (dispatch: Dispatch) => {
 
     // Update state with the fetched levels
     dispatch(setLevels([...levelsList]));
+
   } catch (error) {
     console.error("Error fetching levels: ", error);
   }

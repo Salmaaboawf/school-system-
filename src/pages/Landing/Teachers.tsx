@@ -1,52 +1,69 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiFacebook } from "react-icons/fi";
 import { SlSocialLinkedin } from "react-icons/sl";
 import { LuTwitter } from "react-icons/lu";
+import { fetchTeachers } from "../../services/teacherServices";
 
 function Teachers() {
-  const [teachers] = useState([
-    {
-      name: "Teacher 1",
-      src: "src/assets/images/5-min-1.jpg",
-      des: "Mel utamur nostrud et, duo illud oratio suavitate, qui cu elitr et sanctus. Ei convenire suavitate eos. Ex pro minimum recusabo.",
-      sub: "Math teach",
-    },
-    {
-      name: "Teacher 2",
-      src: "src/assets/images/2-min.jpg",
-      des: "Mel utamur nostrud et, duo illud oratio suavitate, qui cu elitr et sanctus. Ei convenire suavitate eos. Ex pro minimum recusabo.",
-      sub: "Math teach",
-    },
-    {
-      name: "Teacher 3",
-      src: "src/assets/images/4-min.jpg",
-      des: "Mel utamur nostrud et, duo illud oratio suavitate, qui cu elitr et sanctus. Ei convenire suavitate eos. Ex pro minimum recusabo.",
-      sub: "Math teach",
-    },
-    {
-      name: "Teacher 4",
-      src: "src/assets/images/1-min.jpg",
-      des: "Mel utamur nostrud et, duo illud oratio suavitate, qui cu elitr et sanctus. Ei convenire suavitate eos. Ex pro minimum recusabo.",
-      sub: "Math teach",
-    },
-    {
-      name: "Teacher 5",
-      src: "src/assets/images/2-min.jpg",
-      des: "Mel utamur nostrud et, duo illud oratio suavitate, qui cu elitr et sanctus. Ei convenire suavitate eos. Ex pro minimum recusabo.",
-      sub: "Math teach",
-    },
-    {
-      name: "Teacher 6",
-      src: "src/assets/images/6-min-1.jpg",
-      des: "Mel utamur nostrud et, duo illud oratio suavitate, qui cu elitr et sanctus. Ei convenire suavitate eos. Ex pro minimum recusabo.",
-      sub: "Math teach",
-    },
-    {
-      name: "Teacher 7",
-      src: "src/assets/images/5-min-1.jpg",
-      des: "Mel utamur nostrud et, duo illud oratio suavitate, qui cu elitr et sanctus. Ei convenire suavitate eos. Ex pro minimum recusabo.",
-      sub: "Math teach",
-    },
+
+  useEffect(()=>{
+    const loadTeachers = async () => {
+      try {
+        const fetchedTeachers = await fetchTeachers();
+        setTeachers(fetchedTeachers);
+      } catch (error) {
+        console.error("Error fetching teachers: ", error);
+      }
+    };
+
+    loadTeachers();
+  },[])
+
+  
+
+  const [teachers , setTeachers] = useState([
+    // {
+    //   name: "Teacher 1",
+    //   src: "src/assets/images/5-min-1.jpg",
+    //   des: "Mel utamur nostrud et, duo illud oratio suavitate, qui cu elitr et sanctus. Ei convenire suavitate eos. Ex pro minimum recusabo.",
+    //   sub: "Math teach",
+    // },
+    // {
+    //   name: "Teacher 2",
+    //   src: "src/assets/images/2-min.jpg",
+    //   des: "Mel utamur nostrud et, duo illud oratio suavitate, qui cu elitr et sanctus. Ei convenire suavitate eos. Ex pro minimum recusabo.",
+    //   sub: "Math teach",
+    // },
+    // {
+    //   name: "Teacher 3",
+    //   src: "src/assets/images/4-min.jpg",
+    //   des: "Mel utamur nostrud et, duo illud oratio suavitate, qui cu elitr et sanctus. Ei convenire suavitate eos. Ex pro minimum recusabo.",
+    //   sub: "Math teach",
+    // },
+    // {
+    //   name: "Teacher 4",
+    //   src: "src/assets/images/1-min.jpg",
+    //   des: "Mel utamur nostrud et, duo illud oratio suavitate, qui cu elitr et sanctus. Ei convenire suavitate eos. Ex pro minimum recusabo.",
+    //   sub: "Math teach",
+    // },
+    // {
+    //   name: "Teacher 5",
+    //   src: "src/assets/images/2-min.jpg",
+    //   des: "Mel utamur nostrud et, duo illud oratio suavitate, qui cu elitr et sanctus. Ei convenire suavitate eos. Ex pro minimum recusabo.",
+    //   sub: "Math teach",
+    // },
+    // {
+    //   name: "Teacher 6",
+    //   src: "src/assets/images/6-min-1.jpg",
+    //   des: "Mel utamur nostrud et, duo illud oratio suavitate, qui cu elitr et sanctus. Ei convenire suavitate eos. Ex pro minimum recusabo.",
+    //   sub: "Math teach",
+    // },
+    // {
+    //   name: "Teacher 7",
+    //   src: "src/assets/images/5-min-1.jpg",
+    //   des: "Mel utamur nostrud et, duo illud oratio suavitate, qui cu elitr et sanctus. Ei convenire suavitate eos. Ex pro minimum recusabo.",
+    //   sub: "Math teach",
+    // },
   ]);
 
   return (
@@ -69,7 +86,7 @@ function Teachers() {
             <a href="#">
               <img
                 className="rounded-t-lg md:rounded-l-lg md:rounded-t-none w-full md:w-48"
-                src={teacher.src}
+                src={teacher.photoURL}
                 alt=""
               />
             </a>
@@ -79,6 +96,11 @@ function Teachers() {
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-[#002749] dark:text-white">
                   {teacher.name}
                 </h5>
+              </a>
+              <a href="#">
+                <h6 className="mb-2 text-xl font-bold tracking-tight text-[#515152c0] dark:text-white">
+                  {teacher.subjectName}
+                </h6>
               </a>
               {/* Contact */}
               <ul className="flex flex-wrap justify-center md:justify-start">
@@ -112,7 +134,7 @@ function Teachers() {
               </ul>
               {/* Description */}
               <p className="mb-3 py-4 font-normal text-[#002749] dark:text-gray-400">
-                {teacher.des}
+                {teacher.description}
               </p>
             </div>
           </div>

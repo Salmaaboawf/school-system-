@@ -5,16 +5,21 @@ export interface BaseUserType {
   gender: string;
   phoneNumber: string;
   role?: string;
+  photofile?: File;
 }
 
 export interface ParentType extends BaseUserType {
   address: string;
-  children?: string[];
+  children?: StudentType[];
+  id?: string;
 }
 
 export interface TeacherType extends BaseUserType {
-  age: number;
+  age: string;
   subject: string;
+  levels: { id: string; name: string }[];
+  description: string;
+ 
 }
 
 export interface StudentType extends BaseUserType {
@@ -24,3 +29,10 @@ export interface StudentType extends BaseUserType {
   address: string;
   parent: string;
 }
+
+export type SubjectType = {
+  id: string;
+  name: string;
+  level_id: string;
+  teacher: string;
+};

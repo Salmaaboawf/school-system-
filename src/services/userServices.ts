@@ -1,13 +1,29 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import auth, { db } from "../config/firebase";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import auth, { db, storage } from "../config/firebase";
 import { setUser } from "../Redux/Slices/userSlice";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ParentType, StudentType, TeacherType } from "../utils/types";
+import { Dispatch } from "@reduxjs/toolkit";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const saveLoggedUser = async (userId: string, dispatch: any) => {
+export const saveLoggedUser = async (
+  userId: string,
+  dispatch: Dispatch,
+  role: string
+) => {
   try {
-    const userDocRef = doc(db, "users", userId);
+    const userDocRef = doc(db, role, `${userId}`);
     const userDocSnap = await getDoc(userDocRef);
     if (userDocSnap.exists()) {
       localStorage.setItem(
@@ -20,6 +36,7 @@ export const saveLoggedUser = async (userId: string, dispatch: any) => {
       );
       dispatch(setUser(userDocSnap.data()));
       console.log("Document data:", userDocSnap.data());
+      return true;
     } else {
       console.log("No such document!");
     }
@@ -28,8 +45,7 @@ export const saveLoggedUser = async (userId: string, dispatch: any) => {
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const getUserById = async (userId: string, dispatch: any) => {
+export const getUserById = async (userId: string, dispatch: Dispatch) => {
   try {
     const userDocRef = doc(
       db,
@@ -49,8 +65,39 @@ export const getUserById = async (userId: string, dispatch: any) => {
 };
 
 // add  parent
-export const addParent = async (value: ParentType) => {
+
+export const fetchParents = async (
+  setParents: (parentsList: ParentType[]) => void
+) => {
   try {
+    // Reference to the levels collection
+    const parentsCollection = collection(db, "parents");
+
+    const unsubscribe = onSnapshot(parentsCollection, (studentsSnapshot) => {
+      const parentsList = studentsSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...(doc.data() as ParentType),
+      }));
+
+      setParents([...parentsList]);
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  } catch (error) {
+    console.error("Error fetching levels: ", error);
+  }
+};
+
+export const addParent = async (value: ParentType,photo?:File) => {
+  try {
+    let photoURL = '';
+    if(photo){
+      const storageRef = ref(storage,`images${photo.name}`)
+      await uploadBytes(storageRef,photo)
+      photoURL = await getDownloadURL(storageRef)
+    }
+    const childerenIds = value.children?.map((item) => item.id);
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       value.email,
@@ -65,7 +112,22 @@ export const addParent = async (value: ParentType) => {
       gender: value.gender,
       email: value.email,
       phone: value.phoneNumber,
-      Children: [" QOossQnTNmUjKuZCov2c "],
+      Children: childerenIds,
+      photoURL,
+    });
+
+    childerenIds?.forEach(async (id) => {
+      try {
+        // Reference to the specific document inside the collection
+        const docRef = doc(db, "students", `${id}`);
+
+        // Update the specific field with the new value
+        await updateDoc(docRef, {
+          parent: user.uid,
+        });
+      } catch (error) {
+        console.log(error);
+      }
     });
   } catch (error) {
     console.log(error);
@@ -74,32 +136,99 @@ export const addParent = async (value: ParentType) => {
 
 // add teacher
 
-export const addTeacher = async (value: TeacherType) => {
+export const fetchTeachers = async () => {
   try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      value.email,
-      value.password
-    );
-    const user = userCredential.user;
+    const teachersCollection = collection(db, "teachers");
+    const teachersSnapshot = await getDocs(teachersCollection);
+    const teachersList = teachersSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...(doc.data() as TeacherType),
+    }));
 
-    await setDoc(doc(db, "teachers", user.uid), {
-      teacherId: user.uid,
-      name: value.name,
-      gender: value.gender,
-      email: value.email,
-      phone: value.phoneNumber,
-      subject: value.subject,
-      age: value.age,
-    });
+    // console.log("Teachers List:", teachersList);
+    return teachersList;
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching levels: ", error);
   }
 };
 
+// export const addTeacher = async (teacherInfo: TeacherType) => {
+//   try {
+//     const teacherLevelsIds = teacherInfo.levels.map((item) => item.id);
+//     const userCredential = await createUserWithEmailAndPassword(
+//       auth,
+//       teacherInfo.email,
+//       teacherInfo.password
+//     );
+//     console.log(`esraa ${userCredential}`);
+//     const user = userCredential.user;
+//     console.log(`esraa ${user}`);
+
+//     const teacherRef = doc(db, "teachers", `${user.uid}`);
+
+//     const {
+//       name,
+//       email,
+//       gender,
+//       phoneNumber,
+//       age,
+//       subject,
+//       role = "teacher",
+//     }: TeacherType = teacherInfo;
+
+//     await setDoc(teacherRef, {
+//       id: user.uid,
+//       name,
+//       email,
+//       gender,
+//       phoneNumber,
+//       age,
+//       subject,
+//       role,
+//       levels_Ids: teacherLevelsIds,
+//     });
+//     console.log("Teacher added successfully!");
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
 // add sudent
-export const addStudent = async (value: StudentType) => {
+
+export const fetchStudents = (
+  setStudents: (studentsList: StudentType[]) => void
+) => {
   try {
+    const studentsCollection = collection(db, "students");
+    const q = query(studentsCollection, where("parent", "==", ""));
+
+    // Listen for real-time updates
+    const unsubscribe = onSnapshot(q, (studentsSnapshot) => {
+      const studentsList = studentsSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...(doc.data() as StudentType),
+      }));
+
+      setStudents([...studentsList]);
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  } catch (error) {
+    console.error("Error fetching students: ", error);
+  }
+};
+
+export const addStudent = async (value: StudentType,photo?: File) => {
+  try {
+
+    let photoURL = "";
+    if (photo) {
+      const storageRef = ref(storage, `images/${photo.name}`);
+      await uploadBytes(storageRef, photo);
+      photoURL = await getDownloadURL(storageRef);
+    }
+
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       value.email,
@@ -132,10 +261,42 @@ export const addStudent = async (value: StudentType) => {
       phoneNumber,
       role,
       parent,
+      photoURL,
     });
-
-    console.log("Subjects added successfully! and student aswell");
+    if (parent.length > 0) {
+      addChildToParent(parent, user.uid);
+    }
   } catch (error) {
     console.log(error);
+  }
+};
+
+const addChildToParent = async (parent: string, userId: string) => {
+  const docRef = doc(db, "parents", parent);
+
+  // Fetch the document
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    // Get the current array from the document
+    const data = docSnap.data();
+    const currentArray = data.Children || [];
+
+    // Check if the string already exists in the array
+    if (currentArray.includes(userId)) {
+      console.log("The string already exists in the array.");
+      return; // Exit if the string is already present
+    }
+
+    // Update the document with the new string
+    await updateDoc(docRef, {
+      Children: arrayUnion(userId), // arrayUnion ensures no duplicates
+    });
+
+    console.log("Document updated successfully");
+
+    console.log("Subjects added successfully! and student aswell");
+  } else {
+    console.log("No such document!");
   }
 };

@@ -1,38 +1,24 @@
-// import { getGrades } from './subjectSlice';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import {getSubjectsGrades} from "../../services/subjectService"
-// import { string } from 'yup';
+import { createSlice } from "@reduxjs/toolkit";
+import { SubjectType } from "../../utils/types";
+export interface subState {
+  subject: SubjectType[];
+}
 
-export const getGrades = createAsyncThunk("students/getGrades", async (studentEmail:string)=>{
-    try{
+const initialState: subState = {
+  subject: [],
+};
 
-        const subjects = await getSubjectsGrades(studentEmail);
-          return subjects;
-    }
-    catch(err) {
-console.log(err);
-    }
-})
-
-const getGradesSlice = createSlice({
-    name: "student",
-    initialState:{
-        grades:[],
-        // loading : true
+export const subSlice = createSlice({
+  name: "subjects",
+  initialState,
+  reducers: {
+    setSubject: (state, action) => {
+      state.subject = [...action.payload];
     },
-    reducers: {}, // Provide an empty reducers object
-    extraReducers: (builder) => {
-        // builder.addCase(getGrades.pending,(state)=>{
-        //     state.loading = true
-        // })
-        builder.addCase(getGrades.fulfilled,(state,action)=>{
-            state.grades.push = action.payload;
-            // state.loading = false
-        })
-        // .addCase(getGrades.rejected,(state)=>{
-        // //     state.loading = false
-        // // })
-    }
-})
+  },
+});
 
-export default getGradesSlice.reducer
+// Action creators are generated for each case reducer function
+export const { setSubject } = subSlice.actions;
+
+export default subSlice.reducer;
