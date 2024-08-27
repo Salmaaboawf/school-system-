@@ -52,6 +52,7 @@ const Add_Class_Routine = () => {
   const [teachers, setTeachers] = useState<TeacherType[] | any>([]);
 
   const dispatch = useAppDispatch();
+  console.log("test");
 
   const {
     handleSubmit,
