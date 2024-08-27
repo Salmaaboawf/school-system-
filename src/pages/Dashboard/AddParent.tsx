@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
-import { Label, TextInput, Select, Button } from "flowbite-react";
+import { Label, TextInput, Select, Button, FileInput } from "flowbite-react";
 import ReactSelect from "react-select";
 import makeAnimated from "react-select/animated";
 
@@ -18,9 +18,9 @@ const schema = yup.object().shape({
 
   phoneNumber: yup
     .string()
-    .required("Age is required")
-    .min(18, "You must be at least 18")
-    .max(99, "You must be younger than 99"),
+    .required("Age is required"),
+    // .min(18, "You must be at least 18")
+    // .max(99, "You must be younger than 99"),
   gender: yup.string().required("Gender is required"),
   email: yup
     .string()
@@ -33,10 +33,11 @@ const schema = yup.object().shape({
     .required("Password is required"),
   address: yup
     .string()
-    .required()
-    .min(8, "Password must be at least 8 characters")
-    .max(32, "Password cannot exceed 32 characters"),
+    .required(),
   children: yup.array().required(),
+  photofile: yup.mixed().required("Photo is required").test("fileSize", "File is too large", (value) => {
+    return !value || (value && value.size <= 2 * 1024 * 1024)
+  }),
 });
 
 const animatedComponents = makeAnimated();
@@ -52,18 +53,25 @@ export default function Register() {
     formState: { errors },
     reset,
     control,
+    setValue,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
   const save = async (value: ParentType) => {
     try {
-      addParent(value);
+      const photo = value.photofile;
+      addParent(value,photo);
       setSelectedChildrenValues([]);
       reset();
     } catch (error) {
       console.error("Error adding user: ", error);
     }
+  };
+
+  const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    setValue("photofile", file); // Manually set the file in form values
   };
 
   useEffect(() => {
@@ -126,6 +134,8 @@ export default function Register() {
                       getOptionValue={(item: StudentType) => `${item.id}`}
                       onChange={(selectedOptions) => {
                         field.onChange(selectedOptions);
+                        console.log(selectedOptions);
+
                         setSelectedChildrenValues([...selectedOptions]);
                       }}
                     />
@@ -171,6 +181,14 @@ export default function Register() {
                   placeholder="Password"
                 />
                 <p className="text-red-500">{errors.password?.message}</p>
+              </div>
+
+              <div>
+                <Label htmlFor="photo" value="Student Photo" />
+                <FileInput id="photo"
+                  accept="image/*"
+                  onChange={handlePhotoChange} />
+                <p className="text-red-500">{errors.photofile?.message}</p>
               </div>
               <Button
                 outline

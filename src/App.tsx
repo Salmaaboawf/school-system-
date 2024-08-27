@@ -23,12 +23,11 @@ import Showgrad from "./components/Showgrad";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserById } from "./services/userServices";
-import AddClass from "./pages/Dashboard/AddClass";
+import AddClass from "./pages/Dashboard/AddLevels";
 import Add_Teacher_Routine from "./pages/Dashboard/Add_Teacher_Routine";
 import Add_Class_Routine from "./pages/Dashboard/Add_Class_Routine";
 import AddSubject from "./pages/Dashboard/AddSubject";
 import { useAuth } from "./hooks/useAuth";
-// import MyGrades from "./pages/Dashboard/MyGrades";
 import ScrollToTop from "./components/ScrollToTop";
 function App() {
   const dispatch = useDispatch();
@@ -38,7 +37,8 @@ function App() {
     if (userId) {
       getUserById(userId, dispatch);
     }
-  }, [userId, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId]);
 
   return (
     <>

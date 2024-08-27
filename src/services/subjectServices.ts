@@ -1,12 +1,25 @@
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setSubject } from "../Redux/Slices/subjectSlice";
-export const addSubject = async (subjectData: { name: string, teacher: string, description: string,level_id:string,total_grade:number }) => {
+
+export const addSubject = async (subjectData: {
+  name: string;
+  teacher: string;
+  description: string;
+  level_id: string;
+  total_grade: string;
+}) => {
   try {
+    // 1. Add a new document to the "subjects" collection
     const subCollectionRef = collection(db, "subjects");
-    await addDoc(subCollectionRef, subjectData);
-    console.log("Subject added to Firestore");
+    const docRef = await addDoc(subCollectionRef, subjectData);
+
+    // 2. Get the document ID
+    const docId = docRef.id;
+
+    // 3. Update the document with the ID field
+    await updateDoc(docRef, { id: docId });
   } catch (error) {
     console.error("Error adding subject: ", error);
   }
