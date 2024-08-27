@@ -23,7 +23,7 @@ import Showgrad from "./components/Showgrad";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserById } from "./services/userServices";
-import AddClass from "./pages/Dashboard/AddClass";
+import AddClass from "./pages/Dashboard/AddLevels";
 import Add_Teacher_Routine from "./pages/Dashboard/Add_Teacher_Routine";
 import Add_Class_Routine from "./pages/Dashboard/Add_Class_Routine";
 import AddSubject from "./pages/Dashboard/AddSubject";
@@ -71,46 +71,58 @@ function App() {
 
         {/* Protected routes */}
 
-        <Route path="/grades" element={<PrivateRoute element={Grades} />} />
-        <Route path="/schedule" element={<PrivateRoute element={Schedule} />} />
+        <Route
+          path="/grades"
+          element={<PrivateRoute element={Grades} role="admin" />}
+        />
+        <Route
+          path="/schedule"
+          element={<PrivateRoute element={Schedule} role="admin" />}
+        />
         <Route
           path="/teacher-table"
-          element={<PrivateRoute element={TeacherRoutine} />}
+          element={<PrivateRoute element={TeacherRoutine} role="admin" />}
         />
         <Route
           path="/student-table"
-          element={<PrivateRoute element={StudentRoutine} />}
+          element={<PrivateRoute element={StudentRoutine} role="student" />}
         />
         <Route
           path="/add-parent"
-          element={<PrivateRoute element={AddParent} />}
+          element={<PrivateRoute element={AddParent} role="admin" />}
         />
         <Route
           path="/add-student"
-          element={<PrivateRoute element={AddStudent} />}
+          element={<PrivateRoute element={AddStudent} role="admin" />}
         />
         <Route
           path="/add-teacher"
-          element={<PrivateRoute element={AddTeacher} />}
+          element={<PrivateRoute element={AddTeacher} role="admin" />}
         />
         <Route
           path="/add-class"
-          element={<PrivateRoute element={AddClass} />}
+          element={<PrivateRoute element={AddClass} role="admin" />}
         />
         <Route
           path="/add-class-routine"
-          element={<PrivateRoute element={Add_Class_Routine} />}
+          element={<PrivateRoute element={Add_Class_Routine} role="admin" />}
         />
         <Route
           path="/add-teacher-routine"
-          element={<PrivateRoute element={Add_Teacher_Routine} />}
+          element={<PrivateRoute element={Add_Teacher_Routine} role="admin" />}
         />
         <Route
           path="/add-subject"
-          element={<PrivateRoute element={AddSubject} />}
+          element={<PrivateRoute element={AddSubject} role="admin" />}
         />
-        <Route path="/grad" element={<PrivateRoute element={Grad} />} />
-        <Route path="/grad-two" element={<PrivateRoute element={Showgrad} />} />
+        <Route
+          path="/grad"
+          element={<PrivateRoute element={Grad} role="admin" />}
+        />
+        <Route
+          path="/grad-two"
+          element={<PrivateRoute element={Showgrad} role="admin" />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

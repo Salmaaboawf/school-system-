@@ -23,9 +23,9 @@
 }
 /* ----------- */
 
-li {
+/* li {
   perspective: 400px;
-}
+} */
 
 .info {
   transform: rotate3d(1, 0, 0, 90deg);
