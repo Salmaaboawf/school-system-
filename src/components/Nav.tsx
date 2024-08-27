@@ -27,6 +27,8 @@ function Nav() {
       // Sign out from Firebase
       await signOut(auth);
 
+      console.log("test");
+
       // Navigate to the login page or another page
       navigate("/", { replace: true });
 
