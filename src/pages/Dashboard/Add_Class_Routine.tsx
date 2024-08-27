@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import ReactSelect from "react-select";
