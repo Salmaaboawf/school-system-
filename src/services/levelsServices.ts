@@ -1,25 +1,44 @@
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc ,addDoc} from "firebase/firestore";
 import { db } from "../config/firebase";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setLevels } from "../Redux/Slices/levelsSlice";
 
-export const addClass = async () => {
-  try {
-    const levelsDoref = doc(db, "levels", "Five");
-    await setDoc(levelsDoref, { name: "Five" });
-    const studentDoref = doc(db, "levels/Five/students", `initial@mm.com`);
+export const addLevels = async (level: string) => {
+  // try {
+  //   const levelsDoref = doc(db, "levels", "Five");
+  //   await setDoc(levelsDoref, { name: "Five" });
+  //   const studentDoref = doc(db, "levels/Five/students", `initial@mm.com`);
 
-    await setDoc(studentDoref, { name: "momen" });
+  //   await setDoc(studentDoref, { name: "momen" });
 
-    const subjectCollecRef = collection(studentDoref, "subjects");
-    await setDoc(doc(subjectCollecRef, "initailSubject"), {
-      subjectName: "initailSubject",
-      grade: "",
-      totalGrade: "100",
-    });
-  } catch (error) {
-    console.log(error);
-  }
+  //   const subjectCollecRef = collection(studentDoref, "subjects");
+  //   await setDoc(doc(subjectCollecRef, "initailSubject"), {
+  //     subjectName: "initailSubject",
+  //     grade: "",
+  //     totalGrade: "100",
+  //   });
+  // } catch (error) {
+  //   console.log(error);
+  // }
+// ****************
+//   try {
+// const collectionRef= collection(db, "levels")
+//     // const addLevelRef = doc(collectionRef, level);
+//     // const docRes = 
+//     await addDoc(collectionRef, { name: level });
+//     // console.log(docRes);
+//   } catch (error) {
+//     console.log(error);
+//   }
+///////////////////////////
+try {
+  const collectionRef = collection(db, "levels");
+  const docRef = await addDoc(collectionRef, { name: level });
+  console.log("Document written with ID: ", docRef.id);
+} catch (error) {
+  console.error("Error adding document: ", error);
+}
+
 };
 
 export const fetchLevels = async (dispatch: Dispatch) => {

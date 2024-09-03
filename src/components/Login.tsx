@@ -10,14 +10,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RaisingHandImage from "../assets/images/Raising hand-pana.png";
 import { useAuth } from "../hooks/useAuth";
-import { Select } from "flowbite-react";
 import { Radio } from "flowbite-react";
 import { toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import { FirebaseError } from "firebase/app";
 export default function Login() {
-
-
   const userId = useAuth();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -63,10 +60,13 @@ export default function Login() {
       const userCred = await  signInWithEmailAndPassword(auth, value.email, value.password)
       
       console.log(userCred.user.uid);
-      const isRightUser = await saveLoggedUser(userCred.user.uid, dispatch, role);
+      const isRightUser = await saveLoggedUser(
+        userCred.user.uid,
+        dispatch,
+        role
+      );
 
-      if(isRightUser){
-
+      if (isRightUser) {
         navigate("/", { replace: true });
       } 
     
@@ -80,11 +80,10 @@ export default function Login() {
   }
   };
 
-
   function check(e: React.ChangeEvent<HTMLInputElement>) {
     console.log(e.target.value);
     setRole(e.target.value);
-}
+  }
   useEffect(() => {
     if (userId) {
       navigate("/about", { replace: true });
@@ -102,25 +101,33 @@ export default function Login() {
         School Login
       </h2>
       <div className="mb-6">
-        <fieldset
-          className="flex max-w-lg flex-row gap-10 items-center justify-center text-center mx-auto"
-        >
+        <fieldset className="flex max-w-lg flex-row gap-10 items-center justify-center text-center mx-auto">
           <legend className="mb-4">Choose your Role</legend>
           <div className="flex items-center gap-2">
-            <Radio id="teacher" name="countries" value="teachers"  onChange={check}/>
+            <Radio
+              id="teacher"
+              name="countries"
+              value="teachers"
+              onChange={check}
+            />
             <Label htmlFor="teacher">Teacher</Label>
           </div>
 
           <div className="flex items-center gap-2">
-            <Radio id="student" name="countries" value="students"  onChange={check}/>
+            <Radio
+              id="student"
+              name="countries"
+              value="students"
+              onChange={check}
+            />
             <Label htmlFor="student">Student</Label>
           </div>
           <div className="flex items-center gap-2">
-            <Radio id="" name="countries" value="parents"  onChange={check}/>
+            <Radio id="" name="countries" value="parents" onChange={check} />
             <Label htmlFor="">Parent</Label>
           </div>
           <div className="flex items-center gap-2">
-            <Radio id="" name="countries" value="users"  onChange={check}/>
+            <Radio id="" name="countries" value="users" onChange={check} />
             <Label htmlFor="">Admin</Label>
           </div>
         </fieldset>
