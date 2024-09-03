@@ -30,6 +30,10 @@ import AddSubject from "./pages/Dashboard/AddSubject";
 import { useAuth } from "./hooks/useAuth";
 // import MyGrades from "./pages/Dashboard/MyGrades";
 import ScrollToTop from "./components/ScrollToTop";
+import { ToastContainer } from 'react-toastify';
+import MyGrades from "./pages/Dashboard/MyGrades";
+
+
 function App() {
   const dispatch = useDispatch();
   const userId = useAuth();
@@ -59,12 +63,14 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/stuff" element={<Teachers />} />
           <Route path="/contact" element={<Contact />} />
-          {/* <Route path="/my-grades" element={<MyGrades />} /> */}
+          <Route path="/my-grades" element={<MyGrades />} />
+
           <Route
             path="/login"
             element={userId ? <Navigate to="/" /> : <Login />}
           />
         </Route>
+
 
         {/* <Route path="/class" element={<AddClass />} /> */}
 
@@ -114,6 +120,7 @@ function App() {
         <Route path="/grad-two" element={<PrivateRoute element={Showgrad} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <ToastContainer />
     </>
   );
 }

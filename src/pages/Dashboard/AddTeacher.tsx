@@ -148,8 +148,9 @@ export default function Register() {
                 <div className="mb-2 block">
                   <Label htmlFor="comment" value="Teacher Description" />
                 </div>
-                <Textarea id="comment" placeholder="Leave a comment..." rows={4}   {...register("description")}
+                <Textarea  placeholder="Leave a comment..." rows={4}   {...register("description")}
                   id="description"/>
+                  {/* id="comment" */}
               </div>
 
               <div>

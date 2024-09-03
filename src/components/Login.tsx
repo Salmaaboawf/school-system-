@@ -12,7 +12,9 @@ import RaisingHandImage from "../assets/images/Raising hand-pana.png";
 import { useAuth } from "../hooks/useAuth";
 import { Select } from "flowbite-react";
 import { Radio } from "flowbite-react";
-
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// import { FirebaseError } from "firebase/app";
 export default function Login() {
 
 
@@ -21,6 +23,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [role, setRole] = useState("");
 
+  
   const schema = yup.object().shape({
     email: yup
       .string()
@@ -40,9 +43,23 @@ export default function Login() {
   } = useForm({
     resolver: yupResolver(schema),
   });
+  const getErrorMessage = (errorCode) => {
 
+    switch (errorCode) {
+      // case 'auth/user-not-found':
+      // return 'The Email or Password you entered is incorrect, please try again.';
+    case 'auth/invalid-credential':
+      return 'The Email or Password you entered is incorrect, please try again.';
+      default:
+      return 'An error occurred. Please try again.';
+    }
+  }
   const save = async (value: { email: string; password: string }) => {
   if(role){
+
+    try{
+
+
       const userCred = await  signInWithEmailAndPassword(auth, value.email, value.password)
       
       console.log(userCred.user.uid);
@@ -53,6 +70,13 @@ export default function Login() {
         navigate("/", { replace: true });
       } 
     
+    }
+    catch(error){
+      // const firebaseError = error as FirebaseError;
+      // console.log(error.message)
+      const errorMessage = getErrorMessage(error.code);
+      toast.error(errorMessage);
+    }
   }
   };
 

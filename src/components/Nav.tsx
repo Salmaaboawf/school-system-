@@ -10,6 +10,7 @@ export type UserType = {
   id: string;
   firstName: string;
   lastName: string;
+  // name: string;
   gender: string;
   email: string;
   age: number;
@@ -54,20 +55,7 @@ function Nav() {
       <nav className=" border-2 rounded-lg p-4 m-4 bg-white border-gray-800 relative ">
         <div className=" max-w-screen-xl flex flex-row-reverse md:flex md:flex-row items-center justify-between mx-auto p-4">
           <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse ">
-            {/* <button
-              type="button"
-              className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-              id="user-menu-button"
-              aria-expanded={isDropdownOpen}
-              onClick={toggleDropdown}
-            >
-              <span className="sr-only">Open user menu</span>
-              <img
-                className="w-8 h-8 rounded-full"
-                src="src/assets/images/4-min.jpg"
-                alt="user photo"
-              />
-            </button> */}
+      
             {userInfo.id ? (
               // If logged in, show profile icon
               <>
@@ -86,7 +74,7 @@ function Nav() {
                   />
                 </button>
                 {/* Dropdown menu */}
-                <div
+                {/* <div
                   className={`absolute right-12 top-10 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${isDropdownOpen ? "block" : "hidden"
                     }`}
                   id="user-dropdown"
@@ -127,14 +115,13 @@ function Nav() {
                     <li>
                       <NavLink
                         to="/"
-                        // onClick={handleLogout}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                       >
                         Log out
                       </NavLink>
                     </li>
                   </ul>
-                </div>
+                </div> */}
               </>
             ) : (
               // If not logged in, show login link
@@ -142,12 +129,9 @@ function Nav() {
                 to="/login"
                 className={({ isActive }) =>
                   `block py-2 px-3  rounded md:bg-transparent md:p-0 ${isActive ? "text-orange-400" : ""
-                  }`
-                }
-              >
-                Login
-              </NavLink>
-            )}
+                  }`}>Login</NavLink>
+                  )
+                  }
             {/* Dropdown menu */}
             <div
               className={`absolute right-12 top-10 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${isDropdownOpen ? "block" : "hidden"
@@ -155,47 +139,59 @@ function Nav() {
               id="user-dropdown"
             >
               <div className="px-4 py-3">
-                <span className="block text-sm text-gray-900 dark:text-white">
-                  Bonnie Green
-                </span>
+                {/* <span className="block text-sm text-gray-900 dark:text-white">
+                  {userInfo.name}
+                </span> */}
                 <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
-                  name@flowbite.com
+                  {userInfo.email}
                 </span>
               </div>
               <ul className="py-2" aria-labelledby="user-menu-button">
-                <li>
+               {userInfo.role=="student"&&(<li>
+                  <NavLink
+                    to="/grades"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  >
+                    My Grad
+                  </NavLink>
+                </li>)} 
+                {/* <li>
                   <NavLink
                     to="/grad"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
                     My Grad
                   </NavLink>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                   <NavLink
                     to="/teacher-table"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
-                    MY Schedule
+                    Tea Schedule
                   </NavLink>
-                </li>
-                <li>
+                </li> */}
+                 {userInfo.role=="teacher"&&(<li>
+                  <NavLink
+                    to="/teacher-table"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                  >
+                    Teacher Schedule
+                  </NavLink>
+                </li>)} 
+
+                 {userInfo.role=="student"&&(<li>
                   <NavLink
                     to="/student-table"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
-                    MY Schedule student
+                   MY Schedule student
                   </NavLink>
-                </li>
+                </li>)} 
+
 
                 <li>
-                  {/* <NavLink
-
-                    to="/"
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Log out
-                  </NavLink> */}
+                
                   {/* adjust style */}
                      <button
                         onClick={handleLogout}
