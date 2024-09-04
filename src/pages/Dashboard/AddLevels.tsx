@@ -3,18 +3,34 @@ import { addLevels } from "../../services/levelsServices";
 import { useState } from "react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
+import * as Yup from "yup";
 
 export default function AddLevels() {
-  const [levelName, setLevelName] = useState("");
+  const [levelName, setLevelName] = useState();
+  const [errors, setErrors] = useState({});
 
-  const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
+  const validationSchema = Yup.object().shape({
+    levelName: Yup.string()
+      .min(3, "min 3 letters")
+      .matches(/^[A-Za-z\s]+$/,"must be just letters") 
+      .required("required "),
+  });
+  
+
+  const handleSave = async (event) => {
     event.preventDefault();
+
     try {
-      // // نمرر اسم المستوى إلى الدالة addLevels
+      await validationSchema.validate({ levelName }, { abortEarly: false });
+
       await addLevels(levelName);
       console.log("Level added to Firestore");
     } catch (error) {
-      console.error("Error adding level: ", error);
+      const validationErrors = {};
+      error.inner.forEach((err) => {
+        validationErrors[err.path] = err.message;
+      });
+      setErrors(validationErrors);
     }
   };
 
@@ -39,10 +55,13 @@ export default function AddLevels() {
                 id="class"
                 type="text"
                 placeholder="A1"
-                required
+              
                 value={levelName}
                 onChange={(e) => setLevelName(e.target.value)}
               />
+              {errors.levelName && (
+                <div className="text-red-500">{errors.levelName}</div>
+              )}
               <Button
                 outline
                 gradientDuoTone="pinkToOrange"

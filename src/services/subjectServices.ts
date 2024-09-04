@@ -45,3 +45,4 @@ export const fetchSubjects = async (dispatch: Dispatch) => {
     console.error("Error fetching subjects: ", error);
   }
 };
+
