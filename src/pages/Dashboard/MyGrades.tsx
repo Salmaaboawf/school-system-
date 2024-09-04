@@ -1,135 +1,73 @@
 import React, { useEffect, useState } from "react";
-// import Sidebar from '../../components/Sidebar'
+import Sidebar from "../../components/Sidebar";
 import Header from "../../components/Header/Header";
-// import getGrades from '../../Redux/Slices/subjectSlice'
-// import { useDispatch, useSelector } from 'react-redux'
+import { useAppSelector } from "../../hooks/reduxHooks";
+import { fetchSubjectsGrades } from "../../services/gradeServices";
 
 function MyGrades() {
-  // const dispatch = useDispatch()
-  // const myGrades = useSelector(state => state.gradesReducer.getGrades);
-  // const [subjects, setSubjects] = useState([])
-  // const email = "sadsa@mm.com";
+  const userInfo = useAppSelector((state) => state.user.user);
+  const [grades, setGrades] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    // // const gradesArray = getSubjectsGrades(email);
-    // const fetchGrades = async () => {
-    //   const gradesArray = await getSubjectsGrades(email);
-    //   setSubjects([...gradesArray]);
-    // };
-    // fetchGrades();
-  }, []);
+    const fetchGrades = async () => {
+      try {
+        setLoading(true);
+        const gradesArray = await fetchSubjectsGrades(userInfo.id);
+        setGrades(gradesArray);
+      } catch (error) {
+        setError("Failed to fetch grades.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGrades();
+  }, [userInfo.id]);
 
   return (
-    <div className="container flex gap-x-5  ">
-      {/* <div className="flex-[1]">
-            <Sidebar />
-          </div> */}
+    <div className="container flex gap-x-5">
       <div className="flex-[4]">
-        <div>
-          <Header />
-        </div>
+        <Header />
         <div className="my-5">
-          <div className="inline-block min-w-full py-2 sm:px-6 lg:px-0  text-[#002749]">
+          <div className="inline-block min-w-full py-2 sm:px-6 lg:px-0 text-[#002749]">
             <h1 className="text-3xl mb-4">My Grades</h1>
-            {/* <p className="text-2xl my-2">salma</p> */}
-            <div className="overflow-hidden min-w-full ">
-              <table className="min-w-full text-center text-sm font-light ">
-                <thead className="border-b  font-medium text-white bg-[#002749] border-[#002749]">
-                  <tr>
-                    <th scope="col" className="px-6 py-4 text-2xl">
-                      Subject
-                    </th>
-                    <th scope="col" className="px-6 py-4 text-2xl">
-                      Grade
-                    </th>
-                    {/* <th scope="col" className="px-6 py-4">
-                          9:00-11:00
-                        </th>
-                        <th scope="col" className="px-6 py-4">
-                          11:00-1:00
-                        </th> */}
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b dark:border-neutral-500">
-                    {subjects.map((item) => {
-                      return (
+            {loading ? (
+              <p>Loading...</p>
+            ) : error ? (
+              <p className="text-red-500">{error}</p>
+            ) : (
+              <div className="overflow-hidden min-w-full">
+                <table className="min-w-full text-center text-sm font-light">
+                  <thead className="border-b font-medium text-white bg-[#002749] border-[#002749]">
+                    <tr>
+                      <th scope="col" className="px-6 py-4 text-2xl">
+                        Subject
+                      </th>
+                      <th scope="col" className="px-6 py-4 text-2xl">
+                        Grade
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {grades.map((item, index) => (
+                      <tr
+                        key={index}
+                        className="border-b dark:border-neutral-500"
+                      >
                         <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
                           {item.subjectName}
                         </td>
-                      );
-                    })}
-
-                    <td className="whitespace-nowrap px-6 py-4 text-2xl bg-slate-400">
-                      {subjects.map((item) => {
-                        return (
-                          <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
-                            {item.garde}
-                            {console.log(item.totalGrade)}
-                          </td>
-                        );
-                      })}
-                    </td>
-
-                    {/* <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                          B-1
-                        </td>
                         <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                          C-2
-                        </td> */}
-                  </tr>
-                  <tr className="border-b dark:border-neutral-500">
-                    <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
-                      Science
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-2xl">B+</td>
-                    {/* <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                          C-2
+                          {item.grade}
                         </td>
-                        <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                          B-1
-                        </td> */}
-                  </tr>
-                  <tr className="border-b dark:border-neutral-500">
-                    <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
-                      German
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-2xl">C</td>
-                    {/* <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                          B-1
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                          B-2
-                        </td> */}
-                  </tr>
-                  <tr className="border-b dark:border-neutral-500">
-                    <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
-                      English
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-2xl">A-</td>
-
-                    {/* <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                          A-2
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                          B-1
-                        </td> */}
-                  </tr>
-                  <tr className="border-b dark:border-neutral-500">
-                    <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
-                      History
-                    </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-2xl">C-</td>
-                    {/* <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                          B-1
-                        </td>
-    
-                        <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                          C-1
-                        </td> */}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </div>
       </div>

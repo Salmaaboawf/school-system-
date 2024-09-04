@@ -24,8 +24,11 @@ export default function Register() {
   const schema = yup.object().shape({
     name: yup
       .string()
-      .required("First name is required")
-      .max(20, "First name cannot exceed 20 characters"),
+      .matches(/^[A-Za-z\s]+$/, "must be chrachter only")
+      .required("required ")
+      .max(20, " First name cannot exceed 20 characters")
+      .min(3, "min is 3 letters"),
+
     age: yup.string().required("Age is required"),
     gender: yup.string().required("Gender is required"),
     email: yup
@@ -38,7 +41,10 @@ export default function Register() {
       .max(32, "Password cannot exceed 32 characters")
       .required("Password is required"),
     subject: yup.string(),
-    phoneNumber: yup.string().required("Phone Number is required"),
+    phoneNumber: yup
+      .string()
+      .required("Age is required")
+      .matches(/^01[01259][0-9]{8}$/),
     levels: yup
       .array()
       .of(yup.object())
@@ -158,12 +164,12 @@ export default function Register() {
                   <Label htmlFor="comment" value="Teacher Description" />
                 </div>
                 <Textarea
-                  id="comment"
                   placeholder="Leave a comment..."
                   rows={4}
                   {...register("description")}
                   id="description"
                 />
+                {/* id="comment" */}
               </div>
 
               <div>
