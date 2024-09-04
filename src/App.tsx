@@ -29,6 +29,10 @@ import Add_Class_Routine from "./pages/Dashboard/Add_Class_Routine";
 import AddSubject from "./pages/Dashboard/AddSubject";
 import { useAuth } from "./hooks/useAuth";
 import ScrollToTop from "./components/ScrollToTop";
+import { ToastContainer } from 'react-toastify';
+import MyGrades from "./pages/Dashboard/MyGrades";
+
+
 function App() {
   const dispatch = useDispatch();
   const userId = useAuth();
@@ -64,6 +68,7 @@ function App() {
             element={userId ? <Navigate to="/" /> : <Login />}
           />
         </Route>
+
 
         {/* <Route path="/class" element={<AddClass />} /> */}
 
@@ -125,6 +130,7 @@ function App() {
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <ToastContainer />
     </>
   );
 }
