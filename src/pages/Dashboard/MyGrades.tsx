@@ -1,27 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react";
 // import Sidebar from '../../components/Sidebar'
-import Header from '../../components/Header/Header'
+import Header from "../../components/Header/Header";
 // import getGrades from '../../Redux/Slices/subjectSlice'
 // import { useDispatch, useSelector } from 'react-redux'
-import { getSubjectsGrades } from '../../services/subjectService'
 
 function MyGrades() {
   // const dispatch = useDispatch()
   // const myGrades = useSelector(state => state.gradesReducer.getGrades);
-  const [subjects, setSubjects] = useState([])
-  const email = "sadsa@mm.com"
+  // const [subjects, setSubjects] = useState([])
+  // const email = "sadsa@mm.com";
   useEffect(() => {
-    // const gradesArray = getSubjectsGrades(email);
-    const fetchGrades = async () => {
-      const gradesArray = await getSubjectsGrades(email);
-      setSubjects([...gradesArray]);
-    };
-
-    fetchGrades();
-  }, [])
+    // // const gradesArray = getSubjectsGrades(email);
+    // const fetchGrades = async () => {
+    //   const gradesArray = await getSubjectsGrades(email);
+    //   setSubjects([...gradesArray]);
+    // };
+    // fetchGrades();
+  }, []);
 
   return (
-
     <div className="container flex gap-x-5  ">
       {/* <div className="flex-[1]">
             <Sidebar />
@@ -54,20 +51,23 @@ function MyGrades() {
                 </thead>
                 <tbody>
                   <tr className="border-b dark:border-neutral-500">
-
                     {subjects.map((item) => {
-                      return <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
-                        {item.subjectName}
-                      </td>
+                      return (
+                        <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
+                          {item.subjectName}
+                        </td>
+                      );
                     })}
 
                     <td className="whitespace-nowrap px-6 py-4 text-2xl bg-slate-400">
-                    {subjects.map((item) => {
-                      return <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
-                        {item.garde}
-                        {console.log(item.totalGrade)}
-                      </td>
-                    })}
+                      {subjects.map((item) => {
+                        return (
+                          <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
+                            {item.garde}
+                            {console.log(item.totalGrade)}
+                          </td>
+                        );
+                      })}
                     </td>
 
                     {/* <td className="whitespace-nowrap px-6 py-4 text-2xl">
@@ -81,9 +81,7 @@ function MyGrades() {
                     <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
                       Science
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                      B+
-                    </td>
+                    <td className="whitespace-nowrap px-6 py-4 text-2xl">B+</td>
                     {/* <td className="whitespace-nowrap px-6 py-4 text-2xl">
                           C-2
                         </td>
@@ -95,9 +93,7 @@ function MyGrades() {
                     <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
                       German
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                      C
-                    </td>
+                    <td className="whitespace-nowrap px-6 py-4 text-2xl">C</td>
                     {/* <td className="whitespace-nowrap px-6 py-4 text-2xl">
                           B-1
                         </td>
@@ -109,9 +105,7 @@ function MyGrades() {
                     <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
                       English
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                      A-
-                    </td>
+                    <td className="whitespace-nowrap px-6 py-4 text-2xl">A-</td>
 
                     {/* <td className="whitespace-nowrap px-6 py-4 text-2xl">
                           A-2
@@ -124,9 +118,7 @@ function MyGrades() {
                     <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
                       History
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                      C-
-                    </td>
+                    <td className="whitespace-nowrap px-6 py-4 text-2xl">C-</td>
                     {/* <td className="whitespace-nowrap px-6 py-4 text-2xl">
                           B-1
                         </td>
@@ -142,7 +134,7 @@ function MyGrades() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default MyGrades
+export default MyGrades;

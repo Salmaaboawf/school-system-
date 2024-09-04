@@ -1,6 +1,6 @@
 import "./header.css";
 
-export default function Header() {
+function Header() {
   return (
     <div className="all">
       <div className="content">
@@ -11,3 +11,5 @@ export default function Header() {
     </div>
   );
 }
+
+export default Header;

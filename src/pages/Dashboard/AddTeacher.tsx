@@ -3,7 +3,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import ReactSelect from "react-select";
 import makeAnimated from "react-select/animated";
-import { Label, TextInput, Select, Button, FileInput, Textarea } from "flowbite-react";
+import {
+  Label,
+  TextInput,
+  Select,
+  Button,
+  FileInput,
+  Textarea,
+} from "flowbite-react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import { addTeacher } from "../../services/teacherServices";
@@ -12,7 +19,6 @@ import { useEffect } from "react";
 import { fetchLevels } from "../../services/levelsServices";
 import { fetchSubjects } from "../../services/subjectServices";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-
 
 export default function Register() {
   const schema = yup.object().shape({
@@ -37,9 +43,12 @@ export default function Register() {
       .array()
       .of(yup.object())
       .required("At least one level is required"), //schema for levels
-    photofile: yup.mixed().required("Photo is required").test("fileSize", "File is too large", (value) => {
-      return !value || (value && value.size <= 2 * 1024 * 1024)
-    }),
+    photofile: yup
+      .mixed()
+      .required("Photo is required")
+      .test("fileSize", "File is too large", (value) => {
+        return !value || (value && value.size <= 2 * 1024 * 1024);
+      }),
     description: yup.string().required("Description is required"),
   });
 
@@ -148,8 +157,13 @@ export default function Register() {
                 <div className="mb-2 block">
                   <Label htmlFor="comment" value="Teacher Description" />
                 </div>
-                <Textarea id="comment" placeholder="Leave a comment..." rows={4}   {...register("description")}
-                  id="description"/>
+                <Textarea
+                  id="comment"
+                  placeholder="Leave a comment..."
+                  rows={4}
+                  {...register("description")}
+                  id="description"
+                />
               </div>
 
               <div>
@@ -175,7 +189,9 @@ export default function Register() {
               <div>
                 <Label htmlFor="gender" value="Gender" />
                 <Select {...register("gender")} id="gender" defaultValue="">
-                  <option value="" disabled >Gender</option>
+                  <option value="" disabled>
+                    Gender
+                  </option>
                   <option value="female">Female</option>
                   <option value="male">Male</option>
                 </Select>
@@ -205,9 +221,11 @@ export default function Register() {
               {/* photo field */}
               <div>
                 <Label htmlFor="photo" value="Teacher Photo" />
-                <FileInput id="photo"
+                <FileInput
+                  id="photo"
                   accept="image/*"
-                  onChange={handlePhotoChange} />
+                  onChange={handlePhotoChange}
+                />
                 <p className="text-red-500">{errors.photofile?.message}</p>
               </div>
               <Button
