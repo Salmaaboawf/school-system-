@@ -101,7 +101,7 @@ export const addParent = async (value: ParentType,photo?:File) => {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       value.email,
-      value.password
+      value.password,
     );
     const user = userCredential.user;
 
@@ -114,6 +114,7 @@ export const addParent = async (value: ParentType,photo?:File) => {
       phone: value.phoneNumber,
       Children: childerenIds,
       photoURL,
+      role:'parent'
     });
 
     childerenIds?.forEach(async (id) => {

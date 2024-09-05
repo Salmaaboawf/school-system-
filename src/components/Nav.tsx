@@ -86,7 +86,7 @@ function Nav() {
                     )}
 
                     {(userInfo.role === "student" ||
-                      userInfo.role === "Parents") && (
+                      userInfo.role === "parent") && (
                       <>
                         <li>
                           <NavLink
@@ -116,7 +116,7 @@ function Nav() {
                       </button>
                     </li>
                   </ul>
-                </div> */}
+                </div> 
               </>
             ) : (
               <NavLink
