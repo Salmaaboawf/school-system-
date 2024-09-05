@@ -124,19 +124,6 @@ const Sidebar = () => {
           </li>
           <li className="mb-3">
             <NavLink
-              to="/add-teacher-routine "
-              className={({ isActive }) => {
-                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
-                  isActive ? "bg-gray-700" : ""
-                }`;
-              }}
-            >
-              <FaChartLine className="text-2xl text-gray-400" />
-              <span>Add Teacher routine</span>
-            </NavLink>
-          </li>
-          <li className="mb-3">
-            <NavLink
               to="/add-class-routine"
               className={({ isActive }) => {
                 return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
@@ -159,6 +146,19 @@ const Sidebar = () => {
             >
               <FaChartLine className="text-2xl text-gray-400" />
               <span>Add Subject</span>
+            </NavLink>
+          </li>
+          <li className="mb-3">
+            <NavLink
+              to="/grad"
+              className={({ isActive }) => {
+                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
+                  isActive ? "bg-gray-700" : ""
+                }`;
+              }}
+            >
+              <FaChartLine className="text-2xl text-gray-400" />
+              <span>Add Grades</span>
             </NavLink>
           </li>
         </ul>

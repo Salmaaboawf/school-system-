@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { fetchSubjects } from "../../services/subjectServices";
 import { Button } from "flowbite-react";
 import { SubjectType, TeacherType } from "../../utils/types";
-import { addDoc, collection, doc, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { fetchTeachers } from "../../services/userServices";
 
@@ -63,6 +63,8 @@ const Add_Class_Routine = () => {
   });
 
   const addSchedHandler = async (e: any) => {
+    console.log(e);
+
     const days = [
       {
         name: "sunday",
@@ -88,16 +90,20 @@ const Add_Class_Routine = () => {
 
     try {
       console.log(e.levels.id);
-      const docRef = await addDoc(collection(db, "schedules"), {
+
+      // Create a document reference with the custom ID (level_id)
+      const docRef = doc(db, "schedules", e.levels.id);
+
+      // Set the document with the custom ID
+      await setDoc(docRef, {
         level_id: e.levels.id,
       });
-      const docId = docRef.id;
-      await updateDoc(docRef, { id: docId });
+
       console.log("Document written with ID: ", docRef.id);
 
       // sub collection days
       for (let i = 0; i < 5; i++) {
-        const dayRef = doc(db, "schedules", docId, "days", days[i].name);
+        const dayRef = doc(db, "schedules", e.levels.id, "days", days[i].name);
         await setDoc(dayRef, {
           id: dayRef.id,
           name: days[i].name,
@@ -110,15 +116,17 @@ const Add_Class_Routine = () => {
           const subjectTeacher = teachers.find(
             (t: TeacherType) => t.subject == days[i].ids[j]
           );
+          console.log(subjectTeacher);
+
           const subjectDocRef = doc(scheduleSubjectsRef, `subject${j + 1}`);
           await setDoc(subjectDocRef, {
             order: j.toString(),
-            subject_id: days[i].ids[j], // You can set actual values here
-            teacher_id: subjectTeacher.id, // You can set actual values here
+            subject_id: days[i].ids[j],
+            teacher_id: subjectTeacher.id,
           });
         }
       }
-      console.log("finished added");
+      console.log("Finished adding");
     } catch (error) {
       console.log(error);
     }

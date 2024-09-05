@@ -12,13 +12,15 @@ import { ParentType, StudentType } from "../../utils/types";
 import { useEffect, useState } from "react";
 const schema = yup.object().shape({
   name: yup
-    .string()
-    .required("First name is required")
-    .max(20, "First name cannot exceed 20 characters"),
-
+  .string()
+  .matches(/^[A-Za-z\s]+$/, "must be chrachter only") 
+  .required("required ")
+  .max(20, " First name cannot exceed 20 characters").min(3,"min is 3 letters"),
+  
   phoneNumber: yup
     .string()
-    .required("Age is required"),
+    .required("Age is required").matches(/^01[01259][0-9]{8}$/, 
+    ),
     // .min(18, "You must be at least 18")
     // .max(99, "You must be younger than 99"),
   gender: yup.string().required("Gender is required"),

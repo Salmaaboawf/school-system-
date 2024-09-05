@@ -1,7 +1,15 @@
-import { collection, addDoc, getDocs, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  updateDoc,
+  getDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "../config/firebase";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setSubject } from "../Redux/Slices/subjectSlice";
+import { SubjectType } from "../utils/types";
 
 export const addSubject = async (subjectData: {
   name: string;
@@ -44,4 +52,16 @@ export const fetchSubjects = async (dispatch: Dispatch) => {
   } catch (error) {
     console.error("Error fetching subjects: ", error);
   }
+};
+
+export const getSubjectNameById = async (
+  subjectId: string
+): Promise<string> => {
+  const subjectRef = doc(db, "subjects", subjectId);
+  const subjectSnap = await getDoc(subjectRef);
+  if (subjectSnap.exists()) {
+    const subjectData = subjectSnap.data() as SubjectType;
+    return subjectData.name;
+  }
+  return "Unknown Subject";
 };
