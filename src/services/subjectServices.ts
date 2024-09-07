@@ -5,6 +5,7 @@ import {
   updateDoc,
   getDoc,
   doc,
+  arrayUnion,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { Dispatch } from "@reduxjs/toolkit";
@@ -13,21 +14,29 @@ import { SubjectType } from "../utils/types";
 
 export const addSubject = async (subjectData: {
   name: string;
-  teacher: string;
+  teacher: string; // The selected teacher's ID
   description: string;
   level_id: string;
-  total_grade: string;
+  total_grade: number;
 }) => {
   try {
     // 1. Add a new document to the "subjects" collection
     const subCollectionRef = collection(db, "subjects");
     const docRef = await addDoc(subCollectionRef, subjectData);
 
-    // 2. Get the document ID
-    const docId = docRef.id;
+    // 2. Get the document ID for the subject
+    const subjectId = docRef.id;
 
-    // 3. Update the document with the ID field
-    await updateDoc(docRef, { id: docId });
+    // 3. Update the subject document with its ID
+    await updateDoc(docRef, { id: subjectId });
+
+    // 4. Update the selected teacher's document with the new subject
+    const teacherRef = doc(db, "teachers", subjectData.teacher);
+    await updateDoc(teacherRef, {
+      subjects: arrayUnion(subjectId), // Add the new subject ID to the teacher's subjects array using arrayUnion
+    });
+
+    console.log("Subject added and teacher updated with the new subject");
   } catch (error) {
     console.error("Error adding subject: ", error);
   }

@@ -1,20 +1,17 @@
 import { useState, useEffect } from "react";
 import Nav from "../../components/Nav";
 import { getTeacherSchedule } from "../../services/teacherServices";
-import { Schedule } from "../../utils/types";
+import { Schedule, Day, SubjectType } from "../../utils/types";
 import { useAppSelector } from "../../hooks/reduxHooks";
 
 const TeacherRoutine = () => {
   const teacherInfo = useAppSelector((state) => state.user.user);
   const [schedules, setSchedules] = useState<Schedule[] | null>(null);
 
-  console.log(schedules);
-
   useEffect(() => {
     const fetchSchedules = async () => {
       try {
         const fetchedSchedules = await getTeacherSchedule(teacherInfo.id);
-
         setSchedules(fetchedSchedules);
       } catch (error) {
         console.error("Error fetching schedules: ", error);
@@ -22,11 +19,54 @@ const TeacherRoutine = () => {
     };
 
     fetchSchedules();
-  }, [teacherInfo]);
+  }, [teacherInfo.id]);
 
   if (!schedules) {
     return <div>Loading...</div>;
   }
+
+  // دالة مساعدة للحصول على الدروس في وقت معين
+  const getSubjectsForTimeSlot = (
+    daySubjects: SubjectType[],
+    timeSlotOrder: number,
+    item
+  ) => {
+    return daySubjects
+      .filter((subject) => parseInt(subject.order) === timeSlotOrder)
+      .map((subject) => (
+        <div key={subject.subject_id}>
+          {subject.subject_name} <br />
+          {item.level}
+        </div>
+      ));
+  };
+
+  // تعيين مواعيد الأوقات
+  const timeSlotMapping = {
+    0: "7:00-9:00",
+    1: "9:00-11:00",
+    2: "11:00-1:00",
+  };
+
+  // إنشاء خريطة لتخزين الأيام الفريدة ودروسها
+  const dayMap: {
+    [key: string]: { subjects: SubjectType[]; level: string }[];
+  } = {};
+
+  schedules.forEach((schedule) =>
+    schedule.days.forEach((day) => {
+      if (!dayMap[day.dayName]) {
+        dayMap[day.dayName] = [];
+      }
+
+      dayMap[day.dayName].push({
+        subjects: day.subjects,
+        level: schedule.level_name,
+      });
+    })
+  );
+
+  console.log(dayMap);
 
   return (
     <div className="container">
@@ -57,27 +97,40 @@ const TeacherRoutine = () => {
                 </tr>
               </thead>
               <tbody>
-                {schedules.flatMap((schedule) =>
-                  schedule.days.map((day, dayIndex) => (
-                    <tr
-                      key={dayIndex}
-                      className="border-b dark:border-neutral-500"
-                    >
-                      <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
-                        {day.dayName}
-                      </td>
-                      {day.subjects.map((subject, subjectIndex) => (
-                        <td
-                          key={subjectIndex}
-                          className="whitespace-nowrap px-6 py-4 text-2xl"
-                        >
-                          {subject.subject_name} <br />
-                          {schedule["level_name"]}
-                        </td>
-                      ))}
-                    </tr>
-                  ))
-                )}
+                {Object.keys(dayMap).map((dayName, index) => (
+                  <tr key={index} className="border-b dark:border-neutral-500">
+                    <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
+                      {dayName}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4 text-2xl">
+                      {dayMap[dayName]
+                        .filter((item) =>
+                          item.subjects.some((s) => parseInt(s.order) === 0)
+                        )
+                        .map((item) =>
+                          getSubjectsForTimeSlot(item.subjects, 0, item)
+                        )}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4 text-2xl">
+                      {dayMap[dayName]
+                        .filter((item) =>
+                          item.subjects.some((s) => parseInt(s.order) === 1)
+                        )
+                        .map((item) =>
+                          getSubjectsForTimeSlot(item.subjects, 1, item)
+                        )}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4 text-2xl">
+                      {dayMap[dayName]
+                        .filter((item) =>
+                          item.subjects.some((s) => parseInt(s.order) === 2)
+                        )
+                        .map((item) =>
+                          getSubjectsForTimeSlot(item.subjects, 2, item)
+                        )}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

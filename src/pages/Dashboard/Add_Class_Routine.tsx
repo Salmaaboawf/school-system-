@@ -11,9 +11,16 @@ import { useEffect, useState } from "react";
 import { fetchSubjects } from "../../services/subjectServices";
 import { Button } from "flowbite-react";
 import { SubjectType, TeacherType } from "../../utils/types";
-import { collection, doc, setDoc } from "firebase/firestore";
+import {
+  arrayUnion,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../config/firebase";
-import { fetchTeachers } from "../../services/userServices";
 
 const schema = yup.object().shape({
   levels: yup.object().required().nullable(),
@@ -49,7 +56,6 @@ const Add_Class_Routine = () => {
   );
   const [currentLevel, setCurrentLevel] = useState<any>({});
   const [levelSubjects, setLevelSubjects] = useState<any>([]);
-  const [teachers, setTeachers] = useState<TeacherType[] | any>([]);
 
   const dispatch = useAppDispatch();
 
@@ -63,8 +69,6 @@ const Add_Class_Routine = () => {
   });
 
   const addSchedHandler = async (e: any) => {
-    console.log(e);
-
     const days = [
       {
         name: "sunday",
@@ -88,6 +92,8 @@ const Add_Class_Routine = () => {
       },
     ];
 
+    const createdDocs = [];
+
     try {
       console.log(e.levels.id);
 
@@ -99,9 +105,36 @@ const Add_Class_Routine = () => {
         level_id: e.levels.id,
       });
 
+      createdDocs.push(docRef); // Track created document
+
       console.log("Document written with ID: ", docRef.id);
 
-      // sub collection days
+      // Fetch existing schedules to check for conflicts
+      const existingSchedulesRef = collection(db, "schedules");
+      const existingSchedulesSnapshot = await getDocs(existingSchedulesRef);
+
+      const existingScheduleMap = {};
+
+      for (const scheduleDoc of existingSchedulesSnapshot.docs) {
+        const scheduleData = scheduleDoc.data();
+        const scheduleDaysRef = collection(scheduleDoc.ref, "days");
+
+        const daysSnapshot = await getDocs(scheduleDaysRef);
+        for (const dayDoc of daysSnapshot.docs) {
+          const subjectsRef = collection(dayDoc.ref, "schedule_subjects");
+
+          const subjectsSnapshot = await getDocs(subjectsRef);
+          for (const subjectDoc of subjectsSnapshot.docs) {
+            const subjectData = subjectDoc.data();
+            if (!existingScheduleMap[dayDoc.id]) {
+              existingScheduleMap[dayDoc.id] = [];
+            }
+            existingScheduleMap[dayDoc.id].push(subjectData);
+          }
+        }
+      }
+
+      // Sub-collection days
       for (let i = 0; i < 5; i++) {
         const dayRef = doc(db, "schedules", e.levels.id, "days", days[i].name);
         await setDoc(dayRef, {
@@ -109,36 +142,81 @@ const Add_Class_Routine = () => {
           name: days[i].name,
         });
 
+        createdDocs.push(dayRef); // Track created document
+
         const scheduleSubjectsRef = collection(dayRef, "schedule_subjects");
 
-        // Create 3 documents inside the "schedule_subjects" subcollection
+        // Create 3 documents inside the "schedule_subjects" sub-collection
         for (let j = 0; j < 3; j++) {
-          const subjectTeacher = teachers.find(
-            (t: TeacherType) => t.subject == days[i].ids[j]
-          );
+          const subjectId = days[i].ids[j];
+          console.log(subjectId);
+
+          // Find the teacher who is responsible for this subject
+          const teachersSnapshot = await getDocs(collection(db, "teachers"));
+          const subjectTeacher = teachersSnapshot.docs.find((teacherDoc) => {
+            const teacherData = teacherDoc.data() as TeacherType;
+            return teacherData.subjects?.includes(subjectId);
+          });
+
           console.log(subjectTeacher);
 
-          const subjectDocRef = doc(scheduleSubjectsRef, `subject${j + 1}`);
-          await setDoc(subjectDocRef, {
-            order: j.toString(),
-            subject_id: days[i].ids[j],
-            teacher_id: subjectTeacher.id,
-          });
+          if (subjectTeacher) {
+            // Check for conflicts
+            const conflict = existingScheduleMap[days[i].name]?.some(
+              (existingSubject) =>
+                existingSubject.teacher_id === subjectTeacher.id
+            );
+
+            if (conflict) {
+              throw new Error(
+                `Teacher ${subjectTeacher.name} already has a schedule at ${days[i].name}`
+              );
+            }
+
+            const subjectDocRef = doc(scheduleSubjectsRef, `subject${j + 1}`);
+            await setDoc(subjectDocRef, {
+              order: j.toString(),
+              subject_id: subjectId,
+              teacher_id: subjectTeacher.id,
+            });
+
+            createdDocs.push(subjectDocRef); // Track created document
+
+            // Update the teacher's document with the new subject and schedule
+            const teacherRef = doc(db, "teachers", subjectTeacher.id);
+            await updateDoc(teacherRef, {
+              schedule: arrayUnion({
+                level_id: e.levels.id,
+                day: days[i].name,
+                subject_id: subjectId,
+                order: j.toString(),
+              }),
+            });
+          }
         }
       }
       console.log("Finished adding");
     } catch (error) {
-      console.log(error);
+      console.error("Error adding schedule: ", error);
+
+      // Cleanup: Delete created documents
+      for (const docRef of createdDocs) {
+        try {
+          await deleteDoc(docRef);
+          console.log(`Deleted document: ${docRef.id}`);
+        } catch (cleanupError) {
+          console.error(`Error deleting document: ${docRef.id}`, cleanupError);
+        }
+      }
     }
   };
 
   useEffect(() => {
     fetchSubjects(dispatch);
-    const getTeachers = async () => {
-      const teachersList = await fetchTeachers();
-      setTeachers(teachersList);
-    };
-    getTeachers();
+    // const getTeachers = async () => {
+    //   const teachersList = await fetchTeachers();
+    // };
+    // getTeachers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

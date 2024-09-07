@@ -8,43 +8,55 @@ import { addSubject } from "../../services/subjectServices";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { fetchLevels } from "../../services/levelsServices";
+import { fetchTeachers } from "../../services/teacherServices"; // Import function to fetch teachers
 
+// Validation schema
 const schema = yup.object().shape({
   name: yup
-  .string()
-  .matches(/^[A-Za-z\s]+$/, "must be chrachter only") 
-  .required("required ")
-  .max(20, "  name cannot exceed 20 characters").min(3,"min is 3 letters"),
-  
-  teacher: yup.string()
-  .matches(/^[A-Za-z\s]+$/, "must be chrachter only") 
-  .required("required ")
-  .max(20, "  name cannot exceed 20 characters").min(3,"min is 3 letters"),
+    .string()
+    .matches(/^[A-Za-z\s]+$/, "must be character only")
+    .required("Course name is required")
+    .max(20, "Name cannot exceed 20 characters")
+    .min(3, "Name must be at least 3 letters"),
+
+  teacher: yup.string().required("Please select a teacher"),
   description: yup.string().required("Course description is required"),
   level_id: yup.string().required("Please select a class"),
-  total_grade: yup.number().required("Full mark is required").positive("Grade must be a positive number"),
+  total_grade: yup
+    .number()
+    .required("Full mark is required")
+    .positive("Grade must be a positive number"),
 });
 
 export default function AddSubject() {
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: yupResolver(schema),
   });
-  
+
+  // State for storing teachers
+  const [teachers, setTeachers] = useState([]);
+
   const levels = useAppSelector((state) => state.levels.levels);
   const dispatch = useAppDispatch();
 
+  // Fetch levels and teachers
+  useEffect(() => {
+    fetchLevels(dispatch);
+    fetchTeachers().then((fetchedTeachers) => setTeachers(fetchedTeachers));
+  }, [dispatch]);
+
   const save = async (data) => {
     try {
-      await addSubject(data);
+      await addSubject(data); // Add the subject to Firestore
       console.log("Subject added to Firestore");
     } catch (error) {
       console.error("Error adding subject: ", error);
     }
   };
-
-  useEffect(() => {
-    fetchLevels(dispatch);
-  }, [dispatch]);
 
   return (
     <div className="container flex gap-x-5">
@@ -83,13 +95,10 @@ export default function AddSubject() {
                 />
                 <p className="text-red-500">{errors.total_grade?.message}</p>
               </div>
-              
+
               <div>
                 <Label htmlFor="class" value="Class" />
-                <Select
-                  id="class"
-                  {...register("level_id")}
-                >
+                <Select id="class" {...register("level_id")}>
                   <option value="">Select</option>
                   {levels.map((lvl) => (
                     <option key={lvl.id} value={lvl.id}>
@@ -100,15 +109,17 @@ export default function AddSubject() {
                 <p className="text-red-500">{errors.level_id?.message}</p>
               </div>
 
+              {/* Teacher Dropdown */}
               <div className="mb-4">
-                <label htmlFor="courseTeacher">Course Teacher</label>
-                <input
-                  type="text"
-                  className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded"
-                  id="courseTeacher"
-                  placeholder="Teacher Name"
-                  {...register("teacher")}
-                />
+                <Label htmlFor="teacher" value="Select Teacher" />
+                <Select id="teacher" {...register("teacher")}>
+                  <option value="">Select a Teacher</option>
+                  {teachers.map((teacher) => (
+                    <option key={teacher.id} value={teacher.id}>
+                      {teacher.name}
+                    </option>
+                  ))}
+                </Select>
                 <p className="text-red-500">{errors.teacher?.message}</p>
               </div>
 
