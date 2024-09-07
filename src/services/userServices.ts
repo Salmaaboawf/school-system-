@@ -89,13 +89,13 @@ export const fetchParents = async (
   }
 };
 
-export const addParent = async (value: ParentType,photo?:File) => {
+export const addParent = async (value: ParentType, photo?: File) => {
   try {
-    let photoURL = '';
-    if(photo){
-      const storageRef = ref(storage,`images${photo.name}`)
-      await uploadBytes(storageRef,photo)
-      photoURL = await getDownloadURL(storageRef)
+    let photoURL = "";
+    if (photo) {
+      const storageRef = ref(storage, `images${photo.name}`);
+      await uploadBytes(storageRef, photo);
+      photoURL = await getDownloadURL(storageRef);
     }
     const childerenIds = value.children?.map((item) => item.id);
     const userCredential = await createUserWithEmailAndPassword(
@@ -219,9 +219,8 @@ export const fetchStudents = (
   }
 };
 
-export const addStudent = async (value: StudentType,photo?: File) => {
+export const addStudent = async (value: StudentType, photo?: File) => {
   try {
-
     let photoURL = "";
     if (photo) {
       const storageRef = ref(storage, `images/${photo.name}`);
@@ -262,6 +261,7 @@ export const addStudent = async (value: StudentType,photo?: File) => {
       role,
       parent,
       photoURL,
+      score: "0",
     });
     if (parent.length > 0) {
       addChildToParent(parent, user.uid);
