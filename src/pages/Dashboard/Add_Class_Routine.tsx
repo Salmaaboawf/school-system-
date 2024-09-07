@@ -99,24 +99,17 @@ const Add_Class_Routine = () => {
 
       // Create a document reference with the custom ID (level_id)
       const docRef = doc(db, "schedules", e.levels.id);
-
-      // Set the document with the custom ID
-      await setDoc(docRef, {
-        level_id: e.levels.id,
-      });
-
+      await setDoc(docRef, { level_id: e.levels.id });
       createdDocs.push(docRef); // Track created document
-
       console.log("Document written with ID: ", docRef.id);
 
       // Fetch existing schedules to check for conflicts
       const existingSchedulesRef = collection(db, "schedules");
       const existingSchedulesSnapshot = await getDocs(existingSchedulesRef);
 
-      const existingScheduleMap = {};
+      const existingScheduleMap: any = {};
 
       for (const scheduleDoc of existingSchedulesSnapshot.docs) {
-        const scheduleData = scheduleDoc.data();
         const scheduleDaysRef = collection(scheduleDoc.ref, "days");
 
         const daysSnapshot = await getDocs(scheduleDaysRef);
@@ -137,11 +130,7 @@ const Add_Class_Routine = () => {
       // Sub-collection days
       for (let i = 0; i < 5; i++) {
         const dayRef = doc(db, "schedules", e.levels.id, "days", days[i].name);
-        await setDoc(dayRef, {
-          id: dayRef.id,
-          name: days[i].name,
-        });
-
+        await setDoc(dayRef, { id: dayRef.id, name: days[i].name });
         createdDocs.push(dayRef); // Track created document
 
         const scheduleSubjectsRef = collection(dayRef, "schedule_subjects");
@@ -158,8 +147,6 @@ const Add_Class_Routine = () => {
             return teacherData.subjects?.includes(subjectId);
           });
 
-          console.log(subjectTeacher);
-
           if (subjectTeacher) {
             // Check for conflicts
             const conflict = existingScheduleMap[days[i].name]?.some(
@@ -168,6 +155,10 @@ const Add_Class_Routine = () => {
             );
 
             if (conflict) {
+              console.log(
+                `Conflict detected with Teacher ${subjectTeacher.name}`
+              );
+              await deleteScheduleDocument(docRef, e.levels.id); // Delete document and sub-collections
               throw new Error(
                 `Teacher ${subjectTeacher.name} already has a schedule at ${days[i].name}`
               );
@@ -198,16 +189,39 @@ const Add_Class_Routine = () => {
       console.log("Finished adding");
     } catch (error) {
       console.error("Error adding schedule: ", error);
+    }
+  };
 
-      // Cleanup: Delete created documents
-      for (const docRef of createdDocs) {
-        try {
-          await deleteDoc(docRef);
-          console.log(`Deleted document: ${docRef.id}`);
-        } catch (cleanupError) {
-          console.error(`Error deleting document: ${docRef.id}`, cleanupError);
+  // Helper function to recursively delete the document and its sub-collections
+  const deleteScheduleDocument = async (docRef: any, levelId: string) => {
+    try {
+      // Delete the sub-collection "days" and all "schedule_subjects" inside it
+      const daysCollectionRef = collection(db, "schedules", levelId, "days");
+      const daysSnapshot = await getDocs(daysCollectionRef);
+
+      for (const dayDoc of daysSnapshot.docs) {
+        const scheduleSubjectsCollectionRef = collection(
+          dayDoc.ref,
+          "schedule_subjects"
+        );
+        const scheduleSubjectsSnapshot = await getDocs(
+          scheduleSubjectsCollectionRef
+        );
+
+        // Delete all documents in "schedule_subjects"
+        for (const subjectDoc of scheduleSubjectsSnapshot.docs) {
+          await deleteDoc(subjectDoc.ref);
         }
+
+        // Delete the day document after its sub-collection is deleted
+        await deleteDoc(dayDoc.ref);
       }
+
+      // Finally, delete the main schedule document
+      await deleteDoc(docRef);
+      console.log(`Successfully deleted schedule document: ${docRef.id}`);
+    } catch (error) {
+      console.error(`Error deleting schedule document ${docRef.id}: `, error);
     }
   };
 
