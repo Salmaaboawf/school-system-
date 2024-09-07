@@ -24,15 +24,15 @@ import { getUserById } from "./services/userServices";
 import AddClass from "./pages/Dashboard/AddLevels";
 import Add_Class_Routine from "./pages/Dashboard/Add_Class_Routine";
 import AddSubject from "./pages/Dashboard/AddSubject";
-import { useAuth } from "./hooks/useAuth";
 import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 
 import Showgrad from "./components/Showgrad";
-import MyGrades from "./pages/Dashboard/MyGrades";
+import { useAppSelector } from "./hooks/reduxHooks";
 function App() {
   const dispatch = useDispatch();
-  const userId = useAuth();
+  const userId = localStorage.getItem("userId");
+  const userInfo = useAppSelector((state) => state.user.user);
 
   useEffect(() => {
     if (userId) {
@@ -62,7 +62,7 @@ function App() {
           <Route path="/my-grades" element={<MyGrades />} />
           <Route
             path="/login"
-            element={userId ? <Navigate to="/" /> : <Login />}
+            element={userInfo.id ? <Navigate to="/" /> : <Login />}
           />
         </Route>
 
