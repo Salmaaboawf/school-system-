@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { fetchLevels } from "../../services/levelsServices";
 import { addSubject } from "../../services/subjectServices";
 import { uploadImageToStorage } from "../../services/subjectServices"; // استيراد الدالة
+import { fetchTeachers } from "../../services/teacherServices";
 
 // Validation Schema
 const schema = yup.object().shape({
@@ -19,12 +20,7 @@ const schema = yup.object().shape({
     .max(20, "Name cannot exceed 20 characters")
     .min(3, "Min is 3 letters"),
 
-  teacher: yup
-    .string()
-    .matches(/^[A-Za-z\s]+$/, "must be characters only")
-    .required("Required")
-    .max(20, "Name cannot exceed 20 characters")
-    .min(3, "Min is 3 letters"),
+  teacher: yup.string().required("Required").min(3, "Min is 3 letters"),
 
   description: yup.string().required("Course description is required"),
   level_id: yup.string().required("Please select a class"),
@@ -48,6 +44,7 @@ export default function AddSubject() {
   const levels = useAppSelector((state) => state.levels.levels);
   const dispatch = useAppDispatch();
   const [imagePreview, setImagePreview] = useState(null);
+  const [teachers, setTeachers] = useState([]);
 
   // Save function to handle form submission
   const save = async (data) => {
@@ -74,6 +71,7 @@ export default function AddSubject() {
   // Fetch levels on component mount
   useEffect(() => {
     fetchLevels(dispatch);
+    fetchTeachers().then((fetchedTeachers) => setTeachers(fetchedTeachers));
   }, [dispatch]);
 
   return (
@@ -112,10 +110,9 @@ export default function AddSubject() {
                 <p className="text-red-500">{errors.total_grade?.message}</p>
               </div>
 
-
               <div>
                 <Label htmlFor="class" value="Class" />
-                <Select id="class" {...register("level_id")}>
+
                 <Select id="class" {...register("level_id")}>
                   <option value="">Select</option>
                   {levels.map((lvl) => (

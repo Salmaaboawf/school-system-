@@ -65,7 +65,7 @@ export const addSubject = async (subjectData: {
     // 4. Update the selected teacher's document with the new subject
     const teacherRef = doc(db, "teachers", subjectData.teacher);
     await updateDoc(teacherRef, {
-      subjects: arrayUnion(subjectId), // Add the new subject ID to the teacher's subjects array using arrayUnion
+      subjects: arrayUnion(docId), // Add the new subject ID to the teacher's subjects array using arrayUnion
     });
 
     console.log("Subject added and teacher updated with the new subject");
