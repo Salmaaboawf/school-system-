@@ -4,7 +4,6 @@ import * as yup from "yup";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import { Button, Select, Label, FileInput } from "flowbite-react";
-import { Button, Select, Label } from "flowbite-react";
 import { addQuestion, addSubject } from "../../services/subjectServices";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
