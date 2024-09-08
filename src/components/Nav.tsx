@@ -27,8 +27,6 @@ function Nav() {
       // Sign out from Firebase
       await signOut(auth);
 
-      console.log("test");
-
       // Navigate to the login page or another page
       navigate("/", { replace: true });
 
@@ -86,19 +84,13 @@ function Nav() {
                     )}
 
                     {(userInfo.role === "student" ||
-                      userInfo.role === "Parents") && (
+                      userInfo.role === "parent") && (
                       <>
+                        
+                       
                         <li>
                           <NavLink
-                            to="/student-table"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                          >
-                            MY Schedule (Student)
-                          </NavLink>
-                        </li>
-                        <li>
-                          <NavLink
-                            to="/grad"
+                            to="/my-subjects"
                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                           >
                             My Grad
@@ -201,6 +193,30 @@ function Nav() {
                   </li>
                   <li>
                     <NavLink
+                      to="/student-subjects"
+                      className={({ isActive }) =>
+                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-orange-400" : ""
+                        }`
+                      }
+                    >
+                      subjects
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/quiz"
+                      className={({ isActive }) =>
+                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-orange-400" : ""
+                        }`
+                      }
+                    >
+                    quiz
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
                       to="/contact"
                       className={({ isActive }) =>
                         `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
@@ -221,6 +237,7 @@ function Nav() {
                           }`
                         }
                       >
+                     
                         Dashboard
                       </NavLink>
                     </li>

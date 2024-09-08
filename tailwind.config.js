@@ -8,6 +8,7 @@ export default {
       backgroundImage: {
         slideOne: "url(./src/assets/images/slide_min_1.jpg)",
       },
+    
     },
   },
   plugins: [flowbite.plugin()],

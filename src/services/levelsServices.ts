@@ -1,44 +1,16 @@
-import { collection, doc, getDocs, setDoc ,addDoc} from "firebase/firestore";
+import { collection, doc, getDocs, addDoc, getDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setLevels } from "../Redux/Slices/levelsSlice";
 
 export const addLevels = async (level: string) => {
-  // try {
-  //   const levelsDoref = doc(db, "levels", "Five");
-  //   await setDoc(levelsDoref, { name: "Five" });
-  //   const studentDoref = doc(db, "levels/Five/students", `initial@mm.com`);
-
-  //   await setDoc(studentDoref, { name: "momen" });
-
-  //   const subjectCollecRef = collection(studentDoref, "subjects");
-  //   await setDoc(doc(subjectCollecRef, "initailSubject"), {
-  //     subjectName: "initailSubject",
-  //     grade: "",
-  //     totalGrade: "100",
-  //   });
-  // } catch (error) {
-  //   console.log(error);
-  // }
-// ****************
-//   try {
-// const collectionRef= collection(db, "levels")
-//     // const addLevelRef = doc(collectionRef, level);
-//     // const docRes = 
-//     await addDoc(collectionRef, { name: level });
-//     // console.log(docRes);
-//   } catch (error) {
-//     console.log(error);
-//   }
-///////////////////////////
-try {
-  const collectionRef = collection(db, "levels");
-  const docRef = await addDoc(collectionRef, { name: level });
-  console.log("Document written with ID: ", docRef.id);
-} catch (error) {
-  console.error("Error adding document: ", error);
-}
-
+  try {
+    const collectionRef = collection(db, "levels");
+    const docRef = await addDoc(collectionRef, { name: level });
+    console.log("Document written with ID: ", docRef.id);
+  } catch (error) {
+    console.error("Error adding document: ", error);
+  }
 };
 
 export const fetchLevels = async (dispatch: Dispatch) => {
@@ -57,8 +29,17 @@ export const fetchLevels = async (dispatch: Dispatch) => {
 
     // Update state with the fetched levels
     dispatch(setLevels([...levelsList]));
-
   } catch (error) {
     console.error("Error fetching levels: ", error);
   }
+};
+
+export const getLevelNameById = async (levelId: string): Promise<string> => {
+  const levelRef = doc(db, "levels", levelId);
+  const levelSnap = await getDoc(levelRef);
+  if (levelSnap.exists()) {
+    const levelData = levelSnap.data();
+    return levelData.name;
+  }
+  return "Unknown Level";
 };

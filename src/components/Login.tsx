@@ -9,11 +9,12 @@ import { useAppDispatch } from "../hooks/reduxHooks";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RaisingHandImage from "../assets/images/Raising hand-pana.png";
-import { useAuth } from "../hooks/useAuth";
 import { Radio } from "flowbite-react";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+// import { FirebaseError } from "firebase/app";
 export default function Login() {
-  const userId = useAuth();
+  const userId = localStorage.getItem("userId");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [role, setRole] = useState("");
@@ -37,24 +38,40 @@ export default function Login() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
+  const getErrorMessage = (errorCode) => {
+    switch (errorCode) {
+      // case 'auth/user-not-found':
+      // return 'The Email or Password you entered is incorrect, please try again.';
+      case "auth/invalid-credential":
+        return "The Email or Password you entered is incorrect, please try again.";
+      default:
+        return "An error occurred. Please try again.";
+    }
+  };
   const save = async (value: { email: string; password: string }) => {
     if (role) {
-      const userCred = await signInWithEmailAndPassword(
-        auth,
-        value.email,
-        value.password
-      );
+      try {
+        const userCred = await signInWithEmailAndPassword(
+          auth,
+          value.email,
+          value.password
+        );
 
-      console.log(userCred.user.uid);
-      const isRightUser = await saveLoggedUser(
-        userCred.user.uid,
-        dispatch,
-        role
-      );
+        console.log(userCred.user.uid);
+        const isRightUser = await saveLoggedUser(
+          userCred.user.uid,
+          dispatch,
+          role
+        );
 
-      if (isRightUser) {
-        navigate("/", { replace: true });
+        if (isRightUser) {
+          navigate("/", { replace: true });
+        }
+      } catch (error) {
+        // const firebaseError = error as FirebaseError;
+        // console.log(error.message)
+        const errorMessage = getErrorMessage(error.code);
+        toast.error(errorMessage);
       }
     }
   };

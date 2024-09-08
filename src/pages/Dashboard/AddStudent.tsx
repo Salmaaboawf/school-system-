@@ -10,12 +10,21 @@ import { useEffect, useState } from "react";
 import { fetchLevels } from "../../services/levelsServices";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 const schema = yup.object().shape({
-  name: yup.string().required("name is required"),
-  phoneNumber: yup.string().required("Last name is required"),
+  name: yup
+  .string()
+  .matches(/^[A-Za-z\s]+$/, "must be chrachter only") 
+  .required("required ")
+  .max(20, " First name cannot exceed 20 characters").min(3,"min is 3 letters"),
+  phoneNumber: yup
+    .string()
+    .required("Age is required").matches(/^01[01259][0-9]{8}$/, 
+    ),
   age: yup.number().required("Age is required"),
   gender: yup.string().required("Gender is required"),
   class: yup.string().required("Gender is required"),
-  address: yup.string().required("Gender is required"),
+  address: yup
+    .string()
+    .required(),
   email: yup
     .string()
     .email("Invalid email address")
