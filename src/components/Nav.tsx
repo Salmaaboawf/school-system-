@@ -227,6 +227,18 @@ function Nav() {
                       Contact
                     </NavLink>
                   </li>
+                  <li>
+                    <NavLink
+                      to="/AddQuiz"
+                      className={({ isActive }) =>
+                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-orange-400" : ""
+                        }`
+                      }
+                    >
+                      AddQuiz
+                    </NavLink>
+                  </li>
                   {userInfo.role === "admin" && (
                     <li>
                       <NavLink

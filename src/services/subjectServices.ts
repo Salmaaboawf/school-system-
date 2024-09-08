@@ -114,7 +114,26 @@ export const fetchSubjectsByLevel = async (levelId: string) => {
     console.error("Error fetching subjects: ", error);
   }
 };
+export const fetchSubjectsByteacher_id = async (teacherId: string) => {
+  try {
+    console.log(teacherId)
+    const subjectCollection = collection(db, "subjects");
 
+    const q = query(subjectCollection, where("teacher", "==", teacherId));
+
+    const subjectSnapshot = await getDocs(q);
+console.log(subjectSnapshot)
+    const subjectList = subjectSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    console.log(subjectList);
+    return subjectList;
+    // dispatch(setSubject([...subjectList]));
+  } catch (error) {
+    console.error("Error fetching subjects: ", error);
+  }
+};
 export const getSubjectNameById = async (
   subjectId: string
 ): Promise<string> => {

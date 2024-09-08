@@ -31,6 +31,7 @@ import Showgrad from "./components/Showgrad";
 import { useAppSelector } from "./hooks/reduxHooks";
 import Subjects from "./components/Subjects";
 import Quiz from "./components/Quiz";
+import AddQuiz from "./pages/Dashboard/AddQuiz";
 function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
@@ -62,6 +63,8 @@ function App() {
           <Route path="/stuff" element={<Teachers />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/my-grades" element={<MyGrades />} />
+          <Route path="/AddQuiz" element={<AddQuiz />} />
+
           <Route
             path="/login"
             element={userInfo.id ? <Navigate to="/" /> : <Login />}
