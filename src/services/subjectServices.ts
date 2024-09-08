@@ -5,11 +5,32 @@ import {
   updateDoc,
   getDoc,
   doc,
+  query,
+  where,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setSubject } from "../Redux/Slices/subjectSlice";
 import { SubjectType } from "../utils/types";
+
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+// Function to upload image to Firebase Storage
+export const uploadImageToStorage = async (file: File) => {
+  const storage = getStorage();
+  const storageRef = ref(storage, `subjects/${file.name}`);
+
+  try {
+    await uploadBytes(storageRef, file);
+    const downloadURL = await getDownloadURL(storageRef);
+    console.log(downloadURL);
+
+    return downloadURL;
+  } catch (error) {
+    console.error("Error uploading image: ", error);
+    throw error;
+  }
+};
 
 export const addSubject = async (subjectData: {
   name: string;
@@ -17,16 +38,27 @@ export const addSubject = async (subjectData: {
   description: string;
   level_id: string;
   total_grade: string;
+  photoURL: string;
 }) => {
   try {
+    console.log(subjectData);
+    const { description, level_id, name, photoURL, teacher, total_grade } =
+      subjectData;
     // 1. Add a new document to the "subjects" collection
     const subCollectionRef = collection(db, "subjects");
-    const docRef = await addDoc(subCollectionRef, subjectData);
+    const docRef = await addDoc(subCollectionRef, {
+      description,
+      level_id,
+      name,
+      photoURL,
+      teacher,
+      total_grade,
+    });
 
-    // 2. Get the document ID
+    // // 2. Get the document ID
     const docId = docRef.id;
 
-    // 3. Update the document with the ID field
+    // // 3. Update the document with the ID field
     await updateDoc(docRef, { id: docId });
   } catch (error) {
     console.error("Error adding subject: ", error);
@@ -49,6 +81,26 @@ export const fetchSubjects = async (dispatch: Dispatch) => {
 
     // Update state with the fetched subjects
     dispatch(setSubject([...subjectList]));
+  } catch (error) {
+    console.error("Error fetching subjects: ", error);
+  }
+};
+
+export const fetchSubjectsByLevel = async (levelId: string) => {
+  try {
+    const subjectCollection = collection(db, "subjects");
+
+    const q = query(subjectCollection, where("level_id", "==", levelId));
+
+    const subjectSnapshot = await getDocs(q);
+
+    const subjectList = subjectSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    console.log(subjectList);
+    return subjectList;
+    // dispatch(setSubject([...subjectList]));
   } catch (error) {
     console.error("Error fetching subjects: ", error);
   }

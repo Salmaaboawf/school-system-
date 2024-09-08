@@ -29,7 +29,8 @@ import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 
 import Showgrad from "./components/Showgrad";
-import MyGrades from "./pages/Dashboard/MyGrades";
+import Subjects from "./components/Subjects";
+import Quiz from "./components/Quiz";
 function App() {
   const dispatch = useDispatch();
   const userId = useAuth();
@@ -76,6 +77,10 @@ function App() {
           path="/grades"
           element={<PrivateRoute element={MyGrades} role="student" />}
         />
+         <Route
+          path="/quiz"
+          element={<PrivateRoute element={Quiz} role="student" />}
+        />
         <Route
           path="/schedule"
           element={<PrivateRoute element={Schedule} role="admin" />}
@@ -87,6 +92,14 @@ function App() {
         <Route
           path="/student-table"
           element={<PrivateRoute element={StudentRoutine} role="student" />}
+        />
+         <Route
+          path="/student-subjects"
+          element={<PrivateRoute element={Subjects} role="student" />}
+        />
+         <Route
+          path="/children-table"
+          element={<PrivateRoute element={StudentRoutine} role="parent" />}
         />
         <Route
           path="/add-parent"
