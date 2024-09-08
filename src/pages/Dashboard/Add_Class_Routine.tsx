@@ -63,28 +63,29 @@ const Add_Class_Routine = () => {
   });
 
   const addSchedHandler = async (e: any) => {
-    const days = [
-      {
-        name: "sunday",
-        ids: [`${e.sunOne.id}`, `${e.sunTwo.id}`, `${e.sunThree.id}`],
-      },
-      {
-        name: "monday",
-        ids: [`${e.monOne.id}`, `${e.monTwo.id}`, `${e.monThree.id}`],
-      },
-      {
-        name: "tuesday",
-        ids: [`${e.tueOne.id}`, `${e.tueTwo.id}`, `${e.tueThree.id}`],
-      },
-      {
-        name: "wednesday",
-        ids: [`${e.wedOne.id}`, `${e.wedTwo.id}`, `${e.wedThree.id}`],
-      },
-      {
-        name: "thursday",
-        ids: [`${e.thrOne.id}`, `${e.thrTwo.id}`, `${e.thrThree.id}`],
-      },
-    ];
+
+const days = [
+  {
+    name: "sunday",
+    ids: [`${e.sunOne.id}`, `${e.sunTwo.id}`, `${e.sunThree.id}`],
+  },
+  {
+    name: "monday",
+    ids: [`${e.monOne.id}`, `${e.monTwo.id}`, `${e.monThree.id}`],
+  },
+  {
+    name: "tuesday",
+    ids: [`${e.tueOne.id}`, `${e.tueTwo.id}`, `${e.tueThree.id}`],
+  },
+  {
+    name: "wednesday",
+    ids: [`${e.wedOne.id}`, `${e.wedTwo.id}`, `${e.wedThree.id}`],
+  },
+  {
+    name: "thursday",
+    ids: [`${e.thrOne.id}`, `${e.thrTwo.id}`, `${e.thrThree.id}`],
+  },
+];
 
     try {
       console.log(e.levels.id);
@@ -98,6 +99,7 @@ const Add_Class_Routine = () => {
       // sub collection days
       for (let i = 0; i < 5; i++) {
         const dayRef = doc(db, "schedules", docId, "days", days[i].name);
+        console.log(dayRef.id);
         await setDoc(dayRef, {
           id: dayRef.id,
           name: days[i].name,
@@ -452,7 +454,6 @@ const Add_Class_Routine = () => {
                           )}
                         />
                       </td>
-
                       {/* td for period 9-11 wednesday*/}
                       <td className="whitespace-nowrap py-3 text-lg">
                         {/* datalist to choose levelSubjects */}
@@ -474,7 +475,6 @@ const Add_Class_Routine = () => {
                           )}
                         />
                       </td>
-
                       {/* td for period 11-1 wednesday*/}
                       <td className="whitespace-nowrap py-3 text-lg">
                         {/* datalist to choose levelSubjects */}
