@@ -8,7 +8,6 @@ import { addQuestion, addSubject } from "../../services/subjectServices";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { fetchLevels } from "../../services/levelsServices";
-import { addSubject } from "../../services/subjectServices";
 import { uploadImageToStorage } from "../../services/subjectServices"; // استيراد الدالة
 import { fetchTeachers } from "../../services/teacherServices";
 
