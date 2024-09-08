@@ -5,9 +5,9 @@ import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import { Button, Select, Label } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { fetchLevels } from "../../services/levelsServices";
-import { addSubject, fetchSubjectsByteacher_id } from "../../services/subjectServices";
+import { useAppSelector } from "../../hooks/reduxHooks";
+import { addQuestion, fetchSubjectsByteacher_id } from "../../services/subjectServices";
+
 
 // Validation Schema
 const schema = yup.object().shape({
@@ -60,7 +60,7 @@ export default function AddQuiz() {
     },
   });
 
-  const { fields, append } = useFieldArray({
+  const { fields } = useFieldArray({
     control,
     name: "options",
   });
@@ -69,12 +69,12 @@ export default function AddQuiz() {
     try {
       const quizData = {
         question: data.question,
-        options: data.options.map((option) => option.value),
-        correctOption: data.correctOption,
-        subject,
+        answers: data.options.map((option) => option.value),
+        correctAnswer: data.correctOption,
+        subjectId: subject, // استخدم معرف المادة
       };
 
-      await addSubject(quizData);
+      await addQuestion(quizData);
       console.log("Quiz added to Firestore");
       reset(); // إعادة ضبط النموذج بعد الإضافة الناجحة
     } catch (error) {
@@ -83,7 +83,6 @@ export default function AddQuiz() {
   };
 
   return (
-    
     <div className="container flex gap-x-5">
       <div className="flex-[1]">
         <Sidebar />
@@ -106,7 +105,7 @@ export default function AddQuiz() {
                 >
                   <option value="">Select subject</option>
                   {filteredSubjects.map((subject) => (
-                    <option key={subject.id} value={subject.name}>
+                    <option key={subject.id} value={subject.id}>
                       {subject.name}
                     </option>
                   ))}

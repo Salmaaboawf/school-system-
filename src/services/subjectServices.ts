@@ -145,32 +145,17 @@ export const getSubjectNameById = async (
   }
   return "Unknown Subject";
 };
-
-export const addQuestion = async ({
-  question,
-  answers,
-  correctAnswer,
-}: {
-  question: string;
-  answers: string[];
-  correctAnswer: string;
-}) => {
+export const addQuestion = async ({ question, answers, correctAnswer, subjectId }) => {
   try {
     console.log("Adding quiz question");
 
-    const questionsRef = collection(
-      db,
-      "subjects",
-      "Ruzoom3W8eCjrS5uEBzG",
-      "quiz"
-    );
+    const questionsRef = collection(db, "subjects", subjectId, "quiz");
 
-    // Create the question data object using the parameters
     const questionData = {
       questionId: "",
-      question: question || "", // Use the question parameter
-      correctAnswer: correctAnswer || "", // Use the correctAnswer parameter
-      options: answers || [], // Use the answers parameter
+      question: question || "",
+      correctAnswer: correctAnswer || "",
+      options: answers || [],
     };
 
     // Add the question to Firestore
@@ -182,6 +167,7 @@ export const addQuestion = async ({
     console.log("Question added:", quizRef.id);
   } catch (error) {
     console.log("Error adding question:", error);
+    throw error;
   }
 };
 
