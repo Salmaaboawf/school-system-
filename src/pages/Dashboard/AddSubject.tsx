@@ -4,7 +4,7 @@ import * as yup from "yup";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import { Button, Select, Label } from "flowbite-react";
-import { addSubject } from "../../services/subjectServices";
+import { addQuestion, addSubject } from "../../services/subjectServices";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { fetchLevels } from "../../services/levelsServices";
@@ -146,6 +146,21 @@ export default function AddSubject() {
                 </Button>
               </div>
             </form>
+
+            <Button
+              outline
+              gradientDuoTone="pinkToOrange"
+              className="my-5 w-72"
+              onClick={() => {
+                addQuestion({
+                  question: "what is your name",
+                  answers: ["asdas", "momen", "sadas", "sadasd"],
+                  correctAnswer: "1",
+                });
+              }}
+            >
+              Add
+            </Button>
           </section>
         </div>
       </div>
