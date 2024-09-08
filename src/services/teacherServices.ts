@@ -1,7 +1,14 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth, { db, storage } from "../config/firebase";
 import { Schedule, SubjectType, TeacherType } from "../utils/types";
-import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
@@ -14,27 +21,27 @@ export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
     }
 
     const teacherLevelsIds = teacherInfo.levels.map((item) => item.id);
+    const teacherSubjectIds = teacherInfo.subjects.map((item) => item.id); // Handle multiple subjects
+
+    // Create the teacher in auth
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       teacherInfo.email,
       teacherInfo.password
     );
-    console.log(`esraa ${userCredential}`);
     const user = userCredential.user;
-    console.log(`esraa ${user}`);
 
+    // Save the teacher in Firestore
     const teacherRef = doc(db, "teachers", `${user.uid}`);
-
     const {
       name,
       email,
       gender,
       phoneNumber,
       age,
-      subject,
       description,
       role = "teacher",
-    }: TeacherType = teacherInfo;
+    } = teacherInfo;
 
     await setDoc(teacherRef, {
       id: user.uid,
@@ -43,16 +50,24 @@ export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
       gender,
       phoneNumber,
       age,
-      subject,
       role,
       description,
       levels_Ids: teacherLevelsIds,
+      subjects_Ids: teacherSubjectIds, // Store selected subject IDs
       photoURL,
-      // photo,
     });
+
+    // Update each subject with the teacher's ID
+    for (const subjectId of teacherSubjectIds) {
+      const subjectRef = doc(db, "subjects", subjectId);
+      await updateDoc(subjectRef, {
+        teacher: user.uid, // Update subject with teacher ID
+      });
+    }
+
     console.log("Teacher added successfully!");
   } catch (error) {
-    console.log(error);
+    console.error("Error adding teacher: ", error);
   }
 };
 
@@ -116,101 +131,110 @@ export const getTeacherNameById = async (teacherId: string) => {
 
 // ======================
 
-const fetchSubjectName = async (subjectId: string): Promise<string | null> => {
+const fetchSubjectName = async (subjectId: string): Promise<string> => {
   try {
     const subjectRef = doc(db, "subjects", subjectId);
-    const subjectDoc = await getDoc(subjectRef);
-    if (subjectDoc.exists()) {
-      const subjectData = subjectDoc.data();
-      return subjectData?.name || null;
+    const subjectSnap = await getDoc(subjectRef);
+    if (subjectSnap.exists()) {
+      return subjectSnap.data().name;
+    } else {
+      throw new Error("Subject not found");
     }
-    return null;
   } catch (error) {
-    console.error(`Error fetching subject name for ID ${subjectId}: `, error);
-    return null;
+    console.error("Error fetching subject name: ", error);
+    return "Unknown Subject";
   }
 };
 
-const fetchLevelName = async (levelId: string): Promise<string | null> => {
+const fetchLevelName = async (levelId: string): Promise<string> => {
   try {
     const levelRef = doc(db, "levels", levelId);
-    const levelDoc = await getDoc(levelRef);
-    if (levelDoc.exists()) {
-      const levelData = levelDoc.data();
-      return levelData?.name || null;
+    const levelSnap = await getDoc(levelRef);
+    if (levelSnap.exists()) {
+      return levelSnap.data().name;
+    } else {
+      throw new Error("Level not found");
     }
-    return null;
   } catch (error) {
-    console.error(`Error fetching level name for ID ${levelId}: `, error);
-    return null;
+    console.error("Error fetching level name: ", error);
+    return "Unknown Level";
   }
 };
 
 export const getTeacherSchedule = async (
   teacherId: string
 ): Promise<Schedule[]> => {
-  // Fetch all schedules
-  const schedulesRef = collection(db, "schedules");
-  const scheduleSnapshot = await getDocs(schedulesRef);
+  try {
+    // Fetch all schedules
+    const schedulesRef = collection(db, "schedules");
+    const scheduleSnapshot = await getDocs(schedulesRef);
 
-  const schedules: Schedule[] = [];
+    const schedules: Schedule[] = [];
 
-  // Iterate through each schedule document
-  for (const scheduleDoc of scheduleSnapshot.docs) {
-    const scheduleData = scheduleDoc.data() as Schedule;
-    const levelId = scheduleData.level_id;
+    // Iterate through each schedule document
+    for (const scheduleDoc of scheduleSnapshot.docs) {
+      const scheduleData = scheduleDoc.data() as Schedule;
+      const levelId = scheduleData.level_id;
 
-    // Fetch level name using the helper function
-    const levelName = await fetchLevelName(levelId);
+      // Fetch level name
+      const levelName = await fetchLevelName(levelId);
 
-    const daysCollectionRef = collection(scheduleDoc.ref, "days");
-    const daysSnapshot = await getDocs(daysCollectionRef);
+      const daysCollectionRef = collection(scheduleDoc.ref, "days");
+      const daysSnapshot = await getDocs(daysCollectionRef);
 
-    const filteredDays: Day[] = [];
+      const filteredDays: Day[] = [];
 
-    // Iterate through each day document
-    for (const dayDoc of daysSnapshot.docs) {
-      const dayName = dayDoc.id; // Assuming the document ID is the day name
-      const subjectsCollectionRef = collection(dayDoc.ref, "schedule_subjects");
-      const subjectsSnapshot = await getDocs(subjectsCollectionRef);
+      // Iterate through each day document
+      for (const dayDoc of daysSnapshot.docs) {
+        const dayName = dayDoc.id; // Assuming the document ID is the day name
+        const subjectsCollectionRef = collection(
+          dayDoc.ref,
+          "schedule_subjects"
+        );
+        const subjectsSnapshot = await getDocs(subjectsCollectionRef);
 
-      const subjects: SubjectType[] = [];
+        const subjects: SubjectType[] = [];
 
-      // Iterate through each subject document
-      for (const subjectDoc of subjectsSnapshot.docs) {
-        const subjectData = subjectDoc.data() as SubjectType;
+        // Iterate through each subject document
+        for (const subjectDoc of subjectsSnapshot.docs) {
+          const subjectData = subjectDoc.data() as SubjectType;
 
-        // Check if the teacher_id matches
-        if (subjectData.teacher_id === teacherId) {
-          // Fetch subject name
-          const subjectName = await fetchSubjectName(subjectData.subject_id);
+          // Check if the teacher_id matches
+          if (subjectData.teacher_id === teacherId) {
+            // Fetch subject name
+            const subjectName = await fetchSubjectName(subjectData.subject_id);
 
-          subjects.push({
-            ...subjectData,
-            subject_name: subjectName,
-            teacher_name: "Teacher Name", // Fetch from 'teachers' collection if needed
+            subjects.push({
+              ...subjectData,
+              subject_name: subjectName,
+              teacher_name: "Teacher Name", // Fetch teacher name if needed
+              timeSlot: subjectData.timeSlot || "Unknown", // Adjust based on your data structure
+            });
+          }
+        }
+
+        // Add to filteredDays if subjects found
+        if (subjects.length > 0) {
+          filteredDays.push({
+            dayName,
+            subjects,
           });
         }
       }
 
-      // Add to filteredDays if subjects found
-      if (subjects.length > 0) {
-        filteredDays.push({
-          dayName,
-          subjects,
+      // Add to schedules if there are filtered days
+      if (filteredDays.length > 0) {
+        schedules.push({
+          level_id: levelId,
+          level_name: levelName,
+          days: filteredDays,
         });
       }
     }
 
-    // Add to schedules if there are filtered days
-    if (filteredDays.length > 0) {
-      schedules.push({
-        level_id: levelId,
-        level_name: levelName,
-        days: filteredDays,
-      });
-    }
+    return schedules;
+  } catch (error) {
+    console.error("Error fetching teacher schedule: ", error);
+    return [];
   }
-
-  return schedules;
 };

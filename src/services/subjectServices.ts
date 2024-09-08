@@ -5,6 +5,7 @@ import {
   updateDoc,
   getDoc,
   doc,
+  arrayUnion,
   query,
   where,
 } from "firebase/firestore";
@@ -34,10 +35,10 @@ export const uploadImageToStorage = async (file: File) => {
 
 export const addSubject = async (subjectData: {
   name: string;
-  teacher: string;
+  teacher: string; // The selected teacher's ID
   description: string;
   level_id: string;
-  total_grade: string;
+  total_grade: number;
   photoURL: string;
 }) => {
   try {
@@ -55,11 +56,19 @@ export const addSubject = async (subjectData: {
       total_grade,
     });
 
-    // // 2. Get the document ID
+    // 2. Get the document ID for the subject
     const docId = docRef.id;
 
-    // // 3. Update the document with the ID field
+    // 3. Update the document with the ID field
     await updateDoc(docRef, { id: docId });
+
+    // 4. Update the selected teacher's document with the new subject
+    const teacherRef = doc(db, "teachers", subjectData.teacher);
+    await updateDoc(teacherRef, {
+      subjects: arrayUnion(subjectId), // Add the new subject ID to the teacher's subjects array using arrayUnion
+    });
+
+    console.log("Subject added and teacher updated with the new subject");
   } catch (error) {
     console.error("Error adding subject: ", error);
   }
