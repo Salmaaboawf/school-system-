@@ -29,6 +29,7 @@ import { ToastContainer } from "react-toastify";
 
 import Showgrad from "./components/Showgrad";
 import { useAppSelector } from "./hooks/reduxHooks";
+import AddVideo from "./pages/Dashboard/Addvideo";
 function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
@@ -60,6 +61,9 @@ function App() {
           <Route path="/stuff" element={<Teachers />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/my-grades" element={<MyGrades />} />
+          <Route path="/video" element={<AddVideo />} />
+
+
           <Route
             path="/login"
             element={userInfo.id ? <Navigate to="/" /> : <Login />}
@@ -76,6 +80,7 @@ function App() {
           path="/grades"
           element={<PrivateRoute element={MyGrades} role="student" />}
         />
+       
         <Route
           path="/schedule"
           element={<PrivateRoute element={Schedule} role="admin" />}
