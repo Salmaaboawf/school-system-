@@ -53,7 +53,7 @@ export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
       role,
       description,
       levels_Ids: teacherLevelsIds,
-      subjects_Ids: teacherSubjectIds, // Store selected subject IDs
+      subjects: teacherSubjectIds, // Store selected subject IDs
       photoURL,
     });
 
