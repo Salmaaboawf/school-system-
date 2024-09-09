@@ -150,7 +150,7 @@ const Add_Class_Routine = () => {
           if (subjectTeacher) {
             // Check for conflicts
             const conflict = existingScheduleMap[days[i].name]?.some(
-              (existingSubject) =>
+              (existingSubject: { teacher_id: string; }) =>
                 existingSubject.teacher_id === subjectTeacher.id
             );
 
