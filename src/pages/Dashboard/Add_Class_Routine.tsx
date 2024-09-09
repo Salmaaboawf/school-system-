@@ -11,9 +11,16 @@ import { useEffect, useState } from "react";
 import { fetchSubjects } from "../../services/subjectServices";
 import { Button } from "flowbite-react";
 import { SubjectType, TeacherType } from "../../utils/types";
-import { collection, doc, setDoc } from "firebase/firestore";
+import {
+  arrayUnion,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../config/firebase";
-import { fetchTeachers } from "../../services/userServices";
 
 const schema = yup.object().shape({
   levels: yup.object().required().nullable(),
@@ -49,7 +56,6 @@ const Add_Class_Routine = () => {
   );
   const [currentLevel, setCurrentLevel] = useState<any>({});
   const [levelSubjects, setLevelSubjects] = useState<any>([]);
-  const [teachers, setTeachers] = useState<TeacherType[] | any>([]);
 
   const dispatch = useAppDispatch();
 
@@ -63,8 +69,6 @@ const Add_Class_Routine = () => {
   });
 
   const addSchedHandler = async (e: any) => {
-    console.log(e);
-
     const days = [
       {
         name: "sunday",
@@ -88,57 +92,145 @@ const Add_Class_Routine = () => {
       },
     ];
 
+    const createdDocs = [];
+
     try {
       console.log(e.levels.id);
 
       // Create a document reference with the custom ID (level_id)
       const docRef = doc(db, "schedules", e.levels.id);
-
-      // Set the document with the custom ID
-      await setDoc(docRef, {
-        level_id: e.levels.id,
-      });
-
+      await setDoc(docRef, { level_id: e.levels.id });
+      createdDocs.push(docRef); // Track created document
       console.log("Document written with ID: ", docRef.id);
 
-      // sub collection days
+      // Fetch existing schedules to check for conflicts
+      const existingSchedulesRef = collection(db, "schedules");
+      const existingSchedulesSnapshot = await getDocs(existingSchedulesRef);
+
+      const existingScheduleMap: any = {};
+
+      for (const scheduleDoc of existingSchedulesSnapshot.docs) {
+        const scheduleDaysRef = collection(scheduleDoc.ref, "days");
+
+        const daysSnapshot = await getDocs(scheduleDaysRef);
+        for (const dayDoc of daysSnapshot.docs) {
+          const subjectsRef = collection(dayDoc.ref, "schedule_subjects");
+
+          const subjectsSnapshot = await getDocs(subjectsRef);
+          for (const subjectDoc of subjectsSnapshot.docs) {
+            const subjectData = subjectDoc.data();
+            if (!existingScheduleMap[dayDoc.id]) {
+              existingScheduleMap[dayDoc.id] = [];
+            }
+            existingScheduleMap[dayDoc.id].push(subjectData);
+          }
+        }
+      }
+
+      // Sub-collection days
       for (let i = 0; i < 5; i++) {
         const dayRef = doc(db, "schedules", e.levels.id, "days", days[i].name);
-        await setDoc(dayRef, {
-          id: dayRef.id,
-          name: days[i].name,
-        });
+        await setDoc(dayRef, { id: dayRef.id, name: days[i].name });
+        createdDocs.push(dayRef); // Track created document
 
         const scheduleSubjectsRef = collection(dayRef, "schedule_subjects");
 
-        // Create 3 documents inside the "schedule_subjects" subcollection
+        // Create 3 documents inside the "schedule_subjects" sub-collection
         for (let j = 0; j < 3; j++) {
-          const subjectTeacher = teachers.find(
-            (t: TeacherType) => t.subject == days[i].ids[j]
-          );
-          console.log(subjectTeacher);
+          const subjectId = days[i].ids[j];
+          console.log(subjectId);
 
-          const subjectDocRef = doc(scheduleSubjectsRef, `subject${j + 1}`);
-          await setDoc(subjectDocRef, {
-            order: j.toString(),
-            subject_id: days[i].ids[j],
-            teacher_id: subjectTeacher.id,
+          // Find the teacher who is responsible for this subject
+          const teachersSnapshot = await getDocs(collection(db, "teachers"));
+          const subjectTeacher = teachersSnapshot.docs.find((teacherDoc) => {
+            const teacherData = teacherDoc.data() as TeacherType;
+            return teacherData.subjects?.includes(subjectId);
           });
+
+          if (subjectTeacher) {
+            // Check for conflicts
+            const conflict = existingScheduleMap[days[i].name]?.some(
+              (existingSubject) =>
+                existingSubject.teacher_id === subjectTeacher.id
+            );
+
+            if (conflict) {
+              console.log(
+                `Conflict detected with Teacher ${subjectTeacher.name}`
+              );
+              await deleteScheduleDocument(docRef, e.levels.id); // Delete document and sub-collections
+              throw new Error(
+                `Teacher ${subjectTeacher.name} already has a schedule at ${days[i].name}`
+              );
+            }
+
+            const subjectDocRef = doc(scheduleSubjectsRef, `subject${j + 1}`);
+            await setDoc(subjectDocRef, {
+              order: j.toString(),
+              subject_id: subjectId,
+              teacher_id: subjectTeacher.id,
+            });
+
+            createdDocs.push(subjectDocRef); // Track created document
+
+            // Update the teacher's document with the new subject and schedule
+            const teacherRef = doc(db, "teachers", subjectTeacher.id);
+            await updateDoc(teacherRef, {
+              schedule: arrayUnion({
+                level_id: e.levels.id,
+                day: days[i].name,
+                subject_id: subjectId,
+                order: j.toString(),
+              }),
+            });
+          }
         }
       }
       console.log("Finished adding");
     } catch (error) {
-      console.log(error);
+      console.error("Error adding schedule: ", error);
+    }
+  };
+
+  // Helper function to recursively delete the document and its sub-collections
+  const deleteScheduleDocument = async (docRef: any, levelId: string) => {
+    try {
+      // Delete the sub-collection "days" and all "schedule_subjects" inside it
+      const daysCollectionRef = collection(db, "schedules", levelId, "days");
+      const daysSnapshot = await getDocs(daysCollectionRef);
+
+      for (const dayDoc of daysSnapshot.docs) {
+        const scheduleSubjectsCollectionRef = collection(
+          dayDoc.ref,
+          "schedule_subjects"
+        );
+        const scheduleSubjectsSnapshot = await getDocs(
+          scheduleSubjectsCollectionRef
+        );
+
+        // Delete all documents in "schedule_subjects"
+        for (const subjectDoc of scheduleSubjectsSnapshot.docs) {
+          await deleteDoc(subjectDoc.ref);
+        }
+
+        // Delete the day document after its sub-collection is deleted
+        await deleteDoc(dayDoc.ref);
+      }
+
+      // Finally, delete the main schedule document
+      await deleteDoc(docRef);
+      console.log(`Successfully deleted schedule document: ${docRef.id}`);
+    } catch (error) {
+      console.error(`Error deleting schedule document ${docRef.id}: `, error);
     }
   };
 
   useEffect(() => {
     fetchSubjects(dispatch);
-    const getTeachers = async () => {
-      const teachersList = await fetchTeachers();
-      setTeachers(teachersList);
-    };
-    getTeachers();
+    // const getTeachers = async () => {
+    //   const teachersList = await fetchTeachers();
+    // };
+    // getTeachers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -24,17 +24,24 @@ import { getUserById } from "./services/userServices";
 import AddClass from "./pages/Dashboard/AddLevels";
 import Add_Class_Routine from "./pages/Dashboard/Add_Class_Routine";
 import AddSubject from "./pages/Dashboard/AddSubject";
-import { useAuth } from "./hooks/useAuth";
 import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 
 import Showgrad from "./components/Showgrad";
+<<<<<<< HEAD
 import KidsSchedule from "./pages/UsersPages/KidsSchedule";
 import KidsGrades from "./pages/UsersPages/KidsGrades";
 // import MyGrades from "./pages/Dashboard/MyGrades";
+=======
+import { useAppSelector } from "./hooks/reduxHooks";
+import Subjects from "./components/Subjects";
+import Quiz from "./components/Quiz";
+import AddQuiz from "./pages/Dashboard/AddQuiz";
+>>>>>>> 1de1f364cbd97bae45d6943481fd1823dbc6671e
 function App() {
   const dispatch = useDispatch();
-  const userId = useAuth();
+  const userId = localStorage.getItem("userId");
+  const userInfo = useAppSelector((state) => state.user.user);
 
   useEffect(() => {
     if (userId) {
@@ -62,9 +69,11 @@ function App() {
           <Route path="/stuff" element={<Teachers />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/my-grades" element={<MyGrades />} />
+          <Route path="/AddQuiz" element={<AddQuiz />} />
+
           <Route
             path="/login"
-            element={userId ? <Navigate to="/" /> : <Login />}
+            element={userInfo.id ? <Navigate to="/" /> : <Login />}
           />
         </Route>
 
@@ -78,6 +87,10 @@ function App() {
           path="/grades"
           element={<PrivateRoute element={MyGrades} role="student" />}
         />
+         <Route
+          path="/quiz"
+          element={<PrivateRoute element={Quiz} role="student" />}
+        />
         <Route
           path="/schedule"
           element={<PrivateRoute element={Schedule} role="admin" />}
@@ -89,6 +102,14 @@ function App() {
         <Route
           path="/student-table"
           element={<PrivateRoute element={StudentRoutine} role="student" />}
+        />
+         <Route
+          path="/student-subjects"
+          element={<PrivateRoute element={Subjects} role="student" />}
+        />
+         <Route
+          path="/children-table"
+          element={<PrivateRoute element={StudentRoutine} role="parent" />}
         />
         <Route
           path="/add-parent"

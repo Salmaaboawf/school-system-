@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Sidebar from "../../components/Sidebar";
+import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { fetchSubjectsGrades } from "../../services/gradeServices";
 
 function MyGrades() {
   const userInfo = useAppSelector((state) => state.user.user);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [grades, setGrades] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

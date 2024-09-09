@@ -3,11 +3,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
-import { Button, Select, Label } from "flowbite-react";
-import { addSubject } from "../../services/subjectServices";
+import { Button, Select, Label, FileInput } from "flowbite-react";
+import { addQuestion, addSubject } from "../../services/subjectServices";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { fetchLevels } from "../../services/levelsServices";
+<<<<<<< HEAD
 import { toast} from 'react-toastify';
 const schema = yup.object().shape({
   name: yup
@@ -20,30 +21,72 @@ const schema = yup.object().shape({
   .matches(/^[A-Za-z\s]+$/, "Teacher name must be characters only") 
   .required("required ")
   .max(20, " name cannot exceed 20 characters").min(3,"Teacher name must be at least 3 letters"),
+=======
+import { uploadImageToStorage } from "../../services/subjectServices"; // استيراد الدالة
+import { fetchTeachers } from "../../services/teacherServices";
+
+// Validation Schema
+const schema = yup.object().shape({
+  name: yup
+    .string()
+    .matches(/^[A-Za-z\s]+$/, "must be characters only")
+    .required("Required")
+    .max(20, "Name cannot exceed 20 characters")
+    .min(3, "Min is 3 letters"),
+
+  teacher: yup.string().required("Required").min(3, "Min is 3 letters"),
+
+>>>>>>> 1de1f364cbd97bae45d6943481fd1823dbc6671e
   description: yup.string().required("Course description is required"),
   level_id: yup.string().required("Please select a class"),
-  total_grade: yup.number().required("Full mark is required").positive("Grade must be a positive number"),
+  total_grade: yup
+    .number()
+    .required("Full mark is required")
+    .positive("Grade must be a positive number"),
+  photofile: yup.mixed().required("Photo is required"),
 });
 
 export default function AddSubject() {
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
     resolver: yupResolver(schema),
   });
-  
+
   const levels = useAppSelector((state) => state.levels.levels);
   const dispatch = useAppDispatch();
+  const [imagePreview, setImagePreview] = useState(null);
+  const [teachers, setTeachers] = useState([]);
 
+  // Save function to handle form submission
   const save = async (data) => {
     try {
-      await addSubject(data);
+      const photo = data.photofile;
+      let photoURL = await uploadImageToStorage(photo);
+
+      await addSubject({ ...data, photoURL });
       console.log("Subject added to Firestore");
     } catch (error) {
       console.error("Error adding subject: ", error);
     }
   };
 
+  // Handle file input change
+  const handlePhotoChange = (event) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setImagePreview(URL.createObjectURL(file));
+      setValue("photofile", file);
+    }
+  };
+
+  // Fetch levels on component mount
   useEffect(() => {
     fetchLevels(dispatch);
+    fetchTeachers().then((fetchedTeachers) => setTeachers(fetchedTeachers));
   }, [dispatch]);
 
   useEffect(() => {
@@ -71,9 +114,7 @@ export default function AddSubject() {
         <Sidebar />
       </div>
       <div className="flex-[4]">
-        <div>
-          <Header />
-        </div>
+        <Header />
         <div className="my-5">
           <section className="shadow-md text-[#002749]">
             <h3 className="bg-[#002749] text-white font-bold py-4 pl-4 text-lg">
@@ -100,13 +141,11 @@ export default function AddSubject() {
                   {...register("total_grade")}
                 />
               </div>
-              
+
               <div>
                 <Label htmlFor="class" value="Class" />
-                <Select
-                  id="class"
-                  {...register("level_id")}
-                >
+
+                <Select id="class" {...register("level_id")}>
                   <option value="">Select</option>
                   {levels.map((lvl) => (
                     <option key={lvl.id} value={lvl.id}>
@@ -117,7 +156,9 @@ export default function AddSubject() {
                
               </div>
 
+              {/* Teacher Dropdown */}
               <div className="mb-4">
+<<<<<<< HEAD
                 <label htmlFor="courseTeacher">Course Teacher</label>
                 <input
                   type="text"
@@ -126,6 +167,18 @@ export default function AddSubject() {
                   placeholder="Teacher Name"
                   {...register("teacher")}
                 />
+=======
+                <Label htmlFor="teacher" value="Select Teacher" />
+                <Select id="teacher" {...register("teacher")}>
+                  <option value="">Select a Teacher</option>
+                  {teachers.map((teacher) => (
+                    <option key={teacher.id} value={teacher.id}>
+                      {teacher.name}
+                    </option>
+                  ))}
+                </Select>
+                <p className="text-red-500">{errors.teacher?.message}</p>
+>>>>>>> 1de1f364cbd97bae45d6943481fd1823dbc6671e
               </div>
 
               <div className="mb-4">
@@ -139,6 +192,20 @@ export default function AddSubject() {
                 />
               </div>
 
+              {/* Photo field */}
+              <div>
+                <Label htmlFor="photo" value="Teacher Photo" />
+                <FileInput
+                  id="photo"
+                  accept="image/*"
+                  onChange={handlePhotoChange}
+                />
+                <p className="text-red-500">{errors.photofile?.message}</p>
+                {imagePreview && (
+                  <img src={imagePreview} alt="Preview" className="my-4" />
+                )}
+              </div>
+
               <div className="">
                 <Button
                   outline
@@ -150,6 +217,21 @@ export default function AddSubject() {
                 </Button>
               </div>
             </form>
+
+            <Button
+              outline
+              gradientDuoTone="pinkToOrange"
+              className="my-5 w-72"
+              onClick={() => {
+                addQuestion({
+                  question: "what is your name",
+                  answers: ["asdas", "momen", "sadas", "sadasd"],
+                  correctAnswer: "1",
+                });
+              }}
+            >
+              Add
+            </Button>
           </section>
         </div>
       </div>

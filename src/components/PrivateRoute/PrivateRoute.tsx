@@ -1,5 +1,4 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
 
 const PrivateRoute = ({
   element: Element,
@@ -9,9 +8,9 @@ const PrivateRoute = ({
   element: React.ElementType;
   role: string;
 }) => {
-  const userLogged = useAuth();
+  const userLogged = localStorage.getItem("userId");
 
-  return userLogged.toString().includes(role) ? (
+  return userLogged?.toString().includes(role) ? (
     <Element {...rest} />
   ) : (
     <Navigate to="/" />
