@@ -58,8 +58,9 @@ function Nav() {
                   />
                 </button>
                 <div
-                  className={`absolute right-12 top-10 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${isDropdownOpen ? "block" : "hidden"
-                    }`}
+                  className={`absolute right-12 top-10 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${
+                    isDropdownOpen ? "block" : "hidden"
+                  }`}
                   id="user-dropdown"
                 >
                   <div className="px-4 py-3">
@@ -82,10 +83,8 @@ function Nav() {
                       </li>
                     )}
 
-                    {(userInfo.role === "student") && (
+                    {userInfo.role === "student" && (
                       <>
-
-
                         <li>
                           <NavLink
                             to="/grades"
@@ -97,10 +96,8 @@ function Nav() {
                       </>
                     )}
 
-                    {(userInfo.role === "student") && (
+                    {userInfo.role === "student" && (
                       <>
-
-
                         <li>
                           <NavLink
                             to="/student-table"
@@ -141,21 +138,21 @@ function Nav() {
                       </button>
                     </li>
                   </ul>
-                </div >
+                </div>
               </>
             ) : (
               <NavLink
                 to="/login"
                 className={({ isActive }) =>
-                  `block py-2 px-3  rounded md:bg-transparent md:p-0 ${isActive ? "text-orange-400" : ""
+                  `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                    isActive ? "text-orange-400" : ""
                   }`
                 }
               >
                 Login
               </NavLink>
-            )
-            }
-          </div >
+            )}
+          </div>
           <div className="max-w-screen-xl mx-auto px-4 py-2.5 relative">
             <div className="flex justify-between items-center">
               <button
@@ -181,8 +178,9 @@ function Nav() {
               </button>
 
               <div
-                className={`absolute top-10 md:top-0  right-0 z-50  ${isMenuOpen ? "block" : "hidden"
-                  }   md:block md:w-auto`}
+                className={`absolute top-10 md:top-0  right-0 z-50  ${
+                  isMenuOpen ? "block" : "hidden"
+                }   md:block md:w-auto`}
                 id="navbar-default"
               >
                 <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
@@ -190,7 +188,8 @@ function Nav() {
                     <NavLink
                       to="/"
                       className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${isActive ? "text-orange-400" : ""
+                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-orange-400" : ""
                         }`
                       }
                       aria-current="page"
@@ -202,7 +201,8 @@ function Nav() {
                     <NavLink
                       to="/about"
                       className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${isActive ? "text-orange-400" : ""
+                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-orange-400" : ""
                         }`
                       }
                     >
@@ -218,7 +218,7 @@ function Nav() {
                         }`
                       }
                     >
-                    Addvideo
+                      Addvideo
                     </NavLink>
                   </li>
                   <li>
@@ -230,14 +230,15 @@ function Nav() {
                         }`
                       }
                     >
-                ShowVideo
+                      ShowVideo
                     </NavLink>
                   </li>
                   <li>
                     <NavLink
                       to="/stuff"
                       className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${isActive ? "text-orange-400" : ""
+                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-orange-400" : ""
                         }`
                       }
                     >
@@ -248,29 +249,21 @@ function Nav() {
                     <NavLink
                       to="/student-subjects"
                       className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${isActive ? "text-orange-400" : ""
+                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-orange-400" : ""
                         }`
                       }
                     >
                       subjects
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink
-                      to="/quiz"
-                      className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${isActive ? "text-orange-400" : ""
-                        }`
-                      }
-                    >
-                      quiz
-                    </NavLink>
-                  </li>
+
                   <li>
                     <NavLink
                       to="/contact"
                       className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${isActive ? "text-orange-400" : ""
+                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-orange-400" : ""
                         }`
                       }
                     >
@@ -281,7 +274,8 @@ function Nav() {
                     <NavLink
                       to="/AddQuiz"
                       className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${isActive ? "text-orange-400" : ""
+                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-orange-400" : ""
                         }`
                       }
                     >
@@ -293,11 +287,11 @@ function Nav() {
                       <NavLink
                         to="/add-teacher"
                         className={({ isActive }) =>
-                          `block py-2 px-3  rounded md:bg-transparent md:p-0 ${isActive ? "text-orange-400" : ""
+                          `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                            isActive ? "text-orange-400" : ""
                           }`
                         }
                       >
-
                         Dashboard
                       </NavLink>
                     </li>
@@ -306,9 +300,9 @@ function Nav() {
               </div>
             </div>
           </div>
-        </div >
-      </nav >
-    </div >
+        </div>
+      </nav>
+    </div>
   );
 }
 

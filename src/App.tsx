@@ -80,7 +80,7 @@ function App() {
 
           <Route
             path="/login"
-            element={!userInfo.id ? <Navigate to="/" /> : <Login />}
+            element={userInfo.id ? <Navigate to="/" /> : <Login />}
           />
         </Route>
 
