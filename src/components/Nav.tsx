@@ -193,6 +193,18 @@ function Nav() {
                   </li>
                   <li>
                     <NavLink
+                      to="/ShowVideo"
+                      className={({ isActive }) =>
+                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-orange-400" : ""
+                        }`
+                      }
+                    >
+                ShowVideo
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
                       to="/stuff"
                       className={({ isActive }) =>
                         `block py-2 px-3  rounded md:bg-transparent md:p-0 ${

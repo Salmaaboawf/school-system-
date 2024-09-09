@@ -32,6 +32,8 @@ import { useAppSelector } from "./hooks/reduxHooks";
 import AddVideo from "./pages/Dashboard/Addvideo";
 import Subjects from "./components/Subjects";
 import Quiz from "./components/Quiz";
+
+import ShowVideo from "./pages/Dashboard/ShowVideo";
 function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
@@ -64,7 +66,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/my-grades" element={<MyGrades />} />
           <Route path="/video" element={<AddVideo />} />
-
+          <Route path="/ShowVideo" element={<ShowVideo/>} />
 
           <Route
             path="/login"
@@ -122,6 +124,14 @@ function App() {
         <Route
           path="/add-class"
           element={<PrivateRoute element={AddClass} role="admin" />}
+        />
+         <Route
+          path="/add-video"
+          element={<PrivateRoute element={AddVideo} role="teacher" />}
+        />
+         <Route
+          path="/show-video"
+          element={<PrivateRoute element={ShowVideo} role="student" />}
         />
         <Route
           path="/add-class-routine"
