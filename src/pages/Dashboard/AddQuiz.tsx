@@ -1,8 +1,6 @@
 import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Header from "../../components/Header/Header";
-import Sidebar from "../../components/Sidebar";
 import { Button, Select, Label } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../hooks/reduxHooks";
@@ -10,6 +8,15 @@ import {
   addQuestion,
   fetchSubjectsByteacher_id,
 } from "../../services/subjectServices";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  onSnapshot,
+} from "firebase/firestore";
+import { db } from "../../config/firebase";
+import { getQuizQuestions } from "../../services/quizServices";
 
 // Validation Schema
 const schema = yup.object().shape({
@@ -32,6 +39,7 @@ const schema = yup.object().shape({
 export default function AddQuiz() {
   const [filteredSubjects, setFilteredSubjects] = useState([]);
   const [subject, setSubject] = useState("");
+  const [quizQuestions, setQuizQuestions] = useState([]);
   const userInfo = useAppSelector((state) => state.user.user);
 
   useEffect(() => {
@@ -46,7 +54,14 @@ export default function AddQuiz() {
   }, [userInfo.id]);
 
   const handleInputChange = (e) => {
-    setSubject(e.target.value);
+    const selectedSubject = e.target.value;
+    setSubject(selectedSubject);
+
+    // Fetch questions and update state using the callback
+    getQuizQuestions(selectedSubject, (questionsData) => {
+      setQuizQuestions([...questionsData]); // Update the state with the fetched questions
+      console.log(questionsData); // Log the questions
+    });
   };
 
   const {
@@ -76,104 +91,114 @@ export default function AddQuiz() {
         subjectId: subject, // استخدم معرف المادة
       };
 
-      // await addQuestion(quizData);
-      console.log(quizData);
-      // reset(); // إعادة ضبط النموذج بعد الإضافة الناجحة
+      await addQuestion(quizData);
+      reset(); // إعادة ضبط النموذج بعد الإضافة الناجحة
     } catch (error) {
       console.error("Error adding quiz: ", error);
     }
   };
 
   return (
-    <div className="container flex gap-x-5">
-      <div className="flex-[1]">
-        <Sidebar />
-      </div>
-      <div className="flex-[4]">
-        <Header />
-        <div className="my-5">
-          <section className="shadow-md text-[#002749]">
-            <h3 className="bg-[#002749] text-white font-bold py-4 pl-4 text-lg">
-              Add Quiz Question
-            </h3>
-            <form onSubmit={handleSubmit(save)} className="p-4 w-full">
-              <div className="mb-4">
+    <div className="container flex gap-x-5 ">
+      <div className="my-5 w-full">
+        <section className="shadow-md text-[#002749]">
+          <h3 className="bg-[#002749] text-white font-bold py-4 pl-4 text-lg">
+            Add Quiz Question
+          </h3>
+          <form onSubmit={handleSubmit(save)} className="p-4 w-full">
+            <div className="mb-4">
+              <div className="flex justify-between">
                 <Label
                   htmlFor="subject"
                   value="Subject Name"
                   className="text-xl"
                 />
-                <Select
-                  id="subject"
-                  required
-                  value={subject}
-                  onChange={handleInputChange}
-                >
-                  <option value="">Select subject</option>
-                  {filteredSubjects.map((subject) => (
-                    <option key={subject.id} value={subject.id}>
-                      {subject.name}
-                    </option>
-                  ))}
-                </Select>
-              </div>
 
-              <div className="mb-4">
-                <label htmlFor="question">Question</label>
+                <Label
+                  htmlFor="subject"
+                  value={`Current Questions ${quizQuestions.length}`}
+                  className="text-xl"
+                />
+              </div>
+              <Select
+                id="subject"
+                required
+                value={subject}
+                onChange={handleInputChange}
+              >
+                <option value="">Select subject</option>
+                {filteredSubjects.map((subject) => (
+                  <option key={subject.id} value={subject.id}>
+                    {subject.name}
+                  </option>
+                ))}
+              </Select>
+            </div>
+
+            <div className="mb-4">
+              <label htmlFor="question">Question</label>
+              <input
+                type="text"
+                className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded"
+                id="question"
+                placeholder="Question"
+                {...register("question")}
+              />
+              <p className="text-red-500">{errors.question?.message}</p>
+            </div>
+
+            {fields.map((field, index) => (
+              <div key={field.id} className="mb-4">
+                <label htmlFor={`option${index + 1}`}>Option {index + 1}</label>
                 <input
                   type="text"
                   className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded"
-                  id="question"
-                  placeholder="Question"
-                  {...register("question")}
+                  id={`option${index + 1}`}
+                  placeholder={`Option ${index + 1}`}
+                  {...register(`options.${index}.value`)}
                 />
-                <p className="text-red-500">{errors.question?.message}</p>
+                <p className="text-red-500">
+                  {errors.options?.[index]?.value?.message}
+                </p>
               </div>
+            ))}
 
-              {fields.map((field, index) => (
-                <div key={field.id} className="mb-4">
-                  <label htmlFor={`option${index + 1}`}>
+            <div className="mb-4">
+              <Label htmlFor="correctOption" value="Correct Option" />
+              <Select id="correctOption" {...register("correctOption")}>
+                <option value="">Select Correct Option</option>
+                {fields.map((_, index) => (
+                  <option key={index} value={index.toString()}>
                     Option {index + 1}
-                  </label>
-                  <input
-                    type="text"
-                    className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded"
-                    id={`option${index + 1}`}
-                    placeholder={`Option ${index + 1}`}
-                    {...register(`options.${index}.value`)}
-                  />
-                  <p className="text-red-500">
-                    {errors.options?.[index]?.value?.message}
-                  </p>
-                </div>
-              ))}
+                  </option>
+                ))}
+              </Select>
+              <p className="text-red-500">{errors.correctOption?.message}</p>
+            </div>
 
-              <div className="mb-4">
-                <Label htmlFor="correctOption" value="Correct Option" />
-                <Select id="correctOption" {...register("correctOption")}>
-                  <option value="">Select Correct Option</option>
-                  {fields.map((_, index) => (
-                    <option key={index} value={index.toString()}>
-                      Option {index + 1}
-                    </option>
-                  ))}
-                </Select>
-                <p className="text-red-500">{errors.correctOption?.message}</p>
-              </div>
-
-              <div>
-                <Button
-                  outline
-                  gradientDuoTone="pinkToOrange"
-                  className="my-5 w-72"
-                  type="submit"
-                >
-                  Add Quiz
-                </Button>
-              </div>
-            </form>
-          </section>
-        </div>
+            <div className="flex gap-x-4">
+              <Button
+                outline
+                gradientDuoTone="pinkToOrange"
+                className="my-5 w-72"
+                type="submit"
+              >
+                Add Quiz
+              </Button>
+              <Button
+                outline
+                gradientDuoTone="pinkToOrange"
+                className="my-5 w-72"
+                type="button"
+                onClick={() => {
+                  clearQuizQuestions(subject);
+                }}
+              >
+                Clear Quiz
+              </Button>
+            </div>
+          </form>
+        </section>
       </div>
     </div>
   );
