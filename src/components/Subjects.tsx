@@ -23,8 +23,8 @@ function Subjects() {
     loadSubjects();
   }, [dispatch, userInfo.class_id]);
 
-  const handleButtonClick = () => {
-    navigate('/quiz'); 
+  const handleButtonClick = (subjectId) => {
+    navigate(`/quiz/${subjectId}`);  // نقل المستخدم إلى صفحة الكويز مع subjectId في URL
   };
 
   return (
@@ -44,9 +44,9 @@ function Subjects() {
           <p className="font-normal text-gray-700 dark:text-gray-400">
             {subject.description}
           </p>
-          <Button onClick={handleButtonClick} className="mt-4">
-            Take Exam
-          </Button>
+          <Button onClick={() => handleButtonClick(subject.id)} className="mt-4">
+              Take Exam
+            </Button>
         </Card>
       ))}
     </div>

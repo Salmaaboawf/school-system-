@@ -38,14 +38,14 @@ function Nav() {
 
   return (
     <div className="">
-      <nav className="border-2 rounded-lg p-4 m-4 bg-white border-gray-800 relative">
-        <div className="max-w-screen-xl flex flex-row-reverse md:flex md:flex-row items-center justify-between mx-auto p-4">
+      <nav className="bg-pink-50 border-gray-300 p-4 rounded-lg shadow-md">
+        <div className="max-w-screen-xl flex flex-row-reverse md:flex md:flex-row items-center justify-between mx-auto">
           <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             {userInfo.id ? (
               <>
                 <button
                   type="button"
-                  className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                  className="flex text-sm bg-pink-200 rounded-full md:me-0 focus:ring-4 focus:ring-pink-300"
                   id="user-menu-button"
                   aria-expanded={isDropdownOpen}
                   onClick={toggleDropdown}
@@ -58,16 +58,16 @@ function Nav() {
                   />
                 </button>
                 <div
-                  className={`absolute right-12 top-10 z-50 my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 ${
+                  className={`absolute right-12 top-10 z-50 my-4 text-base list-none bg-white divide-y divide-pink-100 rounded-lg shadow ${
                     isDropdownOpen ? "block" : "hidden"
                   }`}
                   id="user-dropdown"
                 >
                   <div className="px-4 py-3">
-                    <span className="block text-sm text-gray-900 dark:text-white">
+                    <span className="block text-sm text-pink-800">
                       {userInfo.firstName} {userInfo.lastName}
                     </span>
-                    <span className="block text-sm text-gray-500 truncate dark:text-gray-400">
+                    <span className="block text-sm text-pink-600 truncate">
                       {userInfo.email}
                     </span>
                   </div>
@@ -76,7 +76,7 @@ function Nav() {
                       <li>
                         <NavLink
                           to="/teacher-table"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-100"
                         >
                           MY Schedule (Teacher)
                         </NavLink>
@@ -86,12 +86,10 @@ function Nav() {
                     {(userInfo.role === "student" ||
                       userInfo.role === "parent") && (
                       <>
-                        
-                       
                         <li>
                           <NavLink
                             to="/my-subjects"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-100"
                           >
                             My Grad
                           </NavLink>
@@ -102,7 +100,7 @@ function Nav() {
                     <li>
                       <button
                         onClick={handleLogout}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-100"
                       >
                         Log out
                       </button>
@@ -114,8 +112,8 @@ function Nav() {
               <NavLink
                 to="/login"
                 className={({ isActive }) =>
-                  `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
-                    isActive ? "text-orange-400" : ""
+                  `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
+                    isActive ? "text-pink-500" : ""
                   }`
                 }
               >
@@ -127,7 +125,7 @@ function Nav() {
             <div className="flex justify-between items-center">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-pink-100 focus:outline-none focus:ring-2 focus:ring-pink-200"
                 aria-controls="navbar-default"
                 aria-expanded={isMenuOpen}
               >
@@ -148,19 +146,19 @@ function Nav() {
               </button>
 
               <div
-                className={`absolute top-10 md:top-0  right-0 z-50  ${
+                className={`absolute top-10 md:top-0 right-0 z-50 ${
                   isMenuOpen ? "block" : "hidden"
-                }   md:block md:w-auto`}
+                } md:block md:w-auto`}
                 id="navbar-default"
               >
-                <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
+                <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-pink-100 rounded-lg bg-pink-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
                   <li>
                     <NavLink
                       to="/"
                       className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-orange-400" : ""
-                        }`
+                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-pink-500" : ""
+                        } hover:text-pink-800 transition-all duration-300`
                       }
                       aria-current="page"
                     >
@@ -171,9 +169,9 @@ function Nav() {
                     <NavLink
                       to="/about"
                       className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-orange-400" : ""
-                        }`
+                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-pink-500" : ""
+                        } hover:text-pink-800 transition-all duration-300`
                       }
                     >
                       About
@@ -183,9 +181,9 @@ function Nav() {
                     <NavLink
                       to="/stuff"
                       className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-orange-400" : ""
-                        }`
+                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-pink-500" : ""
+                        } hover:text-pink-800 transition-all duration-300`
                       }
                     >
                       Stuff
@@ -195,61 +193,38 @@ function Nav() {
                     <NavLink
                       to="/student-subjects"
                       className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-orange-400" : ""
-                        }`
+                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-pink-500" : ""
+                        } hover:text-pink-800 transition-all duration-300`
                       }
                     >
                       subjects
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink
-                      to="/quiz"
-                      className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-orange-400" : ""
-                        }`
-                      }
-                    >
-                    quiz
-                    </NavLink>
-                  </li>
+                 
                   <li>
                     <NavLink
                       to="/contact"
                       className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-orange-400" : ""
-                        }`
+                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-pink-500" : ""
+                        } hover:text-pink-800 transition-all duration-300`
                       }
                     >
                       Contact
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink
-                      to="/AddQuiz"
-                      className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-orange-400" : ""
-                        }`
-                      }
-                    >
-                      AddQuiz
-                    </NavLink>
-                  </li>
+                 
                   {userInfo.role === "admin" && (
                     <li>
                       <NavLink
                         to="/add-teacher"
                         className={({ isActive }) =>
-                          `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
-                            isActive ? "text-orange-400" : ""
-                          }`
+                          `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
+                            isActive ? "text-pink-500" : ""
+                          } hover:text-pink-800 transition-all duration-300`
                         }
                       >
-                     
                         Dashboard
                       </NavLink>
                     </li>

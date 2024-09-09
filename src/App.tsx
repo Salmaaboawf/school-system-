@@ -81,10 +81,11 @@ function App() {
           path="/grades"
           element={<PrivateRoute element={MyGrades} role="student" />}
         />
-         <Route
-          path="/quiz"
-          element={<PrivateRoute element={Quiz} role="student" />}
-        />
+       <Route
+  path="/quiz/:subjectId"
+  element={<PrivateRoute element={Quiz} role="student" />}
+/>
+
         <Route
           path="/schedule"
           element={<PrivateRoute element={Schedule} role="admin" />}
