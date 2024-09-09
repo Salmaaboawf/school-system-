@@ -1,19 +1,19 @@
 import { Button, Label, TextInput } from "flowbite-react";
 import { addLevels } from "../../services/levelsServices";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import * as Yup from "yup";
-
+import { toast} from 'react-toastify';
 export default function AddLevels() {
   const [levelName, setLevelName] = useState();
   const [errors, setErrors] = useState({});
 
   const validationSchema = Yup.object().shape({
-    levelName: Yup.string()
-      .min(3, "min 3 letters")
-      .matches(/^[A-Za-z\s]+$/,"must be just letters") 
-      .required("required "),
+    levelName: Yup.string().required("Level is required"),
+      // .min(3, "min 3 letters")
+      // .matches(/^[A-Za-z\s]+$/,"must be just letters") 
+      
   });
   
 
@@ -24,7 +24,7 @@ export default function AddLevels() {
       await validationSchema.validate({ levelName }, { abortEarly: false });
 
       await addLevels(levelName);
-      console.log("Level added to Firestore");
+      toast.success(`${levelName} grade added successfully`)
     } catch (error) {
       const validationErrors = {};
       error.inner.forEach((err) => {
@@ -34,7 +34,14 @@ export default function AddLevels() {
     }
   };
 
+  useEffect(()=>{
+    if(errors.levelName){
+      toast.error(errors.levelName)
+    }
+  },[errors])
+
   return (
+
     <div className="container flex gap-x-5">
       <div className="flex-[1]">
         <Sidebar />
@@ -59,9 +66,6 @@ export default function AddLevels() {
                 value={levelName}
                 onChange={(e) => setLevelName(e.target.value)}
               />
-              {errors.levelName && (
-                <div className="text-red-500">{errors.levelName}</div>
-              )}
               <Button
                 outline
                 gradientDuoTone="pinkToOrange"

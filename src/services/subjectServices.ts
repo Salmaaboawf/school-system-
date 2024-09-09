@@ -13,26 +13,8 @@ import { db } from "../config/firebase";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setSubject } from "../Redux/Slices/subjectSlice";
 import { SubjectType } from "../utils/types";
-
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
-// Function to upload image to Firebase Storage
-export const uploadImageToStorage = async (file: File) => {
-  const storage = getStorage();
-  const storageRef = ref(storage, `subjects/${file.name}`);
-
-  try {
-    await uploadBytes(storageRef, file);
-    const downloadURL = await getDownloadURL(storageRef);
-    console.log(downloadURL);
-
-    return downloadURL;
-  } catch (error) {
-    console.error("Error uploading image: ", error);
-    throw error;
-  }
-};
-
+import { toast} from 'react-toastify';
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 export const addSubject = async (subjectData: {
   name: string;
   teacher: string; // The selected teacher's ID
@@ -70,6 +52,7 @@ export const addSubject = async (subjectData: {
 
     console.log("Subject added and teacher updated with the new subject");
   } catch (error) {
+    toast.error("Error adding subject");
     console.error("Error adding subject: ", error);
   }
 };
@@ -174,6 +157,22 @@ export const addQuestion = async ({
     console.log("Error adding question:", error);
     throw error;
   }
+};
+
+export const uploadImageToStorage = async (file: File) => {
+  const storage = getStorage();
+  const storageRef = ref(storage, `subjects/${file.name}`);
+
+  try {
+    await uploadBytes(storageRef, file);
+    const downloadURL = await getDownloadURL(storageRef);
+    console.log(downloadURL);
+
+    return downloadURL;
+  } catch (error) {
+    console.error("Error uploading image: ", error);
+    throw error;
+  }
 };
 
 // const arr = [

@@ -28,6 +28,9 @@ import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 
 import Showgrad from "./components/Showgrad";
+import KidsSchedule from "./pages/UsersPages/KidsSchedule";
+import KidsGrades from "./pages/UsersPages/KidsGrades";
+// import MyGrades from "./pages/Dashboard/MyGrades";
 import { useAppSelector } from "./hooks/reduxHooks";
 import Subjects from "./components/Subjects";
 import Quiz from "./components/Quiz";
@@ -137,6 +140,14 @@ function App() {
         <Route
           path="/grad-two"
           element={<PrivateRoute element={Showgrad} role="student" />}
+        />
+        <Route
+          path="/kids-schedule"
+          element={<PrivateRoute element={KidsSchedule} role="parent" />}
+        />
+        <Route
+          path="/kids-grades"
+          element={<PrivateRoute element={KidsGrades} role="parent" />}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
