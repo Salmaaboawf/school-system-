@@ -6,8 +6,10 @@ import Sidebar from "../../components/Sidebar";
 import { Button, Select, Label } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../hooks/reduxHooks";
-import { addQuestion, fetchSubjectsByteacher_id } from "../../services/subjectServices";
-
+import {
+  addQuestion,
+  fetchSubjectsByteacher_id,
+} from "../../services/subjectServices";
 
 // Validation Schema
 const schema = yup.object().shape({
@@ -69,14 +71,14 @@ export default function AddQuiz() {
     try {
       const quizData = {
         question: data.question,
-        answers: data.options.map((option) => option.value),
+        options: data.options.map((option) => option.value),
         correctAnswer: data.correctOption,
         subjectId: subject, // استخدم معرف المادة
       };
 
-      await addQuestion(quizData);
-      console.log("Quiz added to Firestore");
-      reset(); // إعادة ضبط النموذج بعد الإضافة الناجحة
+      // await addQuestion(quizData);
+      console.log(quizData);
+      // reset(); // إعادة ضبط النموذج بعد الإضافة الناجحة
     } catch (error) {
       console.error("Error adding quiz: ", error);
     }
@@ -96,7 +98,11 @@ export default function AddQuiz() {
             </h3>
             <form onSubmit={handleSubmit(save)} className="p-4 w-full">
               <div className="mb-4">
-                <Label htmlFor="subject" value="Subject Name" className="text-xl" />
+                <Label
+                  htmlFor="subject"
+                  value="Subject Name"
+                  className="text-xl"
+                />
                 <Select
                   id="subject"
                   required
@@ -126,7 +132,9 @@ export default function AddQuiz() {
 
               {fields.map((field, index) => (
                 <div key={field.id} className="mb-4">
-                  <label htmlFor={`option${index + 1}`}>Option {index + 1}</label>
+                  <label htmlFor={`option${index + 1}`}>
+                    Option {index + 1}
+                  </label>
                   <input
                     type="text"
                     className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded"
@@ -134,7 +142,9 @@ export default function AddQuiz() {
                     placeholder={`Option ${index + 1}`}
                     {...register(`options.${index}.value`)}
                   />
-                  <p className="text-red-500">{errors.options?.[index]?.value?.message}</p>
+                  <p className="text-red-500">
+                    {errors.options?.[index]?.value?.message}
+                  </p>
                 </div>
               ))}
 

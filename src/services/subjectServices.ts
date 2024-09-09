@@ -116,24 +116,23 @@ export const fetchSubjectsByLevel = async (levelId: string) => {
 };
 export const fetchSubjectsByteacher_id = async (teacherId: string) => {
   try {
-    console.log(teacherId)
     const subjectCollection = collection(db, "subjects");
 
     const q = query(subjectCollection, where("teacher", "==", teacherId));
 
     const subjectSnapshot = await getDocs(q);
-console.log(subjectSnapshot)
+    console.log(subjectSnapshot);
     const subjectList = subjectSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-    console.log(subjectList);
     return subjectList;
     // dispatch(setSubject([...subjectList]));
   } catch (error) {
     console.error("Error fetching subjects: ", error);
   }
 };
+
 export const getSubjectNameById = async (
   subjectId: string
 ): Promise<string> => {
@@ -145,7 +144,13 @@ export const getSubjectNameById = async (
   }
   return "Unknown Subject";
 };
-export const addQuestion = async ({ question, answers, correctAnswer, subjectId }) => {
+
+export const addQuestion = async ({
+  question,
+  answers,
+  correctAnswer,
+  subjectId,
+}) => {
   try {
     console.log("Adding quiz question");
 
