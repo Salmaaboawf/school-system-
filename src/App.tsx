@@ -76,8 +76,6 @@ function App() {
           <Route path="/video" element={<AddVideo />} />
           <Route path="/ShowVideo" element={<ShowVideo />} />
 
-          <Route path="/AddQuiz" element={<AddQuiz />} />
-
           <Route
             path="/login"
             element={userInfo.id ? <Navigate to="/" /> : <Login />}
@@ -107,6 +105,11 @@ function App() {
           path="/teacher-table"
           element={<PrivateRoute element={TeacherRoutine} role="teacher" />}
         />
+        <Route
+          path="/AddQuiz"
+          element={<PrivateRoute element={AddQuiz} role="teacher" />}
+        />
+
         <Route
           path="/student-table"
           element={<PrivateRoute element={StudentRoutine} role="student" />}
