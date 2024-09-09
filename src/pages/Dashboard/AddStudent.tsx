@@ -9,19 +9,26 @@ import { addStudent, fetchParents } from "../../services/userServices";
 import { useEffect, useState } from "react";
 import { fetchLevels } from "../../services/levelsServices";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+
+import { toast} from 'react-toastify';
+
 const schema = yup.object().shape({
   name: yup
   .string()
-  .matches(/^[A-Za-z\s]+$/, "must be chrachter only") 
+  .matches(/^[A-Za-z\s]+$/, "Name must be characters only") 
   .required("required ")
-  .max(20, " First name cannot exceed 20 characters").min(3,"min is 3 letters"),
+  .max(20, "Name cannot exceed 20 characters").min(3,"Name must be at least 3 letters"),
   phoneNumber: yup
     .string()
     .required("Age is required").matches(/^01[01259][0-9]{8}$/, 
     ),
-  age: yup.number().required("Age is required"),
+  age: yup.number()
+  .required("Age is required")
+  .typeError("Age must be a number") //issue
+  .min(18, "Student must be at least 4 years old")
+  .max(99, "Student must be younger than 19 years old"),
   gender: yup.string().required("Gender is required"),
-  class: yup.string().required("Gender is required"),
+  class: yup.string().required("Class is required"),
   address: yup
     .string()
     .required(),
@@ -39,7 +46,6 @@ const schema = yup.object().shape({
     return !value || (value && value.size <= 2 * 1024 * 1024)
   }),
 });
-
 
 
 
@@ -81,6 +87,42 @@ export default function Register() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+  if (errors.name) {
+    toast.error(errors.name.message);
+  }
+  if (errors.age) {
+    toast.error(errors.age.message);
+  }
+  if (errors.email) {
+    toast.error(errors.email.message);
+  }
+  if (errors.password) {
+    toast.error(errors.password.message);
+  }
+  if (errors.phoneNumber) {
+    toast.error(errors.phoneNumber.message);
+  }
+  if (errors.photofile) {
+    toast.error(errors.photofile.message);
+  }
+  if (errors.description) {
+    toast.error(errors.description.message);
+  }
+  if (errors.levels) {
+    toast.error(errors.levels.message);
+  }
+  if (errors.address) {
+    toast.error(errors.address.message);
+  }
+  if (errors.gender) {
+    toast.error(errors.gender.message);
+  }
+  if (errors.class) {
+    toast.error('Class is required.');
+  }
+}, [errors]); 
+
   return (
     <div className="container flex gap-x-5  ">
       <div className="flex-[1]">
@@ -107,7 +149,7 @@ export default function Register() {
                   type="text"
                   placeholder="Name"
                 />
-                <p className="text-red-500">{errors.name?.message}</p>
+
               </div>
               <div>
                 <Label htmlFor="address" value="address" />
@@ -117,7 +159,7 @@ export default function Register() {
                   type="text"
                   placeholder="Address"
                 />
-                <p className="text-red-500">{errors.address?.message}</p>
+
               </div>
               <div>
                 <Label htmlFor="age" value="Age" />
@@ -127,7 +169,6 @@ export default function Register() {
                   type="number"
                   placeholder="Age"
                 />
-                <p className="text-red-500">{errors.age?.message}</p>
               </div>
               <div>
                 <Label htmlFor="parent" value="parent" />
@@ -139,7 +180,7 @@ export default function Register() {
                     </option>
                   ))}
                 </Select>
-                <p className="text-red-500">{errors.age?.message}</p>
+
               </div>
               <div>
                 <Label htmlFor="class" value="class" />
@@ -151,16 +192,15 @@ export default function Register() {
                     </option>
                   ))}
                 </Select>
-                <p className="text-red-500">{errors.age?.message}</p>
+
               </div>
               <div>
                 {/* <Label htmlFor="gender" value="Gender" /> */}
                 <Select {...register("gender")} id="gender">
                   <option value="female">Female</option>
                   <option value="male">Male</option>
-                  <option value="other">Other</option>
                 </Select>
-                <p className="text-red-500">{errors.gender?.message}</p>
+
               </div>
               <div>
                 <Label htmlFor="phoneNumber" value="Your phone number" />
@@ -170,7 +210,7 @@ export default function Register() {
                   type="number"
                   placeholder="01023456789"
                 />
-                <p className="text-red-500">{errors.phoneNumber?.message}</p>
+
               </div>
               <div>
                 <Label htmlFor="email1" value="Your Email" />
@@ -180,7 +220,7 @@ export default function Register() {
                   type="email"
                   placeholder="name@flowbite.com"
                 />
-                <p className="text-red-500">{errors.email?.message}</p>
+
               </div>
               <div>
                 <Label htmlFor="password1" value="Your Password" />
@@ -190,7 +230,7 @@ export default function Register() {
                   type="password"
                   placeholder="Password"
                 />
-                <p className="text-red-500">{errors.password?.message}</p>
+
               </div>
 
               <div>
@@ -198,7 +238,7 @@ export default function Register() {
                 <FileInput id="photo"
                   accept="image/*"
                   onChange={handlePhotoChange} />
-                <p className="text-red-500">{errors.photofile?.message}</p>
+
               </div>
               <Button
                 outline

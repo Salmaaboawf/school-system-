@@ -10,7 +10,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
+import { toast} from 'react-toastify';
 export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
   try {
     let photoURL = "";
@@ -66,8 +66,10 @@ export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
     }
 
     console.log("Teacher added successfully!");
+    toast.success(`${name} added successfully as a teacher`)
   } catch (error) {
-    console.error("Error adding teacher: ", error);
+    console.log(error);
+    toast.error("Failed to add a teacher")
   }
 };
 
@@ -107,7 +109,31 @@ export const fetchTeachers = async () => {
     console.error("Error fetching teachers: ", error);
   }
 };
+/************************** */
+// export const fetchTeachersById = async (levelId: string) => {
+//   try {
+//     const teacherCollection = collection(db, "teachers");
 
+//     // استعلام باستخدام level_id
+//     const q = query(teacherCollection, where("level_id", "==", levelId));
+
+//     const teacherSnapshot = await getDocs(q);
+
+//     const teacherList = teacherSnapshot.docs.map((doc) => ({
+//       id: doc.id,
+//       ...doc.data(),
+//     }));
+
+//     console.log(teacherList); // عرض البيانات للتحقق منها
+
+//     return teacherList;
+//   } catch (error) {
+//     console.error("Error fetching teachers: ", error);
+//     return [];
+//   }
+// };
+
+/****************************/
 export const getTeacherNameById = async (teacherId: string) => {
   try {
     // Reference to the specific document in the 'teachers' collection

@@ -83,15 +83,47 @@ function Nav() {
                       </li>
                     )}
 
-                    {(userInfo.role === "student" ||
-                      userInfo.role === "parent") && (
+                    {userInfo.role === "student" && (
                       <>
                         <li>
                           <NavLink
-                            to="/my-subjects"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-100"
+                            to="/grades"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                           >
                             My Grad
+                          </NavLink>
+                        </li>
+                      </>
+                    )}
+
+                    {userInfo.role === "student" && (
+                      <>
+                        <li>
+                          <NavLink
+                            to="/student-table"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          >
+                            My schedule
+                          </NavLink>
+                        </li>
+                      </>
+                    )}
+                    {userInfo.role === "parent" && (
+                      <>
+                        <li>
+                          <NavLink
+                            to="/kids-schedule"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          >
+                            My Kids' Schedule
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/kids-grades"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                          >
+                            My Kids' Grades
                           </NavLink>
                         </li>
                       </>
@@ -179,6 +211,54 @@ function Nav() {
                   </li>
                   <li>
                     <NavLink
+                      to="/video"
+                      className={({ isActive }) =>
+                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-orange-400" : ""
+                        }`
+                      }
+                    >
+                      Addvideo
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/video"
+                      className={({ isActive }) =>
+                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-orange-400" : ""
+                        }`
+                      }
+                    >
+                      Addvideo
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/ShowVideo"
+                      className={({ isActive }) =>
+                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-orange-400" : ""
+                        }`
+                      }
+                    >
+                      ShowVideo
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/ShowVideo"
+                      className={({ isActive }) =>
+                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-orange-400" : ""
+                        }`
+                      }
+                    >
+                      ShowVideo
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
                       to="/stuff"
                       className={({ isActive }) =>
                         `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
@@ -201,7 +281,7 @@ function Nav() {
                       subjects
                     </NavLink>
                   </li>
-                 
+
                   <li>
                     <NavLink
                       to="/contact"

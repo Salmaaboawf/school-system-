@@ -18,7 +18,7 @@ import Footer from "./components/about/Footer";
 import Login from "./components/Login";
 import NotFound from "./components/NotFund";
 import Grad from "./components/Grad";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserById } from "./services/userServices";
 import AddClass from "./pages/Dashboard/AddLevels";
@@ -28,18 +28,28 @@ import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 
 import Showgrad from "./components/Showgrad";
+import KidsSchedule from "./pages/UsersPages/KidsSchedule";
+import KidsGrades from "./pages/UsersPages/KidsGrades";
+// import MyGrades from "./pages/Dashboard/MyGrades";
 import { useAppSelector } from "./hooks/reduxHooks";
+import AddVideo from "./pages/Dashboard/Addvideo";
 import Subjects from "./components/Subjects";
 import Quiz from "./components/Quiz";
 import AddQuiz from "./pages/Dashboard/AddQuiz";
+
+import ShowVideo from "./pages/Dashboard/ShowVideo";
 function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
   const userInfo = useAppSelector((state) => state.user.user);
 
-  useEffect(() => {
+  console.log(!!userInfo.id);
+  console.log(userId);
+
+  useLayoutEffect(() => {
     if (userId) {
       getUserById(userId, dispatch);
+      console.log(userInfo);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
@@ -63,6 +73,9 @@ function App() {
           <Route path="/stuff" element={<Teachers />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/my-grades" element={<MyGrades />} />
+          <Route path="/video" element={<AddVideo />} />
+          <Route path="/ShowVideo" element={<ShowVideo />} />
+
           <Route path="/AddQuiz" element={<AddQuiz />} />
 
           <Route
@@ -81,11 +94,11 @@ function App() {
           path="/grades"
           element={<PrivateRoute element={MyGrades} role="student" />}
         />
-       <Route
-  path="/quiz/:subjectId"
-  element={<PrivateRoute element={Quiz} role="student" />}
-/>
 
+        <Route
+          path="/quiz"
+          element={<PrivateRoute element={Quiz} role="student" />}
+        />
         <Route
           path="/schedule"
           element={<PrivateRoute element={Schedule} role="admin" />}
@@ -98,11 +111,11 @@ function App() {
           path="/student-table"
           element={<PrivateRoute element={StudentRoutine} role="student" />}
         />
-         <Route
+        <Route
           path="/student-subjects"
           element={<PrivateRoute element={Subjects} role="student" />}
         />
-         <Route
+        <Route
           path="/children-table"
           element={<PrivateRoute element={StudentRoutine} role="parent" />}
         />
@@ -123,6 +136,14 @@ function App() {
           element={<PrivateRoute element={AddClass} role="admin" />}
         />
         <Route
+          path="/add-video"
+          element={<PrivateRoute element={AddVideo} role="teacher" />}
+        />
+        <Route
+          path="/show-video"
+          element={<PrivateRoute element={ShowVideo} role="student" />}
+        />
+        <Route
           path="/add-class-routine"
           element={<PrivateRoute element={Add_Class_Routine} role="admin" />}
         />
@@ -138,6 +159,14 @@ function App() {
         <Route
           path="/grad-two"
           element={<PrivateRoute element={Showgrad} role="student" />}
+        />
+        <Route
+          path="/kids-schedule"
+          element={<PrivateRoute element={KidsSchedule} role="parent" />}
+        />
+        <Route
+          path="/kids-grades"
+          element={<PrivateRoute element={KidsGrades} role="parent" />}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>

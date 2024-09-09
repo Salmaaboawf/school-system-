@@ -13,25 +13,8 @@ import { db } from "../config/firebase";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setSubject } from "../Redux/Slices/subjectSlice";
 import { SubjectType } from "../utils/types";
-
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
-// Function to upload image to Firebase Storage
-export const uploadImageToStorage = async (file: File) => {
-  const storage = getStorage();
-  const storageRef = ref(storage, `subjects/${file.name}`);
-
-  try {
-    await uploadBytes(storageRef, file);
-    const downloadURL = await getDownloadURL(storageRef);
-    console.log(downloadURL);
-
-    return downloadURL;
-  } catch (error) {
-    console.error("Error uploading image: ", error);
-    throw error;
-  }
-};
+import { toast } from "react-toastify";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 export const addSubject = async (subjectData: {
   name: string;
@@ -70,6 +53,7 @@ export const addSubject = async (subjectData: {
 
     console.log("Subject added and teacher updated with the new subject");
   } catch (error) {
+    toast.error("Error adding subject");
     console.error("Error adding subject: ", error);
   }
 };
@@ -114,26 +98,28 @@ export const fetchSubjectsByLevel = async (levelId: string) => {
     console.error("Error fetching subjects: ", error);
   }
 };
+
 export const fetchSubjectsByteacher_id = async (teacherId: string) => {
   try {
-    console.log(teacherId)
+    console.log(teacherId);
     const subjectCollection = collection(db, "subjects");
 
     const q = query(subjectCollection, where("teacher", "==", teacherId));
 
     const subjectSnapshot = await getDocs(q);
-console.log(subjectSnapshot)
+    console.log(subjectSnapshot);
     const subjectList = subjectSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-    console.log(subjectList);
+    console.log(`hadeeer ${subjectList}`);
     return subjectList;
     // dispatch(setSubject([...subjectList]));
   } catch (error) {
     console.error("Error fetching subjects: ", error);
   }
 };
+
 export const getSubjectNameById = async (
   subjectId: string
 ): Promise<string> => {
@@ -145,7 +131,13 @@ export const getSubjectNameById = async (
   }
   return "Unknown Subject";
 };
-export const addQuestion = async ({ question, answers, correctAnswer, subjectId }) => {
+
+export const addQuestion = async ({
+  question,
+  answers,
+  correctAnswer,
+  subjectId,
+}) => {
   try {
     console.log("Adding quiz question");
 
@@ -167,6 +159,22 @@ export const addQuestion = async ({ question, answers, correctAnswer, subjectId 
     console.log("Question added:", quizRef.id);
   } catch (error) {
     console.log("Error adding question:", error);
+    throw error;
+  }
+};
+
+export const uploadImageToStorage = async (file: File) => {
+  const storage = getStorage();
+  const storageRef = ref(storage, `subjects/${file.name}`);
+
+  try {
+    await uploadBytes(storageRef, file);
+    const downloadURL = await getDownloadURL(storageRef);
+    console.log(downloadURL);
+
+    return downloadURL;
+  } catch (error) {
+    console.error("Error uploading image: ", error);
     throw error;
   }
 };
