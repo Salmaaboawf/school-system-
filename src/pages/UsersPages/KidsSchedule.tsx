@@ -1,0 +1,152 @@
+import React, { useEffect, useState } from 'react'
+import Nav from '../../components/Nav'
+import Header from '../../components/Header/Header'
+import Footer from '../../components/about/Footer'
+import { useDispatch, useSelector } from 'react-redux'
+import { getKids } from '../../Redux/Slices/KidsSlice'
+import { useAppSelector } from '../../hooks/reduxHooks'
+import { fetchSchedule } from '../../services/scheduleServices'
+
+function KidsSchedule() {
+
+  const dispatch = useDispatch();
+  const kids = useSelector((state) => state.kids.kidsList);
+  const [selectedKid, setSelectedKid] = useState("");
+  const [schedule, setSchedule] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const userInfo = useAppSelector((state) => state.user.user);
+
+  useEffect(() => {
+    const parentId = userInfo.id
+    if (parentId) {
+      dispatch(getKids(parentId));
+    }
+  }, []);
+
+
+  const handleViewSchedule = async (e) => {
+    e.preventDefault();
+    if (selectedKid) {
+      // console.log(selectedKid)
+      setLoading(true);
+      try {
+        // Assuming level_id is part of the kid's data
+        const kid = kids.find(kid => kid.id === selectedKid);
+        if (kid && kid.class_id) {
+          const fetchedSchedule = await fetchSchedule(kid.class_id);
+          setSchedule(fetchedSchedule.days);
+          setError(null);
+        } else {
+          setError("No level information available for the selected kid.");
+        }
+      } catch (error) {
+        console.error("Error fetching schedule:", error);
+        setError("Failed to fetch schedule. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  return (
+    <>
+      <Nav />
+      <Header />
+      <div className="forms p-6 rounded-lg ">
+        <div className="form max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-6">My Kids</h2>
+          <form
+            onSubmit={handleViewSchedule}
+            className="flex items-center space-x-4"
+          >
+            <div className="flex flex-grow flex-wrap gap-4">
+
+              <select value={selectedKid} onChange={(e) => setSelectedKid(e.target.value)}>
+                <option value="" disabled>Select a kid</option>
+                {kids.map((kid) => (
+                  <option key={kid.id} value={kid.id}>{kid.name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="flex-shrink-0">
+              <button
+                type="submit"
+                className="bg-[#002749] text-white px-6 py-3 rounded-lg h-12 hover:bg-[#577ce0]"
+              >
+                VIEW
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+      {loading && <p>Loading schedule...</p>}
+      {error && <p className="text-red-500">{error}</p>}
+
+      {schedule.length > 0 && (
+        <table className="min-w-full text-center text-sm font-light">
+          <thead className="border-b bg-[#002749] border-[#002749] font-medium text-white">
+            <tr>
+              <th scope="col" className="px-6 py-4">
+                Day
+              </th>
+              <th scope="col" className="px-6 py-4">
+                7:00-9:00
+              </th>
+              <th scope="col" className="px-6 py-4">
+                9:00-11:00
+              </th>
+              <th scope="col" className="px-6 py-4">
+                11:00-1:00
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {schedule.map((day, dayIndex) => (
+              <tr key={dayIndex} className="border-b dark:border-neutral-500">
+                <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
+                  {day.dayName}
+                </td>
+                {['7:00-9:00', '9:00-11:00', '11:00-1:00'].map((timeSlot, index) => {
+
+
+
+                  return (
+                    
+                    // <td key={index} className="px-6 py-4">
+                    //   {day.subjects.length > index ? day.subjects[index].subjectName : 'No class'}
+                    //   {day.subjects.length > index ? day.subjects[index].teacherName : 'No teacher available'}
+                    // </td>
+                    <td key={index} className="px-6 py-4">
+                    <div className="flex flex-col">
+                      {day.subjects.length > index ? (
+                        <>
+                          <span className="font-bold">{day.subjects[index].subjectName || 'No class'}</span>
+                          <span className="text-gray-600">{day.subjects[index].teacherName || 'No teacher available'}</span>
+                        </>
+                      ) : (
+                        <span>No class</span>
+                      )}
+                    </div>
+                  </td>
+                  
+                  )
+                })}
+              </tr>
+            ))}
+          </tbody>
+
+        </table>
+      )}
+
+
+      {schedule.length === 0 && !loading && !error && <p>No schedule available for the selected kid.</p>}
+
+      <Footer />
+    </>
+  )
+}
+
+export default KidsSchedule

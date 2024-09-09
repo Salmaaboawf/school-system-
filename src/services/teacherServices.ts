@@ -10,7 +10,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import {  query, where} from "firebase/firestore";
+import { toast} from 'react-toastify';
 export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
   try {
     let photoURL = "";
@@ -66,8 +66,10 @@ export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
     }
 
     console.log("Teacher added successfully!");
+    toast.success(`${name} added successfully as a teacher`)
   } catch (error) {
-    console.error("Error adding teacher: ", error);
+    console.log(error);
+    toast.error("Failed to add a teacher")
   }
 };
 

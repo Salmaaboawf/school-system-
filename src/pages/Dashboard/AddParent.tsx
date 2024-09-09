@@ -10,16 +10,18 @@ import Sidebar from "../../components/Sidebar";
 import { addParent, fetchStudents } from "../../services/userServices";
 import { ParentType, StudentType } from "../../utils/types";
 import { useEffect, useState } from "react";
+
+import { toast} from 'react-toastify';
 const schema = yup.object().shape({
   name: yup
   .string()
-  .matches(/^[A-Za-z\s]+$/, "must be chrachter only") 
+  .matches(/^[A-Za-z\s]+$/, "Name must be characters only") 
   .required("required ")
-  .max(20, " First name cannot exceed 20 characters").min(3,"min is 3 letters"),
+  .max(20, " Name cannot exceed 20 characters").min(3,"min is 3 letters"),
   
   phoneNumber: yup
     .string()
-    .required("Age is required").matches(/^01[01259][0-9]{8}$/, 
+    .required("Phone Number is required").matches(/^01[01259][0-9]{8}$/, 
     ),
     // .min(18, "You must be at least 18")
     // .max(99, "You must be younger than 99"),
@@ -35,7 +37,7 @@ const schema = yup.object().shape({
     .required("Password is required"),
   address: yup
     .string()
-    .required(),
+    .required("Address is required"),
   children: yup.array().required(),
   photofile: yup.mixed().required("Photo is required").test("fileSize", "File is too large", (value) => {
     return !value || (value && value.size <= 2 * 1024 * 1024)
@@ -80,6 +82,43 @@ export default function Register() {
     fetchStudents(setStudents);
   }, []);
 
+  useEffect(() => {
+    if (errors.name) {
+      toast.error(errors.name.message);
+    }
+    if (errors.age) {
+      toast.error(errors.age.message);
+    }
+    if (errors.email) {
+      toast.error(errors.email.message);
+    }
+    if (errors.password) {
+      toast.error(errors.password.message);
+    }
+    if (errors.phoneNumber) {
+      toast.error(errors.phoneNumber.message);
+    }
+    if (errors.photofile) {
+      toast.error(errors.photofile.message);
+    }
+    if (errors.description) {
+      toast.error(errors.description.message);
+    }
+    if (errors.levels) {
+      toast.error(errors.levels.message);
+    }
+    if (errors.address) {
+      toast.error(errors.address.message);
+    }
+    if (errors.gender) {
+      toast.error(errors.gender.message);
+    }
+    if (errors.children) {
+      // let message = 'Please select at least one child.' 
+      toast.error( 'Please select at least one child.' );
+    }
+  }, [errors]); 
+
   return (
     <div className="container flex gap-x-5  ">
       <div className="flex-[1]">
@@ -93,7 +132,7 @@ export default function Register() {
         {/* Header of the section */}
         <div className="my-5">
           <section className="shadow-md text-[#002749] ps-48">
-            <h1 className="text-2xl mb-10">add parent</h1>
+            <h1 className="text-2xl mb-10">Add Parent</h1>
             <form
               onSubmit={handleSubmit(save, (e) => {
                 console.log(e.children);
@@ -108,16 +147,16 @@ export default function Register() {
                   type="text"
                   placeholder="Parent Name"
                 />
-                <p className="text-red-500">{errors.name?.message}</p>
+
               </div>
               <div>
-                <Label htmlFor="address" value="address" />
+                <Label htmlFor="address" value="Address" />
                 <TextInput
                   {...register("address")}
                   id="address"
-                  placeholder="address"
+                  placeholder="Address"
                 />
-                <p className="text-red-500">{errors.address?.message}</p>
+
               </div>
               <div>
                 <Label htmlFor="children" value="children" />
@@ -140,19 +179,19 @@ export default function Register() {
 
                         setSelectedChildrenValues([...selectedOptions]);
                       }}
+                      // {...register("children")}
                     />
                   )}
                 />
-                <p className="text-red-500">{errors.gender?.message}</p>
+
               </div>
               <div>
                 <Label htmlFor="gender" value="Gender" />
                 <Select {...register("gender")} id="gender">
                   <option value="female">Female</option>
                   <option value="male">Male</option>
-                  <option value="other">Other</option>
                 </Select>
-                <p className="text-red-500">{errors.gender?.message}</p>
+
               </div>
               <div>
                 <Label htmlFor="phoneNumber" value="Your phone number" />
@@ -162,7 +201,7 @@ export default function Register() {
                   type="text"
                   placeholder="01023456789"
                 />
-                <p className="text-red-500">{errors.phoneNumber?.message}</p>
+
               </div>
               <div>
                 <Label htmlFor="email1" value="Your Email" />
@@ -172,7 +211,7 @@ export default function Register() {
                   type="email"
                   placeholder="name@flowbite.com"
                 />
-                <p className="text-red-500">{errors.email?.message}</p>
+
               </div>
               <div>
                 <Label htmlFor="password1" value="Your Password" />
@@ -182,7 +221,7 @@ export default function Register() {
                   type="password"
                   placeholder="Password"
                 />
-                <p className="text-red-500">{errors.password?.message}</p>
+
               </div>
 
               <div>
@@ -190,7 +229,7 @@ export default function Register() {
                 <FileInput id="photo"
                   accept="image/*"
                   onChange={handlePhotoChange} />
-                <p className="text-red-500">{errors.photofile?.message}</p>
+
               </div>
               <Button
                 outline

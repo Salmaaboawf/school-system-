@@ -16,7 +16,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ParentType, StudentType, TeacherType } from "../utils/types";
 import { Dispatch } from "@reduxjs/toolkit";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-
+import { toast} from 'react-toastify';
 export const saveLoggedUser = async (
   userId: string,
   dispatch: Dispatch,
@@ -101,7 +101,7 @@ export const addParent = async (value: ParentType, photo?: File) => {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       value.email,
-      value.password
+      value.password,
     );
     const user = userCredential.user;
 
@@ -114,6 +114,7 @@ export const addParent = async (value: ParentType, photo?: File) => {
       phone: value.phoneNumber,
       Children: childerenIds,
       photoURL,
+      role:'parent'
     });
 
     childerenIds?.forEach(async (id) => {
@@ -129,8 +130,11 @@ export const addParent = async (value: ParentType, photo?: File) => {
         console.log(error);
       }
     });
+
+    toast.success(`${value.name} added successfully as a Parent`)
   } catch (error) {
     console.log(error);
+    toast.error("Failed to add a parent")
   }
 };
 
@@ -152,46 +156,6 @@ export const fetchTeachers = async () => {
   }
 };
 
-// export const addTeacher = async (teacherInfo: TeacherType) => {
-//   try {
-//     const teacherLevelsIds = teacherInfo.levels.map((item) => item.id);
-//     const userCredential = await createUserWithEmailAndPassword(
-//       auth,
-//       teacherInfo.email,
-//       teacherInfo.password
-//     );
-//     console.log(`esraa ${userCredential}`);
-//     const user = userCredential.user;
-//     console.log(`esraa ${user}`);
-
-//     const teacherRef = doc(db, "teachers", `${user.uid}`);
-
-//     const {
-//       name,
-//       email,
-//       gender,
-//       phoneNumber,
-//       age,
-//       subject,
-//       role = "teacher",
-//     }: TeacherType = teacherInfo;
-
-//     await setDoc(teacherRef, {
-//       id: user.uid,
-//       name,
-//       email,
-//       gender,
-//       phoneNumber,
-//       age,
-//       subject,
-//       role,
-//       levels_Ids: teacherLevelsIds,
-//     });
-//     console.log("Teacher added successfully!");
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 // add sudent
 
@@ -266,7 +230,10 @@ export const addStudent = async (value: StudentType, photo?: File) => {
     if (parent.length > 0) {
       addChildToParent(parent, user.uid);
     }
+
+    toast.success(`${name} added successfully as a Student`)
   } catch (error) {
+    toast.error("Failed to add a student")
     console.log(error);
   }
 };
@@ -295,7 +262,7 @@ const addChildToParent = async (parent: string, userId: string) => {
 
     console.log("Document updated successfully");
 
-    console.log("Subjects added successfully! and student aswell");
+    console.log("Subjects added successfully! and student as well");
   } else {
     console.log("No such document!");
   }
