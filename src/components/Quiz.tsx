@@ -6,7 +6,7 @@ import {
   getQuizQuestions,
   markQuizAsCompleted,
 } from "../services/quizServices";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const QuizPage = () => {
@@ -24,6 +24,8 @@ const QuizPage = () => {
     alignItems: "center",
     padding: "20px",
   };
+
+  // console.log(); test updates
 
   const userInfo = useAppSelector((state) => state.user.user);
   const [score, setScore] = useState(0);
