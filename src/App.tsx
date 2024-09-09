@@ -32,9 +32,12 @@ import KidsSchedule from "./pages/UsersPages/KidsSchedule";
 import KidsGrades from "./pages/UsersPages/KidsGrades";
 // import MyGrades from "./pages/Dashboard/MyGrades";
 import { useAppSelector } from "./hooks/reduxHooks";
+import AddVideo from "./pages/Dashboard/Addvideo";
 import Subjects from "./components/Subjects";
 import Quiz from "./components/Quiz";
 import AddQuiz from "./pages/Dashboard/AddQuiz";
+
+import ShowVideo from "./pages/Dashboard/ShowVideo";
 function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
@@ -70,6 +73,9 @@ function App() {
           <Route path="/stuff" element={<Teachers />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/my-grades" element={<MyGrades />} />
+          <Route path="/video" element={<AddVideo />} />
+          <Route path="/ShowVideo" element={<ShowVideo />} />
+
           <Route path="/AddQuiz" element={<AddQuiz />} />
 
           <Route
@@ -88,6 +94,7 @@ function App() {
           path="/grades"
           element={<PrivateRoute element={MyGrades} role="student" />}
         />
+
         <Route
           path="/quiz"
           element={<PrivateRoute element={Quiz} role="student" />}
@@ -127,6 +134,14 @@ function App() {
         <Route
           path="/add-class"
           element={<PrivateRoute element={AddClass} role="admin" />}
+        />
+        <Route
+          path="/add-video"
+          element={<PrivateRoute element={AddVideo} role="teacher" />}
+        />
+        <Route
+          path="/show-video"
+          element={<PrivateRoute element={ShowVideo} role="student" />}
         />
         <Route
           path="/add-class-routine"
