@@ -29,10 +29,6 @@ export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
       teacherInfo.email,
       teacherInfo.password
     );
-<<<<<<< HEAD
- 
-=======
->>>>>>> 1de1f364cbd97bae45d6943481fd1823dbc6671e
     const user = userCredential.user;
 
     // Save the teacher in Firestore
@@ -72,12 +68,8 @@ export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
     console.log("Teacher added successfully!");
     toast.success(`${name} added successfully as a teacher`)
   } catch (error) {
-<<<<<<< HEAD
     console.log(error);
     toast.error("Failed to add a teacher")
-=======
-    console.error("Error adding teacher: ", error);
->>>>>>> 1de1f364cbd97bae45d6943481fd1823dbc6671e
   }
 };
 

@@ -101,7 +101,7 @@ const StudentRoutine = () => {
                     className="whitespace-nowrap px-6 py-4 text-2xl"
                   >
                     {subject.subject_name}{" "}
-                    <h6 className="text-sm">{subject.teacher_name}</h6>
+                    <h6 className="text-sm">{subject.teacherName}</h6>
                   </td>
                 ))}
               </tr>

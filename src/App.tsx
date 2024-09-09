@@ -28,16 +28,13 @@ import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 
 import Showgrad from "./components/Showgrad";
-<<<<<<< HEAD
 import KidsSchedule from "./pages/UsersPages/KidsSchedule";
 import KidsGrades from "./pages/UsersPages/KidsGrades";
 // import MyGrades from "./pages/Dashboard/MyGrades";
-=======
 import { useAppSelector } from "./hooks/reduxHooks";
 import Subjects from "./components/Subjects";
 import Quiz from "./components/Quiz";
 import AddQuiz from "./pages/Dashboard/AddQuiz";
->>>>>>> 1de1f364cbd97bae45d6943481fd1823dbc6671e
 function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");

@@ -19,20 +19,14 @@ import { useEffect } from "react";
 import { fetchLevels } from "../../services/levelsServices";
 import { fetchSubjects } from "../../services/subjectServices";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 export default function Register() {
   const schema = yup.object().shape({
     name: yup
       .string()
-<<<<<<< HEAD
       .matches(/^[A-Za-z\s]+$/, "Name must be characters only")
       .required("required ")
       .max(20, " First name cannot exceed 20 characters")
-=======
-      .matches(/^[A-Za-z\s]+$/, "must be character only")
-      .required("required")
-      .max(20, "First name cannot exceed 20 characters")
->>>>>>> 1de1f364cbd97bae45d6943481fd1823dbc6671e
       .min(3, "min is 3 letters"),
 
     age: yup.string().required("Age is required"),
@@ -109,7 +103,7 @@ export default function Register() {
     if (errors.levels) {
       toast.error(errors.levels.message);
     }
-  }, [errors]); 
+  }, [errors]);
 
   const save = async (value: TeacherType) => {
     try {
@@ -146,11 +140,7 @@ export default function Register() {
         {/* Form section */}
         <div className="my-5">
           <section className="shadow-md text-[#002749] ps-48">
-<<<<<<< HEAD
             <h1 className="text-2xl mb-10">Add teacher</h1>
-=======
-            <h1 className="text-2xl mb-10">Add Teacher</h1>
->>>>>>> 1de1f364cbd97bae45d6943481fd1823dbc6671e
             <form
               onSubmit={handleSubmit(save, (err) => console.log(err))}
               className="flex max-w-md flex-col gap-4"
@@ -235,7 +225,7 @@ export default function Register() {
                   type="text"
                   placeholder="Age"
                 />
- 
+
               </div>
               <div>
                 <Label htmlFor="gender" value="Gender" />
