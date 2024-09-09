@@ -10,6 +10,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const QuizPage = () => {
+
+ 
+
   const divStyle = {
     backgroundImage: `url(${img})`,
     backgroundSize: "contain", // لجعل الصورة تظهر بالكامل
