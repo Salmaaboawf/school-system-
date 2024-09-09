@@ -8,18 +8,18 @@ import { addSubject } from "../../services/subjectServices";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { fetchLevels } from "../../services/levelsServices";
-
+import { toast} from 'react-toastify';
 const schema = yup.object().shape({
   name: yup
   .string()
-  .matches(/^[A-Za-z\s]+$/, "must be chrachter only") 
+  .matches(/^[A-Za-z\s]+$/, "Subject name must be characters only") 
   .required("required ")
-  .max(20, "  name cannot exceed 20 characters").min(3,"min is 3 letters"),
+  .max(20, "Subject name cannot exceed 20 characters").min(3,"min is 3 letters"),
   
   teacher: yup.string()
-  .matches(/^[A-Za-z\s]+$/, "must be chrachter only") 
+  .matches(/^[A-Za-z\s]+$/, "Teacher name must be characters only") 
   .required("required ")
-  .max(20, "  name cannot exceed 20 characters").min(3,"min is 3 letters"),
+  .max(20, " name cannot exceed 20 characters").min(3,"Teacher name must be at least 3 letters"),
   description: yup.string().required("Course description is required"),
   level_id: yup.string().required("Please select a class"),
   total_grade: yup.number().required("Full mark is required").positive("Grade must be a positive number"),
@@ -46,6 +46,25 @@ export default function AddSubject() {
     fetchLevels(dispatch);
   }, [dispatch]);
 
+  useEffect(() => {
+    if (errors.name) {
+      toast.error(errors.name.message);
+    }
+    if (errors.total_grade) {
+      toast.error(errors.total_grade.message);
+    }
+    if (errors.level_id) {
+      toast.error(errors.level_id.message);
+    }
+    if (errors.teacher) {
+      toast.error(errors.teacher.message);
+    }
+    if (errors.description) {
+      toast.error(errors.description.message);
+    }
+  }, [errors]);
+  
+
   return (
     <div className="container flex gap-x-5">
       <div className="flex-[1]">
@@ -70,7 +89,6 @@ export default function AddSubject() {
                   placeholder="Course Name"
                   {...register("name")}
                 />
-                <p className="text-red-500">{errors.name?.message}</p>
               </div>
               <div className="mb-4">
                 <label htmlFor="courseMark">Course Full Mark</label>
@@ -81,7 +99,6 @@ export default function AddSubject() {
                   placeholder="Course Full Mark"
                   {...register("total_grade")}
                 />
-                <p className="text-red-500">{errors.total_grade?.message}</p>
               </div>
               
               <div>
@@ -97,7 +114,7 @@ export default function AddSubject() {
                     </option>
                   ))}
                 </Select>
-                <p className="text-red-500">{errors.level_id?.message}</p>
+               
               </div>
 
               <div className="mb-4">
@@ -109,7 +126,6 @@ export default function AddSubject() {
                   placeholder="Teacher Name"
                   {...register("teacher")}
                 />
-                <p className="text-red-500">{errors.teacher?.message}</p>
               </div>
 
               <div className="mb-4">
@@ -121,7 +137,6 @@ export default function AddSubject() {
                   className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded"
                   {...register("description")}
                 />
-                <p className="text-red-500">{errors.description?.message}</p>
               </div>
 
               <div className="">

@@ -85,8 +85,7 @@ function Nav() {
                       </li>
                     )}
 
-                    {(userInfo.role === "student" ||
-                      userInfo.role === "parent") && (
+                    {(userInfo.role === "student") && (
                       <>
                         <li>
                           <NavLink
@@ -106,6 +105,27 @@ function Nav() {
                         </li>
                       </>
                     )}
+
+{userInfo.role === "parent" && (
+  <>
+    <li>
+      <NavLink
+        to="/kids-schedule"
+        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+      >
+        My Kids' Schedule
+      </NavLink>
+    </li>
+    <li>
+      <NavLink
+        to="/kids-grades"
+        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+      >
+        My Kids' Grades
+      </NavLink>
+    </li>
+  </>
+)}
 
                     <li>
                       <button

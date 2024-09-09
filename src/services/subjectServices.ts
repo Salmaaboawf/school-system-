@@ -10,7 +10,7 @@ import { db } from "../config/firebase";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setSubject } from "../Redux/Slices/subjectSlice";
 import { SubjectType } from "../utils/types";
-
+import { toast} from 'react-toastify';
 export const addSubject = async (subjectData: {
   name: string;
   teacher: string;
@@ -28,7 +28,9 @@ export const addSubject = async (subjectData: {
 
     // 3. Update the document with the ID field
     await updateDoc(docRef, { id: docId });
+    toast.success(`${name} subject is added successfully`)
   } catch (error) {
+    toast.error("Error adding subject");
     console.error("Error adding subject: ", error);
   }
 };

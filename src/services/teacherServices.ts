@@ -3,7 +3,7 @@ import auth, { db, storage } from "../config/firebase";
 import { Schedule, SubjectType, TeacherType } from "../utils/types";
 import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
+import { toast} from 'react-toastify';
 export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
   try {
     let photoURL = "";
@@ -19,9 +19,8 @@ export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
       teacherInfo.email,
       teacherInfo.password
     );
-    console.log(`esraa ${userCredential}`);
+ 
     const user = userCredential.user;
-    console.log(`esraa ${user}`);
 
     const teacherRef = doc(db, "teachers", `${user.uid}`);
 
@@ -51,8 +50,10 @@ export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
       // photo,
     });
     console.log("Teacher added successfully!");
+    toast.success(`${name} added successfully as a teacher`)
   } catch (error) {
     console.log(error);
+    toast.error("Failed to add a teacher")
   }
 };
 

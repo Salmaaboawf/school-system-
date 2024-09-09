@@ -6,6 +6,8 @@ import gradesReducer from "./Slices/subjectSlice"
 import levelsReducer from "./Slices/levelsSlice";
 import subjectSlice from "./Slices/subjectSlice";
 
+import kidsReducer from './Slices/KidsSlice'
+
 
 export const Store = configureStore({
   reducer: {
@@ -14,7 +16,8 @@ export const Store = configureStore({
     grades :gradesReducer,
 
     levels: levelsReducer,
-    subject:subjectSlice
+    subject:subjectSlice,
+    kids:kidsReducer
 
   },
 });

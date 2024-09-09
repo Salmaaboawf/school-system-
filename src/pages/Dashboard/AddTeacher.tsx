@@ -19,12 +19,12 @@ import { useEffect } from "react";
 import { fetchLevels } from "../../services/levelsServices";
 import { fetchSubjects } from "../../services/subjectServices";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-
+import { toast} from 'react-toastify';
 export default function Register() {
   const schema = yup.object().shape({
     name: yup
       .string()
-      .matches(/^[A-Za-z\s]+$/, "must be chrachter only")
+      .matches(/^[A-Za-z\s]+$/, "Name must be characters only")
       .required("required ")
       .max(20, " First name cannot exceed 20 characters")
       .min(3, "min is 3 letters"),
@@ -81,6 +81,33 @@ export default function Register() {
     fetchSubjects(dispatch);
   }, []);
 
+  useEffect(() => {
+    if (errors.name) {
+      toast.error(errors.name.message);
+    }
+    if (errors.age) {
+      toast.error(errors.age.message);
+    }
+    if (errors.email) {
+      toast.error(errors.email.message);
+    }
+    if (errors.password) {
+      toast.error(errors.password.message);
+    }
+    if (errors.phoneNumber) {
+      toast.error(errors.phoneNumber.message);
+    }
+    if (errors.photofile) {
+      toast.error(errors.photofile.message);
+    }
+    if (errors.description) {
+      toast.error(errors.description.message);
+    }
+    if (errors.levels) {
+      toast.error(errors.levels.message);
+    }
+  }, [errors]); 
+
   const save = async (value: TeacherType) => {
     try {
       const photo = value.photofile; // handle the file seperately
@@ -111,7 +138,7 @@ export default function Register() {
         {/* Header of the section */}
         <div className="my-5">
           <section className="shadow-md text-[#002749] ps-48">
-            <h1 className="text-2xl mb-10">add teacher</h1>
+            <h1 className="text-2xl mb-10">Add teacher</h1>
             <form
               onSubmit={handleSubmit(save, (err) => console.log(err))}
               className="flex max-w-md flex-col gap-4"
@@ -124,7 +151,7 @@ export default function Register() {
                   type="text"
                   placeholder="Teacher Name"
                 />
-                <p className="text-red-500">{errors.name?.message}</p>
+
               </div>
               <div>
                 <Label htmlFor="subject" value="Teacher Subject" />
@@ -136,7 +163,6 @@ export default function Register() {
                   ))}
                 </Select>
 
-                <p className="text-red-500">{errors.subject?.message}</p>
               </div>
               <Label htmlFor="levels" value="Teacher levels" />
               <Controller
@@ -180,7 +206,7 @@ export default function Register() {
                   type="text"
                   placeholder="Teacher Phone Number"
                 />
-                <p className="text-red-500">{errors.phoneNumber?.message}</p>
+
               </div>
               <div>
                 <Label htmlFor="age" value="Age" />
@@ -190,7 +216,7 @@ export default function Register() {
                   type="text"
                   placeholder="Age"
                 />
-                <p className="text-red-500">{errors.age?.message}</p>
+ 
               </div>
               <div>
                 <Label htmlFor="gender" value="Gender" />
@@ -201,7 +227,7 @@ export default function Register() {
                   <option value="female">Female</option>
                   <option value="male">Male</option>
                 </Select>
-                <p className="text-red-500">{errors.gender?.message}</p>
+
               </div>
 
               <div>
@@ -212,7 +238,7 @@ export default function Register() {
                   type="email"
                   placeholder="name@flowbite.com"
                 />
-                <p className="text-red-500">{errors.email?.message}</p>
+
               </div>
               <div>
                 <Label htmlFor="password1" value="Your Password" />
@@ -222,7 +248,7 @@ export default function Register() {
                   type="password"
                   placeholder="Password"
                 />
-                <p className="text-red-500">{errors.password?.message}</p>
+
               </div>
               {/* photo field */}
               <div>
@@ -232,7 +258,7 @@ export default function Register() {
                   accept="image/*"
                   onChange={handlePhotoChange}
                 />
-                <p className="text-red-500">{errors.photofile?.message}</p>
+
               </div>
               <Button
                 outline
