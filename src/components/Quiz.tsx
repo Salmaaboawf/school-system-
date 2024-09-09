@@ -10,6 +10,22 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const QuizPage = () => {
+  // const { subjectId } = useParams(); // جلب معرف المادة من URL
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [quizCompleted, setQuizCompleted] = useState(false);
+
+
+
+  const { subjectId } = useParams();
+useEffect(() => {
+  console.log("Subject ID from URL:", subjectId); // للتحقق من أن الـ subjectId يتم جلبه بشكل صحيح من URL
+  fetchQuestions();
+}, [subjectId]);
+
   const divStyle = {
     backgroundImage: `url(${img})`,
     backgroundSize: "contain", // لجعل الصورة تظهر بالكامل

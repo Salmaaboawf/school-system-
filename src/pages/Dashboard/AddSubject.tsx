@@ -191,20 +191,7 @@ export default function AddSubject() {
               </div>
             </form>
 
-            <Button
-              outline
-              gradientDuoTone="pinkToOrange"
-              className="my-5 w-72"
-              onClick={() => {
-                addQuestion({
-                  question: "what is your name",
-                  answers: ["asdas", "momen", "sadas", "sadasd"],
-                  correctAnswer: "1",
-                });
-              }}
-            >
-              Add
-            </Button>
+           
           </section>
         </div>
       </div>
