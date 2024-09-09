@@ -18,7 +18,7 @@ import Footer from "./components/about/Footer";
 import Login from "./components/Login";
 import NotFound from "./components/NotFund";
 import Grad from "./components/Grad";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserById } from "./services/userServices";
 import AddClass from "./pages/Dashboard/AddLevels";
@@ -40,9 +40,13 @@ function App() {
   const userId = localStorage.getItem("userId");
   const userInfo = useAppSelector((state) => state.user.user);
 
-  useEffect(() => {
+  console.log(!!userInfo.id);
+  console.log(userId);
+
+  useLayoutEffect(() => {
     if (userId) {
       getUserById(userId, dispatch);
+      console.log(userInfo);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
@@ -70,7 +74,7 @@ function App() {
 
           <Route
             path="/login"
-            element={userInfo.id ? <Navigate to="/" /> : <Login />}
+            element={!userInfo.id ? <Navigate to="/" /> : <Login />}
           />
         </Route>
 
@@ -84,7 +88,7 @@ function App() {
           path="/grades"
           element={<PrivateRoute element={MyGrades} role="student" />}
         />
-         <Route
+        <Route
           path="/quiz"
           element={<PrivateRoute element={Quiz} role="student" />}
         />
@@ -100,11 +104,11 @@ function App() {
           path="/student-table"
           element={<PrivateRoute element={StudentRoutine} role="student" />}
         />
-         <Route
+        <Route
           path="/student-subjects"
           element={<PrivateRoute element={Subjects} role="student" />}
         />
-         <Route
+        <Route
           path="/children-table"
           element={<PrivateRoute element={StudentRoutine} role="parent" />}
         />

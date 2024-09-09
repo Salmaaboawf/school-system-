@@ -9,14 +9,9 @@ import {
   fetchSubjectsByteacher_id,
 } from "../../services/subjectServices";
 import {
-  collection,
-  deleteDoc,
-  doc,
-  getDocs,
-  onSnapshot,
-} from "firebase/firestore";
-import { db } from "../../config/firebase";
-import { getQuizQuestions } from "../../services/quizServices";
+  clearQuizQuestions,
+  getQuizQuestions,
+} from "../../services/quizServices";
 
 // Validation Schema
 const schema = yup.object().shape({
