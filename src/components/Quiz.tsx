@@ -22,6 +22,8 @@ const QuizPage = () => {
     padding: "20px",
   };
 
+  // console.log(); test updates
+
   const userInfo = useAppSelector((state) => state.user.user);
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
