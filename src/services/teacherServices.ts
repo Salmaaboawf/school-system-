@@ -109,7 +109,31 @@ export const fetchTeachers = async () => {
     console.error("Error fetching teachers: ", error);
   }
 };
+/************************** */
+// export const fetchTeachersById = async (levelId: string) => {
+//   try {
+//     const teacherCollection = collection(db, "teachers");
 
+//     // استعلام باستخدام level_id
+//     const q = query(teacherCollection, where("level_id", "==", levelId));
+
+//     const teacherSnapshot = await getDocs(q);
+
+//     const teacherList = teacherSnapshot.docs.map((doc) => ({
+//       id: doc.id,
+//       ...doc.data(),
+//     }));
+
+//     console.log(teacherList); // عرض البيانات للتحقق منها
+
+//     return teacherList;
+//   } catch (error) {
+//     console.error("Error fetching teachers: ", error);
+//     return [];
+//   }
+// };
+
+/****************************/
 export const getTeacherNameById = async (teacherId: string) => {
   try {
     // Reference to the specific document in the 'teachers' collection

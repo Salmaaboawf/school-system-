@@ -24,8 +24,8 @@ function Subjects() {
     loadSubjects();
   }, [dispatch, userInfo.class_id]);
 
-  const handleButtonClick = () => {
-    navigate('/quiz');
+  const handleButtonClick = (subjectId: string) => {
+    navigate(`/quiz`, { state: { subjectId } });
   };
 
   return (
