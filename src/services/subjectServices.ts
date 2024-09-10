@@ -120,6 +120,7 @@ export const fetchSubjectsByteacher_id = async (teacherId: string) => {
   }
 };
 
+
 export const getSubjectNameById = async (
   subjectId: string
 ): Promise<string> => {
