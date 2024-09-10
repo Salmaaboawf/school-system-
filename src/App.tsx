@@ -28,9 +28,13 @@ import ScrollToTop from "./components/ScrollToTop";
 import { ToastContainer } from "react-toastify";
 
 import Showgrad from "./components/Showgrad";
+import KidsSchedule from "./pages/UsersPages/KidsSchedule";
+import KidsGrades from "./pages/UsersPages/KidsGrades";
+// import MyGrades from "./pages/Dashboard/MyGrades";
 import { useAppSelector } from "./hooks/reduxHooks";
 import Subjects from "./components/Subjects";
 import Quiz from "./components/Quiz";
+import AddQuiz from "./pages/Dashboard/AddQuiz";
 function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
@@ -62,6 +66,8 @@ function App() {
           <Route path="/stuff" element={<Teachers />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/my-grades" element={<MyGrades />} />
+          <Route path="/AddQuiz" element={<AddQuiz />} />
+
           <Route
             path="/login"
             element={userInfo.id ? <Navigate to="/" /> : <Login />}
@@ -134,6 +140,14 @@ function App() {
         <Route
           path="/grad-two"
           element={<PrivateRoute element={Showgrad} role="student" />}
+        />
+        <Route
+          path="/kids-schedule"
+          element={<PrivateRoute element={KidsSchedule} role="parent" />}
+        />
+        <Route
+          path="/kids-grades"
+          element={<PrivateRoute element={KidsGrades} role="parent" />}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>

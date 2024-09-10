@@ -81,22 +81,23 @@
 import { useState } from "react";
 import { Button, Label, TextInput } from "flowbite-react";
 import { addLevels } from "../../services/levelsServices";
+import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import * as Yup from "yup";
-
-// Validation schema
-const validationSchema = Yup.object().shape({
-  levelName: Yup.string()
-    .min(3, "Min 3 letters")
-    .matches(/^[A-Za-z\s]+$/, "Must be just letters")
-    .required("Required"),
-});
-
+import { toast} from 'react-toastify';
 export default function AddLevels() {
   const [levelName, setLevelName] = useState("");
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
+
+  const validationSchema = Yup.object().shape({
+    levelName: Yup.string().required("Level is required"),
+      // .min(3, "min 3 letters")
+      // .matches(/^[A-Za-z\s]+$/,"must be just letters") 
+      
+  });
+  
 
   const handleSave = async (event) => {
     event.preventDefault();
@@ -104,9 +105,7 @@ export default function AddLevels() {
     try {
       await validationSchema.validate({ levelName }, { abortEarly: false });
       await addLevels(levelName);
-      setSuccessMessage("Level added successfully!");
-      setLevelName(""); // Clear input field
-      setErrors({});
+      toast.success(`${levelName} grade added successfully`)
     } catch (error) {
       const validationErrors = {};
       error.inner.forEach((err) => {
@@ -116,6 +115,12 @@ export default function AddLevels() {
       setSuccessMessage(""); // Clear success message on error
     }
   };
+
+  useEffect(()=>{
+    if(errors.levelName){
+      toast.error(errors.levelName)
+    }
+  },[errors])
 
   return (
     <div className="flex flex-col md:flex-row gap-5 p-5 mx-auto max-w-screen-lg">
