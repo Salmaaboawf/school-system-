@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import img from "../assets/images/Blue Playful Space Landscape Blank Page Border.png";
 import { useAppSelector } from "../hooks/reduxHooks";
 import {
+  addGradeToStudent,
   checkIfStudentCompletedQuiz,
   getQuizQuestions,
   markQuizAsCompleted,
@@ -10,14 +11,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const QuizPage = () => {
-
- 
-
   const divStyle = {
     backgroundImage: `url(${img})`,
-    backgroundSize: "contain", // لجعل الصورة تظهر بالكامل
-    backgroundRepeat: "no-repeat", // لمنع تكرار الصورة
-    backgroundPosition: "center", // لضبط الصورة في منتصف الـ div
+    backgroundSize: "contain",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "center",
     minHeight: "100vh",
     display: "flex",
     justifyContent: "center",
@@ -25,30 +23,33 @@ const QuizPage = () => {
     padding: "20px",
   };
 
-  // console.log(); test updates
-
   const userInfo = useAppSelector((state) => state.user.user);
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [quizQuestions, setQuizQuestions] = useState([]);
-  const [asnswer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState("");
+  const [subject, setSubject] = useState(null); // Initialize with null
   const navigate = useNavigate();
   const location = useLocation();
   const { subjectId } = location.state || {};
-  console.log(subjectId);
 
-  const isVisitedQuizBefore = async () => {
+  // Ensure subjectId is properly assigned and is not undefined
+  useEffect(() => {
+    if (subjectId) {
+      setSubject(subjectId); // Set subjectId once it's available
+    }
+  }, [subjectId]);
+
+  // Check if student has already taken the quiz
+  const isVisitedQuizBefore = async (subject: string) => {
     try {
-      const isVisited = await checkIfStudentCompletedQuiz(
-        subjectId,
-        userInfo.id
-      );
+      const isVisited = await checkIfStudentCompletedQuiz(subject, userInfo.id);
       if (isVisited) {
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "You can't take same quiz two times",
+          text: "You can't take the same quiz two times",
         }).then((res) => {
           if (res.isConfirmed) {
             navigate("/");
@@ -60,46 +61,54 @@ const QuizPage = () => {
     }
   };
 
+  // Fetch quiz questions and handle quiz state
   useEffect(() => {
-    getQuizQuestions(subjectId, (questions) => {
-      setQuizQuestions([...questions]);
-      console.log(quizQuestions);
-    });
-
-    if (quizQuestions.length < 20) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Exam not ready yet.",
-      }).then((res) => {
-        if (res.isConfirmed) {
-          navigate("/");
+    if (subject) {
+      getQuizQuestions(subject, (questions) => {
+        setQuizQuestions([...questions]);
+        if (questions.length < 20) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Exam not ready yet.",
+          }).then((res) => {
+            if (res.isConfirmed) {
+              navigate("/");
+            }
+          });
         }
       });
-      return;
-    }
 
-    isVisitedQuizBefore();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      isVisitedQuizBefore(subject);
+    }
+  }, [subject]);
 
   const currentQuestion = quizQuestions[currentQuestionIndex];
 
+  // Handle next question
   const handleNextQuestion = () => {
-    if (asnswer) {
-      if (currentQuestionIndex <= quizQuestions.length - 1) {
-        setCurrentQuestionIndex(currentQuestionIndex + 1);
+    if (answer) {
+      if (currentQuestionIndex < quizQuestions.length) {
         if (
-          currentQuestion.options.indexOf(asnswer) ==
+          currentQuestion.options.indexOf(answer) ===
           currentQuestion.correctAnswer
         ) {
           setScore((prev) => prev + 1);
         }
-        setAnswer("");
-        if (currentQuestionIndex == quizQuestions.length - 1) {
+
+        if (currentQuestionIndex === quizQuestions.length - 1) {
           setQuizCompleted(true);
-          markQuizAsCompleted(subjectId, userInfo.id);
+          markQuizAsCompleted(subject, userInfo.id);
+          addGradeToStudent({
+            studentId: userInfo.id,
+            subjectId: subject,
+            level_id: userInfo.class_id,
+            score: (score + 1).toString(),
+          });
+        } else {
+          setCurrentQuestionIndex((prev) => prev + 1);
         }
+        setAnswer("");
       }
     }
   };
@@ -165,7 +174,6 @@ const QuizPage = () => {
                   Go Home
                 </button>
               </div>
-              {/* Optionally, display results or feedback here */}
             </div>
           )}
         </div>

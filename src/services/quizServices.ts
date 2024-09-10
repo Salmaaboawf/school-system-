@@ -1,4 +1,5 @@
 import {
+  addDoc,
   arrayUnion,
   collection,
   deleteDoc,
@@ -6,13 +7,16 @@ import {
   getDoc,
   getDocs,
   onSnapshot,
+  query,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 
 // Function to get quiz questions in real-time using Firestore onSnapshot
 export const getQuizQuestions = (
   subjectId: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   callback: (questions: any[]) => void
 ) => {
   try {
@@ -96,5 +100,65 @@ export const checkIfStudentCompletedQuiz = async (
   } catch (error) {
     console.error("Error checking quiz completion status: ", error);
     return false;
+  }
+};
+
+export const addGradeToStudent = async ({
+  studentId,
+  subjectId,
+  level_id,
+  score,
+}: {
+  studentId: string;
+  subjectId: string;
+  level_id: string;
+  score: string;
+}) => {
+  try {
+    // Reference to the 'grades' collection
+    const gradesRef = collection(db, "grades");
+
+    // Query the document that matches both the student_id and subject_id
+    const gradeQuery = query(
+      gradesRef,
+      where("student_id", "==", studentId),
+      where("subject_id", "==", subjectId)
+    );
+
+    // Get the documents that match the query
+    const gradeDocs = await getDocs(gradeQuery);
+
+    const currentScore = parseInt(score); // Convert the score to a number
+
+    if (!gradeDocs.empty) {
+      // If the document exists, retrieve the current quizScore
+      const docId = gradeDocs.docs[0].id;
+      const gradeDocRef = doc(db, "grades", docId);
+
+      const gradeData = gradeDocs.docs[0].data();
+      const previousScore = parseInt(gradeData.quizScore) || 0; // Get the previous score (default to 0 if not available)
+
+      // Add current score to the previous score
+      const updatedScore = previousScore + currentScore;
+
+      // Update the document with the new total score
+      await updateDoc(gradeDocRef, {
+        quizScore: updatedScore.toString(), // Update the quizScore field
+      });
+    } else {
+      // If no document exists, create a new one with the initial score
+      await addDoc(gradesRef, {
+        student_id: studentId,
+        subject_id: subjectId,
+        grade: "",
+        level_id,
+        quizScore: currentScore.toString(), // Set the quizScore as the current score
+      });
+    }
+
+    console.log("Grade successfully added/updated.");
+  } catch (error) {
+    console.error("Error adding/updating grade:", error);
+    throw error;
   }
 };
