@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import {
   addQuestion,
+  addSubjectQuizes,
   fetchSubjectsByteacher_id,
 } from "../../services/subjectServices";
 import {
@@ -190,6 +191,18 @@ export default function AddQuiz() {
                 }}
               >
                 Clear Quiz
+              </Button>
+
+              <Button
+                outline
+                gradientDuoTone="pinkToOrange"
+                className="my-5 w-72"
+                type="button"
+                onClick={() => {
+                  addSubjectQuizes();
+                }}
+              >
+                add loop
               </Button>
             </div>
           </form>

@@ -78,6 +78,9 @@ function App() {
           <Route path="/video" element={<AddVideo />} />
           <Route path="/ShowVideo" element={<ShowVideo />} />
 
+          <Route path="/AddQuiz" element={<AddQuiz />} />
+          <Route path="/subjectDetails" element={<SubjectDetails />} />
+
           <Route
             path="/login"
             element={userInfo.id ? <Navigate to="/" /> : <Login />}
