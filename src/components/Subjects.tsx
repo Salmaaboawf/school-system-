@@ -36,33 +36,6 @@ function Subjects() {
       <Nav />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
         {filteredSubjects.map((subject) => (
-<<<<<<< HEAD
-          <Card
-            key={subject.id}
-            className="max-w-sm"
-            imgAlt={`صورة خاصة بمادة ${subject.name}`}
-            imgSrc={subject.photoURL || "/default-image.jpg"}
-          >
-            <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              {subject.name}
-            </h5>
-            <p className="font-normal text-gray-700 dark:text-gray-400">
-              {subject.description}
-            </p>
-            <Button
-              onClick={() => handleButtonClick(subject.id)}
-              className="mt-4"
-            >
-              Take Exam
-            </Button>
-            <Button
-              onClick={() => showDetails(subject.id)}
-              className="mt-4"
-            >
-              show details
-            </Button>
-          </Card>
-=======
 
           <section className="card-section">
             <div className="card">
@@ -101,7 +74,6 @@ function Subjects() {
               </div>
             </div>
           </section>
->>>>>>> f03d14899bd4cb520527db5e8a36777ad039aa27
         ))}
       </div>
     </>
