@@ -1,4 +1,11 @@
-import { collection, getDocs, query, where, doc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 import { db } from "../config/firebase";
 
 export const fetchSubjectsGrades = async (student_id: string) => {
@@ -21,7 +28,7 @@ export const fetchSubjectsGrades = async (student_id: string) => {
     const subjectGradeList = await Promise.all(
       gradeSnapshot.docs.map(async (gradeDoc) => {
         const gradeData = gradeDoc.data();
-        
+
         // Fetch subject document from 'subjects' collection
         const subjectRef = doc(db, "subjects", gradeData.subject_id);
         const subjectSnapshot = await getDoc(subjectRef);
@@ -35,7 +42,8 @@ export const fetchSubjectsGrades = async (student_id: string) => {
         return {
           id: gradeDoc.id,
           grade: gradeData.grade,
-          subjectName, // Add subject name here
+          subjectName,
+          quizScore: gradeData.quizScore,
         };
       })
     );
