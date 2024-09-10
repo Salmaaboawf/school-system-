@@ -26,6 +26,9 @@ function Subjects() {
   const handleButtonClick = (subjectId: string) => {
     navigate(`/quiz`, { state: { subjectId } });
   };
+  const showDetails = (subjectId: string) => {
+    navigate(`/subjectDetails`, { state: { subjectId } });
+  };
 
   return (
     <>
@@ -49,6 +52,12 @@ function Subjects() {
               className="mt-4"
             >
               Take Exam
+            </Button>
+            <Button
+              onClick={() => showDetails(subject.id)}
+              className="mt-4"
+            >
+              show details
             </Button>
           </Card>
         ))}
