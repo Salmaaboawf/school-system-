@@ -16,7 +16,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ParentType, StudentType, TeacherType } from "../utils/types";
 import { Dispatch } from "@reduxjs/toolkit";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { toast} from 'react-toastify';
+import { toast } from "react-toastify";
 export const saveLoggedUser = async (
   userId: string,
   dispatch: Dispatch,
@@ -57,7 +57,37 @@ export const getUserById = async (userId: string, dispatch: Dispatch) => {
     if (userDocSnap.exists()) {
       dispatch(setUser(userDocSnap.data()));
     } else {
-      console.log("No such document!");
+      const teacherDocRef = doc(
+        db,
+        "teachers",
+        userId.toString().split(" ")[0].slice(1)
+      );
+      const teacherDocSnap = await getDoc(teacherDocRef);
+      if (teacherDocSnap.exists()) {
+        dispatch(setUser(teacherDocSnap.data()));
+      } else {
+        const parentDocRef = doc(
+          db,
+          "parents",
+          userId.toString().split(" ")[0].slice(1)
+        );
+        const parentDocSnap = await getDoc(parentDocRef);
+        if (parentDocSnap.exists()) {
+          dispatch(setUser(parentDocSnap.data()));
+        } else {
+          const studentDocRef = doc(
+            db,
+            "students",
+            userId.toString().split(" ")[0].slice(1)
+          );
+          const studentsDocSnap = await getDoc(studentDocRef);
+          if (studentsDocSnap.exists()) {
+            dispatch(setUser(studentsDocSnap.data()));
+          } else {
+            console.log("no user with this id");
+          }
+        }
+      }
     }
   } catch (error) {
     console.log(error);
@@ -101,7 +131,7 @@ export const addParent = async (value: ParentType, photo?: File) => {
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       value.email,
-      value.password,
+      value.password
     );
     const user = userCredential.user;
 
@@ -114,7 +144,7 @@ export const addParent = async (value: ParentType, photo?: File) => {
       phone: value.phoneNumber,
       Children: childerenIds,
       photoURL,
-      role:'parent'
+      role: "parent",
     });
 
     childerenIds?.forEach(async (id) => {
@@ -131,10 +161,10 @@ export const addParent = async (value: ParentType, photo?: File) => {
       }
     });
 
-    toast.success(`${value.name} added successfully as a Parent`)
+    toast.success(`${value.name} added successfully as a Parent`);
   } catch (error) {
     console.log(error);
-    toast.error("Failed to add a parent")
+    toast.error("Failed to add a parent");
   }
 };
 
@@ -155,7 +185,6 @@ export const fetchTeachers = async () => {
     console.error("Error fetching levels: ", error);
   }
 };
-
 
 // add sudent
 
@@ -231,9 +260,9 @@ export const addStudent = async (value: StudentType, photo?: File) => {
       addChildToParent(parent, user.uid);
     }
 
-    toast.success(`${name} added successfully as a Student`)
+    toast.success(`${name} added successfully as a Student`);
   } catch (error) {
-    toast.error("Failed to add a student")
+    toast.error("Failed to add a student");
     console.log(error);
   }
 };
