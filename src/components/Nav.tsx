@@ -5,10 +5,13 @@ import { useDispatch } from "react-redux";
 import { resetUser } from "../Redux/Slices/userSlice";
 import { signOut } from "firebase/auth";
 import auth from "../config/firebase";
+import { FaRegBell } from "react-icons/fa";
+import NotificationList from "./NotificationList";
 
 function Nav() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [notificationsDropdown, setNotificationsDropdown] = useState(false);
   const userInfo = useAppSelector((state) => state.user.user);
 
   // Toggle function for dropdown menu
@@ -38,11 +41,27 @@ function Nav() {
 
   return (
     <div className="">
-      <nav className="bg-pink-50 border-gray-300 p-4 rounded-lg shadow-md">
+      <nav className="bg-pink-50 border-gray-300 p-4 rounded-lg shadow-md relative">
         <div className="max-w-screen-xl flex flex-row-reverse md:flex md:flex-row items-center justify-between mx-auto">
           <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             {userInfo.id ? (
               <>
+                <button
+                  className="flex items-center mx-4"
+                  onClick={() => {
+                    setNotificationsDropdown(!notificationsDropdown);
+                  }}
+                >
+                  <FaRegBell size={25} />
+                </button>
+                <div
+                  className={`absolute right-12 top-10 min-h-[100px] min-w-[300px] z-50 my-4 text-base list-none bg-slate-200 divide-y divide-pink-100 rounded-lg shadow ${
+                    notificationsDropdown ? "block" : "hidden"
+                  }`}
+                  id="user-dropdown"
+                >
+                  <NotificationList />
+                </div>
                 <button
                   type="button"
                   className="flex text-sm bg-pink-200 rounded-full md:me-0 focus:ring-4 focus:ring-pink-300"
@@ -209,54 +228,22 @@ function Nav() {
                       About
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink
-                      to="/video"
-                      className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-orange-400" : ""
-                        }`
-                      }
-                    >
-                      Addvideo
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/video"
-                      className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-orange-400" : ""
-                        }`
-                      }
-                    >
-                      Addvideo
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/ShowVideo"
-                      className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-orange-400" : ""
-                        }`
-                      }
-                    >
-                      ShowVideo
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/ShowVideo"
-                      className={({ isActive }) =>
-                        `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-orange-400" : ""
-                        }`
-                      }
-                    >
-                      ShowVideo
-                    </NavLink>
-                  </li>
+
+                  {userInfo.role === "admin" && (
+                    <li>
+                      <NavLink
+                        to="/video"
+                        className={({ isActive }) =>
+                          `block py-2 px-3  rounded md:bg-transparent md:p-0 ${
+                            isActive ? "text-orange-400" : ""
+                          }`
+                        }
+                      >
+                        Addvideo
+                      </NavLink>
+                    </li>
+                  )}
+
                   <li>
                     <NavLink
                       to="/stuff"
@@ -294,7 +281,7 @@ function Nav() {
                       Contact
                     </NavLink>
                   </li>
-                 
+
                   {userInfo.role === "admin" && (
                     <li>
                       <NavLink

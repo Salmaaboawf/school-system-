@@ -61,6 +61,11 @@ const QuizPage = () => {
   };
 
   useEffect(() => {
+    getQuizQuestions(subjectId, (questions) => {
+      setQuizQuestions([...questions]);
+      console.log(quizQuestions);
+    });
+
     if (quizQuestions.length < 20) {
       Swal.fire({
         icon: "error",
@@ -75,12 +80,6 @@ const QuizPage = () => {
     }
 
     isVisitedQuizBefore();
-
-    getQuizQuestions(subjectId, (questions) => {
-      setQuizQuestions([...questions]);
-      console.log(quizQuestions);
-    });
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -88,7 +87,7 @@ const QuizPage = () => {
 
   const handleNextQuestion = () => {
     if (asnswer) {
-      if (currentQuestionIndex <= questions.length - 1) {
+      if (currentQuestionIndex <= quizQuestions.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
         if (
           currentQuestion.options.indexOf(asnswer) ==
@@ -97,9 +96,9 @@ const QuizPage = () => {
           setScore((prev) => prev + 1);
         }
         setAnswer("");
-        if (currentQuestionIndex == questions.length - 1) {
+        if (currentQuestionIndex == quizQuestions.length - 1) {
           setQuizCompleted(true);
-          markQuizAsCompleted("Ruzoom3W8eCjrS5uEBzG", userInfo.id);
+          markQuizAsCompleted(subjectId, userInfo.id);
         }
       }
     }

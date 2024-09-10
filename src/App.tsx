@@ -78,9 +78,12 @@ function App() {
           <Route path="/video" element={<AddVideo />} />
           <Route path="/ShowVideo" element={<ShowVideo />} />
 
+<<<<<<< HEAD
           <Route path="/AddQuiz" element={<AddQuiz />} />
           <Route path="/subjectDetails" element={<SubjectDetails />} />
 
+=======
+>>>>>>> f03d14899bd4cb520527db5e8a36777ad039aa27
           <Route
             path="/login"
             element={userInfo.id ? <Navigate to="/" /> : <Login />}
@@ -110,6 +113,11 @@ function App() {
           path="/teacher-table"
           element={<PrivateRoute element={TeacherRoutine} role="teacher" />}
         />
+        <Route
+          path="/AddQuiz"
+          element={<PrivateRoute element={AddQuiz} role="teacher" />}
+        />
+
         <Route
           path="/student-table"
           element={<PrivateRoute element={StudentRoutine} role="student" />}
