@@ -13,8 +13,9 @@ import { db } from "../config/firebase";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setSubject } from "../Redux/Slices/subjectSlice";
 import { SubjectType } from "../utils/types";
-import { toast} from 'react-toastify';
+import { toast } from "react-toastify";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+
 export const addSubject = async (subjectData: {
   name: string;
   teacher: string; // The selected teacher's ID
@@ -97,8 +98,10 @@ export const fetchSubjectsByLevel = async (levelId: string) => {
     console.error("Error fetching subjects: ", error);
   }
 };
+
 export const fetchSubjectsByteacher_id = async (teacherId: string) => {
   try {
+    console.log(teacherId);
     const subjectCollection = collection(db, "subjects");
 
     const q = query(subjectCollection, where("teacher", "==", teacherId));
@@ -109,6 +112,7 @@ export const fetchSubjectsByteacher_id = async (teacherId: string) => {
       id: doc.id,
       ...doc.data(),
     }));
+    console.log(`hadeeer ${subjectList}`);
     return subjectList;
     // dispatch(setSubject([...subjectList]));
   } catch (error) {
@@ -128,6 +132,32 @@ export const getSubjectNameById = async (
   }
   return "Unknown Subject";
 };
+
+
+// Define the SubjectType interface if not already defined
+interface SubjectType {
+  name: string;
+  videoUrls?: string[]; // Include other fields if needed
+}
+
+export const getSubjectById = async (subjectId: string): Promise<SubjectType | null> => {
+  try {
+    const subjectRef = doc(db, "subjects", subjectId);
+    const subjectSnap = await getDoc(subjectRef);
+    
+    if (subjectSnap.exists()) {
+      const subjectData = subjectSnap.data() as SubjectType;
+      return subjectData;
+    } else {
+      console.log("No such document!");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching subject: ", error);
+    return null;
+  }
+};
+
 
 export const addQuestion = async ({
   question,
@@ -172,8 +202,8 @@ export const uploadImageToStorage = async (file: File) => {
     return downloadURL;
   } catch (error) {
     console.error("Error uploading image: ", error);
-    throw error;
-  }
+    throw error;
+  }
 };
 
 // const arr = [

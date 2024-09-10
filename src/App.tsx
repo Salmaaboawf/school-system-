@@ -18,7 +18,7 @@ import Footer from "./components/about/Footer";
 import Login from "./components/Login";
 import NotFound from "./components/NotFund";
 import Grad from "./components/Grad";
-import { useEffect, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserById } from "./services/userServices";
 import AddClass from "./pages/Dashboard/AddLevels";
@@ -36,8 +36,10 @@ import AddVideo from "./pages/Dashboard/Addvideo";
 import Subjects from "./components/Subjects";
 import Quiz from "./components/Quiz";
 import AddQuiz from "./pages/Dashboard/AddQuiz";
+import subjectDetails from "./components/SubjectDetails";
 
 import ShowVideo from "./pages/Dashboard/ShowVideo";
+import SubjectDetails from "./components/SubjectDetails";
 function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
@@ -76,11 +78,15 @@ function App() {
           <Route path="/video" element={<AddVideo />} />
           <Route path="/ShowVideo" element={<ShowVideo />} />
 
+<<<<<<< HEAD
           <Route path="/AddQuiz" element={<AddQuiz />} />
+          <Route path="/subjectDetails" element={<SubjectDetails />} />
 
+=======
+>>>>>>> f03d14899bd4cb520527db5e8a36777ad039aa27
           <Route
             path="/login"
-            element={!userInfo.id ? <Navigate to="/" /> : <Login />}
+            element={userInfo.id ? <Navigate to="/" /> : <Login />}
           />
         </Route>
 
@@ -107,6 +113,11 @@ function App() {
           path="/teacher-table"
           element={<PrivateRoute element={TeacherRoutine} role="teacher" />}
         />
+        <Route
+          path="/AddQuiz"
+          element={<PrivateRoute element={AddQuiz} role="teacher" />}
+        />
+
         <Route
           path="/student-table"
           element={<PrivateRoute element={StudentRoutine} role="student" />}

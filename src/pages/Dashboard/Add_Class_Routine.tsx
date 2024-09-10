@@ -150,7 +150,7 @@ const Add_Class_Routine = () => {
           if (subjectTeacher) {
             // Check for conflicts
             const conflict = existingScheduleMap[days[i].name]?.some(
-              (existingSubject) =>
+              (existingSubject: { teacher_id: string; }) =>
                 existingSubject.teacher_id === subjectTeacher.id
             );
 
@@ -552,7 +552,6 @@ const Add_Class_Routine = () => {
                           )}
                         />
                       </td>
-
                       {/* td for period 9-11 wednesday*/}
                       <td className="whitespace-nowrap py-3 text-lg">
                         {/* datalist to choose levelSubjects */}
@@ -574,7 +573,6 @@ const Add_Class_Routine = () => {
                           )}
                         />
                       </td>
-
                       {/* td for period 11-1 wednesday*/}
                       <td className="whitespace-nowrap py-3 text-lg">
                         {/* datalist to choose levelSubjects */}

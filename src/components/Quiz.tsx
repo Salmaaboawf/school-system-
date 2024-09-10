@@ -6,10 +6,13 @@ import {
   getQuizQuestions,
   markQuizAsCompleted,
 } from "../services/quizServices";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const QuizPage = () => {
+
+ 
+
   const divStyle = {
     backgroundImage: `url(${img})`,
     backgroundSize: "contain", // لجعل الصورة تظهر بالكامل
@@ -22,21 +25,7 @@ const QuizPage = () => {
     padding: "20px",
   };
 
-  const questions = [
-    {
-      id: 1,
-      text: "What is the capital of France?",
-      options: ["Berlin", "Madrid", "Paris", "Rome"],
-      answer: "Paris",
-    },
-    {
-      id: 2,
-      text: "Which planet is known as the Red Planet?",
-      options: ["Earth", "Mars", "Jupiter", "Saturn"],
-      answer: "Mars",
-    },
-    // Add more questions as needed
-  ];
+  // console.log(); test updates
 
   const userInfo = useAppSelector((state) => state.user.user);
   const [score, setScore] = useState(0);
@@ -45,11 +34,14 @@ const QuizPage = () => {
   const [quizQuestions, setQuizQuestions] = useState([]);
   const [asnswer, setAnswer] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const { subjectId } = location.state || {};
+  console.log(subjectId);
 
   const isVisitedQuizBefore = async () => {
     try {
       const isVisited = await checkIfStudentCompletedQuiz(
-        "Ruzoom3W8eCjrS5uEBzG",
+        subjectId,
         userInfo.id
       );
       if (isVisited) {
@@ -69,19 +61,33 @@ const QuizPage = () => {
   };
 
   useEffect(() => {
-    isVisitedQuizBefore();
-
-    getQuizQuestions("Ruzoom3W8eCjrS5uEBzG", (questions) => {
+    getQuizQuestions(subjectId, (questions) => {
       setQuizQuestions([...questions]);
       console.log(quizQuestions);
     });
+
+    if (quizQuestions.length < 20) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Exam not ready yet.",
+      }).then((res) => {
+        if (res.isConfirmed) {
+          navigate("/");
+        }
+      });
+      return;
+    }
+
+    isVisitedQuizBefore();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const currentQuestion = quizQuestions[currentQuestionIndex];
 
   const handleNextQuestion = () => {
     if (asnswer) {
-      if (currentQuestionIndex <= questions.length - 1) {
+      if (currentQuestionIndex <= quizQuestions.length - 1) {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
         if (
           currentQuestion.options.indexOf(asnswer) ==
@@ -90,9 +96,9 @@ const QuizPage = () => {
           setScore((prev) => prev + 1);
         }
         setAnswer("");
-        if (currentQuestionIndex == questions.length - 1) {
+        if (currentQuestionIndex == quizQuestions.length - 1) {
           setQuizCompleted(true);
-          markQuizAsCompleted("Ruzoom3W8eCjrS5uEBzG", userInfo.id);
+          markQuizAsCompleted(subjectId, userInfo.id);
         }
       }
     }
@@ -106,9 +112,6 @@ const QuizPage = () => {
     <>
       <div style={divStyle}>
         <div className="bg-white p-8 rounded-lg  max-w-lg w-full">
-          <p>
-            {score}/{quizQuestions.length}
-          </p>
           {!quizCompleted ? (
             <>
               <h1 className="text-2xl font-bold mb-4 text-center">{`Quiz: ${currentQuestion?.question}`}</h1>
@@ -144,6 +147,9 @@ const QuizPage = () => {
             <div>
               <h1 className="text-2xl font-bold mb-4 text-center">
                 Quiz Completed!
+              </h1>
+              <h1 className="text-2xl font-bold mb-4 text-center">
+                Your Score is {score} from {quizQuestions.length}
               </h1>
               <p className="text-lg text-center">
                 Thank you for completing the quiz. Your answers have been
