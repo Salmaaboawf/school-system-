@@ -14,7 +14,7 @@ export default {
         lightBlue: '#87B9F5',
         orange: 'FF4E31',
         peach: '#F2A766',
-        violet: ' #7C3AED',
+        purple: ' #7C3AED',
         // redOrange: '#F2561D',
 
       },
