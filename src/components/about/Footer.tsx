@@ -12,9 +12,9 @@ import Pagefooter from "../Pagefooter";
 function Footer() {
   return (
     <footer className="custom-footer">
-    <div className=" mx-auto px-4 py-6">
-        <div className="flex flex-row-reverse justify-center gap-x-10 items-center">
-            <ul className="social-links flex space-x-4 justify-end">
+    <div className=" mx-auto px-4 py-6  justify-center ">
+        <div className="flex flex-row-reverse  justify-center gap-x-10 ">
+            <ul className="social-links flex space-x-4 ">
                 <li>
                     <a href="#" className="iconfooter social-icon">
                         <SlSocialFacebook className="text-xl" />
@@ -37,10 +37,12 @@ function Footer() {
                 </li>
             </ul>
 
-   <Pagefooter/>
         </div>
     </div>
     <div className="new_footer_top">
+    <div>
+   {/* <Pagefooter/> */}
+    </div>
 
         <div className="footer_bg">
             <div className="footer_bg_one" />
