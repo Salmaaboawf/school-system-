@@ -22,9 +22,10 @@ function MyGrades() {
         setLoading(false);
       }
     };
-
     fetchGrades();
   }, [userInfo.id]);
+
+  console.log(grades);
 
   return (
     <div className="container flex gap-x-5">
@@ -48,8 +49,12 @@ function MyGrades() {
                       <th scope="col" className="px-6 py-4 text-2xl">
                         Grade
                       </th>
+                      <th scope="col" className="px-6 py-4 text-2xl">
+                        Quiz Score
+                      </th>
                     </tr>
                   </thead>
+
                   <tbody>
                     {grades.map((item, index) => (
                       <tr
@@ -57,10 +62,13 @@ function MyGrades() {
                         className="border-b dark:border-neutral-500"
                       >
                         <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
-                          {item.subjectName}
+                          {item?.subjectName}
                         </td>
                         <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                          {item.grade}
+                          {item?.grade}
+                        </td>
+                        <td className="whitespace-nowrap px-6 py-4 text-2xl">
+                          {item?.quizScore}
                         </td>
                       </tr>
                     ))}

@@ -36,8 +36,10 @@ import AddVideo from "./pages/Dashboard/Addvideo";
 import Subjects from "./components/Subjects";
 import Quiz from "./components/Quiz";
 import AddQuiz from "./pages/Dashboard/AddQuiz";
+import subjectDetails from "./components/SubjectDetails";
 
 import ShowVideo from "./pages/Dashboard/ShowVideo";
+import SubjectDetails from "./components/SubjectDetails";
 function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
@@ -75,6 +77,9 @@ function App() {
           <Route path="/my-grades" element={<MyGrades />} />
           <Route path="/video" element={<AddVideo />} />
           <Route path="/ShowVideo" element={<ShowVideo />} />
+
+          <Route path="/AddQuiz" element={<AddQuiz />} />
+          <Route path="/subjectDetails" element={<SubjectDetails />} />
 
           <Route
             path="/login"

@@ -19,7 +19,6 @@ export default function AddLevels() {
 
   const handleSave = async (event) => {
     event.preventDefault();
-
     try {
       await validationSchema.validate({ levelName }, { abortEarly: false });
       await addLevels(levelName);
@@ -47,10 +46,10 @@ export default function AddLevels() {
       >
         <Sidebar />
       </div>
-
       {/* Main Content */}
       <div className="flex-1">
         <Header />
+        
         <div className="my-5 bg-white p-6 rounded-lg shadow-lg">
           <h3 className="text-2xl font-semibold text-[#002749] mb-4 border-b pb-2">
             Add Level
