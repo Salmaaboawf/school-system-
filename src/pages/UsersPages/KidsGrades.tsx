@@ -6,6 +6,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getKids } from '../../Redux/Slices/KidsSlice'
 import { useAppSelector } from '../../hooks/reduxHooks'
 import { fetchSubjectsGrades } from '../../services/gradeServices'
+import HashLoader from "react-spinners/HashLoader"
+
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+};
 
 function KidsGrades() {
   const dispatch = useDispatch();
@@ -71,7 +78,12 @@ function KidsGrades() {
         </div>
       </div>
 
-      {loading && <p>Loading grades...</p>}
+      {loading && <HashLoader 
+      cssOverride={override}
+      color='#ff4e31'
+       size={50}
+        aria-label="Loading Spinner"
+        data-testid="loader"/>}
           {error && <p className="text-red-500">{error}</p>}
           {grades.length > 0 && (
             <table className="min-w-full text-center text-sm font-light mt-6">

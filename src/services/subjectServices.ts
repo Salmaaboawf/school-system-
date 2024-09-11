@@ -50,8 +50,8 @@ export const addSubject = async (subjectData: {
     await updateDoc(teacherRef, {
       subjects: arrayUnion(docId), // Add the new subject ID to the teacher's subjects array using arrayUnion
     });
-
-    console.log("Subject added and teacher updated with the new subject");
+    toast.success(`${name} added and ${teacher} updated with the new subject`)
+    // console.log("Subject added and teacher updated with the new subject");
   } catch (error) {
     toast.error("Error adding subject");
     console.error("Error adding subject: ", error);

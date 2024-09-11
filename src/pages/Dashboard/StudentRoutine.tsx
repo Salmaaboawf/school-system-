@@ -7,6 +7,14 @@ import { Schedule } from "../../utils/types";
 import { getLevelNameById } from "../../services/levelsServices";
 import { getSubjectNameById } from "../../services/subjectServices";
 import { getTeacherNameById } from "../../services/teacherServices";
+import HashLoader from "react-spinners/HashLoader";
+
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "#ff4e31",
+};
+
 const StudentRoutine = () => {
   const [scheduleTable, setScheduleTable] = useState<Schedule | null>(null);
   const [levelName, setLevelName] = useState<string>("");
@@ -62,7 +70,12 @@ const StudentRoutine = () => {
   }, []);
 
   if (!scheduleTable) {
-    return <div>Loading...</div>;
+    return <HashLoader 
+    cssOverride={override}
+    color='#ff4e31'
+     size={50}
+      aria-label="Loading Spinner"
+      data-testid="loader"/>;
   }
 
   return (
