@@ -40,7 +40,7 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 h-[100vh] w-full max-w-[20rem] bg-gray-800 text-white shadow-xl transition-transform transform ${
+        className={`fixed inset-y-0 left-0  w-full max-w-[20rem] bg-gray-800 text-white shadow-xl transition-transform transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:static md:w-64 z-20`}
       >
@@ -109,6 +109,20 @@ const Sidebar = () => {
               <span>Add Student</span>
             </NavLink>
           </li>
+          {/* all users */}
+          <li className="mb-3">
+            <NavLink
+              to="/users"
+              className={({ isActive }) => {
+                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-gray-700 rounded-md transition ${
+                  isActive ? "bg-gray-700" : ""
+                }`;
+              }}
+            >
+              <FaChartLine className="text-2xl text-gray-400" />
+              <span>All Users</span>
+            </NavLink>
+          </li>
           <li className="mb-3">
             <NavLink
               to="/add-class"
@@ -161,6 +175,7 @@ const Sidebar = () => {
               <span>Add Grades</span>
             </NavLink>
           </li>
+          
         </ul>
       </div>
 

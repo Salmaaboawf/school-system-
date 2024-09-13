@@ -40,6 +40,7 @@ import subjectDetails from "./components/SubjectDetails";
 
 import ShowVideo from "./pages/Dashboard/ShowVideo";
 import SubjectDetails from "./components/SubjectDetails";
+import AllUsers from "./components/AllUsers";
 function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
@@ -99,7 +100,7 @@ function App() {
           path="/grades"
           element={<PrivateRoute element={MyGrades} role="student" />}
         />
-
+     
         <Route
           path="/quiz"
           element={<PrivateRoute element={Quiz} role="student" />}
@@ -144,6 +145,10 @@ function App() {
         <Route
           path="/add-class"
           element={<PrivateRoute element={AddClass} role="admin" />}
+        />
+          <Route
+          path="/users"
+          element={<PrivateRoute element={AllUsers} role="admin" />}
         />
         <Route
           path="/add-video"
