@@ -48,9 +48,7 @@ function Teachers() {
             >
               <div className="profile-wrapper">
                 <div className="profile-card">
-                  <div className="fav-icon">
-                  
-                  </div>
+                  <div className="fav-icon"></div>
                   {/* Profile Information */}
                   <img src={teacher.photoURL} alt="profile pics" />
 
@@ -58,9 +56,6 @@ function Teachers() {
                   <h4>{teacher.subjectName}</h4>
 
                   <p>{teacher.description}</p>
-
-                
-               
 
                   {/* Profile Button */}
                   <a href="#">View Profile</a>

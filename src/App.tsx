@@ -66,7 +66,9 @@ function App() {
             <>
               <Nav />
               <Outlet />
-              <Footer />
+              <div >
+                <Footer />
+              </div>
             </>
           }
         >

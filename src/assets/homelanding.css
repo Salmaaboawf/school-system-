@@ -1,0 +1,32 @@
+/* start logos */
+.loop li {
+  position: relative;
+  animation-name: move;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@media (min-width: 992px) {
+  @keyframes move {
+    0% {
+      right: 970%;
+    }
+    100% {
+      right: -970%;
+    }
+  }
+}
+.loop:hover li {
+  animation-play-state: paused;
+}
+.logo {
+  filter: grayscale(100%);
+}
+.logo:hover {
+  filter: none;
+  transition: 0.3s;
+}
+.loop-parent {
+  overflow: hidden;
+}
