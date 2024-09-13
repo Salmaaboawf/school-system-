@@ -36,7 +36,7 @@ import AddVideo from "./pages/Dashboard/Addvideo";
 import Subjects from "./components/Subjects";
 import Quiz from "./components/Quiz";
 import AddQuiz from "./pages/Dashboard/AddQuiz";
-import subjectDetails from "./components/SubjectDetails";
+// import subjectDetails from "./components/SubjectDetails";
 
 import ShowVideo from "./pages/Dashboard/ShowVideo";
 import SubjectDetails from "./components/SubjectDetails";

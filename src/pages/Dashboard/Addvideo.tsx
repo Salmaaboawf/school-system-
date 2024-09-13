@@ -82,10 +82,11 @@ function AddVideo() {
   };
 
   return (
-    <div className="container mx-auto mt-10">
-      <h3 className="text-4xl font-medium text-gray-900 dark:text-white">Add Video</h3>
+    <div className="container mx-auto mt-[130px] ">
+      <h3 className="text-4xl font-medium text-gray-900 dark:text-white">
+        Add Video
+      </h3>
       <div className="space-y-6">
-
         <div>
           <Label htmlFor="subject" value="Subject Name" className="text-xl" />
           <Select
@@ -105,7 +106,12 @@ function AddVideo() {
 
         <div>
           <Label htmlFor="videoFile" value="Upload Video" className="text-xl" />
-          <input type="file" id="videoFile" accept="video/*" onChange={handleVideoUpload} />
+          <input
+            type="file"
+            id="videoFile"
+            accept="video/*"
+            onChange={handleVideoUpload}
+          />
           {uploadProgress > 0 && <p>Upload Progress: {uploadProgress}%</p>}
         </div>
 
