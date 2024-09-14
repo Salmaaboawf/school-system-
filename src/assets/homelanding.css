@@ -49,6 +49,11 @@
   box-shadow: 0 2px 4px rgb(0 0 0 / 7%);
   border-radius: 6px;
   position: relative;
+  transition: 0.3s;
+}
+.Testimonials .box:hover{
+  transform: translateY(-10px);
+  box-shadow: 0 2px 15px rgb(0 0 0 / 40%);
 }
 .Testimonials img {
   position: absolute;
@@ -61,10 +66,11 @@
 }
 .Testimonials h3 {
   margin: 0 0 10px;
+  font-weight: bold;
 }
 .Testimonials .tital {
   margin-bottom: 10px;
-  color: var(--main-color);
+  color: #2196f3;
   display: block;
 }
 .Testimonials .rate .filled {
@@ -78,7 +84,8 @@
 
 /* end Testimonials */
 
-.main-tital {
+
+#Testimonials .main-title {
   margin: 0 auto 80px;
   width: fit-content;
   border: 2px solid purple;
@@ -89,7 +96,7 @@
   position: relative;
   transition: blue;
 }
-.main-tital::before {
+#Testimonials .main-title::before {
   content: "";
   position: absolute;
   height: 12px;
@@ -100,7 +107,7 @@
   top: 50%;
   transform: translateY(-50%);
 }
-.main-tital::after {
+#Testimonials .main-title::after {
   content: "";
   position: absolute;
   height: 12px;
@@ -111,18 +118,18 @@
   top: 50%;
   transform: translateY(-50%);
 }
-.main-tital:hover::before {
+#Testimonials .main-title:hover::before {
   z-index: -1;
-  animation: left-move blue linear forwards;
+  animation: left-move 0.3s linear forwards;
 }
-.main-tital:hover::after {
+#Testimonials .main-title:hover::after {
   z-index: -1;
-  animation: right-move linear forwards;
+  animation: right-move 0.3s linear forwards;
 }
-.main-tital:hover {
+#Testimonials .main-title:hover {
   color: white;
-  border: 2px solid white;
-  transition-delay:blue;
+  border: 2px solid black;
+  transition-delay: blue;
 }
 
 @keyframes left-move {
