@@ -18,17 +18,18 @@ import { fetchTeachers } from "../../services/teacherServices";
 const schema = yup.object().shape({
   name: yup
     .string()
-    .matches(/^[A-Za-z\s]+$/, "Subject name must be characters only")
+    .matches(/^[A-Za-z0-9\s]+$/, "Subject name must contain letters and numbers only")
+
     .required("required ")
     .max(20, "Subject name cannot exceed 20 characters")
     .min(3, "min is 3 letters"),
 
-  teacher: yup
-    .string()
-    .matches(/^[A-Za-z\s]+$/, "Teacher name must be characters only")
-    .required("required ")
-    .max(20, " name cannot exceed 20 characters")
-    .min(3, "Teacher name must be at least 3 letters"),
+  // teacher: yup
+    // .string()
+    // .matches(/^[A-Za-z\s]+$/, "Teacher name must be characters only")
+    // .required("required ")
+    // .max(20, " name cannot exceed 20 characters")
+    // .min(3, "Teacher name must be at least 3 letters"),
   description: yup.string().required("Course description is required"),
   level_id: yup.string().required("Please select a class"),
   total_grade: yup
@@ -51,7 +52,7 @@ export default function AddSubject() {
   const levels = useAppSelector((state) => state.levels.levels);
   const dispatch = useAppDispatch();
   const [imagePreview, setImagePreview] = useState(null);
-  const [teachers, setTeachers] = useState([]);
+  // const [teachers, setTeachers] = useState([]);
 
   const save = async (data) => {
     try {
@@ -72,10 +73,10 @@ export default function AddSubject() {
     }
   };
 
-  useEffect(() => {
-    fetchLevels(dispatch);
-    fetchTeachers().then((fetchedTeachers) => setTeachers(fetchedTeachers));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   fetchLevels(dispatch);
+  //   fetchTeachers().then((fetchedTeachers) => setTeachers(fetchedTeachers));
+  // }, [dispatch]);
 
   useEffect(() => {
     if (errors.name) {
@@ -87,9 +88,9 @@ export default function AddSubject() {
     if (errors.level_id) {
       toast.error(errors.level_id.message);
     }
-    if (errors.teacher) {
-      toast.error(errors.teacher.message);
-    }
+    // if (errors.teacher) {
+    //   toast.error(errors.teacher.message);
+    // }
     if (errors.description) {
       toast.error(errors.description.message);
     }
@@ -158,7 +159,7 @@ export default function AddSubject() {
               </p>
             </div>
 
-            <div>
+            {/* <div>
               <Label htmlFor="teacher" value="Select Teacher" />
               <Select
                 id="teacher"
@@ -175,7 +176,7 @@ export default function AddSubject() {
               <p className="text-red-500 text-sm mt-1">
                 {errors.teacher?.message}
               </p>
-            </div>
+            </div> */}
 
             <div>
               <Label htmlFor="description" value="Course Description" />
@@ -216,7 +217,7 @@ export default function AddSubject() {
   className="w-full max-w-xs mx-auto transition duration-300 ease-in-out transform hover:scale-105 bg-[#6890b6] hover:bg-[#feb4b4] text-white font-bold py-2 px-4 rounded-full"
   type="submit"
 >
-  Add Level
+  Add subject
 </Button>
             </div>
           </form>

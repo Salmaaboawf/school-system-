@@ -242,7 +242,7 @@ function Nav() {
                     </NavLink>
                   </li>
 
-                  {userInfo.role === "admin" && (
+                  {userInfo.role === "teacher" && (
                     <li>
                       <NavLink
                         to="/video"
@@ -269,18 +269,7 @@ function Nav() {
                       Stuff
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink
-                      to="/student-subjects"
-                      className={({ isActive }) =>
-                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-pink-500" : ""
-                        } hover:text-pink-800 transition-all duration-300`
-                      }
-                    >
-                      subjects
-                    </NavLink>
-                  </li>
+                
 
                   <li>
                     <NavLink
@@ -309,6 +298,20 @@ function Nav() {
                       </NavLink>
                     </li>
                   )}
+                   {userInfo.role === "student" && (
+                    <li>
+                    <NavLink
+                      to="/student-subjects"
+                      className={({ isActive }) =>
+                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-pink-500" : ""
+                        } hover:text-pink-800 transition-all duration-300`
+                      }
+                    >
+                      subjects
+                    </NavLink>
+                  </li>
+                   )}
                 </ul>
               </div>
             </div>
