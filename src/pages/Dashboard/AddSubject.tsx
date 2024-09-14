@@ -212,14 +212,12 @@ export default function AddSubject() {
             </div>
 
             <div className="flex justify-center">
-              <Button
-                outline
-                gradientDuoTone="pinkToOrange"
-                className="w-full max-w-xs transition duration-300 ease-in-out transform hover:scale-105"
-                type="submit"
-              >
-                Add
-              </Button>
+            <Button
+  className="w-full max-w-xs mx-auto transition duration-300 ease-in-out transform hover:scale-105 bg-[#6890b6] hover:bg-[#feb4b4] text-white font-bold py-2 px-4 rounded-full"
+  type="submit"
+>
+  Add Level
+</Button>
             </div>
           </form>
         </div>

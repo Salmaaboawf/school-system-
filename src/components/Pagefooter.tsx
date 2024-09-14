@@ -1,20 +1,20 @@
 
 import { NavLink } from "react-router-dom";
-// import { useState } from "react";
+import { useState } from "react";
 import { useAppSelector } from "../hooks/reduxHooks";
 
 
 
 export default function Pagefooter() {
     const userInfo = useAppSelector((state) => state.user.user);
-    // const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
    
     <div
-    className={`  z-50  md:block md:w-auto`}
+    className={`ml-40 bottom-5  md:block md:w-auto j `}
     id="navbar-default"
   >
-    <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-pink-100 rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
+    <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-pink-100 rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 relative z-50">
       <li>
         <NavLink
           to="/"

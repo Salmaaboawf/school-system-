@@ -25,6 +25,7 @@ function Subjects() {
   const handleButtonClick = (subjectId: string) => {
     navigate(`/quiz`, { state: { subjectId } });
   };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const showDetails = (subjectId: string) => {
     navigate(`/subjectDetails`, { state: { subjectId } });
   };
@@ -48,6 +49,18 @@ function Subjects() {
                           <img src={subject.photoURL} className="w-full h-full" />
                         </div>
                         {/* <h2 className="card-front__heading">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 mt-[130px]">
+        {filteredSubjects.map((subject) => (
+          <section className="card-section">
+            <div className="card">
+              <div className="flip-card">
+                <div className="flip-card__container">
+                  <div className="card-front">
+                    <div className="card-front__tp card-front__tp--city overflow-hidden">
+                      <div className="w-full h-full overflow-hidden">
+                        <img src={subject.photoURL} className="w-full h-full" />
+                      </div>
+                      {/* <h2 className="card-front__heading">
                         {subject.name}
                       </h2> */}
                       </div>

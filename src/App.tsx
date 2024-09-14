@@ -36,10 +36,11 @@ import AddVideo from "./pages/Dashboard/Addvideo";
 import Subjects from "./components/Subjects";
 import Quiz from "./components/Quiz";
 import AddQuiz from "./pages/Dashboard/AddQuiz";
-import subjectDetails from "./components/SubjectDetails";
+// import subjectDetails from "./components/SubjectDetails";
 
 import ShowVideo from "./pages/Dashboard/ShowVideo";
 import SubjectDetails from "./components/SubjectDetails";
+import AllUsers from "./components/AllUsers";
 // import Loading from "./components/Loading";
 function App() {
   const dispatch = useDispatch();
@@ -67,7 +68,9 @@ function App() {
             <>
               <Nav />
               <Outlet />
-              <Footer />
+              <div >
+                <Footer />
+              </div>
             </>
           }
         >
@@ -98,7 +101,7 @@ function App() {
           path="/grades"
           element={<PrivateRoute element={MyGrades} role="student" />}
         />
-
+     
         <Route
           path="/quiz"
           element={<PrivateRoute element={Quiz} role="student" />}
@@ -143,6 +146,10 @@ function App() {
         <Route
           path="/add-class"
           element={<PrivateRoute element={AddClass} role="admin" />}
+        />
+          <Route
+          path="/users"
+          element={<PrivateRoute element={AllUsers} role="admin" />}
         />
         <Route
           path="/add-video"

@@ -1,6 +1,5 @@
 import React from "react";
 import bgImg from "../assets/images/slide_min_2.jpg";
-
 type SchoolStatusProp = {
   children: React.ReactElement;
 };

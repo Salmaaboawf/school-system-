@@ -8,6 +8,16 @@ export default {
       backgroundImage: {
         slideOne: "url(./src/assets/images/slide_min_1.jpg)",
       },
+      colors: {
+        darkBlue: '#002749',
+        // teal: '#005A7C',
+        lightBlue: '#87B9F5',
+        orange: 'FF4E31',
+        peach: '#F2A766',
+        purple: ' #7C3AED',
+        // redOrange: '#F2561D',
+
+      },
       screens: {
         'xs': '360px', 
       }

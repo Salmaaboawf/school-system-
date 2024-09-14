@@ -3,13 +3,13 @@
 /* Main Container */
 .mcontainer {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columns by default */
-  gap: 1rem; /* Adds space between the cards */
-  justify-content: center; /* Centers the grid items horizontally */
-  align-items: center; /* Centers the grid items vertically (if the container height is set) */
-  max-width: 1200px; /* Optional: Max width for larger screens */
-  margin: auto; /* Centers the container horizontally */
-  padding: 1rem; /* Optional: Adds padding around the container */
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 1rem; 
+  justify-content: center; 
+  align-items: center; 
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem; 
 }
 @media (max-width: 1024px) {
   .mcontainer {
