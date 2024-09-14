@@ -8,6 +8,9 @@ export default {
       backgroundImage: {
         slideOne: "url(./src/assets/images/slide_min_1.jpg)",
       },
+      screens: {
+        'xs': '360px', 
+      }
 
     },
   },

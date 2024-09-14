@@ -1,20 +1,22 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import imgProfile from "../assets/images/profileImg.png";
-import { RiLogoutBoxRLine, RiMenuLine, RiCloseLine } from "react-icons/ri";
+import { RiLogoutBoxRLine, RiMenuLine, RiCloseLine, RiCalendarScheduleLine } from "react-icons/ri";
 import {
   FaEdit,
   FaUserPlus,
   FaUserGraduate,
   FaChalkboardTeacher,
   FaChartLine,
+  FaBookOpen,
+  FaMarker,
 } from "react-icons/fa";
-import { useAppDispatch } from "../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { resetUser } from "../Redux/Slices/userSlice";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const userInfo = useAppSelector((state) => state.user.user);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -25,7 +27,7 @@ const Sidebar = () => {
   }
 
   return (
-    <div className="relative h-[calc(100vh-2rem)] w-full max-w-[20rem]">
+    <div className="relative h-[calc(100vh-2rem)]">
       {/* Toggle Icon for Small Screens */}
       <button
         onClick={toggleSidebar}
@@ -40,19 +42,13 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 h-[100vh] w-full max-w-[20rem] bg-gray-800 text-white shadow-xl transition-transform transform ${
+        className={`fixed inset-y-0 left-0 h-[100vh] sm:w-full sm:max-w-[20rem] md:w-auto md:max-w-none bg-gray-800 text-white shadow-xl transition-transform transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:static md:w-64 z-20`}
       >
         <div className="mb-4 p-4 flex flex-col items-center">
-          <div className="w-[60px] h-[60px] bg-black rounded-full overflow-hidden border-4 border-green-500">
-            <img
-              src={imgProfile}
-              alt="profile"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <h2 className="font-bold text-lg mt-4">Ahmed Mohamed</h2>
+       
+          <h2 className="font-bold text-lg mt-4">{userInfo.name}</h2>
           <div className="flex mt-2 space-x-4">
             <Link
               to="/"
@@ -131,7 +127,8 @@ const Sidebar = () => {
                 }`;
               }}
             >
-              <FaChartLine className="text-2xl text-gray-400" />
+              <RiCalendarScheduleLine className="text-2xl text-gray-400" />
+              {/* <FaChartLine className="text-2xl text-gray-400" /> */}
               <span>Add Class routine</span>
             </NavLink>
           </li>
@@ -144,7 +141,8 @@ const Sidebar = () => {
                 }`;
               }}
             >
-              <FaChartLine className="text-2xl text-gray-400" />
+              <FaBookOpen className="text-2xl text-gray-400"/>
+              {/* <FaChartLine className="text-2xl text-gray-400" /> */}
               <span>Add Subject</span>
             </NavLink>
           </li>
@@ -157,7 +155,8 @@ const Sidebar = () => {
                 }`;
               }}
             >
-              <FaChartLine className="text-2xl text-gray-400" />
+              <FaMarker className="text-2xl text-gray-400" />
+              {/* <FaChartLine className="text-2xl text-gray-400" /> */}
               <span>Add Grades</span>
             </NavLink>
           </li>
