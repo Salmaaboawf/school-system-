@@ -5,14 +5,18 @@ import { LuTrees } from "react-icons/lu";
 import { GiTeacher } from "react-icons/gi";
 import { TbMathMaxMin } from "react-icons/tb";
 import { FaTree } from "react-icons/fa6";
-
 import StatusCard from "../../components/StatusCard";
 import Service_Section from "../../components/ServiceSection";
 import PlanUpgrades from "../../components/PlaneUpgrades";
+import "../../assets/homelanding.css";
+import Testimonials from "../../components/Testimonials";
+import ScrollImages from "../../components/ScrollImages";
+import ParticlesComponent from "../../components/Tsparticles";
 
 const HomeLanding = () => {
   return (
     <main>
+      <ParticlesComponent id="particles" />
       <section>
         <SliderMain />
       </section>
@@ -20,7 +24,6 @@ const HomeLanding = () => {
         <EnrollmentSlider />
       </section>
       <Service_Section />
-
       <SchoolStatus>
         <>
           <StatusCard
@@ -45,8 +48,9 @@ const HomeLanding = () => {
           />
         </>
       </SchoolStatus>
-      {/* <h1 className="h-80">Hello</h1> */}
       <PlanUpgrades />
+      <ScrollImages />
+      <Testimonials />
     </main>
   );
 };
