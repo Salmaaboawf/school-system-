@@ -9,11 +9,8 @@
 }
 
 body {
-<<<<<<< HEAD
-  max-width: 1400px;
+  
   /* background-color: #fbf9ff; */
-=======
   max-width: 100%;
->>>>>>> 8fa8c0a779cd8e09ce45ba2e1da419fcd8877986
   margin: 0 auto;
 }
