@@ -41,6 +41,7 @@ import AddQuiz from "./pages/Dashboard/AddQuiz";
 import ShowVideo from "./pages/Dashboard/ShowVideo";
 import SubjectDetails from "./components/SubjectDetails";
 import AllUsers from "./components/AllUsers";
+// import Loading from "./components/Loading";
 function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
@@ -184,6 +185,7 @@ function App() {
           element={<PrivateRoute element={KidsGrades} role="parent" />}
         />
         <Route path="*" element={<NotFound />} />
+        {/* <Route path='loader' element={<Loading />} /> */}
       </Routes>
       <ToastContainer />
     </>

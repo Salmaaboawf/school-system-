@@ -18,6 +18,10 @@ export default {
         // redOrange: '#F2561D',
 
       },
+      screens: {
+        'xs': '360px', 
+      }
+
     },
   },
   plugins: [flowbite.plugin()],

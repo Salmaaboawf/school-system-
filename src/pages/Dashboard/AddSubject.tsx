@@ -23,12 +23,12 @@ const schema = yup.object().shape({
     .max(20, "Subject name cannot exceed 20 characters")
     .min(3, "min is 3 letters"),
 
-  teacher: yup
-    .string()
-    .matches(/^[A-Za-z\s]+$/, "Teacher name must be characters only")
-    .required("required ")
-    .max(20, " name cannot exceed 20 characters")
-    .min(3, "Teacher name must be at least 3 letters"),
+  // teacher: yup
+  //   .string()
+  //   .matches(/^[A-Za-z\s]+$/, "Teacher name must be characters only")
+  //   .required("required ")
+  //   .max(20, " name cannot exceed 20 characters")
+  //   .min(3, "Teacher name must be at least 3 letters"),
   description: yup.string().required("Course description is required"),
   level_id: yup.string().required("Please select a class"),
   total_grade: yup
