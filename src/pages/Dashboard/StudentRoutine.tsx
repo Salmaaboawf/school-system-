@@ -7,7 +7,7 @@ import { Schedule } from "../../utils/types";
 import { getLevelNameById } from "../../services/levelsServices";
 import { getSubjectNameById } from "../../services/subjectServices";
 import { getTeacherNameById } from "../../services/teacherServices";
-import HashLoader from "react-spinners/HashLoader";
+import HashLoade from "react-spinners/HashLoader";
 
 const override: CSSProperties = {
   display: "block",
