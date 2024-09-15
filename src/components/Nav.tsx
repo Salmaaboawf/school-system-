@@ -257,7 +257,6 @@ function Nav() {
                   </li>
 
                   {userInfo.role === "teacher" && (
-                  {userInfo.role === "teacher" && (
                     <li>
                       <NavLink
                         to="/video"
