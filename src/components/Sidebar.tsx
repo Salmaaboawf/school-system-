@@ -43,7 +43,7 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 h-[100vh] sm:w-full sm:max-w-[20rem] md:w-auto md:max-w-none bg-gray-800 text-white shadow-xl transition-transform transform ${
+        // className={`fixed inset-y-0 left-0 h-[100vh] sm:w-full sm:max-w-[20rem] md:w-auto md:max-w-none bg-gray-800 text-white shadow-xl transition-transform transform ${
         className={`fixed inset-y-0 left-0 w-full max-w-[20rem] bg-[#023059] text-white shadow-xl transition-transform duration-500 ease-in-out transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:static md:w-64 z-20`}
