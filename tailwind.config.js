@@ -9,14 +9,12 @@ export default {
         slideOne: "url(./src/assets/images/slide_min_1.jpg)",
       },
       colors: {
-        darkBlue: '#002749',
-        // teal: '#005A7C',
-        lightBlue: '#87B9F5',
-        orange: 'FF4E31',
-        peach: '#F2A766',
-        purple: ' #7C3AED',
-        // redOrange: '#F2561D',
-
+        deepBlue: '#002749',   //hover button
+        lightBlue: '#8FC4D9',
+        mutedGreen: '#818C68',
+        rustOrange: '#BF5517', 
+        Orange: '#ff4e31',    //backeground button
+         background:"#fbfbfd",   //background web
       },
       screens: {
         'xs': '360px', 

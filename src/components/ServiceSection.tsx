@@ -8,7 +8,7 @@ import { RiGameLine } from "react-icons/ri";
 export default function Service_Section() {
   return (
     // service section in home page
-    <section className="container m-auto text-neutral-600 my-20">
+    <section className="container m-auto text-neutral-600 my-20;">
       {/* div contains heading and paragraph */}
       <div className="items-center text-center">
         <h2 className="text-3xl my-3">OUR SERVICES</h2>
