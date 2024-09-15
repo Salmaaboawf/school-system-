@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { RiLogoutBoxRLine, RiMenuLine, RiCloseLine, RiCalendarScheduleLine } from "react-icons/ri";
+import { NavLink } from "react-router-dom";
 import {
-  FaEdit,
+  RiMenuLine,
+  RiCloseLine,
+  RiCalendarScheduleLine,
+} from "react-icons/ri";
+import {
+  
   FaUserPlus,
   FaUserGraduate,
   FaChalkboardTeacher,
@@ -12,7 +16,8 @@ import {
 } from "react-icons/fa";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { resetUser } from "../Redux/Slices/userSlice";
-import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png"
+import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png";
+
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useAppDispatch();
@@ -43,50 +48,24 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 h-[100vh] sm:w-full sm:max-w-[20rem] md:w-auto md:max-w-none bg-gray-800 text-white shadow-xl transition-transform transform ${
-        className={`fixed inset-y-0 left-0 w-full max-w-[20rem] bg-[#023059] text-white shadow-xl transition-transform duration-500 ease-in-out transform ${
+        className={`fixed inset-y-0 left-0 w-full max-w-[20rem] bg-gray-800 text-white shadow-xl transition-transform duration-500 ease-in-out transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:static md:w-64 z-20`}
       >
         <div className="flex flex-row items-center justify-center text-center">
-  <img src={logo} alt="" className="w-20" />
-  <h1 className="text-white ml-4">KIDOS SCHOOL</h1>
-</div>
+          <img src={logo} alt="KIDOS SCHOOL Logo" className="w-20" />
+          <h1 className="text-white ml-4">KIDOS SCHOOL</h1>
+        </div>
 
-        {/* <div className="mb-4 p-4 flex flex-col items-center">
-          <div className="w-[60px] h-[60px] bg-black rounded-full overflow-hidden border-4 border-[#66cdaa]">
-            <img
-              src={imgProfile}
-              alt="profile"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <h2 className="font-bold text-lg mt-4">Ahmed Mohamed</h2>
-          <div className="flex mt-2 space-x-4">
-            <Link
-              to="/"
-              className="text-xl text-gray-300 hover:text-white transition-transform transform hover:scale-110"
-              onClick={logout}
-            >
-              <RiLogoutBoxRLine />
-            </Link>
-            <Link
-              to="#"
-              className="text-xl text-gray-300 hover:text-white transition-transform transform hover:scale-110"
-            >
-              <FaEdit />
-            </Link>
-          </div>
-        </div> */}
         <ul className="list-none">
           <li className="mb-3">
             <NavLink
               to="/add-teacher"
-              className={({ isActive }) => {
-                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
+              className={({ isActive }) =>
+                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
                   isActive ? "bg-[#8fc4d9]" : ""
-                }`;
-              }}
+                }`
+              }
             >
               <FaChalkboardTeacher className="text-2xl text-gray-300" />
               <span>Add Teacher</span>
@@ -95,11 +74,11 @@ const Sidebar = () => {
           <li className="mb-3">
             <NavLink
               to="/add-parent"
-              className={({ isActive }) => {
-                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
+              className={({ isActive }) =>
+                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
                   isActive ? "bg-[#8fc4d9]" : ""
-                }`;
-              }}
+                }`
+              }
             >
               <FaUserPlus className="text-2xl text-gray-300" />
               <span>Add Parent</span>
@@ -108,11 +87,11 @@ const Sidebar = () => {
           <li className="mb-3">
             <NavLink
               to="/add-student"
-              className={({ isActive }) => {
-                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
+              className={({ isActive }) =>
+                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
                   isActive ? "bg-[#8fc4d9]" : ""
-                }`;
-              }}
+                }`
+              }
             >
               <FaUserGraduate className="text-2xl text-gray-300" />
               <span>Add Student</span>
@@ -121,11 +100,11 @@ const Sidebar = () => {
           <li className="mb-3">
             <NavLink
               to="/users"
-              className={({ isActive }) => {
-                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
+              className={({ isActive }) =>
+                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
                   isActive ? "bg-[#8fc4d9]" : ""
-                }`;
-              }}
+                }`
+              }
             >
               <FaChartLine className="text-2xl text-gray-300" />
               <span>All Users</span>
@@ -134,11 +113,11 @@ const Sidebar = () => {
           <li className="mb-3">
             <NavLink
               to="/add-class"
-              className={({ isActive }) => {
-                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
+              className={({ isActive }) =>
+                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
                   isActive ? "bg-[#8fc4d9]" : ""
-                }`;
-              }}
+                }`
+              }
             >
               <FaChartLine className="text-2xl text-gray-300" />
               <span>Add Levels</span>
@@ -147,42 +126,39 @@ const Sidebar = () => {
           <li className="mb-3">
             <NavLink
               to="/add-class-routine"
-              className={({ isActive }) => {
-                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
+              className={({ isActive }) =>
+                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
                   isActive ? "bg-[#8fc4d9]" : ""
-                }`;
-              }}
+                }`
+              }
             >
               <RiCalendarScheduleLine className="text-2xl text-gray-400" />
-              {/* <FaChartLine className="text-2xl text-gray-400" /> */}
-              <span>Add Class routine</span>
+              <span>Add Class Routine</span>
             </NavLink>
           </li>
           <li className="mb-3">
             <NavLink
               to="/add-subject"
-              className={({ isActive }) => {
-                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
+              className={({ isActive }) =>
+                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
                   isActive ? "bg-[#8fc4d9]" : ""
-                }`;
-              }}
+                }`
+              }
             >
-              <FaBookOpen className="text-2xl text-gray-400"/>
-              {/* <FaChartLine className="text-2xl text-gray-400" /> */}
+              <FaBookOpen className="text-2xl text-gray-400" />
               <span>Add Subject</span>
             </NavLink>
           </li>
           <li className="mb-3">
             <NavLink
               to="/grad"
-              className={({ isActive }) => {
-                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
+              className={({ isActive }) =>
+                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
                   isActive ? "bg-[#8fc4d9]" : ""
-                }`;
-              }}
+                }`
+              }
             >
               <FaMarker className="text-2xl text-gray-400" />
-              {/* <FaChartLine className="text-2xl text-gray-400" /> */}
               <span>Add Grades</span>
             </NavLink>
           </li>

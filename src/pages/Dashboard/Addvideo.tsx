@@ -123,7 +123,7 @@
 // ====
 import React, { useEffect, useState } from "react";
 import { Button, Select, Label } from "flowbite-react";
-import { db, storage } from '../../config/firebase';
+import { db, storage } from "../../config/firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { fetchSubjectsByteacher_id } from "../../services/subjectServices";
 import { useAppSelector } from "../../hooks/reduxHooks";
@@ -144,11 +144,12 @@ function AddVideo() {
   useEffect(() => {
     const loadSubjects = async () => {
       if (userInfo.id) {
-        const subjectsData: Subject[] = await fetchSubjectsByteacher_id(userInfo.id);
+        const subjectsData: Subject[] = await fetchSubjectsByteacher_id(
+          userInfo.id
+        );
         setFilteredSubjects(subjectsData);
       }
     };
-
     loadSubjects();
   }, [userInfo.id]);
 
@@ -178,7 +179,8 @@ function AddVideo() {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setUploadProgress(progress);
       },
       (error) => {
@@ -196,25 +198,25 @@ function AddVideo() {
           setVideoFile(null);
         } catch (error) {
           console.error("Error updating document: ", error);
-          alert("Failed to upload video or update subject");
+          alert("Failed to upload video or update subject.");
         }
       }
     );
   };
 
   return (
-<<<<<<< HEAD
+
     <div className="container mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
-      <h3 className="text-4xl font-semibold text-center text-gray-800 dark:text-white mb-8">
-=======
-    <div className="container mx-auto mt-[130px] ">
-      <h3 className="text-4xl font-medium text-gray-900 dark:text-white">
->>>>>>> 8fa8c0a779cd8e09ce45ba2e1da419fcd8877986
+      <h3 className="text-4xl font-medium text-gray-900 dark:text-white mb-8">
         Add Video
       </h3>
       <div className="space-y-6">
         <div>
-          <Label htmlFor="subject" value="Subject Name" className="text-lg font-medium text-gray-700" />
+          <Label
+            htmlFor="subject"
+            value="Subject Name"
+            className="text-lg font-medium text-gray-700"
+          />
           <Select
             id="subject"
             required
@@ -232,26 +234,23 @@ function AddVideo() {
         </div>
 
         <div>
-<<<<<<< HEAD
-          <Label htmlFor="videoFile" value="Upload Video" className="text-lg font-medium text-gray-700" />
-=======
-          <Label htmlFor="videoFile" value="Upload Video" className="text-xl" />
->>>>>>> 8fa8c0a779cd8e09ce45ba2e1da419fcd8877986
+          <Label
+            htmlFor="videoFile"
+            value="Upload Video"
+            className="text-lg font-medium text-gray-700"
+          />
           <input
             type="file"
             id="videoFile"
             accept="video/*"
             onChange={handleVideoUpload}
-<<<<<<< HEAD
             className="w-full mt-2 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
           />
           {uploadProgress > 0 && (
-            <p className="mt-2 text-green-600 font-medium">Upload Progress: {uploadProgress}%</p>
+            <p className="mt-2 text-green-600 font-medium">
+              Upload Progress: {uploadProgress}%
+            </p>
           )}
-=======
-          />
-          {uploadProgress > 0 && <p>Upload Progress: {uploadProgress}%</p>}
->>>>>>> 8fa8c0a779cd8e09ce45ba2e1da419fcd8877986
         </div>
 
         <div className="flex justify-center mt-6">
