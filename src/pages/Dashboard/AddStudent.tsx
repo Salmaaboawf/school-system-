@@ -24,10 +24,10 @@ const schema = yup.object().shape({
     .required("Age is required").matches(/^01[01259][0-9]{8}$/,
     ),
   age: yup.number()
-    .required("Age is required")
-    .typeError("Age must be a number") //issue
-    .min(18, "Student must be at least 4 years old")
-    .max(99, "Student must be younger than 19 years old"),
+  .required("Age is required")
+  .typeError("Age must be a number") //issue
+  .min(12, "Student must be at least 4 years old")
+  .max(99, "Student must be younger than 19 years old"),
   gender: yup.string().required("Gender is required"),
   class: yup.string().required("Class is required"),
   address: yup
