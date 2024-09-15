@@ -11,7 +11,6 @@ import {
   FileInput,
   Textarea,
 } from "flowbite-react";
-import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import { addTeacher } from "../../services/teacherServices";
 import { TeacherType } from "../../utils/types";
@@ -20,14 +19,15 @@ import { fetchLevels } from "../../services/levelsServices";
 import { fetchSubjects } from "../../services/subjectServices";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { toast } from 'react-toastify';
-export default function Register() {
+import DashboardHeader from "../../components/Header/DashboardHeader";
+export default function AddTeacher() {
   const schema = yup.object().shape({
     name: yup
       .string()
+      .required("Teacher name is required")
       .matches(/^[A-Za-z\s]+$/, "Name must be characters only")
-      .required("required ")
-      .max(20, " First name cannot exceed 20 characters")
-      .min(3, "min is 3 letters"),
+      .max(20, " Name cannot exceed 20 characters")
+      .min(3, "Name must be at least 3 letters"),
 
     age: yup.string().required("Age is required"),
     gender: yup.string().required("Gender is required"),
@@ -37,15 +37,15 @@ export default function Register() {
       .required("Email is required"),
     password: yup
       .string()
+      .required("Password is required")
       .min(8, "Password must be at least 8 characters")
-      .max(32, "Password cannot exceed 32 characters")
-      .required("Password is required"),
-    subjects: yup.array().of(yup.object()).default([]),
+      .max(32, "Password cannot exceed 32 characters"),  
+    subjects: yup.array().required('Teacher must have a subject').of(yup.object()).default([]),
     phoneNumber: yup
       .string()
       .required("Phone number is required")
       .matches(/^01[01259][0-9]{8}$/, "Phone number is not valid"),
-    levels: yup.array().of(yup.object()),
+    levels: yup.array().required("Must assign at least one level to the teacher").of(yup.object()),
     photofile: yup
       .mixed()
       .required("Photo is required")
@@ -66,18 +66,20 @@ export default function Register() {
     resolver: yupResolver(schema),
   });
 
-  const userInfo = useAppSelector((state) => state.user.user);
+
 
   const dispatch = useAppDispatch();
 
   // State to hold level options
   const levels = useAppSelector((state) => state.levels.levels);
   const subjects = useAppSelector((state) => state.subject.subject);
+  console.log("Redux subjects state:", subjects);
 
   // Fetch levels from firestore
   useEffect(() => {
     fetchLevels(dispatch);
     fetchSubjects(dispatch);
+    console.log("Fetched subjects:", subjects);
   }, [dispatch]);
 
   useEffect(() => {
@@ -104,6 +106,9 @@ export default function Register() {
     }
     if (errors.levels) {
       toast.error(errors.levels.message);
+    }
+    if (errors.subjects) {
+      toast.error(errors.subjects.message);
     }
   }, [errors]);
 
@@ -136,23 +141,9 @@ export default function Register() {
       </div>
 
 
-      {/* Form section */}
-
       <section className=" text-[#002749] xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
-        {/* <h1 className="text-2xl mb-10">Add teacher</h1> */}
-        <div className="flex h-16 border-b-slate-400 border-b mb-2 items-center px-4 justify-between">
-          <div className="flex">
 
-          <h2 className="font-bold text-lg">Dashboard / </h2> <h3 className="text-lg"> Add Teacher</h3>
-          </div>
-          <div className="w-[40px] h-[40px] bg-black rounded-full overflow-hidden border-2 border-[#bf5517]">
-            <img
-              src={userInfo.photoURL}
-              alt="profile"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
+      <DashboardHeader pageTitle={'AddTeacher'} />
         <form
           onSubmit={handleSubmit(save, (err) => console.log(err))}
           className="border sm:px-8 sm:mx-7 md:px-4 py-6 md:mx-4 rounded xl:mx-8 lg:mx-6 mx-8 lg:px-6 xs:px-4 xs:mx-3"
@@ -218,7 +209,7 @@ export default function Register() {
                 {...register("email")}
                 id="email1"
                 type="email"
-                placeholder="name@flowbite.com"
+                placeholder="name@gmail.com"
                 className="xl:w-[27rem] lg:w-80 md:w-full"
               />
 
@@ -271,7 +262,7 @@ export default function Register() {
                     options={levels}
                     isMulti
                     components={animatedComponents}
-                    placeholder="Choose Level"
+                    placeholder="Choose Levels"
                     getOptionLabel={(option) => option.name}
                     getOptionValue={(option) => option.id}
                     onChange={(selected) => {
@@ -290,13 +281,12 @@ export default function Register() {
             <div className="max-w-md">
               <Label htmlFor="description" value="Teacher Description" />
               <Textarea
-                placeholder="Leave a comment..."
+                placeholder="Write description about the teacher..."
                 rows={4}
                 {...register("description")}
                 id="description"
                 className="xl:w-[27rem] lg:w-80 md:w-full"
               />
-              <p className="text-red-500">{errors.description?.message}</p>
             </div>
 
             {/* photo field */}

@@ -205,9 +205,8 @@ function AddVideo() {
   };
 
   return (
-
     <div className="container mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
-      <h3 className="text-4xl font-medium text-gray-900 dark:text-white mb-8">
+      <h3 className="text-4xl font-medium text-gray-900 dark:text-white">
         Add Video
       </h3>
       <div className="space-y-6">
@@ -234,11 +233,7 @@ function AddVideo() {
         </div>
 
         <div>
-          <Label
-            htmlFor="videoFile"
-            value="Upload Video"
-            className="text-lg font-medium text-gray-700"
-          />
+          <Label htmlFor="videoFile" value="Upload Video" className="text-lg font-medium text-gray-700" />
           <input
             type="file"
             id="videoFile"
@@ -267,3 +262,4 @@ function AddVideo() {
 }
 
 export default AddVideo;
+
