@@ -3,6 +3,7 @@ import { collection, getDocs, doc, deleteDoc, updateDoc } from "firebase/firesto
 import { db } from "../config/firebase";
 import Sidebar from "./Sidebar";
 import { Button } from "flowbite-react";
+import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 
 function AllUsers() {
   const [users, setUsers] = useState([]);
@@ -136,15 +137,15 @@ function AllUsers() {
                 <td>
                   <button
                     onClick={() => handleEditClick(user)}
-                    className="bg-gradient-to-r from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 text-white font-semibold px-3 py-1 rounded-lg shadow-md transition duration-300 ease-in-out"
+                    className="font-semibold px-3 py-1 transition duration-300 ease-in-out"
                   >
-                    Edit
+                  <FaRegEdit className="text-blue-600"/>
                   </button>
                   <button
                     onClick={() => handleDeleteClick(user.id)}
-                    className="bg-gradient-to-r from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 text-white font-semibold px-3 py-1 rounded-lg shadow-md transition duration-300 ease-in-out ml-2"
+                    className="font-semibold px-3 py-1 transition duration-300 ease-in-out ml-2"
                   >
-                    Delete
+                     <FaTrashAlt className="text-red-600"/>
                   </button>
                 </td>
               </tr>

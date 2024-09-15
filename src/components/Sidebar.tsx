@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { RiLogoutBoxRLine, RiMenuLine, RiCloseLine, RiCalendarScheduleLine } from "react-icons/ri";
+import { NavLink } from "react-router-dom";
+import { RiMenuLine, RiCloseLine, RiCalendarScheduleLine } from "react-icons/ri";
 import {
-  FaEdit,
   FaUserPlus,
   FaUserGraduate,
   FaChalkboardTeacher,
@@ -10,13 +9,14 @@ import {
   FaBookOpen,
   FaMarker,
 } from "react-icons/fa";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { useAppDispatch } from "../hooks/reduxHooks";
 import { resetUser } from "../Redux/Slices/userSlice";
 import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png"
+import { FaUsersGear } from "react-icons/fa6";
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useAppDispatch();
-  const userInfo = useAppSelector((state) => state.user.user);
+
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -42,9 +42,8 @@ const Sidebar = () => {
       </button>
 
       {/* Sidebar */}
-      <div
-        className={`fixed inset-y-0 left-0 h-[100vh] sm:w-full sm:max-w-[20rem] md:w-auto md:max-w-none bg-gray-800 text-white shadow-xl transition-transform transform ${
-        className={`fixed inset-y-0 left-0 w-full max-w-[20rem] bg-[#023059] text-white shadow-xl transition-transform duration-500 ease-in-out transform ${
+      <div 
+        className={`fixed inset-y-0 left-0 sm:w-full sm:max-w-[20rem] md:w-auto md:max-w-none bg-[#023059] text-white shadow-xl transition-transform duration-500 ease-in-out transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:static md:w-64 z-20`}
       >
@@ -127,7 +126,7 @@ const Sidebar = () => {
                 }`;
               }}
             >
-              <FaChartLine className="text-2xl text-gray-300" />
+              <FaUsersGear className="text-2xl text-gray-300" />
               <span>All Users</span>
             </NavLink>
           </li>
