@@ -7,7 +7,8 @@ import { signOut } from "firebase/auth";
 import auth from "../config/firebase";
 import { FaRegBell } from "react-icons/fa";
 import NotificationList from "./NotificationList";
-
+import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png";
+import "../assets/logo.css"
 function Nav() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -216,6 +217,19 @@ function Nav() {
                 id="navbar-default"
               >
                 <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-pink-100 rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
+                  <li className="relative">
+                    <NavLink
+                      to="/"
+                      className={({ isActive }) =>
+                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-pink-500" : ""
+                        } hover:text-pink-800 transition-all duration-300`
+                      }
+                      aria-current="page"
+                    >
+                      <img src={logo} alt="Logo" className="custom-logo" />
+                    </NavLink>
+                  </li>
                   <li>
                     <NavLink
                       to="/"
@@ -242,6 +256,7 @@ function Nav() {
                     </NavLink>
                   </li>
 
+                  {userInfo.role === "teacher" && (
                   {userInfo.role === "teacher" && (
                     <li>
                       <NavLink
@@ -310,6 +325,20 @@ function Nav() {
                       </NavLink>
                     </li>
                   )}
+                   {userInfo.role === "student" && (
+                    <li>
+                    <NavLink
+                      to="/student-subjects"
+                      className={({ isActive }) =>
+                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-pink-500" : ""
+                        } hover:text-pink-800 transition-all duration-300`
+                      }
+                    >
+                      subjects
+                    </NavLink>
+                  </li>
+                   )}
                 </ul>
               </div>
             </div>
