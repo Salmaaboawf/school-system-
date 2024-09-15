@@ -57,7 +57,7 @@
 }
 .Testimonials img {
   position: absolute;
-  right: -10px;
+  right: 10px;
   top: -50px;
   width: 100px;
   height: 100px;

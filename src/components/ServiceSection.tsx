@@ -8,7 +8,7 @@ import { RiGameLine } from "react-icons/ri";
 export default function Service_Section() {
   return (
     // service section in home page
-    <section className="container m-auto text-neutral-600 my-20;">
+    <section className="container m-auto text-neutral-600 my-20">
       {/* div contains heading and paragraph */}
       <div className="items-center text-center">
         <h2 className="text-3xl my-3">OUR SERVICES</h2>
@@ -16,9 +16,8 @@ export default function Service_Section() {
       </div>
 
       {/* div container for all services */}
-      {/* <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xl:gap-y-9 md:gap-y-9 gap-y-8 gap-x-16 items-center text-center m-auto w-4/5 mt-6"> */}
+      <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xl:gap-y-9 md:gap-y-9 gap-y-8 gap-x-16 items-center text-center m-auto w-4/5 mt-6">
         {/* first service div */}
-        <div className="px-6 shadow-md py-4   rounded">
         <div className="px-6 shadow-md py-4 rounded transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-solid hover:border-2 hover:border-black">
           <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
             <FaSchool />
