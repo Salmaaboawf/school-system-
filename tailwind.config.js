@@ -19,8 +19,8 @@ export default {
       screens: {
         'xs': '360px', 
       }
-
     },
   },
   plugins: [flowbite.plugin()],
 };
+

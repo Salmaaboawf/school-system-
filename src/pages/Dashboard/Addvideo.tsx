@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Select, Label } from "flowbite-react";
-import { db, storage } from '../../config/firebase';
+import { db, storage } from "../../config/firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { fetchSubjectsByteacher_id } from "../../services/subjectServices";
 import { useAppSelector } from "../../hooks/reduxHooks";
@@ -21,11 +21,12 @@ function AddVideo() {
   useEffect(() => {
     const loadSubjects = async () => {
       if (userInfo.id) {
-        const subjectsData: Subject[] = await fetchSubjectsByteacher_id(userInfo.id);
+        const subjectsData: Subject[] = await fetchSubjectsByteacher_id(
+          userInfo.id
+        );
         setFilteredSubjects(subjectsData);
       }
     };
-
     loadSubjects();
   }, [userInfo.id]);
 
@@ -55,7 +56,8 @@ function AddVideo() {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setUploadProgress(progress);
       },
       (error) => {
@@ -73,7 +75,7 @@ function AddVideo() {
           setVideoFile(null);
         } catch (error) {
           console.error("Error updating document: ", error);
-          alert("Failed to upload video or update subject");
+          alert("Failed to upload video or update subject.");
         }
       }
     );
@@ -86,7 +88,11 @@ function AddVideo() {
       </h3>
       <div className="space-y-6">
         <div>
-          <Label htmlFor="subject" value="Subject Name" className="text-lg font-medium text-gray-700" />
+          <Label
+            htmlFor="subject"
+            value="Subject Name"
+            className="text-lg font-medium text-gray-700"
+          />
           <Select
             id="subject"
             required
@@ -128,3 +134,4 @@ function AddVideo() {
 }
 
 export default AddVideo;
+

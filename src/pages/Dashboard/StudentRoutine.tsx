@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import Nav from "../../components/Nav";
 import Footer from "../../components/about/Footer";
 import { useAppSelector } from "../../hooks/reduxHooks";
