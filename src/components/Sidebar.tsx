@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { RiMenuLine, RiCloseLine, RiCalendarScheduleLine } from "react-icons/ri";
+import { Link, NavLink } from "react-router-dom";
+import { RiMenuLine, RiCloseLine, RiCalendarScheduleLine, RiLogoutBoxRLine } from "react-icons/ri";
 import {
   FaUserPlus,
   FaUserGraduate,
@@ -13,6 +13,7 @@ import { useAppDispatch } from "../hooks/reduxHooks";
 import { resetUser } from "../Redux/Slices/userSlice";
 import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png"
 import { FaUsersGear } from "react-icons/fa6";
+import { IoIosHome } from "react-icons/io";
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useAppDispatch();
@@ -147,8 +148,8 @@ const Sidebar = () => {
             <NavLink
               to="/add-class-routine"
               className={({ isActive }) => {
-                return `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
-                  isActive ? "bg-[#8fc4d9]" : ""
+                return `flex items-center space-x-5 text-lg font-semibold px-4 py-3 w-full hover:bg-[#033f75] hover:border-r-[#8fc4d9]  hover:border-r-4  ${
+                  isActive ? "bg-[#033f75] border-r-[#8fc4d9]  border-r-4" : ""
                 }`;
               }}
             >
@@ -186,7 +187,25 @@ const Sidebar = () => {
             </NavLink>
           </li>
         </ul>
+        <div className="flex justify-evenly">
+
+      <Link
+              to="/"
+              className="text-xl text-gray-300 hover:text-white transition-transform transform hover:scale-110"
+              onClick={logout}
+            >
+              <RiLogoutBoxRLine />
+            </Link>
+
+      <Link
+              to="/"
+              className="text-xl text-gray-300 hover:text-white transition-transform transform hover:scale-110"
+            >
+              <IoIosHome />
+            </Link>
+        </div>
       </div>
+
 
       {/* Overlay for Small Screens */}
       {isOpen && (
