@@ -8,7 +8,8 @@ import auth from "../config/firebase";
 import { FaRegBell } from "react-icons/fa";
 import NotificationList from "./NotificationList";
 import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png";
-import "../assets/logo.css"
+import "../assets/logo.css";
+
 function Nav() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,9 +23,9 @@ function Nav() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleLogout = async () => {
     try {
-      console.log("logout fun");
       localStorage.removeItem("userId");
       dispatch(resetUser());
 
@@ -43,7 +44,7 @@ function Nav() {
   return (
     <div className="">
       <nav className="absolute w-full top-0 left-0 z-10 p-4">
-        <div className="max-w-screen-xl flex flex-row-reverse md:flex md:flex-row items-center justify-between mx-auto">
+        <div className="max-w-screen-xl flex flex-row-reverse md:flex-row items-center justify-between mx-auto">
           <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             {userInfo.id ? (
               <>
@@ -108,32 +109,28 @@ function Nav() {
                         <li>
                           <NavLink
                             to="/grades"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           >
-                            My Grad
+                            My Grades
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/student-table"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          >
+                            My Schedule
                           </NavLink>
                         </li>
                       </>
                     )}
 
-                    {userInfo.role === "student" && (
-                      <>
-                        <li>
-                          <NavLink
-                            to="/student-table"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                          >
-                            My schedule
-                          </NavLink>
-                        </li>
-                      </>
-                    )}
                     {userInfo.role === "parent" && (
                       <>
                         <li>
                           <NavLink
                             to="/kids-schedule"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           >
                             My Kids' Schedule
                           </NavLink>
@@ -141,22 +138,30 @@ function Nav() {
                         <li>
                           <NavLink
                             to="/kids-grades"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           >
                             My Kids' Grades
                           </NavLink>
                         </li>
                       </>
                     )}
-                    {/* teacher nav */}
+
                     {userInfo.role === "teacher" && (
                       <>
                         <li>
                           <NavLink
                             to="/AddQuiz"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                           >
-                            AddQuiz
+                            Add Quiz
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/video"
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          >
+                            Add Video
                           </NavLink>
                         </li>
                       </>
@@ -273,43 +278,16 @@ function Nav() {
 
                   <li>
                     <NavLink
-                      to="/stuff"
+                      to="/subjects"
                       className={({ isActive }) =>
                         `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
                           isActive ? "text-pink-500" : ""
                         } hover:text-pink-800 transition-all duration-300`
                       }
                     >
-                      Stuff
+                      Subjects
                     </NavLink>
                   </li>
-                  {userInfo.role === "student" && (
-                  <li>
-                    <NavLink
-                      to="/student-subjects"
-                      className={({ isActive }) =>
-                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-pink-500" : ""
-                        } hover:text-pink-800 transition-all duration-300`
-                      }
-                    >
-                      subjects
-                    </NavLink>
-                  </li>)}
-
-                  <li>
-                    <NavLink
-                      to="/contact"
-                      className={({ isActive }) =>
-                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-pink-500" : ""
-                        } hover:text-pink-800 transition-all duration-300`
-                      }
-                    >
-                      Contact
-                    </NavLink>
-                  </li>
-
                   {userInfo.role === "admin" && (
                     <li>
                       <NavLink
@@ -324,20 +302,6 @@ function Nav() {
                       </NavLink>
                     </li>
                   )}
-                   {userInfo.role === "student" && (
-                    <li>
-                    <NavLink
-                      to="/student-subjects"
-                      className={({ isActive }) =>
-                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-pink-500" : ""
-                        } hover:text-pink-800 transition-all duration-300`
-                      }
-                    >
-                      subjects
-                    </NavLink>
-                  </li>
-                   )}
                 </ul>
               </div>
             </div>

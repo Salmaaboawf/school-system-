@@ -203,14 +203,15 @@ export default function AddSubject() {
 
           <div className="flex justify-center">
             <Button
-              className="w-full h-12 max-w-xs mx-auto mt-6 transition duration-300 ease-in-out transform hover:scale-105 bg-[#6890b6] hover:bg-[#feb4b4] text-white font-bold py-2 px-4 rounded"
-              type="submit"
-            >
-              Add subject
-            </Button>
-          </div>
-        </form>
-      </section>
+             className="w-full xl:w-[27rem]"
+             type="submit"
+>
+  Add subject
+</Button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
 
   );

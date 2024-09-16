@@ -11,7 +11,7 @@ function Footer() {
   return (
     <footer className="custom-footer">
       <div className=" mx-auto px-4 py-6 ">
-        <section className="container mx-auto py-8 mt-10">
+        <section className="container mx-auto py-8 mt-10 overflow-hidden">
           <div className="flex flex-wrap gap-x-2 loop justify-center">
             <div className="w-1/4 sm:w-1/6 lg:w-1/12 px-2 mb-4">
               <li className="list-none">
@@ -43,7 +43,6 @@ function Footer() {
             </div>
           </div>
         </section>
-        
       </div>
       <div className="new_footer_top">
         <div className="footer_bg">
@@ -51,7 +50,6 @@ function Footer() {
           <div className="footer_bg_two" />
         </div>
       </div>
-     
     </footer>
   );
 }

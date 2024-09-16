@@ -671,7 +671,7 @@ const Add_Class_Routine = () => {
                 <div className="w-full flex items-center justify-center my-10">
                   <Button
                     outline
-                    gradientDuoTone="pinkToOrange"
+                    // gradientDuoTone="pinkToOrange"
                     className="my-5 w-72"
                     type="submit"
                   >

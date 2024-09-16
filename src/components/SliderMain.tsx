@@ -55,7 +55,7 @@ const SliderMain = () => {
       Welcome to Enfant Primary School
     </h1>
     <p className="mt-5">Best gift for a child is a great education</p>
-    <button className="mt-10 bg-red-500 px-6 py-3 text-white rounded-lg">
+    <button className="mt-10 bg-[#ff4e31] hover:bg-[#002749] px-6 py-3 text-white rounded-lg">
       Enroll Now
     </button>
   </div>

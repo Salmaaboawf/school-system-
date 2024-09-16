@@ -15,7 +15,7 @@ import ParticlesComponent from "../../components/Tsparticles";
 
 const HomeLanding = () => {
   return (
-    <main>
+    <main className=" ">
       <ParticlesComponent id="particles" />
       <section>
         <SliderMain />

@@ -12,9 +12,9 @@ function Contact() {
  
         <h2 className="text-3xl font-bold text-purple mb-4">SAY HELLO!</h2>
          <p className="text-lightBlue">We would love to hear from you!</p>
-        <hr className="underline border-orange my-4 w-20 mx-auto" />
+        <hr className="underline border-orange my-3 w-20 mx-auto" />
       </div>
-          <form className=" space-y-4" action="#">
+          <form className=" space-y-3" action="#">
             <div className="flex flex-col">
               <label htmlFor="name" className="text-darkBlue font-semibold">Name *</label>
               <input
@@ -37,7 +37,7 @@ function Contact() {
              />
            </div>
 
-           <div className="flex flex-col">
+           {/* <div className="flex flex-col">
               <label htmlFor="subject" className="text-darkBlue font-semibold">Subject</label>
               <input
                 type="text"
@@ -45,14 +45,14 @@ function Contact() {
                name="subject"
                className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
              />
-           </div>
+           </div> */}
 
            <div className="flex flex-col">
              <label htmlFor="message" className="text-darkBlue font-semibold">Message *</label>
              <textarea
                id="message"
                 name="message"
-               rows={5}
+               rows={3}
                required
                 className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
               />
@@ -195,8 +195,64 @@ export default Contact;
 //       </div>
 //     </div>
 //   </div>
-  
-//   );
-// };
+// </div>
 
-// export default Contact;
+
+//     )
+// }
+// export default Contact
+// import React from "react";
+
+// const Contact = () => {
+//   return (
+//     <div className="w-full h-screen overflow-hidden ">
+//     <div className="w-screen h-screen bg-cover bg-center flex items-center justify-center" style={{ backgroundImage: 'url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/38816/image-from-rawpixel-id-2210775-jpeg.jpg")' }}>
+//       <div className="bg-[#f8f4e5] p-8 w-[90vw] max-w-[800px] border-2 border-black shadow-[15px_15px_1px_#ffa580,15px_15px_1px_2px_rgba(0,0,0,1)]">
+//         <form>
+//           <input
+//             type="text"
+//             placeholder="Name"
+//             required
+//             className="block w-full text-[14pt] leading-[28pt] font-['Fjalla_One'] mb-4 border-none border-b-[5px] border-black bg-[#f8f4e5] min-w-[250px] pl-1 outline-none text-black focus:border-b-[5px] focus:border-[#ffa580]"
+//           />
+//           <input
+//             type="email"
+//             placeholder="Email"
+//             name="customerEmail"
+//             className="block w-full text-[14pt] leading-[28pt] font-['Fjalla_One'] mb-4 border-none border-b-[5px] border-black bg-[#f8f4e5] min-w-[250px] pl-1 outline-none text-black focus:border-b-[5px] focus:border-[#ffa580]"
+//           />
+//           <input
+//             type="tel"
+//             placeholder="Phone"
+//             name="customerPhone"
+//             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+//             className="block w-full text-[14pt] leading-[28pt] font-['Fjalla_One'] mb-4 border-none border-b-[5px] border-black bg-[#f8f4e5] min-w-[250px] pl-1 outline-none text-black focus:border-b-[5px] focus:border-[#ffa580]"
+//           />
+//           <input
+//             type="text"
+//             placeholder="Subject"
+//             name="subject"
+//             className="block w-full text-[14pt] leading-[28pt] font-['Fjalla_One'] mb-4 border-none border-b-[5px] border-black bg-[#f8f4e5] min-w-[250px] pl-1 outline-none text-black focus:border-b-[5px] focus:border-[#ffa580]"
+//           />
+//           <textarea
+//             placeholder="Message"
+//             name="message"
+//             rows={3}
+//             required
+//             className="block w-full text-[14pt] leading-[28pt] font-['Fjalla_One'] mb-4 border-none border-b-[5px] border-black bg-[#f8f4e5] min-w-[250px] pl-1 outline-none text-black focus:border-b-[5px] focus:border-[#ffa580]"
+//           />
+//           <button
+//             type="submit"
+//             className="block mx-auto leading-[28pt] px-5 bg-[#ffa580] tracking-widest transition-all ease-in-out duration-200 outline-none border border-black shadow-[3px_3px_1px_1px_#95a4ff,3px_3px_1px_2px_rgba(0,0,0,1)] hover:bg-black hover:text-white hover:border-black"
+//           >
+//             SEND MESSAGE
+//           </button>
+//         </form>
+//       </div>
+//     </div>
+//   </div>
+  
+// //   );
+// // };
+
+// // export default Contact;
