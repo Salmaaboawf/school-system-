@@ -260,6 +260,22 @@ function Nav() {
                       About
                     </NavLink>
                   </li>
+
+                  {userInfo.role === "teacher" && (
+                    <li>
+                      <NavLink
+                        to="/video"
+                        className={({ isActive }) =>
+                          `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
+                            isActive ? "text-pink-500" : ""
+                          } hover:text-pink-800 transition-all duration-300`
+                        }
+                      >
+                        Addvideo
+                      </NavLink>
+                    </li>
+                  )}
+
                   <li>
                     <NavLink
                       to="/subjects"
@@ -273,20 +289,18 @@ function Nav() {
                     </NavLink>
                   </li>
                   {userInfo.role === "admin" && (
-                    <>
-                      <li>
-                        <NavLink
-                          to="/roles"
-                          className={({ isActive }) =>
-                            `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
-                              isActive ? "text-pink-500" : ""
-                            } hover:text-pink-800 transition-all duration-300`
-                          }
-                        >
-                          Roles
-                        </NavLink>
-                      </li>
-                    </>
+                    <li>
+                      <NavLink
+                        to="/add-teacher"
+                        className={({ isActive }) =>
+                          `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
+                            isActive ? "text-pink-500" : ""
+                          } hover:text-pink-800 transition-all duration-300`
+                        }
+                      >
+                        Dashboard
+                      </NavLink>
+                    </li>
                   )}
                 </ul>
               </div>

@@ -26,8 +26,9 @@ const schema = yup.object().shape({
   age: yup.number()
   .required("Age is required")
   .typeError("Age must be a number") //issue
-  .min(12, "Student must be at least 4 years old")
-  .max(99, "Student must be younger than 19 years old"),
+  // .min(18, "Student must be at least 4 years old")
+  // .max(99, "Student must be younger than 19 years old"),
+  ,
   gender: yup.string().required("Gender is required"),
   class: yup.string().required("Class is required"),
   address: yup
@@ -269,7 +270,7 @@ export default function Register() {
           </div>
           <Button
             outline
-            gradientDuoTone="pinkToOrange"
+            // gradientDuoTone="pinkToOrange"
              className="w-full xl:w-[27rem]"
             type="submit"
           >

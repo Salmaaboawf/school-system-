@@ -1,11 +1,12 @@
 import { useState } from "react";
 import CounterPlus from "./CounterPlus";
 import CountUp from "react-countup";
-import ScrollTrigger from "react-scroll-trigger";
+// import ScrollTrigger from "react-scroll-trigger";
 import { IoAmericanFootballOutline } from "react-icons/io5";
 import { TfiPencilAlt2 } from "react-icons/tfi";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { GiSoapExperiment } from "react-icons/gi";
+import ScrollTrigger from 'react-scroll-trigger';
 
 export default function Counter() {
   const [counterOn, setCounterOn] = useState(false);

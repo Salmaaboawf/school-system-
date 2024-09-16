@@ -1,4 +1,4 @@
-import { Form } from 'react-router-dom';
+// import { Form } from 'react-router-dom';
 import './Contact.css';
 
 function Contact() {
@@ -12,9 +12,9 @@ function Contact() {
  
         <h2 className="text-3xl font-bold text-purple mb-4">SAY HELLO!</h2>
          <p className="text-lightBlue">We would love to hear from you!</p>
-        <hr className="underline border-orange my-4 w-20 mx-auto" />
+        <hr className="underline border-orange my-3 w-20 mx-auto" />
       </div>
-          <form className=" space-y-4" action="#">
+          <form className=" space-y-3" action="#">
             <div className="flex flex-col">
               <label htmlFor="name" className="text-darkBlue font-semibold">Name *</label>
               <input
@@ -37,7 +37,7 @@ function Contact() {
              />
            </div>
 
-           <div className="flex flex-col">
+           {/* <div className="flex flex-col">
               <label htmlFor="subject" className="text-darkBlue font-semibold">Subject</label>
               <input
                 type="text"
@@ -45,14 +45,14 @@ function Contact() {
                name="subject"
                className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
              />
-           </div>
+           </div> */}
 
            <div className="flex flex-col">
              <label htmlFor="message" className="text-darkBlue font-semibold">Message *</label>
              <textarea
                id="message"
                 name="message"
-               rows={5}
+               rows={3}
                required
                 className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
               />
@@ -252,7 +252,7 @@ export default Contact;
 //     </div>
 //   </div>
   
-//   );
-// };
+// //   );
+// // };
 
-// export default Contact;
+// // export default Contact;
