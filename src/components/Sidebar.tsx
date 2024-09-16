@@ -10,8 +10,7 @@ import {
   FaMarker,
 } from "react-icons/fa";
 import { useAppDispatch } from "../hooks/reduxHooks";
-import { resetUser } from "../Redux/Slices/userSlice";
-import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png"
+// import { resetUser } from "../Redux/Slices/userSlice";
 import { FaUsersGear } from "react-icons/fa6";
 import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png";
 
@@ -24,10 +23,10 @@ const Sidebar = () => {
     setIsOpen(!isOpen);
   };
 
-  function logout() {
-    localStorage.removeItem("userId");
-    dispatch(resetUser());
-  }
+  // function logout() {
+  //   localStorage.removeItem("userId");
+  //   dispatch(resetUser());
+  // }
 
   return (
     <div className="relative h-[calc(100vh-2rem)]">
