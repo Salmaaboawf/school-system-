@@ -303,8 +303,8 @@ export default function AddTeacher() {
           </div>
           <Button
             outline
-            gradientDuoTone="pinkToOrange"
-            className="w-full xl:w-[27rem]"
+            // gradientDuoTone="pinkToOrange"
+            className="w-full xl:w-[27rem] "
             type="submit"
           >
             Submit

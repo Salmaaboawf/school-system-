@@ -270,7 +270,7 @@ export default function Register() {
           </div>
           <Button
             outline
-            gradientDuoTone="pinkToOrange"
+            // gradientDuoTone="pinkToOrange"
              className="w-full xl:w-[27rem]"
             type="submit"
           >

@@ -72,7 +72,7 @@ export default function AddLevels() {
 
             <Button
               outline
-              gradientDuoTone="pinkToOrange"
+              // gradientDuoTone="pinkToOrange"
               className="w-full max-w-xs mx-auto transition duration-300 ease-in-out transform hover:scale-105"
               type="submit"
             >
