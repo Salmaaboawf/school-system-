@@ -36,10 +36,12 @@ import AddVideo from "./pages/Dashboard/Addvideo";
 import Subjects from "./components/Subjects";
 import Quiz from "./components/Quiz";
 import AddQuiz from "./pages/Dashboard/AddQuiz";
-import subjectDetails from "./components/SubjectDetails";
+// import subjectDetails from "./components/SubjectDetails";
 
 import ShowVideo from "./pages/Dashboard/ShowVideo";
 import SubjectDetails from "./components/SubjectDetails";
+import AllUsers from "./components/AllUsers";
+// import Loading from "./components/Loading";
 function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
@@ -66,7 +68,9 @@ function App() {
             <>
               <Nav />
               <Outlet />
-              <Footer />
+              <div>
+                <Footer />
+              </div>
             </>
           }
         >
@@ -120,7 +124,7 @@ function App() {
           element={<PrivateRoute element={StudentRoutine} role="student" />}
         />
         <Route
-          path="/student-subjects"
+          path="/Subjects"
           element={<PrivateRoute element={Subjects} role="student" />}
         />
         <Route
@@ -142,6 +146,10 @@ function App() {
         <Route
           path="/add-class"
           element={<PrivateRoute element={AddClass} role="admin" />}
+        />
+        <Route
+          path="/users"
+          element={<PrivateRoute element={AllUsers} role="admin" />}
         />
         <Route
           path="/add-video"
@@ -177,6 +185,7 @@ function App() {
           element={<PrivateRoute element={KidsGrades} role="parent" />}
         />
         <Route path="*" element={<NotFound />} />
+        {/* <Route path='loader' element={<Loading />} /> */}
       </Routes>
       <ToastContainer />
     </>

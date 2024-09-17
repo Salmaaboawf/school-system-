@@ -1,13 +1,11 @@
-
 import React, { useEffect, useState } from "react";
 import { Button, Select, Label } from "flowbite-react";
-import {db,  storage } from '../../config/firebase';
+import { db, storage } from "../../config/firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { fetchSubjectsByteacher_id } from "../../services/subjectServices";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
-// تعديل نوع البيانات
 interface Subject {
   id: string;
   name: string;
@@ -17,17 +15,18 @@ function AddVideo() {
   const [data, setData] = useState({ subject: "" });
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [filteredSubjects, setFilteredSubjects] = useState<Subject[]>([]); // تعديل النوع إلى مصفوفة من الكائنات التي تحتوي على معرف واسم
+  const [filteredSubjects, setFilteredSubjects] = useState<Subject[]>([]);
   const userInfo = useAppSelector((state) => state.user.user);
 
   useEffect(() => {
     const loadSubjects = async () => {
       if (userInfo.id) {
-        const subjectsData: Subject[] = await fetchSubjectsByteacher_id(userInfo.id); // تحديد النوع هنا
-        setFilteredSubjects(subjectsData); // تعيين البيانات دون أخطاء
+        const subjectsData: Subject[] = await fetchSubjectsByteacher_id(
+          userInfo.id
+        );
+        setFilteredSubjects(subjectsData);
       }
     };
-
     loadSubjects();
   }, [userInfo.id]);
 
@@ -57,7 +56,8 @@ function AddVideo() {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setUploadProgress(progress);
       },
       (error) => {
@@ -75,24 +75,30 @@ function AddVideo() {
           setVideoFile(null);
         } catch (error) {
           console.error("Error updating document: ", error);
-          alert("Failed to upload video or update subject");
+          alert("Failed to upload video or update subject.");
         }
       }
     );
   };
 
   return (
-    <div className="container mx-auto mt-10">
-      <h3 className="text-4xl font-medium text-gray-900 dark:text-white">Add Video</h3>
+    <div className="container mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+      <h3 className="text-4xl font-semibold text-center text-gray-800 dark:text-white mb-8">
+        Add Video
+      </h3>
       <div className="space-y-6">
-
         <div>
-          <Label htmlFor="subject" value="Subject Name" className="text-xl" />
+          <Label
+            htmlFor="subject"
+            value="Subject Name"
+            className="text-lg font-medium text-gray-700"
+          />
           <Select
             id="subject"
             required
             value={data.subject}
             onChange={handleInputChange}
+            className="w-full mt-2 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
           >
             <option value="">Select subject</option>
             {filteredSubjects.map((subject) => (
@@ -105,12 +111,22 @@ function AddVideo() {
 
         <div>
           <Label htmlFor="videoFile" value="Upload Video" className="text-xl" />
-          <input type="file" id="videoFile" accept="video/*" onChange={handleVideoUpload} />
+          <input
+            type="file"
+            id="videoFile"
+            accept="video/*"
+            onChange={handleVideoUpload}
+          />
           {uploadProgress > 0 && <p>Upload Progress: {uploadProgress}%</p>}
         </div>
 
-        <div className="flex justify-around">
-          <Button onClick={saveVideo}>Upload Video</Button>
+        <div className="flex justify-center mt-6">
+          <Button
+            onClick={saveVideo}
+            className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300"
+          >
+            Upload Video
+          </Button>
         </div>
       </div>
     </div>
@@ -118,3 +134,4 @@ function AddVideo() {
 }
 
 export default AddVideo;
+

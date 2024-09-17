@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { CSSProperties, useEffect, useState } from "react";
 import Nav from "../../components/Nav";
 import Footer from "../../components/about/Footer";
 import { useAppSelector } from "../../hooks/reduxHooks";
@@ -7,6 +7,14 @@ import { Schedule } from "../../utils/types";
 import { getLevelNameById } from "../../services/levelsServices";
 import { getSubjectNameById } from "../../services/subjectServices";
 import { getTeacherNameById } from "../../services/teacherServices";
+import HashLoader from "react-spinners/HashLoader";
+
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "#ff4e31",
+};
+
 const StudentRoutine = () => {
   const [scheduleTable, setScheduleTable] = useState<Schedule | null>(null);
   const [levelName, setLevelName] = useState<string>("");
@@ -62,7 +70,12 @@ const StudentRoutine = () => {
   }, []);
 
   if (!scheduleTable) {
-    return <div>Loading...</div>;
+    return <HashLoade 
+    cssOverride={override}
+    color='#ff4e31'
+     size={50}
+      aria-label="Loading Spinner"
+      data-testid="loader"/>;
   }
 
   return (
@@ -101,6 +114,7 @@ const StudentRoutine = () => {
                     className="whitespace-nowrap px-6 py-4 text-2xl"
                   >
                     {subject.subject_name}{" "}
+                    {console.log(subject.subject_name)}
                     <h6 className="text-sm">{subject.teacherName}</h6>
                   </td>
                 ))}

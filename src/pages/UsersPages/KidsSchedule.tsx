@@ -6,7 +6,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getKids } from '../../Redux/Slices/KidsSlice'
 import { useAppSelector } from '../../hooks/reduxHooks'
 import { fetchSchedule } from '../../services/scheduleServices'
+import Loading from '../../components/Loading'
+// import HashLoader from "react-spinners/HashLoader"
 
+// const override: CSSProperties = {
+//   display: "block",
+//   margin: "0 auto",
+//   borderColor: "#ff4e31",
+// };
 function KidsSchedule() {
 
   const dispatch = useDispatch();
@@ -82,7 +89,14 @@ function KidsSchedule() {
       </div>
 
 
-      {loading && <p>Loading schedule...</p>}
+      {loading && <Loading />
+      // <HashLoader 
+      // cssOverride={override}
+      // color='#ff4e31'
+      //  size={50}
+      //   aria-label="Loading Spinner"
+      //   data-testid="loader"/>
+        }
       {error && <p className="text-red-500">{error}</p>}
 
       {schedule.length > 0 && (

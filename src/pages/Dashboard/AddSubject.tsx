@@ -14,21 +14,23 @@ import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { fetchLevels } from "../../services/levelsServices";
 import { toast } from "react-toastify";
 
-import { fetchTeachers } from "../../services/teacherServices";
+// import { fetchTeachers } from "../../services/teacherServices";
+import DashboardHeader from "../../components/Header/DashboardHeader";
 const schema = yup.object().shape({
   name: yup
     .string()
-    .matches(/^[A-Za-z\s]+$/, "Subject name must be characters only")
-    .required("required ")
-    .max(20, "Subject name cannot exceed 20 characters")
-    .min(3, "min is 3 letters"),
+    .matches(/^[A-Za-z0-9\s]+$/, "Subject name must contain letters and numbers only")
 
-  teacher: yup
-    .string()
-    .matches(/^[A-Za-z\s]+$/, "Teacher name must be characters only")
-    .required("required ")
-    .max(20, " name cannot exceed 20 characters")
-    .min(3, "Teacher name must be at least 3 letters"),
+    .required("Subject name is required ")
+    .max(20, "Subject name cannot exceed 20 characters")
+    .min(3, "Subject name must be at least 3 letters"),
+
+  // teacher: yup
+  //   .string()
+  //   .matches(/^[A-Za-z\s]+$/, "Teacher name must be characters only")
+  //   .required("required ")
+  //   .max(20, " name cannot exceed 20 characters")
+  //   .min(3, "Teacher name must be at least 3 letters"),
   description: yup.string().required("Course description is required"),
   level_id: yup.string().required("Please select a class"),
   total_grade: yup
@@ -51,7 +53,7 @@ export default function AddSubject() {
   const levels = useAppSelector((state) => state.levels.levels);
   const dispatch = useAppDispatch();
   const [imagePreview, setImagePreview] = useState(null);
-  const [teachers, setTeachers] = useState([]);
+  // const [teachers, setTeachers] = useState([]);
 
   const save = async (data) => {
     try {
@@ -72,10 +74,10 @@ export default function AddSubject() {
     }
   };
 
-  useEffect(() => {
-    fetchLevels(dispatch);
-    fetchTeachers().then((fetchedTeachers) => setTeachers(fetchedTeachers));
-  }, [dispatch]);
+  // useEffect(() => {
+  //   fetchLevels(dispatch);
+  //   fetchTeachers().then((fetchedTeachers) => setTeachers(fetchedTeachers));
+  // }, [dispatch]);
 
   useEffect(() => {
     if (errors.name) {
@@ -87,78 +89,70 @@ export default function AddSubject() {
     if (errors.level_id) {
       toast.error(errors.level_id.message);
     }
-    if (errors.teacher) {
-      toast.error(errors.teacher.message);
-    }
+    // if (errors.teacher) {
+    //   toast.error(errors.teacher.message);
+    // }
     if (errors.description) {
       toast.error(errors.description.message);
+    }
+    if (errors.photofile) {
+      toast.error(errors.photofile.message);
     }
   }, [errors]);
 
   return (
-    <div className="flex flex-col md:flex-row gap-5 p-5 mx-auto max-w-screen-lg">
-      <div
-        className={`fixed inset-0 z-10 md:relative md:w-1/4 shadow-md transition-transform transform `}
-      >
+    <div className="flex">
+      <div className="fixed xl:w-[20%] lg:w-[25%] md:w-[30%] top-0 left-0 h-full z-50">
         <Sidebar />
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1">
-        <Header />
-        <div className="my-5 bg-white p-6 rounded-lg shadow-lg">
-          <h3 className="text-2xl font-semibold text-[#002749] mb-4 border-b pb-2">
-            Add Subject
-          </h3>
-          <form onSubmit={handleSubmit(save)} className="space-y-6">
-            <div>
-              <Label htmlFor="courseName" value="Course Name" />
-              <input
-                type="text"
-                className="block w-full mt-1 p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#002749] transition duration-300 ease-in-out"
-                id="courseName"
-                placeholder="Course Name"
-                {...register("name")}
-              />
-              <p className="text-red-500 text-sm mt-1">
-                {errors.name?.message}
-              </p>
-            </div>
+      <section className=" text-[#002749] xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
 
-            <div>
-              <Label htmlFor="courseMark" value="Course Full Mark" />
-              <input
-                type="number"
-                className="block w-full mt-1 p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#002749] transition duration-300 ease-in-out"
-                id="courseMark"
-                placeholder="Course Full Mark"
-                {...register("total_grade")}
-              />
-              <p className="text-red-500 text-sm mt-1">
-                {errors.total_grade?.message}
-              </p>
-            </div>
+        <DashboardHeader pageTitle={'Add Subject'} />
+        <form onSubmit={handleSubmit(save)} className="border sm:px-8 sm:mx-7 md:px-4 py-6 md:mx-4 rounded xl:mx-14 xl:px-12 lg:mx-6 mx-8 lg:px-6 xs:px-4 xs:mx-3">
 
-            <div>
-              <Label htmlFor="class" value="Class" />
-              <Select
-                id="class"
-                {...register("level_id")}
-                className="mt-1 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#002749] transition duration-300 ease-in-out"
-              >
-                <option value="">Select</option>
-                {levels.map((lvl) => (
-                  <option key={lvl.id} value={lvl.id}>
-                    {lvl.name}
-                  </option>
-                ))}
-              </Select>
-              <p className="text-red-500 text-sm mt-1">
-                {errors.level_id?.message}
-              </p>
-            </div>
+          <div>
+            <Label htmlFor="courseName" value="Course Name" />
+            <input
+              type="text"
+              className="block w-full mt-1 p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#002749] transition duration-300 ease-in-out"
+              id="courseName"
+              placeholder="Course Name"
+              {...register("name")}
+            />
 
-            <div>
+          </div>
+
+          <div>
+            <Label htmlFor="courseMark" value="Course Full Mark" />
+            <input
+              type="number"
+              className="block w-full mt-1 p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#002749] transition duration-300 ease-in-out"
+              id="courseMark"
+              placeholder="Course Full Mark"
+              {...register("total_grade")}
+            />
+
+          </div>
+
+          <div>
+            <Label htmlFor="class" value="Class" />
+            <Select
+              id="class"
+              {...register("level_id")}
+              className="mt-1 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#002749] transition duration-300 ease-in-out"
+            >
+              <option value="">Select</option>
+              {levels.map((lvl) => (
+                <option key={lvl.id} value={lvl.id}>
+                  {lvl.name}
+                </option>
+              ))}
+            </Select>
+
+          </div>
+
+          {/* <div>
               <Label htmlFor="teacher" value="Select Teacher" />
               <Select
                 id="teacher"
@@ -175,55 +169,49 @@ export default function AddSubject() {
               <p className="text-red-500 text-sm mt-1">
                 {errors.teacher?.message}
               </p>
-            </div>
+            </div> */}
 
-            <div>
-              <Label htmlFor="description" value="Course Description" />
-              <textarea
-                id="description"
-                rows={4}
-                placeholder="Enter course description here..."
-                className="block w-full mt-1 p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#002749] transition duration-300 ease-in-out"
-                {...register("description")}
+          <div>
+            <Label htmlFor="description" value="Course Description" />
+            <textarea
+              id="description"
+              rows={4}
+              placeholder="Enter course description here..."
+              className="block w-full mt-1 p-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#002749] transition duration-300 ease-in-out"
+              {...register("description")}
+            />
+
+          </div>
+
+          <div>
+            <Label htmlFor="photo" value="Course Photo" />
+            <FileInput
+              id="photo"
+              accept="image/*"
+              onChange={handlePhotoChange}
+              className="mt-1"
+            />
+
+            {imagePreview && (
+              <img
+                src={imagePreview}
+                alt="Preview"
+                className="my-4 rounded-lg border border-gray-300 w-full max-w-xs mx-auto transition duration-300 ease-in-out"
               />
-              <p className="text-red-500 text-sm mt-1">
-                {errors.description?.message}
-              </p>
-            </div>
+            )}
+          </div>
 
-            <div>
-              <Label htmlFor="photo" value="Course Photo" />
-              <FileInput
-                id="photo"
-                accept="image/*"
-                onChange={handlePhotoChange}
-                className="mt-1"
-              />
-              <p className="text-red-500 text-sm mt-1">
-                {errors.photofile?.message}
-              </p>
-              {imagePreview && (
-                <img
-                  src={imagePreview}
-                  alt="Preview"
-                  className="my-4 rounded-lg border border-gray-300 w-full max-w-xs mx-auto transition duration-300 ease-in-out"
-                />
-              )}
-            </div>
-
-            <div className="flex justify-center">
-              <Button
-                outline
-                gradientDuoTone="pinkToOrange"
-                className="w-full max-w-xs transition duration-300 ease-in-out transform hover:scale-105"
-                type="submit"
-              >
-                Add
-              </Button>
-            </div>
-          </form>
-        </div>
-      </div>
+          <div className="flex justify-center">
+            <Button
+              className="formButton"
+              type="submit"
+            >
+              Add subject
+            </Button>
+          </div>
+        </form>
+      </section>
     </div>
+
   );
 }

@@ -9,6 +9,37 @@
 }
 
 body {
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
+}
+
+
+.sidebarButton {
+  @apply flex items-center space-x-5 text-lg font-semibold px-4 py-3 w-full hover:bg-[#033f75] hover:border-r-[#8fc4d9] hover:border-r-4;
+}
+
+.sidebarButtonActive{
+  @apply bg-[#033f75] border-r-[#8fc4d9]  border-r-4
+}
+
+.formButton{
+  @apply w-full max-w-xs mx-auto mt-4 transition duration-300 ease-in-out transform hover:scale-105
+}
+
+@keyframes icons-hover {
+  0% {
+      transform: scale(1);
+  }
+
+  50% {
+      transform: scale(1.2);
+  }
+
+  100% {
+      transform: scale(1);
+  }
+}
+
+.sidebarButton:hover .sidebarIcon {
+  animation: icons-hover 0.8s linear infinite;
 }

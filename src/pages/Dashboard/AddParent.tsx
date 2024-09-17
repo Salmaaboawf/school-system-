@@ -5,36 +5,36 @@ import { Label, TextInput, Select, Button, FileInput } from "flowbite-react";
 import ReactSelect from "react-select";
 import makeAnimated from "react-select/animated";
 
-import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import { addParent, fetchStudents } from "../../services/userServices";
 import { ParentType, StudentType } from "../../utils/types";
 import { useEffect, useState } from "react";
 
-import { toast} from 'react-toastify';
+import { toast } from 'react-toastify';
+import DashboardHeader from "../../components/Header/DashboardHeader";
 const schema = yup.object().shape({
   name: yup
-  .string()
-  .matches(/^[A-Za-z\s]+$/, "Name must be characters only") 
-  .required("required ")
-  .max(20, " Name cannot exceed 20 characters").min(3,"min is 3 letters"),
-  
+    .string()
+    .matches(/^[A-Za-z\s]+$/, "Name must be characters only")
+    .required("required ")
+    .max(20, " Name cannot exceed 20 characters").min(3, "min is 3 letters"),
+
   phoneNumber: yup
     .string()
-    .required("Phone Number is required").matches(/^01[01259][0-9]{8}$/, 
+    .required("Phone Number is required").matches(/^01[01259][0-9]{8}$/,
     ),
-    // .min(18, "You must be at least 18")
-    // .max(99, "You must be younger than 99"),
+  // .min(18, "You must be at least 18")
+  // .max(99, "You must be younger than 99"),
   gender: yup.string().required("Gender is required"),
   email: yup
     .string()
-    .email("Invalid email address")
-    .required("Email is required"),
+    .required("Email is required")
+    .email("Invalid email address"),
   password: yup
     .string()
+    .required("Password is required")
     .min(8, "Password must be at least 8 characters")
-    .max(32, "Password cannot exceed 32 characters")
-    .required("Password is required"),
+    .max(32, "Password cannot exceed 32 characters"),
   address: yup
     .string()
     .required("Address is required"),
@@ -65,7 +65,7 @@ export default function Register() {
   const save = async (value: ParentType) => {
     try {
       const photo = value.photofile;
-      addParent(value,photo);
+      addParent(value, photo);
       setSelectedChildrenValues([]);
       reset();
     } catch (error) {
@@ -86,9 +86,6 @@ export default function Register() {
     if (errors.name) {
       toast.error(errors.name.message);
     }
-    if (errors.age) {
-      toast.error(errors.age.message);
-    }
     if (errors.email) {
       toast.error(errors.email.message);
     }
@@ -101,12 +98,6 @@ export default function Register() {
     if (errors.photofile) {
       toast.error(errors.photofile.message);
     }
-    if (errors.description) {
-      toast.error(errors.description.message);
-    }
-    if (errors.levels) {
-      toast.error(errors.levels.message);
-    }
     if (errors.address) {
       toast.error(errors.address.message);
     }
@@ -115,134 +106,161 @@ export default function Register() {
     }
     if (errors.children) {
       // let message = 'Please select at least one child.' 
-      toast.error( 'Please select at least one child.' );
+      toast.error('Please select at least one child.');
     }
-  }, [errors]); 
+  }, [errors]);
 
   return (
-    <div className="container flex gap-x-5  ">
-      <div className="flex-[1]">
+    <div className="flex">
+      <div className="fixed xl:w-[20%] lg:w-[25%] md:w-[30%] top-0 left-0 h-full z-50">
         <Sidebar />
       </div>
-      <div className="flex-[4]">
-        {/* Header of the section */}
-        <div>
-          <Header />
-        </div>
-        {/* Header of the section */}
-        <div className="my-5">
-          <section className="shadow-md text-[#002749] ps-48">
-            <h1 className="text-2xl mb-10">Add Parent</h1>
-            <form
-              onSubmit={handleSubmit(save, (e) => {
-                console.log(e.children);
-              })}
-              className="flex max-w-md flex-col gap-4"
-            >
-              <div>
-                <Label htmlFor="name" value="First Name" />
-                <TextInput
-                  {...register("name")}
-                  id="name"
-                  type="text"
-                  placeholder="Parent Name"
+
+      <section className=" text-[#002749] xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
+
+        <DashboardHeader pageTitle={'Add Parent'} />
+        <form
+          onSubmit={handleSubmit(save, (e) => {
+            console.log(e.children);
+          })}
+          className="border sm:px-8 sm:mx-7 md:px-4 py-6 md:mx-4 rounded xl:mx-8 lg:mx-6 mx-8 lg:px-6 xs:px-4 xs:mx-3"
+        >
+
+          {/* div for name and gender */}
+          <div className="lg:flex justify-between block">
+
+            <div>
+              <Label htmlFor="name" value="Parent Name" />
+              <TextInput
+                {...register("name")}
+                id="name"
+                type="text"
+                placeholder="Parent Name"
+                className="xl:w-[27rem] lg:w-80 md:w-full"
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="gender" value="Gender" />
+              <Select {...register("gender")} id="gender" defaultValue="" className="xl:w-[27rem] lg:w-80 md:w-full">
+                <option value="" disabled className="w-80 border-none">
+                  Gender
+                </option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+              </Select>
+
+            </div>
+
+          </div>
+
+
+          {/* div for address and phone */}
+          <div className="lg:flex justify-between block my-3">
+
+            <div>
+              <Label htmlFor="address" value="Address" />
+              <TextInput
+                {...register("address")}
+                id="address"
+                type="text"
+                placeholder="Address"
+                className="xl:w-[27rem] lg:w-80 md:w-full"
+              />
+            </div>
+
+            <div>
+              <Label htmlFor="phoneNumber" value="Parent phone number" />
+              <TextInput
+                {...register("phoneNumber")}
+                id="phoneNumber"
+                type="text"
+                placeholder="01023456789"
+                className="xl:w-[27rem] lg:w-80 md:w-full"
+              />
+            </div>
+
+          </div>
+
+
+
+{/* div for email and password */}
+          <div className="lg:flex justify-between block my-3">
+
+            <div>
+              <Label htmlFor="email1" value="Parent Email" />
+              <TextInput
+                {...register("email")}
+                id="email1"
+                type="email"
+                placeholder="name@gmail.com"
+                className="xl:w-[27rem] lg:w-80 md:w-full"
+              />
+
+            </div>
+            <div>
+              <Label htmlFor="password1" value="Parent Password" />
+              <TextInput
+                {...register("password")}
+                id="password1"
+                type="password"
+                placeholder="Password"
+                className="xl:w-[27rem] lg:w-80 md:w-full"
+              />
+
+            </div>
+          </div>
+
+          <div className="lg:flex justify-between block my-3">
+          <div>
+            <Label htmlFor="children" value="children" />
+            <Controller
+              name="children"
+              control={control}
+              render={({ field }) => (
+                <ReactSelect
+                  {...field}
+                  value={chidlrenValues}
+                  options={students}
+                  isMulti
+                  components={animatedComponents}
+                  placeholder="Choose Children"
+                  getOptionLabel={(item: StudentType) => item.name}
+                  getOptionValue={(item: StudentType) => `${item.id}`}
+                  onChange={(selectedOptions) => {
+                    field.onChange(selectedOptions);
+                    console.log(selectedOptions);
+
+                    setSelectedChildrenValues([...selectedOptions]);
+                  }}
+                className="xl:w-[27rem] lg:w-80 md:w-full"
                 />
+              )}
+            />
 
-              </div>
-              <div>
-                <Label htmlFor="address" value="Address" />
-                <TextInput
-                  {...register("address")}
-                  id="address"
-                  placeholder="Address"
-                />
+          </div>
+          <div>
+            <Label htmlFor="photo" value="Student Photo" />
+            <FileInput id="photo"
+              accept="image/*"
+              onChange={handlePhotoChange} 
+              className="xl:w-[27rem] lg:w-80 md:w-full"/>
 
-              </div>
-              <div>
-                <Label htmlFor="children" value="children" />
-                <Controller
-                  name="children"
-                  control={control}
-                  render={({ field }) => (
-                    <ReactSelect
-                      {...field}
-                      value={chidlrenValues}
-                      options={students}
-                      isMulti
-                      components={animatedComponents}
-                      placeholder="Choose Children"
-                      getOptionLabel={(item: StudentType) => item.name}
-                      getOptionValue={(item: StudentType) => `${item.id}`}
-                      onChange={(selectedOptions) => {
-                        field.onChange(selectedOptions);
-                        console.log(selectedOptions);
+          </div>
+          </div>
 
-                        setSelectedChildrenValues([...selectedOptions]);
-                      }}
-                      // {...register("children")}
-                    />
-                  )}
-                />
 
-              </div>
-              <div>
-                <Label htmlFor="gender" value="Gender" />
-                <Select {...register("gender")} id="gender">
-                  <option value="female">Female</option>
-                  <option value="male">Male</option>
-                </Select>
-
-              </div>
-              <div>
-                <Label htmlFor="phoneNumber" value="Your phone number" />
-                <TextInput
-                  {...register("phoneNumber")}
-                  id="phoneNumber"
-                  type="text"
-                  placeholder="01023456789"
-                />
-
-              </div>
-              <div>
-                <Label htmlFor="email1" value="Your Email" />
-                <TextInput
-                  {...register("email")}
-                  id="email1"
-                  type="email"
-                  placeholder="name@flowbite.com"
-                />
-
-              </div>
-              <div>
-                <Label htmlFor="password1" value="Your Password" />
-                <TextInput
-                  {...register("password")}
-                  id="password1"
-                  type="password"
-                  placeholder="Password"
-                />
-
-              </div>
-
-              <div>
-                <Label htmlFor="photo" value="Student Photo" />
-                <FileInput id="photo"
-                  accept="image/*"
-                  onChange={handlePhotoChange} />
-
-              </div>
-              <Button
-                outline
-                gradientDuoTone="pinkToOrange"
-                className="my-5 w-72"
-                type="submit"
-              >
-                submit
-              </Button>
-            </form>
-          </section>
-        </div>
-      </div>
+          <Button
+            outline
+            // gradientDuoTone="pinkToOrange"
+            className="formButton"
+            type="submit"
+          >
+            submit
+          </Button>
+        </form>
+      </section>
     </div>
+
   );
 }
