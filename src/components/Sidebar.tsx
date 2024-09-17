@@ -17,17 +17,17 @@ import { IoIosHome } from "react-icons/io";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
-  // function logout() {
-  //   localStorage.removeItem("userId");
-  //   dispatch(resetUser());
-  // }
+  function logout() {
+    localStorage.removeItem("userId");
+    dispatch(resetUser());
+  }
 
   return (
     <div className="relative h-[100vh]">
