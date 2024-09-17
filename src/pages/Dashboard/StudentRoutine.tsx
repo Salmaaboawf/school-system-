@@ -70,7 +70,7 @@ const StudentRoutine = () => {
   }, []);
 
   if (!scheduleTable) {
-    return <HashLoader 
+    return <HashLoade 
     cssOverride={override}
     color='#ff4e31'
      size={50}
