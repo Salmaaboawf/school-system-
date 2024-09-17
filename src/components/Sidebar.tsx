@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import { useAppDispatch } from "../hooks/reduxHooks";
 import { resetUser } from "../Redux/Slices/userSlice";
-import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png"
+// import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png"
 import { FaUsersGear } from "react-icons/fa6";
 import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png";
 

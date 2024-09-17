@@ -7,17 +7,18 @@ import { RiGameLine } from "react-icons/ri";
 
 export default function Service_Section() {
   return (
-    // service section in home page
+    // قسم الخدمات في الصفحة الرئيسية
     <section className="container m-auto text-neutral-600 my-20">
-      {/* div contains heading and paragraph */}
+      {/* قسم يحتوي على العنوان والفقرة */}
       <div className="items-center text-center">
         <h2 className="text-3xl my-3">OUR SERVICES</h2>
         <p className="my-1">We make your child happy day after day</p>
       </div>
 
-      {/* div container for all services */}
-      {/* <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xl:gap-y-9 md:gap-y-9 gap-y-8 gap-x-16 items-center text-center m-auto w-4/5 mt-6"> */}
-        {/* first service div */}
+      {/* حاوية تحتوي على جميع الخدمات */}
+      <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xl:gap-y-9 md:gap-y-9 gap-y-8 gap-x-16 items-center text-center m-auto w-4/5 mt-6">
+        
+        {/* الخدمة الأولى */}
         <div className="px-6 shadow-md py-4 rounded transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-solid hover:border-2 hover:border-black">
           <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
             <FaSchool />
@@ -29,7 +30,7 @@ export default function Service_Section() {
           </p>
         </div>
 
-        {/* second service div */}
+        {/* الخدمة الثانية */}
         <div className="px-6 shadow-md py-4 rounded transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-solid hover:border-2 hover:border-black">
           <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
             <MdOutlineScience />
@@ -42,7 +43,7 @@ export default function Service_Section() {
           </p>
         </div>
 
-        {/* third service div */}
+        {/* الخدمة الثالثة */}
         <div className="px-6 shadow-md py-4 rounded transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-solid hover:border-2 hover:border-black">
           <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
             <BiSolidBusSchool />
@@ -55,7 +56,7 @@ export default function Service_Section() {
           </p>
         </div>
 
-        {/* fourth service div */}
+        {/* الخدمة الرابعة */}
         <div className="px-6 shadow-md py-4 rounded transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-solid hover:border-2 hover:border-black">
           <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
             <RiGameLine />
@@ -68,7 +69,7 @@ export default function Service_Section() {
           </p>
         </div>
 
-        {/* fifth service div */}
+        {/* الخدمة الخامسة */}
         <div className="px-6 shadow-md py-4 rounded transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-solid hover:border-2 hover:border-black">
           <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
             <GiMeal />
@@ -81,7 +82,7 @@ export default function Service_Section() {
           </p>
         </div>
 
-        {/* sixth service div */}
+        {/* الخدمة السادسة */}
         <div className="px-6 shadow-md py-4 rounded transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-solid hover:border-2 hover:border-black">
           <div className="text-4xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-11 pt-10 m-auto">
             <FaPaintBrush />

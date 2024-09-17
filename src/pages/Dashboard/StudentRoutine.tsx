@@ -8,6 +8,7 @@ import { getLevelNameById } from "../../services/levelsServices";
 import { getSubjectNameById } from "../../services/subjectServices";
 import { getTeacherNameById } from "../../services/teacherServices";
 import HashLoade from "react-spinners/HashLoader";
+import HashLoader from "react-spinners/HashLoader";
 
 const override: CSSProperties = {
   display: "block",
