@@ -14,6 +14,7 @@ import { db } from "../config/firebase";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { fetchLevels } from "../services/levelsServices";
 import { SubjectType } from "../utils/types";
+import DashboardHeader from "./Header/DashboardHeader";
 
 function Gard() {
   const levels = useAppSelector((state) => state.levels.levels);
@@ -113,14 +114,14 @@ function Gard() {
   };
 
   return (
-    <div className="container flex gap-x-5">
-      <div className="flex-[1]">
-        <Sidebar />
-      </div>
-      <div className="flex-[4]">
-        <div>
-          <Header />
-        </div>
+    <div className="flex">
+    <div className="fixed xl:w-[20%] lg:w-[25%] md:w-[30%] top-0 left-0 h-full z-50">
+      <Sidebar />
+    </div>
+
+    <section className=" text-[#002749] xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
+
+      <DashboardHeader pageTitle={'Add Grades'} />
         <div>
           <div className="forms p-6 rounded-lg ">
             <div className="form max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
@@ -223,8 +224,9 @@ function Gard() {
             )}
           </div>
         </div>
+        </section>
       </div>
-    </div>
+
   );
 }
 

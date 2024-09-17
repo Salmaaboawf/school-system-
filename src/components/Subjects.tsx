@@ -36,7 +36,7 @@ function Subjects() {
       <section className='container'>
 
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4 mt-[130px]">
           {filteredSubjects.map((subject) => (
             <section className="card-section">
               <div className="card ">

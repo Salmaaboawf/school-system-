@@ -68,7 +68,7 @@ function App() {
             <>
               <Nav />
               <Outlet />
-              <div >
+              <div>
                 <Footer />
               </div>
             </>
@@ -101,7 +101,7 @@ function App() {
           path="/grades"
           element={<PrivateRoute element={MyGrades} role="student" />}
         />
-     
+
         <Route
           path="/quiz"
           element={<PrivateRoute element={Quiz} role="student" />}
@@ -124,7 +124,7 @@ function App() {
           element={<PrivateRoute element={StudentRoutine} role="student" />}
         />
         <Route
-          path="/subjects"
+          path="/Subjects"
           element={<PrivateRoute element={Subjects} role="student" />}
         />
         <Route
@@ -147,7 +147,7 @@ function App() {
           path="/add-class"
           element={<PrivateRoute element={AddClass} role="admin" />}
         />
-          <Route
+        <Route
           path="/users"
           element={<PrivateRoute element={AllUsers} role="admin" />}
         />

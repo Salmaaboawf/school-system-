@@ -21,6 +21,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
+import DashboardHeader from "../../components/Header/DashboardHeader";
 
 const schema = yup.object().shape({
   levels: yup.object().required().nullable(),
@@ -244,22 +245,15 @@ const Add_Class_Routine = () => {
   }, [currentLevel, subjects]);
 
   return (
-    <div className="container flex gap-x-5  ">
-      <div className="flex-[1]">
+    <div className="flex">
+      <div className="fixed xl:w-[20%] lg:w-[25%] md:w-[30%] top-0 left-0 h-full z-50">
         <Sidebar />
       </div>
-      <div className="flex-[4]">
-        {/* Header of the section */}
-        <div>
-          <Header />
-        </div>
-        {/* Header of the section */}
-        <div className="my-5">
-          <div className="inline-block min-w-90 w-full py-2 sm:px-6 lg:px-8 ">
-            <h3 className="text-3xl my-4 text-[#002749]">Add Classs Routine</h3>
 
-            <div className="overflow-hidden min-w-full ">
-              <form onSubmit={handleSubmit(addSchedHandler)}>
+      <section className=" text-[#002749] xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
+
+        <DashboardHeader pageTitle={'Add Class Routine'} />
+              <form onSubmit={handleSubmit(addSchedHandler)}  className="border sm:px-8 sm:mx-7 md:px-4 py-2 md:mx-4 rounded xl:mx-8 lg:mx-6 mx-8 lg:px-6 xs:px-4 xs:mx-3">
                 <div className="text-xl mb-3">
                   <Controller
                     name="levels"
@@ -299,7 +293,7 @@ const Add_Class_Routine = () => {
                   />
                 </div>
                 <table className="min-w-full text-center text-sm font-light ">
-                  <thead className="border-b text-white border-[#002749] bg-[#002749]">
+                  <thead className="border-b text-white border-deepBlue bg-deepBlue">
                     <tr>
                       <th scope="col" className="px-6 py-4">
                         Day
@@ -668,22 +662,19 @@ const Add_Class_Routine = () => {
                     </tr>
                   </tbody>
                 </table>
-                <div className="w-full flex items-center justify-center my-10">
+                <div className="w-full flex items-center justify-center mt-3">
                   <Button
                     outline
-                    gradientDuoTone="pinkToOrange"
-                    className="my-5 w-72"
+                    // gradientDuoTone="pinkToOrange"
+                    className="formButton"
                     type="submit"
                   >
                     Add Schedule
                   </Button>
                 </div>
               </form>
+              </section>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 };
 

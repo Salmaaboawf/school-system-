@@ -5,6 +5,7 @@ import Header from "../../components/Header/Header";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import Sidebar from "../../components/Sidebar";
+import DashboardHeader from "../../components/Header/DashboardHeader";
 
 export default function AddLevels() {
   const [levelName, setLevelName] = useState("");
@@ -22,7 +23,7 @@ export default function AddLevels() {
     try {
       await validationSchema.validate({ levelName }, { abortEarly: false });
       await addLevels(levelName);
-      toast.success(`${levelName} grade added successfully`);
+      toast.success(`${levelName} level added successfully`);
     } catch (error) {
       const validationErrors = {};
       error.inner.forEach((err) => {
@@ -40,21 +41,15 @@ export default function AddLevels() {
   }, [errors]);
 
   return (
-    <div className="flex flex-col md:flex-row gap-5 p-5 mx-auto max-w-screen-lg">
-      <div
-        className={`fixed inset-0 z-10 md:relative md:w-1/4 shadow-md transition-transform transform `}
-      >
-        <Sidebar />
-      </div>
-      {/* Main Content */}
-      <div className="flex-1">
-        <Header />
-        
-        <div className="my-5 bg-white p-6 rounded-lg shadow-lg">
-          <h3 className="text-2xl font-semibold text-[#002749] mb-4 border-b pb-2">
-            Add Level
-          </h3>
-          <form onSubmit={handleSave} className="space-y-6">
+    <div className="flex">
+    <div className="fixed xl:w-[20%] lg:w-[25%] md:w-[30%] top-0 left-0 h-full z-50">
+      <Sidebar />
+    </div>
+
+    <section className=" text-[#002749] xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
+
+      <DashboardHeader pageTitle={'Add Level'} />
+          <form onSubmit={handleSave} className="border sm:px-8 sm:mx-7 md:px-4 py-6 md:mx-4 rounded xl:mx-8 lg:mx-6 mx-8 lg:px-6 xs:px-4 xs:mx-3">
             <div>
               <Label htmlFor="class" value="Class Name" />
               <TextInput
@@ -72,19 +67,15 @@ export default function AddLevels() {
 
             <Button
               outline
-              gradientDuoTone="pinkToOrange"
-              className="w-full max-w-xs mx-auto transition duration-300 ease-in-out transform hover:scale-105"
+              className="formButton"
               type="submit"
             >
               Add Level
             </Button>
 
-            {successMessage && (
-              <p className="text-green-500 text-sm mt-4">{successMessage}</p>
-            )}
           </form>
+          </section>
         </div>
-      </div>
-    </div>
+
   );
 }

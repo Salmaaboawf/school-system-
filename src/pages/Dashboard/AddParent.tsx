@@ -252,8 +252,8 @@ export default function Register() {
 
           <Button
             outline
-            gradientDuoTone="pinkToOrange"
-            className="w-full xl:w-[27rem]"
+            // gradientDuoTone="pinkToOrange"
+            className="formButton"
             type="submit"
           >
             submit
