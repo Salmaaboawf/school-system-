@@ -7,7 +7,7 @@ import { Schedule } from "../../utils/types";
 import { getLevelNameById } from "../../services/levelsServices";
 import { getSubjectNameById } from "../../services/subjectServices";
 import { getTeacherNameById } from "../../services/teacherServices";
-import HashLoade from "react-spinners/HashLoader";
+import HashLoader from "react-spinners/HashLoader";
 
 const override: CSSProperties = {
   display: "block",
@@ -114,6 +114,7 @@ const StudentRoutine = () => {
                     className="whitespace-nowrap px-6 py-4 text-2xl"
                   >
                     {subject.subject_name}{" "}
+                    {console.log(subject.subject_name)}
                     <h6 className="text-sm">{subject.teacherName}</h6>
                   </td>
                 ))}

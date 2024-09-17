@@ -9,7 +9,7 @@ function DashboardHeader({pageTitle}) {
     <div className="flex h-16 border-b-slate-400 border-b mb-2 items-center px-4 justify-between">
     <div className="flex">
 
-    <h2 className="font-bold text-lg">Dashboard / </h2> <h3 className="text-lg"> {pageTitle}</h3>
+    <h2 className="font-bold text-lg">Dashboard / </h2> <h3 className="text-lg">&nbsp; {pageTitle}</h3>
     </div>
     <div className="w-[40px] h-[40px] bg-black rounded-full overflow-hidden border-2 border-[#bf5517]">
       <img

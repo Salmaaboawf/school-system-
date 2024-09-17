@@ -203,15 +203,14 @@ export default function AddSubject() {
 
           <div className="flex justify-center">
             <Button
-             className="w-full xl:w-[27rem]"
-             type="submit"
->
-  Add subject
-</Button>
-            </div>
-          </form>
-        </div>
-      </div>
+              className="formButton"
+              type="submit"
+            >
+              Add subject
+            </Button>
+          </div>
+        </form>
+      </section>
     </div>
 
   );
