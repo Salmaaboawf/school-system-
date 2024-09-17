@@ -71,7 +71,7 @@ export default function Login() {
         // const firebaseError = error as FirebaseError;
         // console.log(error.message)
         console.log(error);
-        
+
         const errorMessage = getErrorMessage(error.code);
         toast.error(errorMessage);
       }
