@@ -260,6 +260,18 @@ function Nav() {
                       About
                     </NavLink>
                   </li>
+                  <li>
+                    <NavLink
+                      to="/contact"
+                      className={({ isActive }) =>
+                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-pink-500" : ""
+                        } hover:text-pink-800 transition-all duration-300`
+                      }
+                    >
+                      Contact
+                    </NavLink>
+                  </li>
 
                   {userInfo.role === "teacher" && (
                     <li>

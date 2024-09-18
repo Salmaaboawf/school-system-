@@ -4,6 +4,7 @@ import { db } from "../config/firebase";
 import Sidebar from "./Sidebar";
 import { Button } from "flowbite-react";
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
+import DashboardHeader from "./Header/DashboardHeader";
 
 function AllUsers() {
   const [users, setUsers] = useState([]);
@@ -98,10 +99,14 @@ function AllUsers() {
   };
 
   return (
-    <div className="flex flex-row">
-      <Sidebar/>
-      <div className="w-full">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">All Users</h1>
+    <div className="flex">
+      <div className="fixed xl:w-[20%] lg:w-[25%] md:w-[30%] top-0 left-0 h-[100vh] z-50">
+        <Sidebar />
+      </div>
+
+      <section className=" text-[#002749] xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
+
+        <DashboardHeader pageTitle={'Show All Users'} />
         <select
           value={selectedRole}
           onChange={handleRoleChange}
@@ -204,8 +209,9 @@ function AllUsers() {
             </form>
           </div>
         )}
+        </section>
       </div>
-    </div>
+
   );
 }
 

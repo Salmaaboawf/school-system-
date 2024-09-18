@@ -264,17 +264,17 @@ export default function Register() {
             <FileInput id="photo"
               accept="image/*"
               onChange={handlePhotoChange} 
-              className="xl:w-[27rem] lg:w-80 md:w-full"/>
+              className="xl:w-[27rem] lg:w-80 md:w-full "
+              />
 
           </div>
           </div>
           <Button
             outline
-            // gradientDuoTone="pinkToOrange"
-             className="w-full xl:w-[27rem]"
+             className="formButton mt-10"
             type="submit"
           >
-            submit
+            Add Student
           </Button>
           {/* <input type="submit" title="submit" /> */}
         </form>

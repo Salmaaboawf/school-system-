@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { RiMenuLine, RiCloseLine, RiCalendarScheduleLine } from "react-icons/ri";
+import { Link, NavLink } from "react-router-dom";
+import { RiMenuLine, RiCloseLine, RiCalendarScheduleLine, RiLogoutBoxRLine } from "react-icons/ri";
 import {
   FaUserPlus,
   FaUserGraduate,
@@ -9,48 +9,38 @@ import {
   FaBookOpen,
   FaMarker,
 } from "react-icons/fa";
-// import { useAppDispatch } from "../hooks/reduxHooks";
-// import { resetUser } from "../Redux/Slices/userSlice";
+import { resetUser } from "../Redux/Slices/userSlice";
+import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png"
 import { FaUsersGear } from "react-icons/fa6";
-import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png";
+import { PiPhoneList } from "react-icons/pi";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  // const dispatch = useAppDispatch();
-
-
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
-  // function logout() {
-  //   localStorage.removeItem("userId");
-  //   dispatch(resetUser());
-  // }
-
   return (
-    <div className="relative h-[calc(100vh-2rem)]">
+    <div className="relative h-[100vh]">
       {/* Toggle Icon for Small Screens */}
       <button
         onClick={toggleSidebar}
-        className="md:hidden fixed top-4 left-4 z-30 text-white bg-[#023059] p-2 rounded-full focus:outline-none transition-transform duration-300 transform hover:scale-110"
+        className="md:hidden fixed top-4 left-4 z-30 text-white bg-deepBlue p-2 rounded-full focus:outline-none transition-transform duration-300 transform hover:scale-105"
       >
         {isOpen ? (
-          <RiCloseLine className="text-3xl" />
+          <RiCloseLine className="text-2xl bg-rustOrange rounded-full w-8 h-8" />
         ) : (
-          <RiMenuLine className="text-3xl" />
+          <RiMenuLine className="text-2xl" />
         )}
       </button>
 
       {/* Sidebar */}
       <div
-        // className={`fixed inset-y-0 left-0 h-[100vh] sm:w-full sm:max-w-[20rem] md:w-auto md:max-w-none bg-gray-800 text-white shadow-xl transition-transform transform ${
-        className={`fixed inset-y-0 left-0 w-full max-w-[20rem] bg-[#023059] text-white shadow-xl transition-transform duration-500 ease-in-out transform ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 md:static md:w-64 z-20`}
+        className={`fixed inset-y-0 left-0 sm:w-full sm:max-w-[20rem] md:w-auto md:max-w-none bg-deepBlue text-white shadow-xl transition-transform duration-500 ease-in-out transform ${isOpen ? "translate-x-0" : "-translate-x-full"
+          } md:translate-x-0 md:static md:w-64 z-20`}
       >
         <div className="flex flex-row items-center justify-center text-center">
-          <img src={logo} alt="KIDOS SCHOOL Logo" className="w-20" />
+          <img src={logo} alt="" className="w-20" />
           <h1 className="text-white ml-4">KIDOS SCHOOL</h1>
         </div>
 
@@ -58,109 +48,119 @@ const Sidebar = () => {
           <li className="mb-3">
             <NavLink
               to="/add-teacher"
-              className={({ isActive }) =>
-                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
-                  isActive ? "bg-[#8fc4d9]" : ""
-                }`
-              }
+              className={({ isActive }) => {
+                return `sidebarButton ${isActive ? "sidebarButtonActive" : ""
+                  }`;
+              }}
             >
-              <FaChalkboardTeacher className="text-2xl text-gray-300" />
+              <FaChalkboardTeacher className="text-2xl text-gray-300 sidebarIcon" />
               <span>Add Teacher</span>
             </NavLink>
           </li>
           <li className="mb-3">
             <NavLink
               to="/add-parent"
-              className={({ isActive }) =>
-                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
-                  isActive ? "bg-[#8fc4d9]" : ""
-                }`
-              }
+              className={({ isActive }) => {
+                return `sidebarButton ${isActive ? "sidebarButtonActive" : ""
+                  }`;
+              }}
             >
-              <FaUserPlus className="text-2xl text-gray-300" />
+              <FaUserPlus className="text-2xl text-gray-300 sidebarIcon" />
               <span>Add Parent</span>
             </NavLink>
           </li>
           <li className="mb-3">
             <NavLink
               to="/add-student"
-              className={({ isActive }) =>
-                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
-                  isActive ? "bg-[#8fc4d9]" : ""
-                }`
-              }
+              className={({ isActive }) => {
+                return `sidebarButton ${isActive ? "sidebarButtonActive" : ""
+                  }`;
+              }}
             >
-              <FaUserGraduate className="text-2xl text-gray-300" />
+              <FaUserGraduate className="text-2xl text-gray-300 sidebarIcon" />
               <span>Add Student</span>
             </NavLink>
           </li>
           <li className="mb-3">
             <NavLink
               to="/users"
-              className={({ isActive }) =>
-                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
-                  isActive ? "bg-[#8fc4d9]" : ""
-                }`
-              }
+              className={({ isActive }) => {
+                return `sidebarButton ${isActive ? "sidebarButtonActive" : ""
+                  }`;
+              }}
             >
-              <FaUsersGear className="text-2xl text-gray-300" />
+              <FaUsersGear className="text-2xl text-gray-300 sidebarIcon" />
               <span>All Users</span>
             </NavLink>
           </li>
           <li className="mb-3">
             <NavLink
               to="/add-class"
-              className={({ isActive }) =>
-                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
-                  isActive ? "bg-[#8fc4d9]" : ""
-                }`
-              }
+              className={({ isActive }) => {
+                return `sidebarButton ${isActive ? "sidebarButtonActive" : ""
+                  }`;
+              }}
             >
-              <FaChartLine className="text-2xl text-gray-300" />
+              <FaChartLine className="text-2xl text-gray-300 sidebarIcon" />
               <span>Add Levels</span>
             </NavLink>
           </li>
           <li className="mb-3">
             <NavLink
               to="/add-class-routine"
-              className={({ isActive }) =>
-                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
-                  isActive ? "bg-[#8fc4d9]" : ""
-                }`
-              }
+              className={({ isActive }) => {
+                return `sidebarButton  ${isActive ? "sidebarButtonActive" : ""
+                  }`;
+              }}
             >
-              <RiCalendarScheduleLine className="text-2xl text-gray-400" />
-              <span>Add Class Routine</span>
+              <RiCalendarScheduleLine className="text-2xl text-gray-400 sidebarIcon" />
+              <span>Add Class routine</span>
             </NavLink>
           </li>
           <li className="mb-3">
             <NavLink
               to="/add-subject"
-              className={({ isActive }) =>
-                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
-                  isActive ? "bg-[#8fc4d9]" : ""
-                }`
-              }
+              className={({ isActive }) => {
+                return `sidebarButton ${isActive ? "sidebarButtonActive" : ""
+                  }`;
+              }}
             >
-              <FaBookOpen className="text-2xl text-gray-400" />
+              <FaBookOpen className="text-2xl text-gray-400 sidebarIcon" />
+
               <span>Add Subject</span>
             </NavLink>
           </li>
           <li className="mb-3">
             <NavLink
               to="/grad"
-              className={({ isActive }) =>
-                `flex items-center space-x-3 text-lg font-semibold px-4 py-3 w-full hover:bg-[#8fc4d9] rounded-md transition-transform transform hover:translate-x-2 ${
-                  isActive ? "bg-[#8fc4d9]" : ""
-                }`
-              }
+              className={({ isActive }) => {
+                return `sidebarButton ${isActive ? "sidebarButtonActive" : ""
+                  }`;
+              }}
             >
-              <FaMarker className="text-2xl text-gray-400" />
+              <FaMarker className="text-2xl text-gray-400 sidebarIcon" />
+
               <span>Add Grades</span>
             </NavLink>
           </li>
+
+          <li className="mb-3">
+            <NavLink
+              to="/showContact"
+              className={({ isActive }) => {
+                return `sidebarButton ${isActive ? "sidebarButtonActive" : ""
+                  }`;
+              }}
+            >
+              <PiPhoneList className="text-2xl text-gray-400 sidebarIcon" />
+
+              <span>View Contact</span>
+            </NavLink>
+          </li>
         </ul>
+
       </div>
+
 
       {/* Overlay for Small Screens */}
       {isOpen && (

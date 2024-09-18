@@ -1,7 +1,61 @@
 // import { Form } from 'react-router-dom';
 import './Contact.css';
+import { useForm} from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup";
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { addContact } from '../services/contactService';
+// type Inputs = {
+//   name: string
+//   email: string
+//   message: string
+// }
+
+const schema= yup.object({
+  name: yup
+    .string()
+    .matches(/^[A-Za-z\s]+$/, "Name must be characters only")
+    .required("Name is required")
+    .max(20, " Name cannot exceed 20 characters").min(3, "min is 3 letters"),
+  email: yup
+    .string()
+    .required("Email is required")
+    .email("Invalid email address"),
+  message: yup.string().required("Message is required")
+  .max(100, "Your message cannot exceed 100 letters")
+  .min(15, "Your message must be at least 15 letters to better understand it"),
+})
 
 function Contact() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  })
+
+  useEffect(()=>{
+    if(errors.name){
+      toast.error(errors.name.message)
+    }
+    if(errors.email){
+      toast.error(errors.email.message)
+    }
+    if(errors.message){
+      toast.error(errors.message.message)
+    }
+  },[errors])
+
+  const sendContact = (data) => {
+    const currentDate = new Date().toISOString();
+    const contactData = {
+      ...data,
+      date:currentDate
+    }
+    addContact(contactData)
+  }
   return (
     
 <div className="flex justify-center items-center min-h-screen bg-white py-16">
@@ -14,15 +68,14 @@ function Contact() {
          <p className="text-lightBlue">We would love to hear from you!</p>
         <hr className="underline border-orange my-3 w-20 mx-auto" />
       </div>
-          <form className=" space-y-3" action="#">
+          <form className=" space-y-3" action="#" onSubmit={handleSubmit(sendContact)}>
             <div className="flex flex-col">
-              <label htmlFor="name" className="text-darkBlue font-semibold">Name *</label>
+              <label htmlFor="name" className="text-darkBlue font-semibold">Name</label>
               <input
                type="text"
                id="name"
-                name="name"
-                required
                 className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
+                {...register('name')}
               />
             </div>
 
@@ -31,9 +84,8 @@ function Contact() {
              <input
                 type="email"
                id="email"
-               name="email"
-               required
                className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
+               {...register('email')}
              />
            </div>
 
@@ -51,10 +103,9 @@ function Contact() {
              <label htmlFor="message" className="text-darkBlue font-semibold">Message *</label>
              <textarea
                id="message"
-                name="message"
                rows={3}
-               required
                 className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
+                {...register('message')}
               />
             </div>
 
