@@ -41,6 +41,7 @@ import AddQuiz from "./pages/Dashboard/AddQuiz";
 import ShowVideo from "./pages/Dashboard/ShowVideo";
 import SubjectDetails from "./components/SubjectDetails";
 import AllUsers from "./components/AllUsers";
+import ShowContact from "./pages/Dashboard/ShowContact";
 // import Loading from "./components/Loading";
 function App() {
   const dispatch = useDispatch();
@@ -171,6 +172,10 @@ function App() {
         <Route
           path="/grad"
           element={<PrivateRoute element={Grad} role="admin" />}
+        />
+        <Route
+          path="/showContact"
+          element={<PrivateRoute element={ShowContact} role="admin" />}
         />
         <Route
           path="/grad-two"

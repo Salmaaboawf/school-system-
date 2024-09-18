@@ -250,10 +250,10 @@ const Add_Class_Routine = () => {
         <Sidebar />
       </div>
 
-      <section className=" text-[#002749] xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
+      <section className=" text-deepBlue xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
 
         <DashboardHeader pageTitle={'Add Class Routine'} />
-              <form onSubmit={handleSubmit(addSchedHandler)}  className="border sm:px-8 sm:mx-7 md:px-4 py-2 md:mx-4 rounded xl:mx-8 lg:mx-6 mx-8 lg:px-6 xs:px-4 xs:mx-3">
+              <form onSubmit={handleSubmit(addSchedHandler)}  className="border sm:mx-7  py-2 md:mx-4 rounded xl:mx-8 lg:mx-6 mx-8  xs:mx-3">
                 <div className="text-xl mb-3">
                   <Controller
                     name="levels"

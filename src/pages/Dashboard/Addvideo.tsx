@@ -5,7 +5,7 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { fetchSubjectsByteacher_id } from "../../services/subjectServices";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
-
+import { toast } from 'react-toastify';
 interface Subject {
   id: string;
   name: string;
@@ -46,7 +46,7 @@ function AddVideo() {
 
   const saveVideo = async () => {
     if (!videoFile || !data.subject) {
-      alert("Please select a subject and upload a video.");
+      toast.error("Please select a subject and upload a video.")
       return;
     }
 
@@ -70,12 +70,12 @@ function AddVideo() {
           await updateDoc(subjectDoc, {
             videoUrls: arrayUnion(videoURL),
           });
-          alert("Video uploaded and linked successfully!");
+          toast.success("Video uploaded successfully!")
           setUploadProgress(0);
           setVideoFile(null);
         } catch (error) {
           console.error("Error updating document: ", error);
-          alert("Failed to upload video or update subject.");
+          toast.error('Failed to upload video please try again')
         }
       }
     );
@@ -83,6 +83,7 @@ function AddVideo() {
 
   return (
     <div className="container mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+
       <h3 className="text-4xl font-semibold text-center text-gray-800 dark:text-white mb-8">
         Add Video
       </h3>
@@ -117,7 +118,12 @@ function AddVideo() {
             accept="video/*"
             onChange={handleVideoUpload}
           />
-          {uploadProgress > 0 && <p>Upload Progress: {uploadProgress}%</p>}
+          {uploadProgress > 0 &&  <div className="bg-gray-200 rounded-full h-2.5 my-6 mx-auto w-2/3">
+      <div
+        className="bg-rustOrange h-2.5 rounded-full mt-5"
+        style={{ width: `${uploadProgress}%`, transition: 'width 0.3s ease' }}
+      />
+    </div>}
         </div>
 
         <div className="flex justify-center mt-6">
