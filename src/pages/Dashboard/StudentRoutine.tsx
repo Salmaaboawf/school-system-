@@ -24,7 +24,7 @@ const StudentRoutine = () => {
   const getSchedule = async () => {
     try {
       const schedule = await fetchSchedule(userInfo.class_id);
-      const levelName = await getLevelNameById(schedule.level_id);
+      const levelName = await getLevelNameById(userInfo.class_id);
       setLevelName(levelName);
 
       const updatedDays = await Promise.all(
@@ -66,16 +66,21 @@ const StudentRoutine = () => {
 
   useEffect(() => {
     getSchedule();
+    console.log(levelName);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!scheduleTable) {
-    return <HashLoade 
-    cssOverride={override}
-    color='#ff4e31'
-     size={50}
-      aria-label="Loading Spinner"
-      data-testid="loader"/>;
+    return (
+      <HashLoader
+        cssOverride={override}
+        color="#ff4e31"
+        size={50}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+    );
   }
 
   return (
@@ -113,8 +118,7 @@ const StudentRoutine = () => {
                     key={subjectIndex}
                     className="whitespace-nowrap px-6 py-4 text-2xl"
                   >
-                    {subject.subject_name}{" "}
-                    {console.log(subject.subject_name)}
+                    {subject.subject_name} {console.log(subject.subject_name)}
                     <h6 className="text-sm">{subject.teacherName}</h6>
                   </td>
                 ))}

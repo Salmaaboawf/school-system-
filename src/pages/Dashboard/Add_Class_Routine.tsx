@@ -96,8 +96,6 @@ const Add_Class_Routine = () => {
     const createdDocs = [];
 
     try {
-      console.log(e.levels.id);
-
       // Create a document reference with the custom ID (level_id)
       const docRef = doc(db, "schedules", e.levels.id);
       await setDoc(docRef, { level_id: e.levels.id });
@@ -148,10 +146,12 @@ const Add_Class_Routine = () => {
             return teacherData.subjects?.includes(subjectId);
           });
 
+          console.log(subjectTeacher);
+
           if (subjectTeacher) {
             // Check for conflicts
             const conflict = existingScheduleMap[days[i].name]?.some(
-              (existingSubject: { teacher_id: string; }) =>
+              (existingSubject: { teacher_id: string }) =>
                 existingSubject.teacher_id === subjectTeacher.id
             );
 
@@ -336,345 +336,345 @@ const Add_Class_Routine = () => {
                         />
                       </td>
 
-                      {/* td for period 9-11 sunday*/}
-                      <td className="whitespace-nowrap py-3 text-lg">
-                        {/* datalist to choose subjects */}
-                        <Controller
-                          name="sunTwo"
-                          control={control}
-                          render={({ field }) => (
-                            <ReactSelect
-                              {...field}
-                              options={levelSubjects}
-                              components={animatedComponents}
-                              placeholder="Choose Subject"
-                              getOptionLabel={(item: any) => item.name}
-                              getOptionValue={(item: any) => `${item.id}`}
-                              onChange={(selectedOptions) => {
-                                field.onChange(selectedOptions);
-                              }}
-                            />
-                          )}
-                        />
-                      </td>
+                {/* td for period 9-11 sunday*/}
+                <td className="whitespace-nowrap py-3 text-lg">
+                  {/* datalist to choose subjects */}
+                  <Controller
+                    name="sunTwo"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactSelect
+                        {...field}
+                        options={levelSubjects}
+                        components={animatedComponents}
+                        placeholder="Choose Subject"
+                        getOptionLabel={(item: any) => item.name}
+                        getOptionValue={(item: any) => `${item.id}`}
+                        onChange={(selectedOptions) => {
+                          field.onChange(selectedOptions);
+                        }}
+                      />
+                    )}
+                  />
+                </td>
 
-                      {/* td for period 11-1 sunday*/}
-                      <td className="whitespace-nowrap py-3 text-lg">
-                        {/* datalist to choose levelSubjects */}
-                        <Controller
-                          name="sunThree"
-                          control={control}
-                          render={({ field }) => (
-                            <ReactSelect
-                              {...field}
-                              options={levelSubjects}
-                              components={animatedComponents}
-                              placeholder="Choose Subject"
-                              getOptionLabel={(item: any) => item.name}
-                              getOptionValue={(item: any) => `${item.id}`}
-                              onChange={(selectedOptions) => {
-                                field.onChange(selectedOptions);
-                              }}
-                            />
-                          )}
-                        />
-                      </td>
-                    </tr>
-                    <tr className="border-b border-[#00274991]">
-                      <td className="whitespace-nowrap px-6 font-medium text-2xl text-[#002749]">
-                        Mon
-                      </td>
-                      {/* td for period 7-9 monday*/}
-                      <td className="whitespace-nowrap py-3 text-lg">
-                        {/* datalist to choose levelSubjects */}
-                        <Controller
-                          name="monOne"
-                          control={control}
-                          render={({ field }) => (
-                            <ReactSelect
-                              {...field}
-                              options={levelSubjects}
-                              components={animatedComponents}
-                              placeholder="Choose Subject"
-                              getOptionLabel={(item: any) => item.name}
-                              getOptionValue={(item: any) => `${item.id}`}
-                              onChange={(selectedOptions) => {
-                                field.onChange(selectedOptions);
-                              }}
-                            />
-                          )}
-                        />
-                      </td>
+                {/* td for period 11-1 sunday*/}
+                <td className="whitespace-nowrap py-3 text-lg">
+                  {/* datalist to choose levelSubjects */}
+                  <Controller
+                    name="sunThree"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactSelect
+                        {...field}
+                        options={levelSubjects}
+                        components={animatedComponents}
+                        placeholder="Choose Subject"
+                        getOptionLabel={(item: any) => item.name}
+                        getOptionValue={(item: any) => `${item.id}`}
+                        onChange={(selectedOptions) => {
+                          field.onChange(selectedOptions);
+                        }}
+                      />
+                    )}
+                  />
+                </td>
+              </tr>
+              <tr className="border-b border-[#00274991]">
+                <td className="whitespace-nowrap px-6 font-medium text-2xl text-[#002749]">
+                  Mon
+                </td>
+                {/* td for period 7-9 monday*/}
+                <td className="whitespace-nowrap py-3 text-lg">
+                  {/* datalist to choose levelSubjects */}
+                  <Controller
+                    name="monOne"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactSelect
+                        {...field}
+                        options={levelSubjects}
+                        components={animatedComponents}
+                        placeholder="Choose Subject"
+                        getOptionLabel={(item: any) => item.name}
+                        getOptionValue={(item: any) => `${item.id}`}
+                        onChange={(selectedOptions) => {
+                          field.onChange(selectedOptions);
+                        }}
+                      />
+                    )}
+                  />
+                </td>
 
-                      {/* td for period 9-11 monday*/}
-                      <td className="whitespace-nowrap py-3 text-lg">
-                        {/* datalist to choose levelSubjects */}
-                        <Controller
-                          name="monTwo"
-                          control={control}
-                          render={({ field }) => (
-                            <ReactSelect
-                              {...field}
-                              options={levelSubjects}
-                              components={animatedComponents}
-                              placeholder="Choose Subject"
-                              getOptionLabel={(item: any) => item.name}
-                              getOptionValue={(item: any) => `${item.id}`}
-                              onChange={(selectedOptions) => {
-                                field.onChange(selectedOptions);
-                              }}
-                            />
-                          )}
-                        />
-                      </td>
+                {/* td for period 9-11 monday*/}
+                <td className="whitespace-nowrap py-3 text-lg">
+                  {/* datalist to choose levelSubjects */}
+                  <Controller
+                    name="monTwo"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactSelect
+                        {...field}
+                        options={levelSubjects}
+                        components={animatedComponents}
+                        placeholder="Choose Subject"
+                        getOptionLabel={(item: any) => item.name}
+                        getOptionValue={(item: any) => `${item.id}`}
+                        onChange={(selectedOptions) => {
+                          field.onChange(selectedOptions);
+                        }}
+                      />
+                    )}
+                  />
+                </td>
 
-                      {/* td for period 11-1 monday*/}
-                      <td className="whitespace-nowrap py-3 text-lg">
-                        {/* datalist to choose levelSubjects */}
-                        <Controller
-                          name="monThree"
-                          control={control}
-                          render={({ field }) => (
-                            <ReactSelect
-                              {...field}
-                              options={levelSubjects}
-                              components={animatedComponents}
-                              placeholder="Choose Subject"
-                              getOptionLabel={(item: any) => item.name}
-                              getOptionValue={(item: any) => `${item.id}`}
-                              onChange={(selectedOptions) => {
-                                field.onChange(selectedOptions);
-                              }}
-                            />
-                          )}
-                        />
-                      </td>
-                    </tr>
-                    <tr className="border-b border-[#00274991]">
-                      <td className="whitespace-nowrap px-6  font-medium text-2xl text-[#002749]">
-                        Tue
-                      </td>
-                      {/* td for period 7-9 tuesday*/}
-                      <td className="whitespace-nowrap py-3 text-lg">
-                        {/* datalist to choose levelSubjects */}
-                        <Controller
-                          name="tueOne"
-                          control={control}
-                          render={({ field }) => (
-                            <ReactSelect
-                              {...field}
-                              options={levelSubjects}
-                              components={animatedComponents}
-                              placeholder="Choose Subject"
-                              getOptionLabel={(item: any) => item.name}
-                              getOptionValue={(item: any) => `${item.id}`}
-                              onChange={(selectedOptions) => {
-                                field.onChange(selectedOptions);
-                              }}
-                            />
-                          )}
-                        />
-                      </td>
+                {/* td for period 11-1 monday*/}
+                <td className="whitespace-nowrap py-3 text-lg">
+                  {/* datalist to choose levelSubjects */}
+                  <Controller
+                    name="monThree"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactSelect
+                        {...field}
+                        options={levelSubjects}
+                        components={animatedComponents}
+                        placeholder="Choose Subject"
+                        getOptionLabel={(item: any) => item.name}
+                        getOptionValue={(item: any) => `${item.id}`}
+                        onChange={(selectedOptions) => {
+                          field.onChange(selectedOptions);
+                        }}
+                      />
+                    )}
+                  />
+                </td>
+              </tr>
+              <tr className="border-b border-[#00274991]">
+                <td className="whitespace-nowrap px-6  font-medium text-2xl text-[#002749]">
+                  Tue
+                </td>
+                {/* td for period 7-9 tuesday*/}
+                <td className="whitespace-nowrap py-3 text-lg">
+                  {/* datalist to choose levelSubjects */}
+                  <Controller
+                    name="tueOne"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactSelect
+                        {...field}
+                        options={levelSubjects}
+                        components={animatedComponents}
+                        placeholder="Choose Subject"
+                        getOptionLabel={(item: any) => item.name}
+                        getOptionValue={(item: any) => `${item.id}`}
+                        onChange={(selectedOptions) => {
+                          field.onChange(selectedOptions);
+                        }}
+                      />
+                    )}
+                  />
+                </td>
 
-                      {/* td for period 9-11 tuesday*/}
-                      <td className="whitespace-nowrap py-3 text-lg">
-                        {/* datalist to choose levelSubjects */}
-                        <Controller
-                          name="tueTwo"
-                          control={control}
-                          render={({ field }) => (
-                            <ReactSelect
-                              {...field}
-                              options={levelSubjects}
-                              components={animatedComponents}
-                              placeholder="Choose Subject"
-                              getOptionLabel={(item: any) => item.name}
-                              getOptionValue={(item: any) => `${item.id}`}
-                              onChange={(selectedOptions) => {
-                                field.onChange(selectedOptions);
-                              }}
-                            />
-                          )}
-                        />
-                      </td>
+                {/* td for period 9-11 tuesday*/}
+                <td className="whitespace-nowrap py-3 text-lg">
+                  {/* datalist to choose levelSubjects */}
+                  <Controller
+                    name="tueTwo"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactSelect
+                        {...field}
+                        options={levelSubjects}
+                        components={animatedComponents}
+                        placeholder="Choose Subject"
+                        getOptionLabel={(item: any) => item.name}
+                        getOptionValue={(item: any) => `${item.id}`}
+                        onChange={(selectedOptions) => {
+                          field.onChange(selectedOptions);
+                        }}
+                      />
+                    )}
+                  />
+                </td>
 
-                      {/* td for period 11-1 tuesday*/}
-                      <td className="whitespace-nowrap py-3 text-lg">
-                        {/* datalist to choose levelSubjects */}
-                        <Controller
-                          name="tueThree"
-                          control={control}
-                          render={({ field }) => (
-                            <ReactSelect
-                              {...field}
-                              options={levelSubjects}
-                              components={animatedComponents}
-                              placeholder="Choose Subject"
-                              getOptionLabel={(item: any) => item.name}
-                              getOptionValue={(item: any) => `${item.id}`}
-                              onChange={(selectedOptions) => {
-                                field.onChange(selectedOptions);
-                                console.log(selectedOptions);
-                              }}
-                            />
-                          )}
-                        />
-                      </td>
-                    </tr>
-                    <tr className="border-b border-[#00274991]">
-                      <td className="whitespace-nowrap px-6  font-medium text-2xl text-[#002749]">
-                        Wed
-                      </td>
-                      {/* td for period 7-9 wednesday*/}
-                      <td className="whitespace-nowrap py-3 text-lg">
-                        {/* datalist to choose levelSubjects */}
-                        <Controller
-                          name="wedOne"
-                          control={control}
-                          render={({ field }) => (
-                            <ReactSelect
-                              {...field}
-                              options={levelSubjects}
-                              components={animatedComponents}
-                              placeholder="Choose Subject"
-                              getOptionLabel={(item: any) => item.name}
-                              getOptionValue={(item: any) => `${item.id}`}
-                              onChange={(selectedOptions) => {
-                                field.onChange(selectedOptions);
-                              }}
-                            />
-                          )}
-                        />
-                      </td>
-                      {/* td for period 9-11 wednesday*/}
-                      <td className="whitespace-nowrap py-3 text-lg">
-                        {/* datalist to choose levelSubjects */}
-                        <Controller
-                          name="wedTwo"
-                          control={control}
-                          render={({ field }) => (
-                            <ReactSelect
-                              {...field}
-                              options={levelSubjects}
-                              components={animatedComponents}
-                              placeholder="Choose Subject"
-                              getOptionLabel={(item: any) => item.name}
-                              getOptionValue={(item: any) => `${item.id}`}
-                              onChange={(selectedOptions) => {
-                                field.onChange(selectedOptions);
-                              }}
-                            />
-                          )}
-                        />
-                      </td>
-                      {/* td for period 11-1 wednesday*/}
-                      <td className="whitespace-nowrap py-3 text-lg">
-                        {/* datalist to choose levelSubjects */}
-                        <Controller
-                          name="wedThree"
-                          control={control}
-                          render={({ field }) => (
-                            <ReactSelect
-                              {...field}
-                              options={levelSubjects}
-                              components={animatedComponents}
-                              placeholder="Choose Subject"
-                              getOptionLabel={(item: any) => item.name}
-                              getOptionValue={(item: any) => `${item.id}`}
-                              onChange={(selectedOptions) => {
-                                field.onChange(selectedOptions);
-                              }}
-                            />
-                          )}
-                        />
-                      </td>
-                    </tr>
-                    <tr className="border-b border-[#00274991]">
-                      <td className="whitespace-nowrap px-6  font-medium text-2xl text-[#002749]">
-                        Thr
-                      </td>
+                {/* td for period 11-1 tuesday*/}
+                <td className="whitespace-nowrap py-3 text-lg">
+                  {/* datalist to choose levelSubjects */}
+                  <Controller
+                    name="tueThree"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactSelect
+                        {...field}
+                        options={levelSubjects}
+                        components={animatedComponents}
+                        placeholder="Choose Subject"
+                        getOptionLabel={(item: any) => item.name}
+                        getOptionValue={(item: any) => `${item.id}`}
+                        onChange={(selectedOptions) => {
+                          field.onChange(selectedOptions);
+                          console.log(selectedOptions);
+                        }}
+                      />
+                    )}
+                  />
+                </td>
+              </tr>
+              <tr className="border-b border-[#00274991]">
+                <td className="whitespace-nowrap px-6  font-medium text-2xl text-[#002749]">
+                  Wed
+                </td>
+                {/* td for period 7-9 wednesday*/}
+                <td className="whitespace-nowrap py-3 text-lg">
+                  {/* datalist to choose levelSubjects */}
+                  <Controller
+                    name="wedOne"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactSelect
+                        {...field}
+                        options={levelSubjects}
+                        components={animatedComponents}
+                        placeholder="Choose Subject"
+                        getOptionLabel={(item: any) => item.name}
+                        getOptionValue={(item: any) => `${item.id}`}
+                        onChange={(selectedOptions) => {
+                          field.onChange(selectedOptions);
+                        }}
+                      />
+                    )}
+                  />
+                </td>
+                {/* td for period 9-11 wednesday*/}
+                <td className="whitespace-nowrap py-3 text-lg">
+                  {/* datalist to choose levelSubjects */}
+                  <Controller
+                    name="wedTwo"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactSelect
+                        {...field}
+                        options={levelSubjects}
+                        components={animatedComponents}
+                        placeholder="Choose Subject"
+                        getOptionLabel={(item: any) => item.name}
+                        getOptionValue={(item: any) => `${item.id}`}
+                        onChange={(selectedOptions) => {
+                          field.onChange(selectedOptions);
+                        }}
+                      />
+                    )}
+                  />
+                </td>
+                {/* td for period 11-1 wednesday*/}
+                <td className="whitespace-nowrap py-3 text-lg">
+                  {/* datalist to choose levelSubjects */}
+                  <Controller
+                    name="wedThree"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactSelect
+                        {...field}
+                        options={levelSubjects}
+                        components={animatedComponents}
+                        placeholder="Choose Subject"
+                        getOptionLabel={(item: any) => item.name}
+                        getOptionValue={(item: any) => `${item.id}`}
+                        onChange={(selectedOptions) => {
+                          field.onChange(selectedOptions);
+                        }}
+                      />
+                    )}
+                  />
+                </td>
+              </tr>
+              <tr className="border-b border-[#00274991]">
+                <td className="whitespace-nowrap px-6  font-medium text-2xl text-[#002749]">
+                  Thr
+                </td>
 
-                      {/* td for period 7-9 thursday*/}
-                      <td className="whitespace-nowrap py-3 text-lg">
-                        {/* datalist to choose levelSubjects */}
-                        <Controller
-                          name="thrOne"
-                          control={control}
-                          render={({ field }) => (
-                            <ReactSelect
-                              {...field}
-                              options={levelSubjects}
-                              components={animatedComponents}
-                              placeholder="Choose Subject"
-                              getOptionLabel={(item: any) => item.name}
-                              getOptionValue={(item: any) => `${item.id}`}
-                              onChange={(selectedOptions) => {
-                                field.onChange(selectedOptions);
-                              }}
-                            />
-                          )}
-                        />
-                      </td>
+                {/* td for period 7-9 thursday*/}
+                <td className="whitespace-nowrap py-3 text-lg">
+                  {/* datalist to choose levelSubjects */}
+                  <Controller
+                    name="thrOne"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactSelect
+                        {...field}
+                        options={levelSubjects}
+                        components={animatedComponents}
+                        placeholder="Choose Subject"
+                        getOptionLabel={(item: any) => item.name}
+                        getOptionValue={(item: any) => `${item.id}`}
+                        onChange={(selectedOptions) => {
+                          field.onChange(selectedOptions);
+                        }}
+                      />
+                    )}
+                  />
+                </td>
 
-                      {/* td for period 9-11 thursday*/}
-                      <td className="whitespace-nowrap py-3 text-lg">
-                        {/* datalist to choose levelSubjects */}
-                        <Controller
-                          name="thrTwo"
-                          control={control}
-                          render={({ field }) => (
-                            <ReactSelect
-                              {...field}
-                              options={levelSubjects}
-                              components={animatedComponents}
-                              placeholder="Choose Subject"
-                              getOptionLabel={(item: any) => item.name}
-                              getOptionValue={(item: any) => `${item.id}`}
-                              onChange={(selectedOptions) => {
-                                field.onChange(selectedOptions);
-                              }}
-                            />
-                          )}
-                        />
-                      </td>
+                {/* td for period 9-11 thursday*/}
+                <td className="whitespace-nowrap py-3 text-lg">
+                  {/* datalist to choose levelSubjects */}
+                  <Controller
+                    name="thrTwo"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactSelect
+                        {...field}
+                        options={levelSubjects}
+                        components={animatedComponents}
+                        placeholder="Choose Subject"
+                        getOptionLabel={(item: any) => item.name}
+                        getOptionValue={(item: any) => `${item.id}`}
+                        onChange={(selectedOptions) => {
+                          field.onChange(selectedOptions);
+                        }}
+                      />
+                    )}
+                  />
+                </td>
 
-                      {/* td for period 11-1 thursday*/}
-                      <td className="whitespace-nowrap py-3 text-lg">
-                        {/* datalist to choose levelSubjects */}
-                        <Controller
-                          name="thrThree"
-                          control={control}
-                          render={({ field }) => (
-                            <ReactSelect
-                              {...field}
-                              options={levelSubjects}
-                              components={animatedComponents}
-                              placeholder="Choose Subject"
-                              getOptionLabel={(item: any) => item.name}
-                              getOptionValue={(item: any) => `${item.id}`}
-                              onChange={(selectedOptions) => {
-                                field.onChange(selectedOptions);
-                              }}
-                            />
-                          )}
-                        />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <div className="w-full flex items-center justify-center mt-3">
-                  <Button
-                    outline
-                    // gradientDuoTone="pinkToOrange"
-                    className="formButton"
-                    type="submit"
-                  >
-                    Add Schedule
-                  </Button>
-                </div>
-              </form>
-              </section>
-            </div>
+                {/* td for period 11-1 thursday*/}
+                <td className="whitespace-nowrap py-3 text-lg">
+                  {/* datalist to choose levelSubjects */}
+                  <Controller
+                    name="thrThree"
+                    control={control}
+                    render={({ field }) => (
+                      <ReactSelect
+                        {...field}
+                        options={levelSubjects}
+                        components={animatedComponents}
+                        placeholder="Choose Subject"
+                        getOptionLabel={(item: any) => item.name}
+                        getOptionValue={(item: any) => `${item.id}`}
+                        onChange={(selectedOptions) => {
+                          field.onChange(selectedOptions);
+                        }}
+                      />
+                    )}
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div className="w-full flex items-center justify-center mt-3">
+            <Button
+              outline
+              // gradientDuoTone="pinkToOrange"
+              className="formButton"
+              type="submit"
+            >
+              Add Schedule
+            </Button>
+          </div>
+        </form>
+      </section>
+    </div>
   );
 };
 

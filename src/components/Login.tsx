@@ -71,7 +71,7 @@ export default function Login() {
         }
       } catch (error) {
         console.log(error);
-        
+
         const errorMessage = getErrorMessage(error.code);
         toast.error(errorMessage);
       }
