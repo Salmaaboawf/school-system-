@@ -50,7 +50,7 @@ export const addSubject = async (subjectData: {
     await updateDoc(teacherRef, {
       subjects: arrayUnion(docId), // Add the new subject ID to the teacher's subjects array using arrayUnion
     });
-    toast.success(`${name} added and ${teacher} updated with the new subject`)
+    toast.success(`${name} added and ${teacher} updated with the new subject`);
     // console.log("Subject added and teacher updated with the new subject");
   } catch (error) {
     toast.error("Error adding subject");
@@ -120,7 +120,6 @@ export const fetchSubjectsByteacher_id = async (teacherId: string) => {
   }
 };
 
-
 export const getSubjectNameById = async (
   subjectId: string
 ): Promise<string> => {
@@ -161,7 +160,7 @@ export const getSubjectById = async (
 
 export const addQuestion = async ({
   question,
-  answers,
+  options,
   correctAnswer,
   subjectId,
 }) => {
@@ -174,8 +173,10 @@ export const addQuestion = async ({
       questionId: "",
       question: question || "",
       correctAnswer: correctAnswer || "",
-      options: answers || [],
+      options: options || [],
     };
+
+    console.log(options);
 
     // Add the question to Firestore
     const quizRef = await addDoc(questionsRef, questionData);
