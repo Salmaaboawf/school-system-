@@ -10,13 +10,12 @@ import Service_Section from "../../components/ServiceSection";
 import "../../assets/homelanding.css";
 import Testimonials from "../../components/Testimonials";
 import ScrollImages from "../../components/ScrollImages";
-import ParticlesComponent from "../../components/Tsparticles";
 import Activities from "../../components/Activities";
 
 const HomeLanding = () => {
   return (
     <main className=" ">
-      <ParticlesComponent id="particles" />
+      
       <section>
         <SliderMain />
       </section>
