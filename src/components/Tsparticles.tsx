@@ -59,7 +59,7 @@ const ParticlesComponent = (props: { id: string | undefined }) => {
       },
       particles: {
         color: {
-          value: "#66cccc",
+          value: "#255555",
         },
         links: {
           color: "#66cccc",
@@ -82,7 +82,7 @@ const ParticlesComponent = (props: { id: string | undefined }) => {
           density: {
             enable: true,
           },
-          value: 70,
+          value: 50,
         },
         opacity: {
           value: 1.0,
@@ -90,7 +90,7 @@ const ParticlesComponent = (props: { id: string | undefined }) => {
         shape: {
           type: "star",
         },
-       
+
         size: {
           value: { min: 3, max: 5 },
         },

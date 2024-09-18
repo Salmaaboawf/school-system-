@@ -1,19 +1,33 @@
 import { useEffect } from "react";
 import "./about.css";
-import image1 from "../../assets/images/gallery1.jpg";
-import image2 from "../../assets/images/madany.jpg";
-import image3 from "../../assets/images/gallery2.jpg";
-import image4 from "../../assets/images/negm.jpg";
-import { MdHeight } from "react-icons/md";
+import image1 from "../../assets/images/student/student (1).jpg";
+import image2 from "../../assets/images/student/student (2).jpg";
+import image3 from "../../assets/images/student/student (3).jpg";
+import image4 from "../../assets/images/student/student (4).jpg";
+import image5 from "../../assets/images/student/student (5).jpg";
+import image6 from "../../assets/images/student/student (6).jpg";
+import image7 from "../../assets/images/student/student (7).jpg";
+import image8 from "../../assets/images/student/student(8).jpg";
+import image9 from "../../assets/images/student/student(9).jpg";
+import image10 from "../../assets/images/student/student(10).jpg";
+import image11 from "../../assets/images/student/student(11).jpg";
+import image12 from "../../assets/images/student/student(12).jpg";
 
 function Gallery() {
   useEffect(() => {
     const nodes = Array.from(document.querySelectorAll("li"));
-    const directions = { 0: "top", 1: "right", 2: "bottom", 3: "left" };
+    const directions: { [key: number]: string } = {
+      0: "top",
+      1: "right",
+      2: "bottom",
+      3: "left",
+    };
+
     const classNames = ["in", "out"]
       .map((p) => Object.values(directions).map((d) => `${p}-${d}`))
       .reduce((a, b) => a.concat(b), []);
-    const getDirectionKey = (ev, node) => {
+
+    const getDirectionKey = (ev: MouseEvent, node: HTMLLIElement) => {
       const { width, height, top, left } = node.getBoundingClientRect();
       const l = ev.pageX - (left + window.pageXOffset);
       const t = ev.pageY - (top + window.pageYOffset);
@@ -21,86 +35,100 @@ function Gallery() {
       const y = t - (height / 2) * (height > width ? width / height : 1);
       return Math.round(Math.atan2(y, x) / 1.57079633 + 5) % 4;
     };
+
     class Item {
-      constructor(element) {
+      element: HTMLLIElement;
+      constructor(element: HTMLLIElement) {
         this.element = element;
-        this.element.addEventListener("mouseover", (ev) =>
+        this.element.addEventListener("mouseover", (ev: MouseEvent) =>
           this.update(ev, "in")
         );
-        this.element.addEventListener("mouseout", (ev) =>
+        this.element.addEventListener("mouseout", (ev: MouseEvent) =>
           this.update(ev, "out")
         );
       }
-      update(ev, prefix) {
+      update(ev: MouseEvent, prefix: string) {
         this.element.classList.remove(...classNames);
         this.element.classList.add(
           `${prefix}-${directions[getDirectionKey(ev, this.element)]}`
         );
       }
     }
-    nodes.forEach((node) => new Item(node));
+
+    nodes.forEach((node) => new Item(node as HTMLLIElement));
   }, []);
 
   const images = [
     {
       src: image1,
-      title: "the smart one",
-      description: "this is the first student in whole school",
-    },
-    {
-      src: image3,
-      title: "this is Madany",
-      description: "Front-End Developer & cross plate-form mobile applications",
-    },
-    {
-      src: image4,
-      title: "the smart one",
-      description: "this is the first student in whole school",
-    },
-    {
-      src: image4,
-      title: "this is Big Star",
-      description: "this is our lovely instructor",
-    },
-    {
-      src: image1,
-      title: "the smart one",
-      description: "this is the first student in whole school",
-    },
-    {
-      src: image4,
-      title: "this is Madany",
-      description: "Front-End Developer & cross plate-form mobile applications",
-    },
-    {
-      src: image3,
-      title: "the smart one",
-      description: "this is the first student in whole school",
-    },
-    {
-      src: image4,
-      title: "this is Big Star",
-      description: "this is our lovely instructor",
-    },
-    {
-      src: image4,
-      title: "this is Big Star",
-      description: "this is our lovely instructor",
+      title: "Moments of Learning Our International School",
+      description:
+        "Highlighting curiosity, collaboration, and joy as we nurture global citizens and create lasting memories.",
     },
     {
       src: image2,
-      title: "this is Madany",
-      description: "Front-End Developer & cross plate-form mobile applications",
-    },
-    {
-      src: image1,
-      title: "the smart one",
-      description: "this is the first student in whole school",
+      title: "Moments of Learning Our International School",
+      description:
+        "Highlighting curiosity, collaboration, and joy as we nurture global citizens and create lasting memories.",
     },
     {
       src: image3,
-      title: "the smart one",
-      description: "this is the first student in whole school",
+      title: "Moments of Learning Our International School",
+      description:
+        "Highlighting curiosity, collaboration, and joy as we nurture global citizens and create lasting memories.",
+    },
+    {
+      src: image4,
+      title: "this is Toleen",
+      description: "Sharing a laugh, creating lasting memories together.",
+    },
+    {
+      src: image5,
+      title: "Moments of Learning Our International School",
+      description:
+        "Highlighting curiosity, collaboration, and joy as we nurture global citizens and create lasting memories.",
+    },
+    {
+      src: image6,
+      title: "Moments of Learning Our International School",
+      description:
+        "Highlighting curiosity, collaboration, and joy as we nurture global citizens and create lasting memories.",
+    },
+    {
+      src: image7,
+      title: "Moments of Learning Our International School",
+      description:
+        "Highlighting curiosity, collaboration, and joy as we nurture global citizens and create lasting memories.",
+    },
+    {
+      src: image8,
+      title: "Moments of Learning Our International School",
+      description:
+        "Highlighting curiosity, collaboration, and joy as we nurture global citizens and create lasting memories.",
+    },
+    {
+      src: image9,
+      title: "Moments of Learning Our International School",
+      description:
+        "Highlighting curiosity, collaboration, and joy as we nurture global citizens and create lasting memories.",
+    },
+    {
+      src: image10,
+      title: "Moments of Learning Our International School",
+      description:
+        "Highlighting curiosity, collaboration, and joy as we nurture global citizens and create lasting memories.",
+    },
+    {
+      src: image11,
+      title: "Moments of Learning Our International School",
+      description:
+        "Highlighting curiosity, collaboration, and joy as we nurture global citizens and create lasting memories.",
+    },
+    {
+      src: image12,
+      title: "Moments of Learning Our International School",
+      description:
+        "Highlighting curiosity, collaboration, and joy as we nurture global citizens and create lasting memories.",
     },
   ];
 

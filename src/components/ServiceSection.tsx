@@ -4,7 +4,7 @@ import { FaSchool } from "react-icons/fa6";
 import { GiMeal } from "react-icons/gi";
 import { FaPaintBrush } from "react-icons/fa";
 import { RiGameLine } from "react-icons/ri";
-
+import "../components/about/tailwind.css"
 export default function Service_Section() {
   return (
     // service section in home page
@@ -18,8 +18,8 @@ export default function Service_Section() {
       {/* div container for all services */}
       <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xl:gap-y-9 md:gap-y-9 gap-y-8 gap-x-16 items-center text-center m-auto w-4/5 mt-6">
         {/* first service div */}
-        <div className="px-6 shadow-md py-4 rounded transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-solid hover:border-2 hover:border-black">
-          <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
+        <div className="service_box">
+          <div className="service_box_child">
             <FaSchool />
           </div>
           <h5 className="text-lg my-3">GREAT FACILITIES</h5>
@@ -30,8 +30,8 @@ export default function Service_Section() {
         </div>
 
         {/* second service div */}
-        <div className="px-6 shadow-md py-4 rounded transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-solid hover:border-2 hover:border-black">
-          <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
+        <div className="service_box">
+          <div className="service_box_child">
             <MdOutlineScience />
           </div>
 
@@ -43,8 +43,8 @@ export default function Service_Section() {
         </div>
 
         {/* third service div */}
-        <div className="px-6 shadow-md py-4 rounded transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-solid hover:border-2 hover:border-black">
-          <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
+        <div className="service_box">
+          <div className="service_box_child">
             <BiSolidBusSchool />
           </div>
 
@@ -56,8 +56,8 @@ export default function Service_Section() {
         </div>
 
         {/* fourth service div */}
-        <div className="px-6 shadow-md py-4 rounded transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-solid hover:border-2 hover:border-black">
-          <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
+        <div className="service_box">
+          <div className="service_box_child">
             <RiGameLine />
           </div>
 
@@ -69,8 +69,8 @@ export default function Service_Section() {
         </div>
 
         {/* fifth service div */}
-        <div className="px-6 shadow-md py-4 rounded transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-solid hover:border-2 hover:border-black">
-          <div className="text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto">
+        <div className="service_box">
+          <div className="service_box_child">
             <GiMeal />
           </div>
 
@@ -82,8 +82,8 @@ export default function Service_Section() {
         </div>
 
         {/* sixth service div */}
-        <div className="px-6 shadow-md py-4 rounded transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-solid hover:border-2 hover:border-black">
-          <div className="text-4xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-11 pt-10 m-auto">
+        <div className="service_box">
+          <div className="service_box_child">
             <FaPaintBrush />
           </div>
 

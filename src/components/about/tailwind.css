@@ -23,4 +23,16 @@
   .enrollment {
     @apply select-none z-30 cursor-pointer border-4 border-[#FF4E31] px-3 py-1 flex items-center justify-center  font-bold;
   }
+  .service_box{
+    @apply px-6 shadow-md py-4 rounded transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-solid hover:border-2 hover:border-[#ff4e31]
+  }
+  .service_box_child{
+    @apply text-5xl text-[#ff4e31] border rounded-full w-32 h-32 text-center items-center pl-10 pt-9 m-auto
+  }
+  .activities{
+    @apply flex shadow-md  gap-4 p-4 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:border-[#ff4e31] border border-transparent rounded-lg
+  }
+  .activities_child{
+    @apply border rounded-full w-28 h-28  text-center text-white text-3xl flex items-center justify-center
+  }
 }
