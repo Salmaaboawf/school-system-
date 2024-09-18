@@ -73,13 +73,13 @@ export default function AddTeacher() {
   // State to hold level options
   const levels = useAppSelector((state) => state.levels.levels);
   const subjects = useAppSelector((state) => state.subject.subject);
-  console.log("Redux subjects state:", subjects);
+  // console.log("Redux subjects state:", subjects);
 
   // Fetch levels from firestore
   useEffect(() => {
     fetchLevels(dispatch);
     fetchSubjects(dispatch);
-    console.log("Fetched subjects:", subjects);
+    // console.log("Fetched subjects:", subjects);
   }, [dispatch]);
 
   useEffect(() => {
@@ -109,6 +109,9 @@ export default function AddTeacher() {
     }
     if (errors.subjects) {
       toast.error(errors.subjects.message);
+    }
+    if (errors.gender) {
+      toast.error(errors.gender.message);
     }
   }, [errors]);
 

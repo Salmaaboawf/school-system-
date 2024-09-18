@@ -18,11 +18,11 @@ const TestimonialBox = ({
   description,
 }: TestimonialProps) => {
   return (
-    <div className="bg-white shadow-lg rounded-lg p-6">
+    <div className="bg-white shadow-lg rounded-lg p-6 relative box">
       <img
         src={image}
         alt={`Photo of ${name}`}
-        className="rounded-full w-16 h-16 mx-auto mb-4"
+        className=""
       />
       <h3 className="text-xl font-bold text-center mb-2">{name}</h3>
       <span className="block text-gray-500 text-center mb-2">{title}</span>

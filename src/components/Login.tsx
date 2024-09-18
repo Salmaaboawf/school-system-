@@ -40,8 +40,6 @@ export default function Login() {
   });
   const getErrorMessage = (errorCode) => {
     switch (errorCode) {
-      // case 'auth/user-not-found':
-      // return 'The Email or Password you entered is incorrect, please try again.';
       case "auth/invalid-credential":
         return "The Email or Password you entered is incorrect, please try again.";
       default:
@@ -49,6 +47,10 @@ export default function Login() {
     }
   };
   const save = async (value: { email: string; password: string }) => {
+    if (!role) {
+      toast.error("Please select a role before logging in.");
+      return;
+    }
     if (role) {
       try {
         const userCred = await signInWithEmailAndPassword(
@@ -68,8 +70,6 @@ export default function Login() {
           navigate("/", { replace: true });
         }
       } catch (error) {
-        // const firebaseError = error as FirebaseError;
-        // console.log(error.message)
         console.log(error);
 
         const errorMessage = getErrorMessage(error.code);
@@ -87,6 +87,7 @@ export default function Login() {
       navigate("/about", { replace: true });
     }
   }, [userId, navigate]);
+
 
   return (
     <section className="bg-orange-50 p-8 rounded-lg shadow-lg text-gray-800">
@@ -107,6 +108,7 @@ export default function Login() {
               name="countries"
               value="teachers"
               onChange={check}
+              // {...register("userType")}
             />
             <Label htmlFor="teacher">Teacher</Label>
           </div>
@@ -117,15 +119,20 @@ export default function Login() {
               name="countries"
               value="students"
               onChange={check}
+              // {...register("userType")}
             />
             <Label htmlFor="student">Student</Label>
           </div>
           <div className="flex items-center gap-2">
-            <Radio id="" name="countries" value="parents" onChange={check} />
+            <Radio id="" name="countries" value="parents" onChange={check} 
+            //  {...register("userType")}
+            />
             <Label htmlFor="">Parent</Label>
           </div>
           <div className="flex items-center gap-2">
-            <Radio id="" name="countries" value="users" onChange={check} />
+            <Radio id="" name="countries" value="users" onChange={check} 
+            //  {...register("userType")}
+             />
             <Label htmlFor="">Admin</Label>
           </div>
         </fieldset>

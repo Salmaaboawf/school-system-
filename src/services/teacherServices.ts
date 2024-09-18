@@ -64,12 +64,14 @@ export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
         teacher: user.uid, // Update subject with teacher ID
       });
     }
-
-    console.log("Teacher added successfully!");
     toast.success(`${name} added successfully as a teacher`)
-  } catch (error) {
-    console.log(error);
-    toast.error("Failed to add a teacher")
+  } catch (error: any) {
+    if (error.code === "auth/email-already-in-use") {
+      toast.error("This user already exists");
+    } else {
+      toast.error("Failed to add a teacher");
+    }
+    console.error("Error adding teacher:", error);
   }
 };
 
