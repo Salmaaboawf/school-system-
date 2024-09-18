@@ -4,8 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 // import { loadFull } from "tsparticles"; // if you are going to use `loadFull`, install the "tsparticles" package too.
 import { loadSlim } from "@tsparticles/slim"; // if you are going to use `loadSlim`, install the "@tsparticles/slim" package too.
 // import { loadBasic } from "@tsparticles/basic"; // if you are going to use `loadBasic`, install the "@tsparticles/basic" package too.
-import image1 from "../assets/images/gallery1.jpg"
-import image2 from "../assets/images/gallery2.jpg"
+
 const ParticlesComponent = (props: { id: string | undefined }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [init, setInit] = useState(false);
@@ -59,7 +58,7 @@ const ParticlesComponent = (props: { id: string | undefined }) => {
       },
       particles: {
         color: {
-          value: "#255555",
+          value: "#66cccc",
         },
         links: {
           color: "#66cccc",
