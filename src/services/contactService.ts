@@ -1,10 +1,16 @@
-import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import {db} from '../config/firebase'
 import { toast } from 'react-toastify';
 export const addContact = async (data) => {
+    console.log(data)
     try{
+        const contactData = {
+            ...data,  
+            isRead: false 
+        };
+
         const contactCol = collection(db,'contact')
-        const contact = await addDoc (contactCol,data)
+        const contact = await addDoc (contactCol,contactData)
         toast.success('We recieved your message , we will get in touch soon')
         return contact
     }
@@ -41,3 +47,15 @@ export const getUnreadContact = async() => {
         console.log(`display unread error: ${error}`)
     }
 }
+
+
+export const markAsRead = async (id) => {
+    try {
+        const contactDoc = doc(db, 'contact', id);
+        await updateDoc(contactDoc, { isRead: 'true' });
+        return true;
+    } catch (error) {
+        console.log(`mark as read error: ${error}`);
+        return false;
+    }
+};

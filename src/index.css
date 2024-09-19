@@ -43,3 +43,11 @@ body {
 .sidebarButton:hover .sidebarIcon {
   animation: icons-hover 0.8s linear infinite;
 }
+
+.profileLink{
+  @apply  flex items-center px-4 py-2 text-gray-600 border-b w-full text-sm hover:text-Orange
+}
+
+.profileLinkIcon{
+  @apply  mr-2 text-lg hover:text-deepBlue
+}

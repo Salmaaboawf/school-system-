@@ -3,6 +3,7 @@ import Nav from "../../components/Nav";
 import { getTeacherSchedule } from "../../services/teacherServices";
 import { Schedule, Day, SubjectType } from "../../utils/types";
 import { useAppSelector } from "../../hooks/reduxHooks";
+import Loading from "../../components/Loading";
 
 const TeacherRoutine = () => {
   const teacherInfo = useAppSelector((state) => state.user.user);
@@ -22,7 +23,9 @@ const TeacherRoutine = () => {
   }, [teacherInfo.id]);
 
   if (!schedules) {
-    return <div>Loading...</div>;
+    return <div>
+      <Loading />
+    </div>;
   }
 
   // دالة مساعدة للحصول على الدروس في وقت معين

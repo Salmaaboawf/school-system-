@@ -9,7 +9,9 @@ import { FaRegBell } from "react-icons/fa";
 import NotificationList from "./NotificationList";
 import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png";
 import "../assets/logo.css";
-
+import { PiExam} from "react-icons/pi";
+import { RiCalendarScheduleLine, RiLogoutCircleRLine } from "react-icons/ri";
+import { MdOndemandVideo, MdOutlinePeopleAlt } from "react-icons/md";
 function Nav() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -79,27 +81,38 @@ function Nav() {
                   />
                 </button>
                 <div
-                  className={`absolute right-12 top-10 z-50 my-4 text-base list-none bg-white divide-y divide-pink-100 rounded-lg shadow ${
+                  className={`absolute right-8 top-12 z-50 mt-4 text-base list-none bg-[#f4f4f4] divide-y divide-pink-100 rounded-lg shadow ${
                     isDropdownOpen ? "block" : "hidden"
                   }`}
+                  // style={before {
+                  //   content: "";
+                  //   position: absolute;
+                  //   top: -5px;
+                  //   right: 28px;
+                  //   width: 20px;
+                  //   height: 20px;
+                  //   background: #fff;
+                  //   transform: rotate(45deg);
+                  // }}
                   id="user-dropdown"
                 >
                   <div className="px-4 py-3">
                     <span className="block text-sm text-pink-800">
                       {userInfo.firstName} {userInfo.lastName}
                     </span>
-                    <span className="block text-sm text-pink-600 truncate">
+                    <span className="block text-sm text-Orange truncate">
                       {userInfo.email}
                     </span>
                   </div>
-                  <ul className="py-2" aria-labelledby="user-menu-button">
+                  <ul aria-labelledby="user-menu-button">
                     {userInfo.role === "teacher" && (
                       <li>
                         <NavLink
                           to="/teacher-table"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-100"
+                        className="profileLink"
                         >
-                          MY Schedule (Teacher)
+                          <RiCalendarScheduleLine className="profileLinkIcon" />
+                          Teacher Schedule
                         </NavLink>
                       </li>
                     )}
@@ -109,16 +122,19 @@ function Nav() {
                         <li>
                           <NavLink
                             to="/grades"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
                           >
+                            <PiExam className="profileLinkIcon"/>
+                            {/* <PiExamFill className="mr-2 text-lg"/> */}
                             My Grades
                           </NavLink>
                         </li>
                         <li>
                           <NavLink
                             to="/student-table"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            className="profileLink"
                           >
+                            <RiCalendarScheduleLine className="profileLinkIcon" />
                             My Schedule
                           </NavLink>
                         </li>
@@ -130,7 +146,7 @@ function Nav() {
                         <li>
                           <NavLink
                             to="/kids-schedule"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                           className="profileLink"
                           >
                             My Kids' Schedule
                           </NavLink>
@@ -138,7 +154,7 @@ function Nav() {
                         <li>
                           <NavLink
                             to="/kids-grades"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                           className="profileLink"
                           >
                             My Kids' Grades
                           </NavLink>
@@ -151,17 +167,28 @@ function Nav() {
                         <li>
                           <NavLink
                             to="/AddQuiz"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                           className="profileLink"
                           >
+                              <PiExam className="profileLinkIcon"/>
                             Add Quiz
                           </NavLink>
                         </li>
                         <li>
                           <NavLink
                             to="/video"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            className="profileLink"
                           >
-                            Add Video
+                            <MdOndemandVideo className="profileLinkIcon"/>
+                            Add Class Materials
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/video"
+                            className="profileLink"
+                          >
+                            <MdOutlinePeopleAlt className="profileLinkIcon" />
+                            Take Attandance
                           </NavLink>
                         </li>
                       </>
@@ -170,8 +197,9 @@ function Nav() {
                     <li>
                       <button
                         onClick={handleLogout}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-pink-100"
+                        className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-sm"
                       >
+                        <RiLogoutCircleRLine className="profileLinkIcon"/>
                         Log out
                       </button>
                     </li>
@@ -260,33 +288,7 @@ function Nav() {
                       About
                     </NavLink>
                   </li>
-                  <li>
-                    <NavLink
-                      to="/contact"
-                      className={({ isActive }) =>
-                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
-                          isActive ? "text-pink-500" : ""
-                        } hover:text-pink-800 transition-all duration-300`
-                      }
-                    >
-                      Contact
-                    </NavLink>
-                  </li>
-
-                  {userInfo.role === "teacher" && (
-                    <li>
-                      <NavLink
-                        to="/video"
-                        className={({ isActive }) =>
-                          `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
-                            isActive ? "text-pink-500" : ""
-                          } hover:text-pink-800 transition-all duration-300`
-                        }
-                      >
-                        Addvideo
-                      </NavLink>
-                    </li>
-                  )}
+                  
 
                   <li>
                     <NavLink
@@ -298,6 +300,32 @@ function Nav() {
                       }
                     >
                       Subjects
+                    </NavLink>
+                  </li>
+
+                  <li>
+                    <NavLink
+                      to="/calendar"
+                      className={({ isActive }) =>
+                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-pink-500" : ""
+                        } hover:text-pink-800 transition-all duration-300`
+                      }
+                    >
+                      Calendar
+                    </NavLink>
+                  </li>
+
+                  <li>
+                    <NavLink
+                      to="/contact"
+                      className={({ isActive }) =>
+                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${
+                          isActive ? "text-pink-500" : ""
+                        } hover:text-pink-800 transition-all duration-300`
+                      }
+                    >
+                      Contact
                     </NavLink>
                   </li>
                   {userInfo.role === "admin" && (

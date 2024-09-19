@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import DashboardHeader from '../../components/Header/DashboardHeader'
 import Sidebar from '../../components/Sidebar'
-import { displayContact } from '../../services/contactService'
+import { displayContact, markAsRead } from '../../services/contactService'
 
 function ShowContact() {
     const [contactList, setContactList] = useState([]);
@@ -13,6 +13,17 @@ function ShowContact() {
 
         fetchContacts();
     }, [])
+
+    const checkMessage  = (id) => {
+        markAsRead(id)
+    }
+
+    const handleChange = (id) => (event) => {
+        if (event.target.checked) {
+            checkMessage(id);
+        }
+    };
+
     return (
         <div className="flex">
             <div className="fixed xl:w-[20%] lg:w-[25%] md:w-[30%] top-0 left-0 h-full z-50">
@@ -47,7 +58,7 @@ function ShowContact() {
                                         day: 'numeric'
                                     })}</td>
                                     <td>
-                                        <input type='checkbox'></input>
+                                        <input type='checkbox' onChange={checkMessage(contact.id)} checked={contact.isRead}></input>
                                     </td>
                                 </tr>
                             ))
