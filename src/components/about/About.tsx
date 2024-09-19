@@ -7,10 +7,12 @@ import OurHistory from "./Ourhistory";
 import "./tailwind.css";
 import "./about.css";
 import Contact from "./ContactAbout";
+import ParticlesComponent from "../Tsparticles";
 
 export default function About() {
   return (
     <>
+      <ParticlesComponent id="particles"/>
       <div className="bg-gray-100  text-center py-10 text-3xl mb-5 about-parent mt-[130px]">
         <h2> About us </h2>
       </div>
