@@ -51,7 +51,7 @@ const StudentRoutine = () => {
             ...day,
             subjects: updatedSubjects,
           };
-        })
+        })  
       );
 
       setScheduleTable({
@@ -70,12 +70,15 @@ const StudentRoutine = () => {
   }, []);
 
   if (!scheduleTable) {
-    return <HashLoade 
-    cssOverride={override}
-    color='#ff4e31'
-     size={50}
-      aria-label="Loading Spinner"
-      data-testid="loader"/>;
+    return (
+      <HashLoader
+        cssOverride={override}
+        color="#ff4e31"
+        size={50}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+    );
   }
 
   return (
@@ -113,8 +116,7 @@ const StudentRoutine = () => {
                     key={subjectIndex}
                     className="whitespace-nowrap px-6 py-4 text-2xl"
                   >
-                    {subject.subject_name}{" "}
-                    {console.log(subject.subject_name)}
+                    {subject.subject_name} {console.log(subject.subject_name)}
                     <h6 className="text-sm">{subject.teacherName}</h6>
                   </td>
                 ))}
