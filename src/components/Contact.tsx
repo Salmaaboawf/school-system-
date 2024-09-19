@@ -6,11 +6,11 @@ import * as yup from "yup";
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { addContact } from '../services/contactService';
-// type Inputs = {
-//   name: string
-//   email: string
-//   message: string
-// }
+type Inputs = {
+  name: string
+  email: string
+  message: string
+}
 
 const schema= yup.object({
   name: yup
@@ -58,135 +58,135 @@ function Contact() {
   }
   return (
     
-<div className="flex justify-center items-center min-h-screen bg-white py-16">
-<div className="contact-card">
-<aside className=" contact-form">
-<div className="contact-bio ">
-<div className="hello-container text-center">
+// <div className="flex justify-center items-center min-h-screen bg-white py-16">
+// <div className="contact-card">
+// <aside className=" contact-form">
+// <div className="contact-bio ">
+// <div className="hello-container text-center">
  
-        <h2 className="text-3xl font-bold text-purple mb-4">SAY HELLO!</h2>
-         <p className="text-lightBlue">We would love to hear from you!</p>
-        <hr className="underline border-orange my-3 w-20 mx-auto" />
-      </div>
-          <form className=" space-y-3" action="#" onSubmit={handleSubmit(sendContact)}>
+//         <h2 className="text-3xl font-bold text-purple mb-4">SAY HELLO!</h2>
+//          <p className="text-lightBlue">We would love to hear from you!</p>
+//         <hr className="underline border-orange my-3 w-20 mx-auto" />
+//       </div>
+//           <form className=" space-y-3" action="#" onSubmit={handleSubmit(sendContact)}>
+//             <div className="flex flex-col">
+//               <label htmlFor="name" className="text-darkBlue font-semibold">Name</label>
+//               <input
+//                type="text"
+//                id="name"
+//                 className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
+//                 {...register('name')}
+//               />
+//             </div>
+
+//            <div className="flex flex-col">
+//               <label htmlFor="email" className="text-darkBlue font-semibold">Email *</label>
+//              <input
+//                 type="email"
+//                id="email"
+//                className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
+//                {...register('email')}
+//              />
+//            </div>
+
+//            <div className="flex flex-col">
+//               <label htmlFor="subject" className="text-darkBlue font-semibold">Subject</label>
+//               <input
+//                 type="text"
+//                 id="subject"
+//                name="subject"
+//                className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
+//              />
+//            </div>
+
+//            <div className="flex flex-col">
+//              <label htmlFor="message" className="text-darkBlue font-semibold">Message *</label>
+//              <textarea
+//                id="message"
+//                rows={3}
+//                 className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
+//                 {...register('message')}
+//               />
+//             </div>
+
+//             <button
+//               type="submit"
+//               className="bg-purple text-white px-4 py-2 rounded-md hover:bg-darkBlue transition duration-300"
+//            >
+//              SEND MESSAGE
+//            </button>
+//          </form>
+//        </div>
+//          </aside>
+// </div>
+
+// </div>
+
+   
+    <div className="flex justify-center items-center min-h-screen bg-white py-16">
+      <div className="contact-section bg-white shadow-lg rounded-lg p-8 w-full max-w-3xl" 
+           style={{ boxShadow: '0 4px 10px rgba(0, 39, 73, 0.3), 0 6px 20px rgba(255, 78, 49, 0.2)' }}>
+        <div className="hello-container text-center">
+          <h2 className="text-3xl font-bold text-purple mb-4">SAY HELLO!</h2>
+          <p className="text-lightBlue">We would love to hear from you!</p>
+          <hr className="underline border-orange my-4 w-20 mx-auto" />
+        </div>
+
+        <div className="contact-wrapper grid grid-cols-1 gap-8">
+          <form className="contact-form space-y-4" action="#">
             <div className="flex flex-col">
-              <label htmlFor="name" className="text-darkBlue font-semibold">Name</label>
+              <label htmlFor="name" className="text-darkBlue font-semibold">Name *</label>
               <input
-               type="text"
-               id="name"
+                type="text"
+                id="name"
+                name="name"
+                required
                 className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-                {...register('name')}
               />
             </div>
 
-           <div className="flex flex-col">
+            <div className="flex flex-col">
               <label htmlFor="email" className="text-darkBlue font-semibold">Email *</label>
-             <input
+              <input
                 type="email"
-               id="email"
-               className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-               {...register('email')}
-             />
-           </div>
+                id="email"
+                name="email"
+                required
+                className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
+              />
+            </div>
 
-           {/* <div className="flex flex-col">
+            <div className="flex flex-col">
               <label htmlFor="subject" className="text-darkBlue font-semibold">Subject</label>
               <input
                 type="text"
                 id="subject"
-               name="subject"
-               className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-             />
-           </div> */}
-
-           <div className="flex flex-col">
-             <label htmlFor="message" className="text-darkBlue font-semibold">Message *</label>
-             <textarea
-               id="message"
-               rows={3}
+                name="subject"
                 className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-                {...register('message')}
+              />
+            </div>
+
+            <div className="flex flex-col">
+              <label htmlFor="message" className="text-darkBlue font-semibold">Message *</label>
+              <textarea
+                id="message"
+                name="message"
+                rows={5}
+                required
+                className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
               />
             </div>
 
             <button
               type="submit"
               className="bg-purple text-white px-4 py-2 rounded-md hover:bg-darkBlue transition duration-300"
-           >
-             SEND MESSAGE
-           </button>
-         </form>
-       </div>
-         </aside>
-</div>
-
-</div>
-
-   
-    // <div className="flex justify-center items-center min-h-screen bg-white py-16">
-    //   <div className="contact-section bg-white shadow-lg rounded-lg p-8 w-full max-w-3xl" 
-    //        style={{ boxShadow: '0 4px 10px rgba(0, 39, 73, 0.3), 0 6px 20px rgba(255, 78, 49, 0.2)' }}>
-    //     <div className="hello-container text-center">
-    //       <h2 className="text-3xl font-bold text-purple mb-4">SAY HELLO!</h2>
-    //       <p className="text-lightBlue">We would love to hear from you!</p>
-    //       <hr className="underline border-orange my-4 w-20 mx-auto" />
-    //     </div>
-
-    //     <div className="contact-wrapper grid grid-cols-1 gap-8">
-    //       <form className="contact-form space-y-4" action="#">
-    //         <div className="flex flex-col">
-    //           <label htmlFor="name" className="text-darkBlue font-semibold">Name *</label>
-    //           <input
-    //             type="text"
-    //             id="name"
-    //             name="name"
-    //             required
-    //             className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-    //           />
-    //         </div>
-
-    //         <div className="flex flex-col">
-    //           <label htmlFor="email" className="text-darkBlue font-semibold">Email *</label>
-    //           <input
-    //             type="email"
-    //             id="email"
-    //             name="email"
-    //             required
-    //             className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-    //           />
-    //         </div>
-
-    //         <div className="flex flex-col">
-    //           <label htmlFor="subject" className="text-darkBlue font-semibold">Subject</label>
-    //           <input
-    //             type="text"
-    //             id="subject"
-    //             name="subject"
-    //             className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-    //           />
-    //         </div>
-
-    //         <div className="flex flex-col">
-    //           <label htmlFor="message" className="text-darkBlue font-semibold">Message *</label>
-    //           <textarea
-    //             id="message"
-    //             name="message"
-    //             rows={5}
-    //             required
-    //             className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-    //           />
-    //         </div>
-
-    //         <button
-    //           type="submit"
-    //           className="bg-purple text-white px-4 py-2 rounded-md hover:bg-darkBlue transition duration-300"
-    //         >
-    //           SEND MESSAGE
-    //         </button>
-    //       </form>
-    //     </div>
-    //   </div>
-    // </div>
+            >
+              SEND MESSAGE
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -252,6 +252,7 @@ export default Contact;
 //     )
 // }
 // export default Contact
+
 // import React from "react";
 
 // const Contact = () => {
