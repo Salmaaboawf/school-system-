@@ -105,6 +105,9 @@ const StudentRoutine = () => {
               <th scope="col" className="px-6 py-4">
                 11:00-1:00
               </th>
+              <th scope="col" className="px-6 py-4">
+                1:00-3:00
+              </th>
             </tr>
           </thead>
           <tbody>

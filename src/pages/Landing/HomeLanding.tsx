@@ -7,16 +7,15 @@ import { TbMathMaxMin } from "react-icons/tb";
 import { FaTree } from "react-icons/fa6";
 import StatusCard from "../../components/StatusCard";
 import Service_Section from "../../components/ServiceSection";
-import PlanUpgrades from "../../components/PlaneUpgrades";
 import "../../assets/homelanding.css";
 import Testimonials from "../../components/Testimonials";
 import ScrollImages from "../../components/ScrollImages";
-import ParticlesComponent from "../../components/Tsparticles";
+import Activities from "../../components/Activities";
 
 const HomeLanding = () => {
   return (
     <main className=" ">
-      <ParticlesComponent id="particles" />
+      
       <section>
         <SliderMain />
       </section>
@@ -48,7 +47,7 @@ const HomeLanding = () => {
           />
         </>
       </SchoolStatus>
-      <PlanUpgrades />
+      <Activities />
       <ScrollImages />
       <Testimonials />
     </main>
