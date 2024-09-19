@@ -1,7 +1,9 @@
 import  { useRef } from 'react'
 import { motion, useScroll, useTransform } from "framer-motion";
-import image1 from "../assets/images/pexels-dominikagregus-672532.jpg";
-import image2 from "../assets/images/pexels-pixabay-460672.jpg";
+import image1 from "../assets/images/student/student(13).jpg";
+import image2 from "../assets/images/student/student(14).jpg";
+import image3 from "../assets/images/student/student(15).jpg";
+import image4 from "../assets/images/student/student(10).jpg";
 
 function ScrollImages() {
      const ref = useRef(null);
@@ -46,7 +48,7 @@ function ScrollImages() {
         style={{ y: y3 }}
       >
         <img
-          src={image1}
+          src={image3}
           alt="Sticky Example"
           className="w-full h-auto object-cover rounded-lg"
         />
@@ -58,7 +60,7 @@ function ScrollImages() {
         style={{ y: y4 }}
       >
         <img
-          src={image2}
+          src={image4}
           alt="Sticky Example"
           className="w-full h-auto object-cover rounded-lg"
         />

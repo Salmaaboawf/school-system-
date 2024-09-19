@@ -24,7 +24,7 @@ const StudentRoutine = () => {
   const getSchedule = async () => {
     try {
       const schedule = await fetchSchedule(userInfo.class_id);
-      const levelName = await getLevelNameById(schedule.level_id);
+      const levelName = await getLevelNameById(userInfo.class_id);
       setLevelName(levelName);
 
       const updatedDays = await Promise.all(
@@ -66,6 +66,8 @@ const StudentRoutine = () => {
 
   useEffect(() => {
     getSchedule();
+    console.log(levelName);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -102,6 +104,9 @@ const StudentRoutine = () => {
               </th>
               <th scope="col" className="px-6 py-4">
                 11:00-1:00
+              </th>
+              <th scope="col" className="px-6 py-4">
+                1:00-3:00
               </th>
             </tr>
           </thead>

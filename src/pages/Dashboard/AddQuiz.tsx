@@ -87,6 +87,8 @@ export default function AddQuiz() {
         subjectId: subject, // استخدم معرف المادة
       };
 
+      console.log(quizData);
+
       await addQuestion(quizData);
       reset(); // إعادة ضبط النموذج بعد الإضافة الناجحة
     } catch (error) {

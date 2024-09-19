@@ -18,7 +18,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 export const addSubject = async (subjectData: {
   name: string;
-  teacher: string; // The selected teacher's ID
+  //  teacher: string; // The selected teacher's ID
   description: string;
   level_id: string;
   total_grade: number;
@@ -26,8 +26,14 @@ export const addSubject = async (subjectData: {
 }) => {
   try {
     console.log(subjectData);
-    const { description, level_id, name, photoURL, teacher, total_grade } =
-      subjectData;
+    const {
+      description,
+      level_id,
+      name,
+      photoURL,
+      //  teacher,
+      total_grade,
+    } = subjectData;
     // 1. Add a new document to the "subjects" collection
     const subCollectionRef = collection(db, "subjects");
     const docRef = await addDoc(subCollectionRef, {
@@ -46,11 +52,11 @@ export const addSubject = async (subjectData: {
     await updateDoc(docRef, { id: docId });
 
     // 4. Update the selected teacher's document with the new subject
-    const teacherRef = doc(db, "teachers", subjectData.teacher);
-    await updateDoc(teacherRef, {
-      subjects: arrayUnion(docId), // Add the new subject ID to the teacher's subjects array using arrayUnion
-    });
-    toast.success(`${name} added and ${teacher} updated with the new subject`)
+    //   const teacherRef = doc(db, "teachers", subjectData.teacher);
+    //    await updateDoc(teacherRef, {
+    //     subjects: arrayUnion(docId), // Add the new subject ID to the teacher's subjects array using arrayUnion
+    //   });
+    toast.success(`${name} added successfully`);
     // console.log("Subject added and teacher updated with the new subject");
   } catch (error) {
     toast.error("Error adding subject");
@@ -120,7 +126,6 @@ export const fetchSubjectsByteacher_id = async (teacherId: string) => {
   }
 };
 
-
 export const getSubjectNameById = async (
   subjectId: string
 ): Promise<string> => {
@@ -161,7 +166,7 @@ export const getSubjectById = async (
 
 export const addQuestion = async ({
   question,
-  answers,
+  options,
   correctAnswer,
   subjectId,
 }) => {
@@ -174,8 +179,10 @@ export const addQuestion = async ({
       questionId: "",
       question: question || "",
       correctAnswer: correctAnswer || "",
-      options: answers || [],
+      options: options || [],
     };
+
+    console.log(options);
 
     // Add the question to Firestore
     const quizRef = await addDoc(questionsRef, questionData);

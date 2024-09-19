@@ -2,6 +2,7 @@
 import image2 from "../assets/images/pexels-pixabay-460672.jpg";
 import "../assets/homelanding.css";
 import TestimonialBox from "./TestimonialBox ";
+import SectionTitle from "./SectionTitle";
 
 const Testimonials = () => {
   const testimonialsData = [
@@ -56,8 +57,9 @@ const Testimonials = () => {
   ];
 
   return (
-    <div className="Testimonials mt-40" id="Testimonials">
-      <h2 className="main-title">Testimonials</h2>
+    <div className="Testimonials mt-36" >
+      <SectionTitle title="Testimonials" desc="Here are the testimonials" />
+      <h2 className="mt-12"></h2>
       <div className="container">
         {testimonialsData.map((testimonial, index) => (
           <TestimonialBox

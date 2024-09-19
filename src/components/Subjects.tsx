@@ -23,7 +23,7 @@ function Subjects() {
   }, [dispatch, userInfo.class_id]);
 
   const handleButtonClick = (subjectId: string) => {
-    navigate(`/quiz`, { state: { subjectId } });
+    navigate(`/subjectDetails`, { state: { subjectId } });
   };
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const showDetails = (subjectId: string) => {
@@ -89,10 +89,10 @@ function Subjects() {
                     >
                       See Materials
                     </a>
-                    <p className="inside-page__text w-full">
+                    {/* <p className="inside-page__text w-full">
                       {subject.description}
-                    </p>
-                    <a href="#" className="inside-page__btn inside-page__btn--city" onClick={handleButtonClick}>See Materials</a>
+                    </p> */}
+                    {/* <a href="#" className="inside-page__btn inside-page__btn--city" onClick={handleButtonClick}>See Materials</a> */}
                   </div>
                 </div>
               </div>
