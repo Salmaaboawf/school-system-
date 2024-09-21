@@ -78,7 +78,7 @@ const Add_Class_Routine = () => {
   const addSchedHandler = async (e: any) => {
     const days = [
       {
-        name: "sunday",
+        name: "Sunday",
         ids: [
           `${e.sunOne.id}`,
           `${e.sunTwo.id}`,
@@ -87,7 +87,7 @@ const Add_Class_Routine = () => {
         ],
       },
       {
-        name: "monday",
+        name: "Monday",
         ids: [
           `${e.monOne.id}`,
           `${e.monTwo.id}`,
@@ -96,7 +96,7 @@ const Add_Class_Routine = () => {
         ],
       },
       {
-        name: "tuesday",
+        name: "Tuesday",
         ids: [
           `${e.tueOne.id}`,
           `${e.tueTwo.id}`,
@@ -105,7 +105,7 @@ const Add_Class_Routine = () => {
         ],
       },
       {
-        name: "wednesday",
+        name: "Wednesday",
         ids: [
           `${e.wedOne.id}`,
           `${e.wedTwo.id}`,
@@ -114,7 +114,7 @@ const Add_Class_Routine = () => {
         ],
       },
       {
-        name: "thursday",
+        name: "Thursday",
         ids: [
           `${e.thrOne.id}`,
           `${e.thrTwo.id}`,

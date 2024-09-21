@@ -1,0 +1,43 @@
+/* Calendar.css */
+.calendar-container {
+    width: 100%;
+    max-width: 1200px; /* Set a maximum width for larger screens */
+    margin: 5rem auto; /* Center the calendar horizontally */
+    padding: 20px; /* Add some padding around the calendar */
+  }
+  
+  .rbc-calendar {
+    border-radius: 8px; /* Rounded corners for the calendar */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for a subtle 3D effect */
+  }
+  
+  .rbc-header {
+    background-color: #f8f9fa; /* Light background for the header */
+    border-bottom: 1px solid #dee2e6; /* Subtle border below the header */
+    color: #40343b; /* Dark text color for better readability */
+    font-weight: bold; /* Make header text bold */
+  }
+  
+  .rbc-day-bg {
+    background-color: #345c8a; /* White background for day cells */
+  }
+  
+  .rbc-selected {
+    background-color: #66ff00; /* Highlight selected date with a primary color */
+    color: white; /* White text color for better contrast */
+  }
+  
+  .rbc-event {
+    background-color: #007bff; /* Event background color */
+    color: white; /* White text color for events */
+    border-radius: 4px; /* Rounded corners for events */
+  }
+  
+  .rbc-event:hover {
+    background-color: #0056b3; /* Darker color on hover */
+  }
+  
+  .rbc-today {
+    background-color: #ff4e31; 
+  }
+  

@@ -7,7 +7,7 @@ import { signOut } from "firebase/auth";
 import auth from "../config/firebase";
 import { FaRegBell } from "react-icons/fa";
 import NotificationList from "./NotificationList";
-import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png";
+import logo from "../assets/splashLogo.png";
 import "../assets/logo.css";
 import { PiExam} from "react-icons/pi";
 import { RiCalendarScheduleLine, RiLogoutCircleRLine } from "react-icons/ri";
@@ -68,7 +68,7 @@ function Nav() {
                 </div>
                 <button
                   type="button"
-                  className="flex text-sm bg-pink-200 rounded-full md:me-0 focus:ring-4 focus:ring-pink-300"
+                  className=" flex text-sm bg-Orange rounded-full md:me-0 focus:ring-2 focus:ring-Orange"
                   id="user-menu-button"
                   aria-expanded={isDropdownOpen}
                   onClick={toggleDropdown}
@@ -81,25 +81,12 @@ function Nav() {
                   />
                 </button>
                 <div
-                  className={`absolute right-8 top-12 z-50 mt-4 text-base list-none bg-[#f4f4f4] divide-y divide-pink-100 rounded-lg shadow ${
+                  className={`profileMen absolute right-8 top-12 z-50 mt-4 text-base list-none bg-[#f4f4f4] divide-y divide-pink-100 rounded-lg  shadow ${
                     isDropdownOpen ? "block" : "hidden"
-                  }`}
-                  // style={before {
-                  //   content: "";
-                  //   position: absolute;
-                  //   top: -5px;
-                  //   right: 28px;
-                  //   width: 20px;
-                  //   height: 20px;
-                  //   background: #fff;
-                  //   transform: rotate(45deg);
-                  // }}
+                  }`}                 
                   id="user-dropdown"
                 >
                   <div className="px-4 py-3">
-                    <span className="block text-sm text-pink-800">
-                      {userInfo.firstName} {userInfo.lastName}
-                    </span>
                     <span className="block text-sm text-Orange truncate">
                       {userInfo.email}
                     </span>
@@ -122,7 +109,7 @@ function Nav() {
                         <li>
                           <NavLink
                             to="/grades"
-                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                            className="profileLink"
                           >
                             <PiExam className="profileLinkIcon"/>
                             {/* <PiExamFill className="mr-2 text-lg"/> */}
@@ -197,7 +184,7 @@ function Nav() {
                     <li>
                       <button
                         onClick={handleLogout}
-                        className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-sm"
+                        className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-sm hover:rounded-b-lg hover:text-Orange"
                       >
                         <RiLogoutCircleRLine className="profileLinkIcon"/>
                         Log out

@@ -2,7 +2,6 @@ import { addDoc, collection, doc, getDocs, query, updateDoc, where } from 'fireb
 import {db} from '../config/firebase'
 import { toast } from 'react-toastify';
 export const addContact = async (data) => {
-    console.log(data)
     try{
         const contactData = {
             ...data,  
@@ -11,7 +10,7 @@ export const addContact = async (data) => {
 
         const contactCol = collection(db,'contact')
         const contact = await addDoc (contactCol,contactData)
-        toast.success('We recieved your message , we will get in touch soon')
+        toast.success('We received your message , we will get in touch soon')
         return contact
     }
     catch(error) {
