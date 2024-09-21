@@ -8,6 +8,7 @@ import { getLevelNameById } from "../../services/levelsServices";
 import { getSubjectNameById } from "../../services/subjectServices";
 import { getTeacherNameById } from "../../services/teacherServices";
 import HashLoader from "react-spinners/HashLoader";
+import ParticlesComponent from "../../components/Tsparticles";
 
 const override: CSSProperties = {
   display: "block",
@@ -84,7 +85,8 @@ const StudentRoutine = () => {
   }
 
   return (
-    <div className="inline-block min-w-90 w-full py-2 sm:px-6 lg:px-8 text-[#002749] ">
+    <div className="inline-block min-w-90 w-full py-2 sm:px-6 lg:px-8 text-[#002749]  mt-[100px]">
+      <ParticlesComponent id="particles" />
       <Nav />
       <hr></hr>
       <h1 className="text-3xl">Class Routine</h1>

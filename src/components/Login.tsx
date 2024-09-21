@@ -91,6 +91,7 @@ export default function Login() {
 
   return (
     <section className="bg-orange-50 p-8 rounded-lg shadow-lg text-gray-800">
+      
       {/* Add the image above the form */}
       <div className="flex justify-center mb-6">
         <img src={RaisingHandImage} alt="Raising hand" className="w-64 h-64" />
