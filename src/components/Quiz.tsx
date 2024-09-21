@@ -230,6 +230,8 @@ const QuizPage = () => {
     }
   }, [subjectId]);
 
+  console.log(quizQuestions, currentQuestionIndex);
+
   // Check if student has already taken the quiz
   const isVisitedQuizBefore = async (subject) => {
     try {

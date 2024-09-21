@@ -13,6 +13,7 @@ import {
   clearQuizQuestions,
   getQuizQuestions,
 } from "../../services/quizServices";
+import Header from "../../components/Header/Header";
 
 // Validation Schema
 const schema = yup.object().shape({
@@ -87,6 +88,8 @@ export default function AddQuiz() {
         subjectId: subject, // استخدم معرف المادة
       };
 
+      console.log(quizData);
+
       await addQuestion(quizData);
       reset(); // إعادة ضبط النموذج بعد الإضافة الناجحة
     } catch (error) {
@@ -95,15 +98,21 @@ export default function AddQuiz() {
   };
 
   return (
-    <div className="container flex gap-x-5 ">
+    <div className="container xs:px-0 lg:px-20">
+
+    
+       <div className="mt-20">
+        <Header />
+      </div>
+    <div className="flex gap-x-5">
       <div className="my-5 w-full">
-        <section className="shadow-md text-[#002749]">
-          <h3 className="bg-[#002749] text-white font-bold py-4 pl-4 text-lg">
+        <section className="shadow-md text-deepBlue">
+          <h3 className="bg-[#002749] text-white font-bold py-4 pl-4 text-lg rounded-t-lg">
             Add Quiz Question
           </h3>
-          <form onSubmit={handleSubmit(save)} className="p-4 w-full">
+          <form onSubmit={handleSubmit(save)} className="py-4 w-full sm:px-10 xs:px-5 rounded-b-lg">
             <div className="mb-4">
-              <div className="flex justify-between">
+              <div className="flex justify-between mb-4 pr-1">
                 <Label
                   htmlFor="subject"
                   value="Subject Name"
@@ -172,19 +181,17 @@ export default function AddQuiz() {
               <p className="text-red-500">{errors.correctOption?.message}</p>
             </div>
 
-            <div className="flex gap-x-4">
+            <div className="sm:flex-row sm:flex sm:gap-x-4 mx-auto w-fit xs:flex-col xs:gap-x-1">
               <Button
                 outline
-                gradientDuoTone="pinkToOrange"
-                className="my-5 w-72"
+                className="my-5 lg:w-72 sm:w-32 xs:w-72"
                 type="submit"
               >
                 Add Quiz
               </Button>
               <Button
                 outline
-                gradientDuoTone="pinkToOrange"
-                className="my-5 w-72"
+                className="my-5 lg:w-72 sm:w-32 xs:w-72"
                 type="button"
                 onClick={() => {
                   clearQuizQuestions(subject);
@@ -195,8 +202,7 @@ export default function AddQuiz() {
 
               <Button
                 outline
-                gradientDuoTone="pinkToOrange"
-                className="my-5 w-72"
+                className="my-5 lg:w-72 sm:w-32 xs:w-72"
                 type="button"
                 onClick={() => {
                   addSubjectQuizes();
@@ -208,6 +214,7 @@ export default function AddQuiz() {
           </form>
         </section>
       </div>
+    </div>
     </div>
   );
 }

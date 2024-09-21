@@ -155,7 +155,6 @@ export default function Login() {
             placeholder="name@school.com"
             className="mt-1 p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-800"
           />
-          <p className="text-red-500 mt-1">{errors.email?.message}</p>
         </div>
         <div>
           <Label
@@ -170,7 +169,6 @@ export default function Login() {
             placeholder="Password"
             className="mt-1 p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-800"
           />
-          <p className="text-red-500 mt-1">{errors.password?.message}</p>
         </div>
 
         <button

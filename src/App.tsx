@@ -18,7 +18,7 @@ import Footer from "./components/about/Footer";
 import Login from "./components/Login";
 import NotFound from "./components/NotFund";
 import Grad from "./components/Grad";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getUserById } from "./services/userServices";
 import AddClass from "./pages/Dashboard/AddLevels";
@@ -42,22 +42,43 @@ import ShowVideo from "./pages/Dashboard/ShowVideo";
 import SubjectDetails from "./components/SubjectDetails";
 import AllUsers from "./components/AllUsers";
 import ShowContact from "./pages/Dashboard/ShowContact";
+import MyCalendar from "./pages/Static/Calendar";
+import auth from "./config/firebase";
+import SplashScreen from "./pages/Static/SplashScreen";
+
+// import { QRCodeGenerator } from "./pages/UsersPages/QRCodeGenerator";
 // import Loading from "./components/Loading";
 function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
   const userInfo = useAppSelector((state) => state.user.user);
-
+  const [loading, setLoading] = useState(true);
   console.log(!!userInfo.id);
   console.log(userId);
 
   useLayoutEffect(() => {
     if (userId) {
       getUserById(userId, dispatch);
-      console.log(userInfo);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
+
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        setLoading(false); 
+      } 
+    });
+    return () => unsubscribe();  // gpt method
+
+    // setTimeout(() => {
+    //   setLoading(false); stackoverflow method
+    // }, 3000);
+  }, []);
+
+  if (loading) {
+    return <SplashScreen />;
+  }
 
   return (
     <>
@@ -79,6 +100,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/stuff" element={<Teachers />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/calendar" element={<MyCalendar />} />
           <Route path="/my-grades" element={<MyGrades />} />
           <Route path="/video" element={<AddVideo />} />
           <Route path="/ShowVideo" element={<ShowVideo />} />
@@ -156,6 +178,10 @@ function App() {
           path="/add-video"
           element={<PrivateRoute element={AddVideo} role="teacher" />}
         />
+        {/* <Route
+          path="/generate-qr"
+          element={<PrivateRoute element={QRCodeGenerator} role="teacher" />}
+        /> */}
         <Route
           path="/show-video"
           element={<PrivateRoute element={ShowVideo} role="student" />}
@@ -198,3 +224,4 @@ function App() {
 }
 
 export default App;
+// export default withSplashScreen(App);

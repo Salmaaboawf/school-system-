@@ -9,6 +9,7 @@ import { getSubjectNameById } from "../../services/subjectServices";
 import { getTeacherNameById } from "../../services/teacherServices";
 import HashLoader from "react-spinners/HashLoader";
 import ParticlesComponent from "../../components/Tsparticles";
+import Header from "../../components/Header/Header";
 
 const override: CSSProperties = {
   display: "block",
@@ -85,15 +86,23 @@ const StudentRoutine = () => {
   }
 
   return (
-    <div className="inline-block min-w-90 w-full py-2 sm:px-6 lg:px-8 text-[#002749]  mt-[100px]">
+    <div className="container">
+
+    <div className="particles-container">
       <ParticlesComponent id="particles" />
+    </div>
+
+    <div>
       <Nav />
-      <hr></hr>
-      <h1 className="text-3xl">Class Routine</h1>
-      <span className="text-2xl">{levelName}</span>
-      <div className="overflow-hidden min-w-full ">
+    </div>
+
+    <div className="mt-20">
+      <Header />
+    </div>
+      {/* <span className="text-2xl">{levelName}</span> */}
+      <div className="overflow-hidden min-w-full mt-5 rounded-md">
         <table className="min-w-full text-center text-sm font-light ">
-          <thead className="border-b bg-[#002749] border-[#002749] font-medium text-white ">
+          <thead className="border-b bg-deepBlue font-medium text-white text-lg">
             <tr>
               <th scope="col" className="px-6 py-4">
                 Day
@@ -107,21 +116,25 @@ const StudentRoutine = () => {
               <th scope="col" className="px-6 py-4">
                 11:00-1:00
               </th>
+              <th scope="col" className="px-6 py-4">
+                1:00-3:00
+              </th>
             </tr>
           </thead>
           <tbody>
             {scheduleTable.days.map((day, dayIndex) => (
-              <tr key={dayIndex} className="border-b dark:border-neutral-500">
-                <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
+              <tr key={dayIndex} className="border-b dark:border-neutral-500 bg-slate-50  text-Orange hover:bg-lightBlue hover:text-white">
+                <td className="whitespace-nowrap px-6 py-4 font-medium text-lg bg-deepBlue text-white">
                   {day.dayName}
                 </td>
                 {day.subjects.map((subject, subjectIndex) => (
                   <td
                     key={subjectIndex}
-                    className="whitespace-nowrap px-6 py-4 text-2xl"
+                    className="whitespace-nowrap px-6 py-4 text-xl"
                   >
                     {subject.subject_name} {console.log(subject.subject_name)}
-                    <h6 className="text-sm">{subject.teacherName}</h6>
+                    <br></br>
+                    {subject.teacherName}
                   </td>
                 ))}
               </tr>
