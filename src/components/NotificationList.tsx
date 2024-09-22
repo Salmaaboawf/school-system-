@@ -35,7 +35,7 @@ const NotificationList = () => {
           const quizSnapshot = await getDocs(quizRef);
 
           // Check if the quiz collection has 20 or more documents
-          if (quizSnapshot.size >= 1) {
+          if (quizSnapshot.size >= 20) {
             notificationSubjects.push({
               id: subjectDoc.id,
               name: name || "Unnamed Subject",
@@ -45,7 +45,7 @@ const NotificationList = () => {
         }
 
         // Set the subjects that meet the criteria
-        setQuizSubjects(notificationSubjects);
+        setQuizSubjects([...notificationSubjects]);
       } catch (error) {
         console.error("Error fetching quiz notifications: ", error);
       }

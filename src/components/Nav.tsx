@@ -41,6 +41,8 @@ function Nav() {
     }
   };
 
+  console.log(userInfo.name);
+
   return (
     <div className="">
       <nav className="absolute w-full top-0 left-0 z-10 p-4">
@@ -86,7 +88,7 @@ function Nav() {
                 >
                   <div className="px-4 py-3">
                     <span className="block text-sm text-pink-800">
-                      {userInfo.firstName} {userInfo.lastName}
+                      {userInfo.name}
                     </span>
                     <span className="block text-sm text-pink-600 truncate">
                       {userInfo.email}
