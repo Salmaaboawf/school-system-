@@ -149,22 +149,11 @@ function Contact() {
               <label htmlFor="email" className="text-darkBlue font-semibold">Email *</label>
               <input
                 type="email"
-                id="email"
-                name="email"
-                required
-                className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-              />
-            </div>
-
-            <div className="flex flex-col">
-              <label htmlFor="subject" className="text-darkBlue font-semibold">Subject</label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-              />
-            </div>
+               id="email"
+               className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
+               {...register('email')}
+             />
+           </div>
 
             <div className="flex flex-col">
               <label htmlFor="message" className="text-darkBlue font-semibold">Message *</label>

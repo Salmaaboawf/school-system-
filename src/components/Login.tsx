@@ -91,6 +91,7 @@ export default function Login() {
 
   return (
     <section className="bg-orange-50 p-8 rounded-lg shadow-lg text-gray-800">
+      
       {/* Add the image above the form */}
       <div className="flex justify-center mb-6">
         <img src={RaisingHandImage} alt="Raising hand" className="w-64 h-64" />
@@ -154,7 +155,6 @@ export default function Login() {
             placeholder="name@school.com"
             className="mt-1 p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-800"
           />
-          <p className="text-red-500 mt-1">{errors.email?.message}</p>
         </div>
         <div>
           <Label
@@ -169,7 +169,6 @@ export default function Login() {
             placeholder="Password"
             className="mt-1 p-2 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-800"
           />
-          <p className="text-red-500 mt-1">{errors.password?.message}</p>
         </div>
 
         <button
