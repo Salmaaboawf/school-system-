@@ -182,10 +182,10 @@ function App() {
           path="/generate-qr"
           element={<PrivateRoute element={QRCodeGenerator} role="teacher" />}
         /> */}
-        <Route
+        {/* <Route
           path="/show-video"
           element={<PrivateRoute element={ShowVideo} role="student" />}
-        /> */}
+        />  */}
         <Route
          path="/ShowVideo/:subjectId" 
          element={<PrivateRoute element={ShowVideo} role="student" />}
