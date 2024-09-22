@@ -43,3 +43,23 @@ body {
 .sidebarButton:hover .sidebarIcon {
   animation: icons-hover 0.8s linear infinite;
 }
+
+.profileLink{
+  @apply  flex items-center px-4 py-2 text-gray-600 border-b w-full text-sm hover:text-Orange
+}
+
+.profileLinkIcon{
+  @apply  mr-2 text-lg hover:text-deepBlue
+}
+
+.profileMen::before {
+  content: "";
+  position: absolute;
+  top: -10px; /* Adjust to position the triangle */
+  right: 15px; /* Adjust based on your dropdown's position */
+  width: 18px;
+  height: 22px;
+  background: #f4f4f4;
+  transform: rotate(45deg);
+  z-index: -1; /* Ensure the triangle is behind the dropdown content */
+}

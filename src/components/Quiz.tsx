@@ -257,7 +257,7 @@ const QuizPage = () => {
     if (subject) {
       getQuizQuestions(subject, (questions) => {
         setQuizQuestions([...questions]);
-        if (questions.length < 20) {
+        if (questions.length <20) {
           Swal.fire({
             icon: "error",
             title: "Oops...",
