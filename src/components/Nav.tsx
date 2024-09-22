@@ -81,9 +81,10 @@ function Nav() {
                   />
                 </button>
                 <div
-                  className={`profileMen absolute right-8 top-12 z-50 mt-4 text-base list-none bg-[#f4f4f4] divide-y divide-pink-100 rounded-lg  shadow ${
+                  className={`profileMen absolute right-8 top-12 mt-4 text-base list-none bg-[#f4f4f4] divide-y divide-pink-100 rounded-lg  shadow ${
                     isDropdownOpen ? "block" : "hidden"
-                  }`}                 
+                  }`}    
+                  style={{zIndex:1000}}             
                   id="user-dropdown"
                 >
                   <div className="px-4 py-3">
@@ -171,7 +172,7 @@ function Nav() {
                         </li>
                         <li>
                           <NavLink
-                            to="/video"
+                            to="/generate-qr"
                             className="profileLink"
                           >
                             <MdOutlinePeopleAlt className="profileLinkIcon" />

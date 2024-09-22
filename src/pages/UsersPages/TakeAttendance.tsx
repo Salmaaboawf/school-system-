@@ -1,17 +1,30 @@
-// import React from 'react'
-// import { QRCodeGenerator } from './QRCodeGenerator';
 
-// function TakeAttendance() {
+
+import React, { useState } from 'react';
+import  {QRCodeSVG}  from 'qrcode.react';
+// import { collection, addDoc } from 'firebase/firestore';
+// import {db} from '../../config/firebase'
+
+const AttendanceQRCode = () => {
+  const [qrData, setQrData] = useState('');
+
+  // Function to generate QR Code data for the current date
+  const generateQRCode = async () => {
+    const today = new Date().toISOString().split('T')[0]; // Format as YYYY-MM-DD
+    setQrData(`Attendance-${today}`);
     
-  
-//     return (
-// <div>
-//       <h1>Teacher Dashboard</h1>
-//       <p>Generate a QR Code for your class session below:</p>
-//       {/* Add the QRCodeGenerator component */}
-//       <QRCodeGenerator teacherId="teacher123" classId="classABC" />
-//     </div>
-//     );
-// }
+  };
 
-// export default TakeAttendance
+  return (
+    <div>
+      <button onClick={generateQRCode} className='border bg-slate-500 rounded-md text-white cursor-pointer'>Generate QR Code for Today</button>
+      {qrData && (
+        <div>
+          <QRCodeSVG value={qrData as string} />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default AttendanceQRCode;

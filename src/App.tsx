@@ -45,8 +45,10 @@ import ShowContact from "./pages/Dashboard/ShowContact";
 import MyCalendar from "./pages/Static/Calendar";
 import auth from "./config/firebase";
 import SplashScreen from "./pages/Static/SplashScreen";
+import AddEvent from "./pages/Dashboard/AddEvent";
+import AttendanceQRCode from "./pages/UsersPages/TakeAttendance";
+import ViewAttendance from "./pages/Dashboard/ViewAttendance";
 
-// import { QRCodeGenerator } from "./pages/UsersPages/QRCodeGenerator";
 // import Loading from "./components/Loading";
 function App() {
   const dispatch = useDispatch();
@@ -163,6 +165,10 @@ function App() {
           element={<PrivateRoute element={AddStudent} role="admin" />}
         />
         <Route
+          path="/add-event"
+          element={<PrivateRoute element={AddEvent} role="admin" />}
+        />
+        <Route
           path="/add-teacher"
           element={<PrivateRoute element={AddTeacher} role="admin" />}
         />
@@ -174,24 +180,11 @@ function App() {
           path="/users"
           element={<PrivateRoute element={AllUsers} role="admin" />}
         />
-        <Route
-          path="/add-video"
-          element={<PrivateRoute element={AddVideo} role="teacher" />}
-        />
-        {/* <Route
-          path="/generate-qr"
-          element={<PrivateRoute element={QRCodeGenerator} role="teacher" />}
-        /> */}
-        <Route
-          path="/show-video"
-          element={<PrivateRoute element={ShowVideo} role="student" />}
-        />
-        <Route
+         <Route
           path="/add-class-routine"
           element={<PrivateRoute element={Add_Class_Routine} role="admin" />}
         />
-
-        <Route
+                <Route
           path="/add-subject"
           element={<PrivateRoute element={AddSubject} role="admin" />}
         />
@@ -199,10 +192,28 @@ function App() {
           path="/grad"
           element={<PrivateRoute element={Grad} role="admin" />}
         />
-        <Route
-          path="/showContact"
+         <Route
+          path="/show-contact"
           element={<PrivateRoute element={ShowContact} role="admin" />}
         />
+        <Route
+          path="/show-attendance"
+          element={<PrivateRoute element={ViewAttendance} role="admin" />}
+        />
+
+        <Route
+          path="/add-video"
+          element={<PrivateRoute element={AddVideo} role="teacher" />}
+        />
+        <Route
+          path="/generate-qr"
+          element={<PrivateRoute element={AttendanceQRCode} role="teacher" />}
+        />
+        <Route
+          path="/show-video"
+          element={<PrivateRoute element={ShowVideo} role="student" />}
+        />
+     
         <Route
           path="/grad-two"
           element={<PrivateRoute element={Showgrad} role="student" />}
@@ -216,7 +227,6 @@ function App() {
           element={<PrivateRoute element={KidsGrades} role="parent" />}
         />
         <Route path="*" element={<NotFound />} />
-        {/* <Route path='loader' element={<Loading />} /> */}
       </Routes>
       <ToastContainer />
     </>

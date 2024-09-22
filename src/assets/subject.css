@@ -173,7 +173,7 @@
   transition: all 1s ease;
   visibility: hidden;
   width: 15rem;
-  z-index: 10;
+  z-index: 5;
 }
 
 /* The outer container's visibility is set to hidden. This is to make everything within the container NOT set to hidden  */
