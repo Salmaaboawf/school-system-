@@ -3,6 +3,7 @@ import Header from "../../components/Header/Header";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { fetchSubjectsGrades } from "../../services/gradeServices";
 import Loading from "../../components/Loading";
+import ParticlesComponent from "../../components/Tsparticles";
 
 function MyGrades() {
   const userInfo = useAppSelector((state) => state.user.user);
@@ -31,12 +32,13 @@ function MyGrades() {
   return (
     <div className="container flex gap-x-5">
       <div className="flex-[4]">
+        <ParticlesComponent id="particles" />
         <Header />
         <div className="my-5">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-0 text-[#002749]">
             <h1 className="text-3xl mb-4">My Grades</h1>
             {loading ? (
-             <Loading />
+              <Loading />
             ) : error ? (
               <p className="text-red-500">{error}</p>
             ) : (
