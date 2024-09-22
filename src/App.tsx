@@ -81,7 +81,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/my-grades" element={<MyGrades />} />
           <Route path="/video" element={<AddVideo />} />
-          <Route path="/ShowVideo" element={<ShowVideo />} />
+          <Route path="/ShowVideo" element={<ShowVideo/>} />
 
           <Route path="/AddQuiz" element={<AddQuiz />} />
           <Route path="/subjectDetails" element={<SubjectDetails />} />
@@ -156,10 +156,15 @@ function App() {
           path="/add-video"
           element={<PrivateRoute element={AddVideo} role="teacher" />}
         />
-        <Route
+        {/* <Route
           path="/show-video"
           element={<PrivateRoute element={ShowVideo} role="student" />}
-        />
+        /> */}
+        <Route
+         path="/ShowVideo/:subjectId" 
+         element={<PrivateRoute element={ShowVideo} role="student" />}
+         />
+
         <Route
           path="/add-class-routine"
           element={<PrivateRoute element={Add_Class_Routine} role="admin" />}
