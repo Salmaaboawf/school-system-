@@ -63,3 +63,15 @@ body {
   transform: rotate(45deg);
   z-index: -1; /* Ensure the triangle is behind the dropdown content */
 }
+
+.noData {
+  @apply w-fit mx-auto my-6 border text-deepBlue rounded-lg p-6 text-xl
+}
+
+.tHead {
+  @apply border-b bg-deepBlue font-medium text-white text-lg
+}
+
+.dayName{
+  @apply whitespace-nowrap px-6 py-4 font-medium text-lg bg-deepBlue text-white
+}

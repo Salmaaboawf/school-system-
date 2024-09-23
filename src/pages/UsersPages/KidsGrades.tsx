@@ -6,14 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getKids } from '../../Redux/Slices/KidsSlice'
 import { useAppSelector } from '../../hooks/reduxHooks'
 import { fetchSubjectsGrades } from '../../services/gradeServices'
-import HashLoader from "react-spinners/HashLoader"
 import Loading from '../../components/Loading'
 
-const override: CSSProperties = {
-  display: "block",
-  margin: "0 auto",
-  borderColor: "red",
-};
 
 function KidsGrades() {
   const dispatch = useDispatch();
@@ -23,16 +17,17 @@ function KidsGrades() {
   const [grades, setGrades] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const [isSubmitted, setIsSubmitted] = useState(false);
   useEffect(() => {
     const parentId = userInfo.id
     if (parentId) {
       dispatch(getKids(parentId));
     }
-  }, []);
+  }, [dispatch, userInfo.id]);
 
   const handleViewGrades = async (e) => {
     e.preventDefault();
+    setIsSubmitted(true);
     if (selectedKid) {
       setLoading(true);
       try {
@@ -47,20 +42,28 @@ function KidsGrades() {
     }
   };
 
+  if(loading){
+    return   <Loading />
+  }
+
   return (
     <>
+       <div>
       <Nav />
-      <Header />
-      <div className="forms p-6 rounded-lg ">
-        <div className="form max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-6">My Kids</h2>
+    </div>
+    <div className='container'> 
+
+      <div className="forms rounded-lg ">
+        <div className="form max-w-full mt-20 p-6 bg-white rounded-lg shadow-lg">
+          {/* <h2 className="text-2xl font-semibold mb-6">My Kids</h2> */}
+          <h2 className="text-2xl font-semibold mb-4">Hello {userInfo.gender=='male'?'Mr ':"Mrs "}{userInfo.name}</h2>
           <form
             onSubmit={handleViewGrades}
             className="flex items-center space-x-4"
           >
             <div className="flex flex-grow flex-wrap gap-4">
 
-              <select value={selectedKid} onChange={(e) => setSelectedKid(e.target.value)}>
+              <select value={selectedKid} onChange={(e) => setSelectedKid(e.target.value)} className='w-52'>
               <option value="" disabled>Select a kid</option>
                 {kids.map((kid) => (
                   <option key={kid.id} value={kid.id}>{kid.name}</option>
@@ -78,32 +81,61 @@ function KidsGrades() {
           </form>
         </div>
       </div>
-
-      {loading && 
-      <Loading />
-        }
-          {error && <p className="text-red-500">{error}</p>}
+      {!isSubmitted && !selectedKid && <p className='noData'>Please select a kid to view their grades.</p>}
+      {/* {!selectedKid && <p className='noData'>Please select a kid to view their grades.</p>} */}
+      {selectedKid && grades.length === 0 && !loading && !error && (
+          <p className='noData'>No grades available for the selected kid.</p>
+        )}
           {grades.length > 0 && (
             <table className="min-w-full text-center text-sm font-light mt-6">
               <thead className="border-b font-medium text-white bg-[#002749] border-[#002749]">
                 <tr>
                   <th scope="col" className="px-6 py-4 text-2xl">Subject</th>
                   <th scope="col" className="px-6 py-4 text-2xl">Grade</th>
+                  <th scope="col" className="px-6 py-4 text-2xl">Quiz</th>
+                  <th scope="col" className="px-6 py-4 text-2xl">Total Grade</th>
+                  <th scope="col" className="px-6 py-4 text-2xl">Rating</th>
                 </tr>
               </thead>
               <tbody>
-                {grades.map((item) => (
-                  <tr key={item.id} className="border-b dark:border-neutral-500">
-                    <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">{item.subjectName}</td>
-                    <td className="whitespace-nowrap px-6 py-4 text-2xl">{item.grade}</td>
-                    <td className="whitespace-nowrap px-6 py-4 text-2xl">{item.quizScore}</td>
 
-                  </tr>
-                ))}
+
+{grades.map((item) => {
+  // Calculate final grade by adding grade and quiz score for each item
+  const finalGrade = parseFloat(item.grade+item.quizScore)
+  let rating = '';
+  switch (true) {
+    case finalGrade >= 90:
+      rating = 'Excellent';
+      break;
+    case finalGrade >= 80:
+      rating = 'Very Good';
+      break;
+    case finalGrade >= 70:
+      rating = 'Good';
+      break;
+    case finalGrade >= 60:
+      rating = 'Average';
+      break;
+    default:
+      rating = 'Poor';
+  }
+
+  return (
+    <tr key={item.id} className="border-b dark:border-neutral-500">
+      <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">{item.subjectName}</td>
+      <td className="whitespace-nowrap px-6 py-4 text-2xl">{item.grade}</td>
+      <td className="whitespace-nowrap px-6 py-4 text-2xl">{item.quizScore}</td>
+      <td className="whitespace-nowrap px-6 py-4 text-2xl">{finalGrade}</td> {/* Display calculated final grade */}
+      <td className="whitespace-nowrap px-6 py-4 text-2xl">{rating}</td>
+    </tr>
+  );
+})}
+
               </tbody>
             </table>
           )}
-          {grades.length === 0 && !loading && !error && <p>No grades available for the selected kid.</p>}
+      </div>
       <Footer />
     </>
   )

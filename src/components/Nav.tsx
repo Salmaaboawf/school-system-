@@ -5,10 +5,11 @@ import { useDispatch } from "react-redux";
 import { resetUser } from "../Redux/Slices/userSlice";
 import { signOut } from "firebase/auth";
 import auth from "../config/firebase";
-import { FaBook, FaRegBell } from "react-icons/fa";
+import { FaRegBell } from "react-icons/fa";
 import NotificationList from "./NotificationList";
 import logo from "../assets/splashLogo.png";
 import "../assets/logo.css";
+import unknownUser from '../assets/images/unknown user.jpg'
 import { PiBooksLight, PiExam } from "react-icons/pi";
 import { RiCalendarScheduleLine, RiLogoutCircleRLine } from "react-icons/ri";
 import { MdOndemandVideo, MdOutlinePeopleAlt } from "react-icons/md";
@@ -68,17 +69,21 @@ function Nav() {
                 </div>
                 <button
                   type="button"
-                  className=" flex text-sm bg-Orange rounded-full md:me-0 focus:ring-2 focus:ring-Orange"
+                  className=" flex rounded-full md:me-0 focus:ring-2 focus:ring-Orange"
                   id="user-menu-button"
                   aria-expanded={isDropdownOpen}
                   onClick={toggleDropdown}
                 >
-                  <span className="sr-only">Open user menu</span>
-                  <img
+                    {userInfo.photoURL && <img
                     className="w-8 h-8 rounded-full"
                     src={userInfo.photoURL}
                     alt="user photo"
-                  />
+                    />}
+                    {userInfo.photoURL==undefined &&  <img
+                    className="w-8 h-8 rounded-full"
+                    src={unknownUser}
+                    alt="user photo"
+                    />}
                 </button>
                 <div
                   className={`profileMen absolute right-8 top-12 mt-4 text-base list-none bg-[#f4f4f4] divide-y divide-pink-100 rounded-lg  shadow ${isDropdownOpen ? "block" : "hidden"

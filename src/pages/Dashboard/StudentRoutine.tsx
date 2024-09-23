@@ -90,9 +90,9 @@ const StudentRoutine = () => {
       <Header />
     </div>
       {/* <span className="text-2xl">{levelName}</span> */}
-      <div className="overflow-hidden min-w-full mt-5 rounded-md">
+      <div className="overflow-hidden min-w-full mt-5 rounded-md bg">
         <table className="min-w-full text-center text-sm font-light ">
-          <thead className="border-b bg-deepBlue font-medium text-white text-lg">
+          <thead className="tHead">
             <tr>
               <th scope="col" className="px-6 py-4">
                 Day
@@ -114,7 +114,7 @@ const StudentRoutine = () => {
           <tbody>
             {scheduleTable.days.map((day, dayIndex) => (
               <tr key={dayIndex} className="border-b dark:border-neutral-500 bg-slate-50  text-Orange hover:bg-lightBlue hover:text-white">
-                <td className="whitespace-nowrap px-6 py-4 font-medium text-lg bg-deepBlue text-white">
+                <td className="dayName">
                   {day.dayName}
                 </td>
                 {day.subjects.map((subject, subjectIndex) => (
