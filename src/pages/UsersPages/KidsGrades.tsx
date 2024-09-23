@@ -96,6 +96,8 @@ function KidsGrades() {
                   <tr key={item.id} className="border-b dark:border-neutral-500">
                     <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">{item.subjectName}</td>
                     <td className="whitespace-nowrap px-6 py-4 text-2xl">{item.grade}</td>
+                    <td className="whitespace-nowrap px-6 py-4 text-2xl">{item.quizScore}</td>
+
                   </tr>
                 ))}
               </tbody>
