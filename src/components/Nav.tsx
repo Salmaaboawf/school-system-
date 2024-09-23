@@ -43,6 +43,8 @@ function Nav() {
     }
   };
 
+  console.log(userInfo.name);
+
   return (
     <div className="">
       <nav className="absolute w-full top-0 left-0 z-10 p-4">
@@ -116,10 +118,7 @@ function Nav() {
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink
-                            to="/student-table"
-                            className="profileLink"
-                          >
+                          <NavLink to="/student-table" className="profileLink">
                             <RiCalendarScheduleLine className="profileLinkIcon" />
                             My Schedule
                           </NavLink>
@@ -194,6 +193,7 @@ function Nav() {
                         onClick={handleLogout}
                         className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-sm hover:rounded-b-lg hover:text-Orange"
                       >
+                        <RiLogoutCircleRLine className="profileLinkIcon" />
                         <RiLogoutCircleRLine className="profileLinkIcon" />
                         Log out
                       </button>

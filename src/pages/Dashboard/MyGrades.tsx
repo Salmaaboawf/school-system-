@@ -18,7 +18,9 @@ function MyGrades() {
       try {
         setLoading(true);
         const gradesArray = await fetchSubjectsGrades(userInfo.id);
+        console.log(userInfo.id)
         setGrades(gradesArray);
+        console.log(grades)
       } catch (error) {
         setError("Failed to fetch grades.");
       } finally {

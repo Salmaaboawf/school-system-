@@ -45,6 +45,7 @@ const Sidebar = () => {
           <img src={logo} alt="" className="w-20" />
           <h1 className="text-white ml-4">KIDOS SCHOOL</h1>
         </div>
+        <div className="overflow-y-auto max-h-[calc(100vh-100px)]">
 
         <ul className="list-none">
           <li className="mb-3">
@@ -187,7 +188,7 @@ const Sidebar = () => {
             </NavLink>
           </li>
         </ul>
-
+</div>
       </div>
 
 

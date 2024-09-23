@@ -7,9 +7,9 @@ import { RiGameLine } from "react-icons/ri";
 import "../components/about/tailwind.css"
 export default function Service_Section() {
   return (
-    // service section in home page
+    // قسم الخدمات في الصفحة الرئيسية
     <section className="container m-auto text-neutral-600 my-20">
-      {/* div contains heading and paragraph */}
+      {/* قسم يحتوي على العنوان والفقرة */}
       <div className="items-center text-center">
         <h2 className="text-3xl my-3">OUR SERVICES</h2>
         <p className="my-1">We make your child happy day after day</p>

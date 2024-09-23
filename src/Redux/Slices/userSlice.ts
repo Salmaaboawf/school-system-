@@ -1,27 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { UserType } from "../../components/Nav";
+import { BaseUserType } from "../../utils/types";
 export interface UserState {
-  user: UserType;
+  user: BaseUserType;
 }
 
 const initialState: UserState = {
   user: {
     id: "",
-    firstName: "",
-    lastName: "",
+    name: "",
     // name: "",
     gender: "",
     email: "",
-    age: 0,
     role: "",
 
     ////////////////////////
-    photoURL:"",
+    photoURL: "",
+    phoneNumber: "",
   },
 };
 
 export const userSlice = createSlice({
-  name: "counter",
+  name: "user",
   initialState,
   reducers: {
     setUser: (state, action) => {
@@ -30,14 +29,12 @@ export const userSlice = createSlice({
     resetUser: (state) => {
       state.user = {
         id: "",
-        firstName: "",
-        lastName: "",
-        // name: "",
+        name: "",
         gender: "",
         email: "",
-        age: 0,
         role: "",
-        photoURL:"",
+        photoURL: "",
+        phoneNumber: "",
       };
     },
   },

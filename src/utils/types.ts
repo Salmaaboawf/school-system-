@@ -1,21 +1,21 @@
 export interface BaseUserType {
+  id: string;
   name: string;
   email: string;
-  password: string;
+  password?: string;
   gender: string;
   phoneNumber: string;
   role?: string;
-  photofile?: File;
+  photoURL?: string;
 }
 
 export interface ParentType extends BaseUserType {
   address: string;
   children?: StudentType[];
-  id?: string;
 }
 
 export interface TeacherType extends BaseUserType {
-  subjects: any;
+  subjects: SubjectType[];
   age: string;
   subject: string;
   levels: { id: string; name: string }[];
@@ -23,7 +23,6 @@ export interface TeacherType extends BaseUserType {
 }
 
 export interface StudentType extends BaseUserType {
-  id?: string;
   class: string;
   age: number;
   address: string;
@@ -31,7 +30,7 @@ export interface StudentType extends BaseUserType {
 }
 
 export type SubjectType = {
-  subject_id(subject_id: any): unknown;
+  subject_id(subject_id: string): unknown;
   teacher_id: string;
   id: string;
   name: string;
