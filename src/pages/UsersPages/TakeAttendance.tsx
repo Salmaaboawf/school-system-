@@ -2,6 +2,9 @@
 
 import React, { useState } from 'react';
 import  {QRCodeSVG}  from 'qrcode.react';
+import Header from '../../components/Header/Header';
+import Nav from '../../components/Nav';
+import { Button } from 'flowbite-react';
 // import { collection, addDoc } from 'firebase/firestore';
 // import {db} from '../../config/firebase'
 
@@ -16,14 +19,24 @@ const AttendanceQRCode = () => {
   };
 
   return (
-    <div>
-      <button onClick={generateQRCode} className='border bg-slate-500 rounded-md text-white cursor-pointer'>Generate QR Code for Today</button>
+<>
+<div className='container xs:px-0 lg:px-20'>
+<div>
+        <Nav />
+      </div>
+    <div className="mt-20">
+ <Header />
+</div>
+    <div className='my-20 mx-auto w-fit'>
+      <Button outline onClick={generateQRCode} className='my-5 lg:w-72 sm:w-32 xs:w-72'>Generate QR Code for Today</Button>
       {qrData && (
         <div>
           <QRCodeSVG value={qrData as string} />
         </div>
       )}
     </div>
+    </div>
+    </>
   );
 };
 

@@ -4,6 +4,7 @@ import { useAppSelector } from "../../hooks/reduxHooks";
 import { fetchSubjectsGrades } from "../../services/gradeServices";
 import Loading from "../../components/Loading";
 import ParticlesComponent from "../../components/Tsparticles";
+import Nav from "../../components/Nav";
 
 function MyGrades() {
   const userInfo = useAppSelector((state) => state.user.user);
@@ -31,9 +32,15 @@ function MyGrades() {
 
   return (
     <div className="container flex gap-x-5">
+      <div>
+        <Nav />
+      </div>
       <div className="flex-[4]">
         <ParticlesComponent id="particles" />
+        <div className="mt-20">
+
         <Header />
+        </div>
         <div className="my-5">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-0 text-[#002749]">
             <h1 className="text-3xl mb-4">My Grades</h1>
@@ -72,6 +79,9 @@ function MyGrades() {
                         </td>
                         <td className="whitespace-nowrap px-6 py-4 text-2xl">
                           {item?.quizScore}
+                        </td>
+                        <td>
+                        {parseFloat(item?.grade + item?.quizScore)}
                         </td>
                       </tr>
                     ))}

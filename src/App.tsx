@@ -43,8 +43,8 @@ import SubjectDetails from "./components/SubjectDetails";
 import AllUsers from "./components/AllUsers";
 import ShowContact from "./pages/Dashboard/ShowContact";
 import MyCalendar from "./pages/Static/Calendar";
-import auth from "./config/firebase";
-import SplashScreen from "./pages/Static/SplashScreen";
+// import auth from "./config/firebase";
+// import SplashScreen from "./pages/Static/SplashScreen";
 import AddEvent from "./pages/Dashboard/AddEvent";
 import AttendanceQRCode from "./pages/UsersPages/TakeAttendance";
 import ViewAttendance from "./pages/Dashboard/ViewAttendance";
@@ -54,9 +54,9 @@ function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
   const userInfo = useAppSelector((state) => state.user.user);
-  const [loading, setLoading] = useState(true);
-  console.log(!!userInfo.id);
-  console.log(userId);
+  // const [loading, setLoading] = useState(true);
+  // console.log(!!userInfo.id);
+  // console.log(userId);
 
   useLayoutEffect(() => {
     if (userId) {
@@ -65,22 +65,22 @@ function App() {
   }, [userId]);
 
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        setLoading(false); 
-      } 
-    });
-    return () => unsubscribe();  // gpt method
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged(user => {
+  //     if (user) {
+  //       setLoading(false); 
+  //     } 
+  //   });
+  //   return () => unsubscribe();  // gpt method
 
-    // setTimeout(() => {
-    //   setLoading(false); stackoverflow method
-    // }, 3000);
-  }, []);
+  //   setTimeout(() => {
+  //     setLoading(false); stackoverflow method
+  //   }, 3000);
+  // }, []);
 
-  if (loading) {
-    return <SplashScreen />;
-  }
+  // if (loading) {
+  //   return <SplashScreen />;
+  // }
 
   return (
     <>

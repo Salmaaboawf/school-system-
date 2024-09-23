@@ -6,6 +6,8 @@ import { fetchSubjectsByteacher_id } from "../../services/subjectServices";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { toast } from 'react-toastify';
+import Header from "../../components/Header/Header";
+import Nav from "../../components/Nav";
 interface Subject {
   id: string;
   name: string;
@@ -82,18 +84,22 @@ function AddVideo() {
   };
 
   return (
-    <div className="container mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
-
-      <h3 className="text-4xl font-semibold text-center text-gray-800 dark:text-white mb-8">
-        Add Video
-      </h3>
-      <div className="space-y-6">
+    // <div className="container mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+  <div className="container xs:px-0 lg:px-20">
+<div>
+        <Nav />
+      </div>
+    
+<div className="mt-20">
+ <Header />
+</div>
+      <div className="space-y-6 border p-6 my-10">
         <div>
-          <Label
+          {/* <Label
             htmlFor="subject"
             value="Subject Name"
             className="text-lg font-medium text-gray-700"
-          />
+          /> */}
           <Select
             id="subject"
             required
@@ -111,13 +117,33 @@ function AddVideo() {
         </div>
 
         <div>
-          <Label htmlFor="videoFile" value="Upload Video" className="text-xl" />
+          <Label htmlFor="videoFile" value="Upload Video" className="text-xl block mb-5" />
           <input
             type="file"
             id="videoFile"
             accept="video/*"
             onChange={handleVideoUpload}
           />
+
+ {/* <div className="w-20 h-20">
+
+<div className="container">
+  <div className="folder">
+    <div className="front-side">
+      <div className="tip"></div>
+      <div className="cover"></div>
+    </div>
+    <div className="back-side cover"></div>
+  </div>
+  <label className="custom-file-upload">
+    <input className="title" type="file" />
+    Choose a file
+  </label>
+</div>
+
+  
+</div> */}
+
           {uploadProgress > 0 &&  <div className="bg-gray-200 rounded-full h-2.5 my-6 mx-auto w-2/3">
       <div
         className="bg-rustOrange h-2.5 rounded-full mt-5"
@@ -128,8 +154,9 @@ function AddVideo() {
 
         <div className="flex justify-center mt-6">
           <Button
+          outline
             onClick={saveVideo}
-            className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300"
+            className="my-5 lg:w-72 sm:w-32 xs:w-72"
           >
             Upload Video
           </Button>
