@@ -56,29 +56,29 @@ function App() {
   console.log(!!userInfo.id);
   console.log(userId);
 
-  useLayoutEffect(() => {
-    if (userId) {
-      getUserById(userId, dispatch);
-    }
-  }, [userId]);
+  // useLayoutEffect(() => {
+  //   if (userId) {
+  //     getUserById(userId, dispatch);
+  //   }
+  // }, [userId]);
 
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        setLoading(false); 
-      } 
-    });
-    return () => unsubscribe();  // gpt method
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged(user => {
+  //     if (user) {
+  //       setLoading(false); 
+  //     } 
+  //   });
+  //   return () => unsubscribe();  // gpt method
 
-    // setTimeout(() => {
-    //   setLoading(false); stackoverflow method
-    // }, 3000);
-  }, []);
+  //   // setTimeout(() => {
+  //   //   setLoading(false); stackoverflow method
+  //   // }, 3000);
+  // }, []);
 
-  if (loading) {
-    return <SplashScreen />;
-  }
+  // if (loading) {
+  //   return <SplashScreen />;
+  // }
 
   return (
     <>
