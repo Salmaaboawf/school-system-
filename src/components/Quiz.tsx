@@ -275,22 +275,6 @@ const QuizPage = () => {
     }
   }, [subject]);
 
-  // Handle video streaming
-  // useEffect(() => {
-  //   if (videoRef.current) {
-  //     const cameraFeed = videoRef.current;
-
-  //     navigator.mediaDevices
-  //       .getUserMedia({ video: true })
-  //       .then((stream) => {
-  //         cameraFeed.srcObject = stream;
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error accessing camera:", error);
-  //       });
-  //   }
-  // }, []);
-
   const currentQuestion = quizQuestions[currentQuestionIndex];
 
   // Handle next question

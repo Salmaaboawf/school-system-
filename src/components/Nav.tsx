@@ -9,7 +9,7 @@ import { FaRegBell } from "react-icons/fa";
 import NotificationList from "./NotificationList";
 import logo from "../assets/splashLogo.png";
 import "../assets/logo.css";
-import { PiExam} from "react-icons/pi";
+import { PiExam } from "react-icons/pi";
 import { RiCalendarScheduleLine, RiLogoutCircleRLine } from "react-icons/ri";
 import { MdOndemandVideo, MdOutlinePeopleAlt } from "react-icons/md";
 function Nav() {
@@ -42,6 +42,8 @@ function Nav() {
       console.error("Error logging out: ", error);
     }
   };
+
+  console.log(userInfo.name);
 
   return (
     <div className="">
@@ -83,7 +85,7 @@ function Nav() {
                 <div
                   className={`profileMen absolute right-8 top-12 z-50 mt-4 text-base list-none bg-[#f4f4f4] divide-y divide-pink-100 rounded-lg  shadow ${
                     isDropdownOpen ? "block" : "hidden"
-                  }`}                 
+                  }`}
                   id="user-dropdown"
                 >
                   <div className="px-4 py-3">
@@ -94,10 +96,7 @@ function Nav() {
                   <ul aria-labelledby="user-menu-button">
                     {userInfo.role === "teacher" && (
                       <li>
-                        <NavLink
-                          to="/teacher-table"
-                        className="profileLink"
-                        >
+                        <NavLink to="/teacher-table" className="profileLink">
                           <RiCalendarScheduleLine className="profileLinkIcon" />
                           Teacher Schedule
                         </NavLink>
@@ -107,20 +106,14 @@ function Nav() {
                     {userInfo.role === "student" && (
                       <>
                         <li>
-                          <NavLink
-                            to="/grades"
-                            className="profileLink"
-                          >
-                            <PiExam className="profileLinkIcon"/>
+                          <NavLink to="/grades" className="profileLink">
+                            <PiExam className="profileLinkIcon" />
                             {/* <PiExamFill className="mr-2 text-lg"/> */}
                             My Grades
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink
-                            to="/student-table"
-                            className="profileLink"
-                          >
+                          <NavLink to="/student-table" className="profileLink">
                             <RiCalendarScheduleLine className="profileLinkIcon" />
                             My Schedule
                           </NavLink>
@@ -131,18 +124,12 @@ function Nav() {
                     {userInfo.role === "parent" && (
                       <>
                         <li>
-                          <NavLink
-                            to="/kids-schedule"
-                           className="profileLink"
-                          >
+                          <NavLink to="/kids-schedule" className="profileLink">
                             My Kids' Schedule
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink
-                            to="/kids-grades"
-                           className="profileLink"
-                          >
+                          <NavLink to="/kids-grades" className="profileLink">
                             My Kids' Grades
                           </NavLink>
                         </li>
@@ -152,28 +139,19 @@ function Nav() {
                     {userInfo.role === "teacher" && (
                       <>
                         <li>
-                          <NavLink
-                            to="/AddQuiz"
-                           className="profileLink"
-                          >
-                              <PiExam className="profileLinkIcon"/>
+                          <NavLink to="/AddQuiz" className="profileLink">
+                            <PiExam className="profileLinkIcon" />
                             Add Quiz
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink
-                            to="/video"
-                            className="profileLink"
-                          >
-                            <MdOndemandVideo className="profileLinkIcon"/>
+                          <NavLink to="/video" className="profileLink">
+                            <MdOndemandVideo className="profileLinkIcon" />
                             Add Class Materials
                           </NavLink>
                         </li>
                         <li>
-                          <NavLink
-                            to="/video"
-                            className="profileLink"
-                          >
+                          <NavLink to="/video" className="profileLink">
                             <MdOutlinePeopleAlt className="profileLinkIcon" />
                             Take Attandance
                           </NavLink>
@@ -186,7 +164,7 @@ function Nav() {
                         onClick={handleLogout}
                         className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-sm hover:rounded-b-lg hover:text-Orange"
                       >
-                        <RiLogoutCircleRLine className="profileLinkIcon"/>
+                        <RiLogoutCircleRLine className="profileLinkIcon" />
                         Log out
                       </button>
                     </li>
@@ -275,7 +253,6 @@ function Nav() {
                       About
                     </NavLink>
                   </li>
-                  
 
                   <li>
                     <NavLink
