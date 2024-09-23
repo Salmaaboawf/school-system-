@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar";
 import { Button } from "flowbite-react";
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 import DashboardHeader from "./Header/DashboardHeader";
-
+import Swal from 'sweetalert2';
 function AllUsers() {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -63,14 +63,52 @@ function AllUsers() {
     setFormError(""); // Clear any previous error
   };
 
-  const handleDeleteClick = async (userId) => {
-    try {
-      await deleteDoc(doc(db, selectedRole + "s", userId)); // Delete from the appropriate collection
-      setFilteredUsers(filteredUsers.filter((user) => user.id !== userId));
-    } catch (error) {
-      console.error("Error deleting user:", error);
+  // const handleDeleteClick = async (userId) => {
+  //   try {
+  //     await deleteDoc(doc(db, selectedRole + "s", userId)); // Delete from the appropriate collection
+  //     setFilteredUsers(filteredUsers.filter((user) => user.id !== userId));
+  //   } catch (error) {
+  //     console.error("Error deleting user:", error);
+  //   }
+  // };
+
+
+const handleDeleteClick = async (userId) => {
+  Swal.fire({
+    title: "Are you sure you want to remove this user?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        // Delete from the appropriate collection
+        await deleteDoc(doc(db, selectedRole + "s", userId)); 
+        setFilteredUsers(filteredUsers.filter((user) => user.id !== userId));
+
+        // Show success message
+        Swal.fire({
+          title: "Deleted!",
+          text: "The user has been deleted.",
+          icon: "success"
+        });
+      } catch (error) {
+        console.error("Error deleting user:", error);
+
+        // Optionally, show an error alert
+        Swal.fire({
+          title: "Error!",
+          text: "There was a problem deleting the user.",
+          icon: "error"
+        });
+      }
     }
-  };
+  });
+};
+
 
   const handleSaveEdit = async () => {
     // Check if all fields are filled

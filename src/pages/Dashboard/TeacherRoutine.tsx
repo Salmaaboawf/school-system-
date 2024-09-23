@@ -4,7 +4,10 @@ import { getTeacherSchedule } from "../../services/teacherServices";
 import { Schedule, Day, SubjectType } from "../../utils/types";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import Loading from "../../components/Loading";
-
+import Header from "../../components/Header/Header";
+import { MdLunchDining } from "react-icons/md";
+import ParticlesComponent from "../../components/Tsparticles";
+import '../../assets/stars.css'
 const TeacherRoutine = () => {
   const teacherInfo = useAppSelector((state) => state.user.user);
   const [schedules, setSchedules] = useState<Schedule[] | null>(null);
@@ -49,6 +52,7 @@ const TeacherRoutine = () => {
     0: "7:00-9:00",
     1: "9:00-11:00",
     2: "11:00-1:00",
+    3: "1:00-3:00",
   };
 
   // إنشاء خريطة لتخزين الأيام الفريدة ودروسها
@@ -69,23 +73,30 @@ const TeacherRoutine = () => {
     })
   );
 
-  console.log(dayMap);
+  // console.log(dayMap);
 
   return (
     <div className="container">
+
+      <div className="particles-container">
+        <ParticlesComponent id="particles" />
+      </div>
+
       <div>
         <Nav />
       </div>
 
+      <div className="mt-20">
+        <Header />
+      </div>
+
       <div className="my-5">
-        <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8 text-[#002749]">
-          <h1 className="text-3xl">Class Routine</h1>
-          <span className="text-2xl">{teacherInfo.name}</span>
+        <div className="inline-block min-w-full py-2 text-Orange rounded-md ">
           <div className="overflow-hidden min-w-full">
             <table className="min-w-full text-center text-sm font-light">
-              <thead className="border-b font-medium text-white bg-[#002749] border-[#002749]">
+              <thead className="border-b text-lg text-white bg-deepBlue xs:scroll-auto">
                 <tr>
-                  <th scope="col" className="px-6 py-4">
+                  <th scope="col" className="px-6 py-4 rounded-l-md">
                     Day
                   </th>
                   <th scope="col" className="px-6 py-4">
@@ -97,15 +108,18 @@ const TeacherRoutine = () => {
                   <th scope="col" className="px-6 py-4">
                     11:00-1:00
                   </th>
+                  <th scope="col" className="px-6 py-4 rounded-r-md">
+                    1:00-3:00
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {Object.keys(dayMap).map((dayName, index) => (
-                  <tr key={index} className="border-b dark:border-neutral-500">
-                    <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
+                  <tr key={index} className="border-b dark:border-neutral-500 bg-slate-50 hover:bg-lightBlue hover:text-white">
+                    <td className="whitespace-nowrap px-2 py-4 font-medium text-lg bg-deepBlue text-white">
                       {dayName}
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-2xl">
+                    <td className="whitespace-nowrap px-6 py-4 text-xl">
                       {dayMap[dayName]
                         .filter((item) =>
                           item.subjects.some((s) => parseInt(s.order) === 0)
@@ -114,7 +128,7 @@ const TeacherRoutine = () => {
                           getSubjectsForTimeSlot(item.subjects, 0, item)
                         )}
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-2xl">
+                    <td className="whitespace-nowrap px-6 py-4 text-xl">
                       {dayMap[dayName]
                         .filter((item) =>
                           item.subjects.some((s) => parseInt(s.order) === 1)
@@ -123,13 +137,25 @@ const TeacherRoutine = () => {
                           getSubjectsForTimeSlot(item.subjects, 1, item)
                         )}
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4 text-2xl">
+                    {/* <td>
+                    <MdLunchDining />
+                    </td> */}
+                    <td className="whitespace-nowrap px-6 py-4 text-xl">
                       {dayMap[dayName]
                         .filter((item) =>
                           item.subjects.some((s) => parseInt(s.order) === 2)
                         )
                         .map((item) =>
                           getSubjectsForTimeSlot(item.subjects, 2, item)
+                        )}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4 text-xl">
+                      {dayMap[dayName]
+                        .filter((item) =>
+                          item.subjects.some((s) => parseInt(s.order) === 3)
+                        )
+                        .map((item) =>
+                          getSubjectsForTimeSlot(item.subjects, 3, item)
                         )}
                     </td>
                   </tr>

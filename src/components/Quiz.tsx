@@ -257,7 +257,7 @@ const QuizPage = () => {
     if (subject) {
       getQuizQuestions(subject, (questions) => {
         setQuizQuestions([...questions]);
-        if (questions.length < 20) {
+        if (questions.length <20) {
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -273,22 +273,6 @@ const QuizPage = () => {
       isVisitedQuizBefore(subject);
     }
   }, [subject]);
-
-  // Handle video streaming
-  // useEffect(() => {
-  //   if (videoRef.current) {
-  //     const cameraFeed = videoRef.current;
-
-  //     navigator.mediaDevices
-  //       .getUserMedia({ video: true })
-  //       .then((stream) => {
-  //         cameraFeed.srcObject = stream;
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error accessing camera:", error);
-  //       });
-  //   }
-  // }, []);
 
   const currentQuestion = quizQuestions[currentQuestionIndex];
 
