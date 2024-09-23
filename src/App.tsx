@@ -1,8 +1,6 @@
 // App.jsx
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import Schedule from "./pages/Dashboard/Schedule";
 import TeacherRoutine from "./pages/Dashboard/TeacherRoutine";
 import StudentRoutine from "./pages/Dashboard/StudentRoutine";
 import AddParent from "./pages/Dashboard/AddParent";
@@ -131,10 +129,10 @@ function App() {
           path="/quiz"
           element={<PrivateRoute element={Quiz} role="student" />}
         />
-        <Route
+        {/* <Route
           path="/schedule"
           element={<PrivateRoute element={Schedule} role="admin" />}
-        />
+        /> */}
         <Route
           path="/teacher-table"
           element={<PrivateRoute element={TeacherRoutine} role="teacher" />}

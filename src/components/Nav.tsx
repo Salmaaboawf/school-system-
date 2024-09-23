@@ -43,7 +43,6 @@ function Nav() {
     }
   };
 
-  console.log(userInfo.name);
 
   return (
     <div className="">
@@ -193,7 +192,6 @@ function Nav() {
                         onClick={handleLogout}
                         className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-sm hover:rounded-b-lg hover:text-Orange"
                       >
-                        <RiLogoutCircleRLine className="profileLinkIcon" />
                         <RiLogoutCircleRLine className="profileLinkIcon" />
                         Log out
                       </button>

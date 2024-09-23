@@ -18,7 +18,6 @@ function MyGrades() {
       try {
         setLoading(true);
         const gradesArray = await fetchSubjectsGrades(userInfo.id);
-        console.log(userInfo.id)
         setGrades(gradesArray);
         console.log(grades)
       } catch (error) {
@@ -30,7 +29,10 @@ function MyGrades() {
     fetchGrades();
   }, [userInfo.id]);
 
-  console.log(grades);
+  if(loading){
+    return <Loading />
+  }
+
 
   return (
     <div className="container flex gap-x-5">
@@ -46,9 +48,7 @@ function MyGrades() {
         <div className="my-5">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-0 text-[#002749]">
             <h1 className="text-3xl mb-4">My Grades</h1>
-            {loading ? (
-              <Loading />
-            ) : error ? (
+            { error ? (
               <p className="text-red-500">{error}</p>
             ) : (
               <div className="overflow-hidden min-w-full">

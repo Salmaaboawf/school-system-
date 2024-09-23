@@ -15,11 +15,13 @@ import Loading from "../../components/Loading";
 const StudentRoutine = () => {
   const [scheduleTable, setScheduleTable] = useState<Schedule | null>(null);
   const [levelName, setLevelName] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   const userInfo = useAppSelector((state) => state.user.user);
 
   const getSchedule = async () => {
     try {
+      setLoading(true);
       const schedule = await fetchSchedule(userInfo.class_id);
       const levelName = await getLevelNameById(schedule.level_id);
       setLevelName(levelName);
@@ -55,6 +57,7 @@ const StudentRoutine = () => {
         ...schedule,
         days: updatedDays,
       });
+      setLoading(false);
       console.log(scheduleTable);
     } catch (error) {
       console.log(error);
@@ -66,7 +69,7 @@ const StudentRoutine = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!scheduleTable) {
+  if (loading) {
     return (
       <Loading />
     );
@@ -102,6 +105,9 @@ const StudentRoutine = () => {
               </th>
               <th scope="col" className="px-6 py-4">
                 11:00-1:00
+              </th>
+              <th scope="col" className="px-6 py-4">
+                1:00-3:00
               </th>
             </tr>
           </thead>
