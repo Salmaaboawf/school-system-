@@ -125,7 +125,7 @@ function Gard() {
         <div>
           <div className="forms p-6 rounded-lg ">
             <div className="form max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-              <h2 className="text-2xl font-semibold mb-6">Marks</h2>
+              <h2 className="text-2xl font-semibold mb-6">Marks </h2>
               <form
                 onSubmit={fetchStudents}
                 className="flex items-center space-x-4"
