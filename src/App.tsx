@@ -71,12 +71,22 @@ function App() {
   //     } 
   //   });
   //   return () => unsubscribe();  // gpt method
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged(user => {
+  //     if (user) {
+  //       setLoading(false); 
+  //     } 
+  //   });
+  //   return () => unsubscribe();  // gpt method
 
   //   setTimeout(() => {
   //     setLoading(false); stackoverflow method
   //   }, 3000);
   // }, []);
 
+  // if (loading) {
+  //   return <SplashScreen />;
+  // }
   // if (loading) {
   //   return <SplashScreen />;
   // }
