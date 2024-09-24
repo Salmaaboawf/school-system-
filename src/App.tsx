@@ -46,6 +46,7 @@ import MyCalendar from "./pages/Static/Calendar";
 import AddEvent from "./pages/Dashboard/AddEvent";
 import AttendanceQRCode from "./pages/UsersPages/TakeAttendance";
 import ViewAttendance from "./pages/Dashboard/ViewAttendance";
+import KidsAttendance from "./pages/UsersPages/KidsAttendance";
 
 // import Loading from "./components/Loading";
 function App() {
@@ -250,6 +251,10 @@ function App() {
         <Route
           path="/kids-grades"
           element={<PrivateRoute element={KidsGrades} role="parent" />}
+        />
+        <Route
+          path="/kids-attendance"
+          element={<PrivateRoute element={KidsAttendance} role="parent" />}
         />
         <Route path="*" element={<NotFound />} />
       </Routes>

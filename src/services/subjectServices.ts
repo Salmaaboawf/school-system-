@@ -41,7 +41,7 @@ export const addSubject = async (subjectData: {
       level_id,
       name,
       photoURL,
-      // teacher,
+      teacher: '',
       total_grade,
     });
 

@@ -13,6 +13,7 @@ import unknownUser from '../assets/images/unknown user.jpg'
 import { PiBooksLight, PiExam } from "react-icons/pi";
 import { RiCalendarScheduleLine, RiLogoutCircleRLine } from "react-icons/ri";
 import { MdOndemandVideo, MdOutlinePeopleAlt } from "react-icons/md";
+import { RxDashboard } from "react-icons/rx";
 function Nav() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -74,16 +75,16 @@ function Nav() {
                   aria-expanded={isDropdownOpen}
                   onClick={toggleDropdown}
                 >
-                    {userInfo.photoURL && <img
+                  {userInfo.photoURL && <img
                     className="w-8 h-8 rounded-full"
                     src={userInfo.photoURL}
                     alt="user photo"
-                    />}
-                    {userInfo.photoURL==undefined &&  <img
+                  />}
+                  {userInfo.photoURL == undefined && <img
                     className="w-8 h-8 rounded-full"
                     src={unknownUser}
                     alt="user photo"
-                    />}
+                  />}
                 </button>
                 <div
                   className={`profileMen absolute right-8 top-12 mt-4 text-base list-none bg-[#f4f4f4] divide-y divide-pink-100 rounded-lg  shadow ${isDropdownOpen ? "block" : "hidden"
@@ -157,6 +158,14 @@ function Nav() {
                             My Kids' Grades
                           </NavLink>
                         </li>
+                        <li>
+                          <NavLink
+                            to="/kids-attendance"
+                            className="profileLink"
+                          >
+                            My Kids' Attendance
+                          </NavLink>
+                        </li>
                       </>
                     )}
 
@@ -190,6 +199,18 @@ function Nav() {
                           </NavLink>
                         </li>
                       </>
+                    )}
+
+                    {userInfo.role === "admin" && (
+                      <li>
+                        <NavLink
+                          to="/add-teacher"
+                          className="profileLink"
+                        >
+                          <RxDashboard className="profileLinkIcon" />
+                          Dashboard
+                        </NavLink>
+                      </li>
                     )}
 
                     <li>
@@ -306,7 +327,7 @@ function Nav() {
                       Contact
                     </NavLink>
                   </li>
-                  {userInfo.role === "admin" && (
+                  {/* {userInfo.role === "admin" && (
                     <li>
                       <NavLink
                         to="/add-teacher"
@@ -318,7 +339,7 @@ function Nav() {
                         Dashboard
                       </NavLink>
                     </li>
-                  )}
+                  )} */}
                 </ul>
               </div>
             </div>
