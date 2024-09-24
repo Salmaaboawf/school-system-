@@ -6,6 +6,7 @@ import DashboardHeader from '../../components/Header/DashboardHeader';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { fetchLevels } from '../../services/levelsServices';
+import { TabItem } from 'flowbite-react';
 
 function ViewAttendance() {
     const [attendanceRecords, setAttendanceRecords] = useState([]);
@@ -17,40 +18,37 @@ function ViewAttendance() {
     const levels = useAppSelector(state => state.levels.levels);
 
 
-        useEffect(() => {
-            const fetchData = async () => {
-              // Fetch students
-              const studentsCollection = collection(db, 'students');
-              const studentsSnapshot = await getDocs(studentsCollection);
-              const studentsList = studentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-              setStudents(studentsList);
-        
-              // Fetch all attendance records (no date filtering)
-              const recordsQuery = collection(db, 'attendance');
-              const recordsSnapshot = await getDocs(recordsQuery);
-              const recordsList = recordsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-              setAttendanceRecords(recordsList);
-            };
-        
-            fetchData();
-          }, []);
-        
-          // Join records with student names, and mark absent if no record exists
-          const recordsWithStatus = students.map(student => {
-            const attendanceRecord = attendanceRecords.find(record => record.studentId === student.id);
-            return {
-              studentName: student.name,
-              date: attendanceRecord ? attendanceRecord.date : 'N/A',  // Date from attendance record
-              timestamp: attendanceRecord ? attendanceRecord.timestamp : 'N/A',
-              status: attendanceRecord ? attendanceRecord.status : 'absent', // Mark absent if no record exists
-            };
-          });
-          
-        
-          // Filter based on search term
-          const filteredRecords = recordsWithStatus.filter(record => 
-            record.studentName.toLowerCase().includes(searchTerm.toLowerCase())
-          );
+    useEffect(() => {
+        const fetchData = async () => {
+            // Fetch students
+            const studentsCollection = collection(db, 'students');
+            const studentsSnapshot = await getDocs(studentsCollection);
+            const studentsList = studentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setStudents(studentsList);
+            console.log(students);
+
+            // Fetch all attendance records (no date filtering)
+            const recordsQuery = collection(db, 'attendance');
+            const recordsSnapshot = await getDocs(recordsQuery);
+            const recordsList = recordsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setAttendanceRecords(recordsList);
+            //   console.log(attendanceRecords)
+        };
+
+        fetchData();
+    }, []);
+
+    console.log(students)
+
+
+
+    // const filteredRecords = recordsWithStatus.filter(record =>
+    //     record.studentName && record.studentName.toLowerCase().includes(searchTerm.toLowerCase())
+    // );
+
+    const uniqueDates = Array.from(new Set(attendanceRecords.map(item =>
+        new Date(item.timestamp).toISOString().split('T')[0]
+    )));
     return (
         <>
             <div className='flex'>
@@ -79,25 +77,36 @@ function ViewAttendance() {
                         </select>
                     </div>
 
-                    <table>
+                    <table className='w-full'>
                         <thead>
-                            <tr>
-                                <th>Student Name</th>
-                                <th>Date</th>
-                                <th>Timestamp</th>
-                                <th>Status</th>
-                            </tr>
                         </thead>
-                        <tbody>
-                            {filteredRecords.map((record, index) => (
-                                <tr key={index}>
-                                    <td className='text-2xl p-10'>{record.studentName}</td>
-                                    {/* <td>{levels.find(level => level.id === record.levelId)?.name || 'Unknown Level'}</td> Display level name */}
-                                    <td className='text-2xl p-10'>{record.date}</td>
-                                    <td className='text-2xl p-10'>{record.timestamp}</td>
-                                    <td className='text-2xl p-10'>{record.status}</td>
-                                </tr>
-                            ))}
+                        <tbody className='w-full'>
+                            <div className='w-[50rem] mx-auto'>
+                                {uniqueDates.map((date, index) => (
+                                    <div key={index}>
+                                        <h3 className='font-bold text-lg w-full bg-deepBlue text-white text-center py-1'>{date}</h3>
+                                        {/* {students.map((student) => {
+                                            const attendanceRecord = attendanceRecords.find(record =>
+                                                record.studentId === student.id &&
+                                                new Date(record.timestamp).toISOString().split('T')[0] === date
+                                            ); */}
+                                            {students.filter(student => student.name.toLowerCase().includes(searchTerm.toLowerCase())).map((student) => {
+                                        const attendanceRecord = attendanceRecords.find(record =>
+                                            record.studentId === student.id &&
+                                            new Date(record.timestamp).toISOString().split('T')[0] === date
+                                        );
+                                            return (
+                                                <div key={student.id} className='flex justify-between px-4 border-b'>
+                                                    <span>{student.name}</span>
+                                                    <span className={`text-white px-2 py-1 w-20 text-center my-1 ${attendanceRecord ? 'bg-green-500' : 'bg-red-500'}`}>
+                                                        {attendanceRecord ? 'Present' : 'Absent'}
+                                                    </span>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                ))}
+                            </div>
                         </tbody>
                     </table>
                 </div>

@@ -133,7 +133,7 @@ function Contact() {
         </div>
 
         <div className="contact-wrapper grid grid-cols-1 gap-8">
-          <form className="contact-form space-y-4" action="#">
+          <form className="contact-form space-y-4" action="#" >
             <div className="flex flex-col">
               <label htmlFor="name" className="text-darkBlue font-semibold">Name *</label>
               <input
