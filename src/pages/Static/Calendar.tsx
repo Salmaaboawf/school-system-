@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Calendar } from 'react-big-calendar';
 import { dateFnsLocalizer } from 'react-big-calendar';
-import { format, parse, startOfWeek, getDay } from 'date-fns';
+import { format, parse,  getDay } from 'date-fns';
 import enUS from 'date-fns/locale/en-US';  // English locale
 import '../../assets/calendar.css'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -10,13 +10,7 @@ import { db } from '../../config/firebase';
 
 
 function MyCalendar() {
-    // const events = [
-    //     {
-    //       title: 'Meeting',
-    //       start: new Date(2024, 9, 20, 10, 0, 0), 
-    //       end: new Date(2024, 9, 20, 12, 0, 0),
-    //     },
-    //   ];
+
     const [events, setEvents] = useState([]);
 
     useEffect(() => {

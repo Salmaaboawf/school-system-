@@ -39,27 +39,26 @@ const SliderMain = () => {
         slidesPerView={1}
       >
         <SwiperSlide className="relative h-screen w-full">
-  <div className="absolute inset-0 bg-black opacity-50"></div> {/* Dark overlay */}
-  
-  {/* Video Background */}
-  <video
-    src={headervideo}  
-    autoPlay
-    loop
-    muted
-    className="absolute inset-0 w-full h-full object-cover"
-  ></video>
-  
-  <div className="relative z-10 text-center text-white mt-[230px]">
-    <h1 className="text-5xl text-white">
-      Welcome to Enfant Primary School
-    </h1>
-    <p className="mt-5">Best gift for a child is a great education</p>
-    <button className="mt-10 bg-[#ff4e31] hover:bg-[#002749] px-6 py-3 text-white rounded-lg">
-      Enroll Now
-    </button>
-  </div>
-</SwiperSlide>
+          <div className="absolute inset-0 bg-black opacity-50"></div>{" "}
+          {/* Dark overlay */}
+          {/* Video Background */}
+          <video
+            src={headervideo}
+            autoPlay
+            loop
+            muted
+            className="absolute inset-0 w-full h-full object-cover"
+          ></video>
+          <div className="relative z-10 text-center text-white mt-[230px]">
+            <h1 className="text-5xl text-white">
+              Welcome to SCHOOLARSWAY School
+            </h1>
+            <p className="mt-5">Best gift for a child is a great education</p>
+            <button className="mt-10 bg-[#ff4e31] hover:bg-[#002749] px-6 py-3 text-white rounded-lg">
+              Enroll Now
+            </button>
+          </div>
+        </SwiperSlide>
         <SwiperSlide className="relative h-screen w-full">
           <div className="absolute "></div> {/* Dark overlay */}
           <img
@@ -69,7 +68,7 @@ const SliderMain = () => {
           />
           <div className="relative z-10 text-center text-white mt-[230px]">
             <h1 className="text-5xl text-white">
-              Welcome to Enfant Primary School
+              Welcome to SCHOOLARSWAY School
             </h1>
             <p className="mt-5">Best gift for a child is a great education</p>
             <button className="mt-10 bg-red-500 px-6 py-3 text-white rounded-lg">
