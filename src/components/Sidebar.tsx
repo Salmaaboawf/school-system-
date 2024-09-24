@@ -13,6 +13,8 @@ import { resetUser } from "../Redux/Slices/userSlice";
 import logo from "../assets/images/Blue_Colorful_Pastel_Retro_Class_Logo__1_-removebg-preview.png"
 import { FaUsersGear } from "react-icons/fa6";
 import { PiPhoneList } from "react-icons/pi";
+import { BiBusSchool } from "react-icons/bi";
+import { MdEvent } from "react-icons/md";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,6 +45,7 @@ const Sidebar = () => {
           <img src={logo} alt="" className="w-20" />
           <h1 className="text-white ml-4">KIDOS SCHOOL</h1>
         </div>
+        <div className="overflow-y-auto max-h-[calc(100vh-100px)]">
 
         <ul className="list-none">
           <li className="mb-3">
@@ -81,18 +84,7 @@ const Sidebar = () => {
               <span>Add Student</span>
             </NavLink>
           </li>
-          <li className="mb-3">
-            <NavLink
-              to="/users"
-              className={({ isActive }) => {
-                return `sidebarButton ${isActive ? "sidebarButtonActive" : ""
-                  }`;
-              }}
-            >
-              <FaUsersGear className="text-2xl text-gray-300 sidebarIcon" />
-              <span>All Users</span>
-            </NavLink>
-          </li>
+          
           <li className="mb-3">
             <NavLink
               to="/add-class"
@@ -143,10 +135,34 @@ const Sidebar = () => {
               <span>Add Grades</span>
             </NavLink>
           </li>
-
           <li className="mb-3">
             <NavLink
-              to="/showContact"
+              to="/add-event"
+              className={({ isActive }) => {
+                return `sidebarButton ${isActive ? "sidebarButtonActive" : ""
+                  }`;
+              }}
+            >
+              <MdEvent className="text-2xl text-gray-400 sidebarIcon" />
+
+              <span>Add Event</span>
+            </NavLink>
+          </li>
+          <li className="mb-3">
+            <NavLink
+              to="/users"
+              className={({ isActive }) => {
+                return `sidebarButton ${isActive ? "sidebarButtonActive" : ""
+                  }`;
+              }}
+            >
+              <FaUsersGear className="text-2xl text-gray-300 sidebarIcon" />
+              <span>View Users</span>
+            </NavLink>
+          </li>
+          <li className="mb-3">
+            <NavLink
+              to="/show-contact"
               className={({ isActive }) => {
                 return `sidebarButton ${isActive ? "sidebarButtonActive" : ""
                   }`;
@@ -157,8 +173,22 @@ const Sidebar = () => {
               <span>View Contact</span>
             </NavLink>
           </li>
-        </ul>
 
+          <li className="mb-3">
+            <NavLink
+              to="/show-attendance"
+              className={({ isActive }) => {
+                return `sidebarButton ${isActive ? "sidebarButtonActive" : ""
+                  }`;
+              }}
+            >
+              <BiBusSchool className="text-2xl text-gray-400 sidebarIcon"/>
+
+              <span>View Attendance</span>
+            </NavLink>
+          </li>
+        </ul>
+</div>
       </div>
 
 

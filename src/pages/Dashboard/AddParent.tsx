@@ -112,7 +112,7 @@ export default function Register() {
 
   return (
     <div className="flex">
-      <div className="fixed xl:w-[20%] lg:w-[25%] md:w-[30%] top-0 left-0 h-full z-50">
+      <div className="fixed xl:w-[20%] lg:w-[25%] md:w-[30%] top-0 left-0 z-50">
         <Sidebar />
       </div>
 

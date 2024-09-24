@@ -19,7 +19,7 @@
   }
   
   .rbc-day-bg {
-    background-color: #345c8a; /* White background for day cells */
+    background-color: #fbfbfd; /* White background for day cells */
   }
   
   .rbc-selected {
@@ -28,19 +28,29 @@
   }
   
   .rbc-event {
-    background-color: #007bff; /* Event background color */
+    background-color: #002749; /* Event background color */
     color: white; /* White text color for events */
     border-radius: 4px; /* Rounded corners for events */
   }
   
   .rbc-event:hover {
-    background-color: #0056b3; /* Darker color on hover */
+    background-color: #ff4e31; /* Darker color on hover */
   }
   
   .rbc-today {
-    background-color: #ff4e31; 
+    background-color: #ff4e31 !important; 
+    color:#ff4e31;
   }
   
+  .rbc-toolbar button {
+    color:#ff4e31 !important;
+  }
+  /* .rbc-now {
+    background-color: #002749;
+  } */
+  /* .rbc-current {
+    background-color: #002749;
+  } */
   /* .rbc-toolbar {
     background-color: #002749;
   }

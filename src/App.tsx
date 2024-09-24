@@ -1,8 +1,6 @@
 // App.jsx
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
-
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
-import Schedule from "./pages/Dashboard/Schedule";
 import TeacherRoutine from "./pages/Dashboard/TeacherRoutine";
 import StudentRoutine from "./pages/Dashboard/StudentRoutine";
 import AddParent from "./pages/Dashboard/AddParent";
@@ -43,18 +41,20 @@ import SubjectDetails from "./components/SubjectDetails";
 import AllUsers from "./components/AllUsers";
 import ShowContact from "./pages/Dashboard/ShowContact";
 import MyCalendar from "./pages/Static/Calendar";
-import auth from "./config/firebase";
-import SplashScreen from "./pages/Static/SplashScreen";
+// import auth from "./config/firebase";
+// import SplashScreen from "./pages/Static/SplashScreen";
+import AddEvent from "./pages/Dashboard/AddEvent";
+import AttendanceQRCode from "./pages/UsersPages/TakeAttendance";
+import ViewAttendance from "./pages/Dashboard/ViewAttendance";
 
-// import { QRCodeGenerator } from "./pages/UsersPages/QRCodeGenerator";
 // import Loading from "./components/Loading";
 function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
   const userInfo = useAppSelector((state) => state.user.user);
-  const [loading, setLoading] = useState(true);
-  console.log(!!userInfo.id);
-  console.log(userId);
+  // const [loading, setLoading] = useState(true);
+  // console.log(!!userInfo.id);
+  // console.log(userId);
 
   useLayoutEffect(() => {
     if (userId) {
@@ -70,12 +70,22 @@ function App() {
   //     } 
   //   });
   //   return () => unsubscribe();  // gpt method
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged(user => {
+  //     if (user) {
+  //       setLoading(false); 
+  //     } 
+  //   });
+  //   return () => unsubscribe();  // gpt method
 
-  //   // setTimeout(() => {
-  //   //   setLoading(false); stackoverflow method
-  //   // }, 3000);
+  //   setTimeout(() => {
+  //     setLoading(false); stackoverflow method
+  //   }, 3000);
   // }, []);
 
+  // if (loading) {
+  //   return <SplashScreen />;
+  // }
   // if (loading) {
   //   return <SplashScreen />;
   // }
@@ -103,7 +113,7 @@ function App() {
           <Route path="/calendar" element={<MyCalendar />} />
           <Route path="/my-grades" element={<MyGrades />} />
           <Route path="/video" element={<AddVideo />} />
-          <Route path="/ShowVideo" element={<ShowVideo />} />
+          <Route path="/ShowVideo" element={<ShowVideo/>} />
 
           <Route path="/AddQuiz" element={<AddQuiz />} />
           <Route path="/subjectDetails" element={<SubjectDetails />} />
@@ -129,10 +139,10 @@ function App() {
           path="/quiz"
           element={<PrivateRoute element={Quiz} role="student" />}
         />
-        <Route
+        {/* <Route
           path="/schedule"
           element={<PrivateRoute element={Schedule} role="admin" />}
-        />
+        /> */}
         <Route
           path="/teacher-table"
           element={<PrivateRoute element={TeacherRoutine} role="teacher" />}
@@ -163,6 +173,10 @@ function App() {
           element={<PrivateRoute element={AddStudent} role="admin" />}
         />
         <Route
+          path="/add-event"
+          element={<PrivateRoute element={AddEvent} role="admin" />}
+        />
+        <Route
           path="/add-teacher"
           element={<PrivateRoute element={AddTeacher} role="admin" />}
         />
@@ -182,16 +196,20 @@ function App() {
           path="/generate-qr"
           element={<PrivateRoute element={QRCodeGenerator} role="teacher" />}
         /> */}
-        <Route
+        {/* <Route
           path="/show-video"
           element={<PrivateRoute element={ShowVideo} role="student" />}
-        />
+        />  */}
+        <Route
+         path="/ShowVideo/:subjectId" 
+         element={<PrivateRoute element={ShowVideo} role="student" />}
+         />
+
         <Route
           path="/add-class-routine"
           element={<PrivateRoute element={Add_Class_Routine} role="admin" />}
         />
-
-        <Route
+                <Route
           path="/add-subject"
           element={<PrivateRoute element={AddSubject} role="admin" />}
         />
@@ -199,10 +217,28 @@ function App() {
           path="/grad"
           element={<PrivateRoute element={Grad} role="admin" />}
         />
-        <Route
-          path="/showContact"
+         <Route
+          path="/show-contact"
           element={<PrivateRoute element={ShowContact} role="admin" />}
         />
+        <Route
+          path="/show-attendance"
+          element={<PrivateRoute element={ViewAttendance} role="admin" />}
+        />
+
+        <Route
+          path="/add-video"
+          element={<PrivateRoute element={AddVideo} role="teacher" />}
+        />
+        <Route
+          path="/generate-qr"
+          element={<PrivateRoute element={AttendanceQRCode} role="teacher" />}
+        />
+        <Route
+          path="/show-video"
+          element={<PrivateRoute element={ShowVideo} role="student" />}
+        />
+     
         <Route
           path="/grad-two"
           element={<PrivateRoute element={Showgrad} role="student" />}
@@ -216,7 +252,6 @@ function App() {
           element={<PrivateRoute element={KidsGrades} role="parent" />}
         />
         <Route path="*" element={<NotFound />} />
-        {/* <Route path='loader' element={<Loading />} /> */}
       </Routes>
       <ToastContainer />
     </>

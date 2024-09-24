@@ -7,26 +7,23 @@ import { Schedule } from "../../utils/types";
 import { getLevelNameById } from "../../services/levelsServices";
 import { getSubjectNameById } from "../../services/subjectServices";
 import { getTeacherNameById } from "../../services/teacherServices";
-import HashLoader from "react-spinners/HashLoader";
 import ParticlesComponent from "../../components/Tsparticles";
 import Header from "../../components/Header/Header";
+import Loading from "../../components/Loading";
 
-const override: CSSProperties = {
-  display: "block",
-  margin: "0 auto",
-  borderColor: "#ff4e31",
-};
 
 const StudentRoutine = () => {
   const [scheduleTable, setScheduleTable] = useState<Schedule | null>(null);
   const [levelName, setLevelName] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   const userInfo = useAppSelector((state) => state.user.user);
 
   const getSchedule = async () => {
     try {
+      setLoading(true);
       const schedule = await fetchSchedule(userInfo.class_id);
-      const levelName = await getLevelNameById(userInfo.class_id);
+      const levelName = await getLevelNameById(schedule.level_id);
       setLevelName(levelName);
 
       const updatedDays = await Promise.all(
@@ -53,13 +50,14 @@ const StudentRoutine = () => {
             ...day,
             subjects: updatedSubjects,
           };
-        })
+        })  
       );
 
       setScheduleTable({
         ...schedule,
         days: updatedDays,
       });
+      setLoading(false);
       console.log(scheduleTable);
     } catch (error) {
       console.log(error);
@@ -68,20 +66,12 @@ const StudentRoutine = () => {
 
   useEffect(() => {
     getSchedule();
-    console.log(levelName);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!scheduleTable) {
+  if (loading) {
     return (
-      <HashLoader
-        cssOverride={override}
-        color="#ff4e31"
-        size={50}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
+      <Loading />
     );
   }
 
@@ -100,9 +90,9 @@ const StudentRoutine = () => {
       <Header />
     </div>
       {/* <span className="text-2xl">{levelName}</span> */}
-      <div className="overflow-hidden min-w-full mt-5 rounded-md">
+      <div className="overflow-hidden min-w-full mt-5 rounded-md bg">
         <table className="min-w-full text-center text-sm font-light ">
-          <thead className="border-b bg-deepBlue font-medium text-white text-lg">
+          <thead className="tHead">
             <tr>
               <th scope="col" className="px-6 py-4">
                 Day
@@ -124,7 +114,7 @@ const StudentRoutine = () => {
           <tbody>
             {scheduleTable.days.map((day, dayIndex) => (
               <tr key={dayIndex} className="border-b dark:border-neutral-500 bg-slate-50  text-Orange hover:bg-lightBlue hover:text-white">
-                <td className="whitespace-nowrap px-6 py-4 font-medium text-lg bg-deepBlue text-white">
+                <td className="dayName">
                   {day.dayName}
                 </td>
                 {day.subjects.map((subject, subjectIndex) => (

@@ -55,109 +55,102 @@ function KidsSchedule() {
       }
     }
   };
-
+  if (loading) {
+    return <Loading />
+  }
   return (
     <>
-      <Nav />
-      <Header />
-      <div className="forms p-6 rounded-lg ">
-        <div className="form max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-          <h2 className="text-2xl font-semibold mb-6">My Kids</h2>
-          <form
-            onSubmit={handleViewSchedule}
-            className="flex items-center space-x-4"
-          >
-            <div className="flex flex-grow flex-wrap gap-4">
-
-              <select value={selectedKid} onChange={(e) => setSelectedKid(e.target.value)}>
-                <option value="" disabled>Select a kid</option>
-                {kids.map((kid) => (
-                  <option key={kid.id} value={kid.id}>{kid.name}</option>
-                ))}
-              </select>
-            </div>
-            <div className="flex-shrink-0">
-              <button
-                type="submit"
-                className="bg-[#002749] text-white px-6 py-3 rounded-lg h-12 hover:bg-[#577ce0]"
-              >
-                VIEW
-              </button>
-            </div>
-          </form>
-        </div>
+      <div>
+        <Nav />
       </div>
+      <div className='container'>
+        <div className="forms rounded-lg ">
+          <div className="form max-w-full mt-20 p-6 bg-white rounded-lg shadow-lg">
+            <h2 className="text-2xl font-semibold mb-4">Hello {userInfo.gender == 'male' ? 'Mr ' : "Mrs "}{userInfo.name}</h2>
+            <form
+              onSubmit={handleViewSchedule}
+              className="flex items-center space-x-4"
+            >
+              <div className="flex flex-grow flex-wrap gap-4">
 
+                <select value={selectedKid} onChange={(e) => setSelectedKid(e.target.value)}>
+                  <option value="" disabled>Select a kid</option>
+                  {kids.map((kid) => (
+                    <option key={kid.id} value={kid.id}>{kid.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex-shrink-0">
+                <button
+                  type="submit"
+                  className="bg-[#002749] text-white px-6 py-3 rounded-lg h-12 hover:bg-[#577ce0]"
+                >
+                  VIEW
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
 
-      {loading && <Loading />
-      // <HashLoader 
-      // cssOverride={override}
-      // color='#ff4e31'
-      //  size={50}
-      //   aria-label="Loading Spinner"
-      //   data-testid="loader"/>
-        }
-      {error && <p className="text-red-500">{error}</p>}
+        {!selectedKid && <p className='noData'>Please select a kid to view their Schedule.</p>}
+        {selectedKid && schedule.length === 0 && !loading && !error && (
+          <p className='noData'>No Schedule available for the selected kid.</p>
+        )}
 
-      {schedule.length > 0 && (
-        <table className="min-w-full text-center text-sm font-light">
-          <thead className="border-b bg-[#002749] border-[#002749] font-medium text-white">
-            <tr>
-              <th scope="col" className="px-6 py-4">
-                Day
-              </th>
-              <th scope="col" className="px-6 py-4">
-                7:00-9:00
-              </th>
-              <th scope="col" className="px-6 py-4">
-                9:00-11:00
-              </th>
-              <th scope="col" className="px-6 py-4">
-                11:00-1:00
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {schedule.map((day, dayIndex) => (
-              <tr key={dayIndex} className="border-b dark:border-neutral-500">
-                <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
-                  {day.dayName}
-                </td>
-                {['7:00-9:00', '9:00-11:00', '11:00-1:00'].map((timeSlot, index) => {
-
-
-
-                  return (
-                    
-                    // <td key={index} className="px-6 py-4">
-                    //   {day.subjects.length > index ? day.subjects[index].subjectName : 'No class'}
-                    //   {day.subjects.length > index ? day.subjects[index].teacherName : 'No teacher available'}
-                    // </td>
-                    <td key={index} className="px-6 py-4">
-                    <div className="flex flex-col">
-                      {day.subjects.length > index ? (
-                        <>
-                          <span className="font-bold">{day.subjects[index].subjectName || 'No class'}</span>
-                          <span className="text-gray-600">{day.subjects[index].teacherName || 'No teacher available'}</span>
-                        </>
-                      ) : (
-                        <span>No class</span>
-                      )}
-                    </div>
-                  </td>
-                  
-                  )
-                })}
+        {schedule.length > 0 && (
+          <table className="min-w-full text-center font-light rounded-2xl mt-4 xs:overflow-x-auto">
+            <thead className="tHead">
+              <tr>
+                <th scope="col" className="px-6 py-4">
+                  Day
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  7:00-9:00
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  9:00-11:00
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  11:00-1:00
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  1:00-3:00
+                </th>
               </tr>
-            ))}
-          </tbody>
+            </thead>
+            <tbody>
+              {schedule.map((day, dayIndex) => (
+                <tr key={dayIndex} className="border-b dark:border-neutral-500 bg-slate-50  text-Orange hover:bg-lightBlue hover:text-white">
+                  <td className="dayName">
+                    {day.dayName}
+                  </td>
+                  {['7:00-9:00', '9:00-11:00', '11:00-1:00', '1:00-3:00'].map((timeSlot, index) => {
 
-        </table>
-      )}
 
 
-      {schedule.length === 0 && !loading && !error && <p>No schedule available for the selected kid.</p>}
+                    return (
+                      <td key={index} className="whitespace-nowrap px-6 py-4 text-xl">
+                        <div className="flex flex-col">
+                          {day.subjects.length > index ? (
+                            <>
+                              <span>{day.subjects[index].subjectName || 'No class'}</span>
+                              <span>{day.subjects[index].teacherName || 'No teacher available'}</span>
+                            </>
+                          ) : (
+                            <span>No class</span>
+                          )}
+                        </div>
+                      </td>
 
+                    )
+                  })}
+                </tr>
+              ))}
+            </tbody>
+
+          </table>
+        )}
+      </div>
       <Footer />
     </>
   )
