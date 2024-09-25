@@ -215,11 +215,11 @@ function Gard() {
             {students.length > 0 && (
               <div className="text-center mt-6">
                 <button
-                  onClick={saveGrades}
-                  className="bg-[#002749] text-white px-6 py-3 rounded-lg h-12 hover:bg-[#577ce0]"
-                >
-                  SAVE GRADES
-                </button>
+            className="formButton xl:w-[27rem] lg:w-80 md:w-full mx-auto"
+            type="submit"
+          >
+            Save Grades
+          </button>
               </div>
             )}
           </div>

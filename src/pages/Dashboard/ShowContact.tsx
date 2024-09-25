@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import DashboardHeader from '../../components/Header/DashboardHeader'
 import Sidebar from '../../components/Sidebar'
-import { displayContact, markAsRead } from '../../services/contactService'
+import { deleteContact, displayContact, markAsRead } from '../../services/contactService'
 import '../../assets/general.css'
+import { Checkbox } from 'flowbite-react'
+import { CiTrash } from "react-icons/ci";
+import Swal from 'sweetalert2'
 function ShowContact() {
     const [contactList, setContactList] = useState([]);
     useEffect(() => {
@@ -14,9 +17,60 @@ function ShowContact() {
         fetchContacts();
     }, [])
 
-    const checkMessage = (id) => {
-        markAsRead(id)
-    }
+    const checkMessage = async (id) => {
+        const success = await markAsRead(id);
+        if (success) {
+            // Update the local contactList state to reflect the change
+            setContactList((prevList) =>
+                prevList.map((contact) =>
+                    contact.id === id ? { ...contact, isRead: true } : contact
+                )
+            );
+        }
+    };
+
+    // const handleDelete = async (id) => {
+    //     const isDeleted = await deleteContact(id);
+    //     if (isDeleted) {
+    //         setContactList(contactList.filter(contact => contact.id !== id));
+    //     }
+    // };
+    
+    const handleDelete = async (id) => {
+        // Show confirmation alert
+        const result = await Swal.fire({
+            title: "Are you sure you want to remove this message?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        });
+    
+        if (result.isConfirmed) {
+            // Proceed with deletion if confirmed
+            const isDeleted = await deleteContact(id);
+            if (isDeleted) {
+                setContactList(contactList.filter(contact => contact.id !== id));
+    
+                // Show success message
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "The message has been deleted.",
+                    icon: "success"
+                });
+            } else {
+                // Show error alert if deletion fails
+                Swal.fire({
+                    title: "Error!",
+                    text: "There was a problem deleting this message.",
+                    icon: "error"
+                });
+            }
+        }
+    };
+    
 
     const handleChange = (id) => (event) => {
         if (event.target.checked) {
@@ -41,7 +95,8 @@ function ShowContact() {
                                 <th className="p-4 border-b">Email</th>
                                 <th className="p-4 border-b">Message</th>
                                 <th className="p-4 border-b">Date</th>
-                                <th className="p-4 border-b">Mark as read</th>
+                                <th className="py-4 px-1 border-b w-28">Mark as read</th>
+                                <th className="p-4 border-b">Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,7 +105,7 @@ function ShowContact() {
                                     <tr key={contact.id} className="bg-white border-b hover:bg-gray-50">
                                         <td className="p-4 border-b">{contact.name}</td>
                                         <td className="p-4 border-b">{contact.email}</td>
-                                        <td className="p-4 border-b">{contact.message}</td>
+                                        <td className="p-4 border-b overflow-auto">{contact.message}</td>
                                         <td className="p-4 border-b">{new Date(contact.date).toLocaleDateString('en-US', {
                                             weekday: 'long',
                                             year: 'numeric',
@@ -58,19 +113,10 @@ function ShowContact() {
                                             day: 'numeric'
                                         })}</td>
                                         <td>
-                                            {/* <label className="checkbox-wrapper">
-                                                <input
-                                                    checked={contact.isRead} // controlled checked attribute
-                                                    type="checkbox"
-                                                   id={`check`} // unique ID for each checkbox
-                                                    hidden
-                                                    onChange={() => checkMessage(contact.id)} // handle onChange event
-                                                />
-                                             <label htmlFor={`check`} className="checkmark"></label> 
-                                             </label> */}
-
-
-                                            <input type='checkbox' onChange={checkMessage(contact.id)} checked={contact.isRead}></input>
+                                            <Checkbox className='mx-auto block' color={'green'} onChange={handleChange(contact.id)} checked={contact.isRead}/>
+                                        </td>
+                                        <td>
+                                        <CiTrash className='mx-auto block text-red-600 text-xl font-extrabold cursor-pointer' onClick={() => handleDelete(contact.id)}/>
                                         </td>
                                     </tr>
                                 ))

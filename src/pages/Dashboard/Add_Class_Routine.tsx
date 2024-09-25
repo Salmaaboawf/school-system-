@@ -340,6 +340,9 @@ const Add_Class_Routine = () => {
                 <th scope="col" className="px-6 py-4">
                   11:00-1:00
                 </th>
+                <th scope="col" className="px-6 py-4">
+                  1:00-3:00
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -802,14 +805,12 @@ const Add_Class_Routine = () => {
             </tbody>
           </table>
           <div className="w-full flex items-center justify-center mt-3">
-            <Button
-              outline
-              // gradientDuoTone="pinkToOrange"
-              className="formButton"
-              type="submit"
-            >
-              Add Schedule
-            </Button>
+          <button
+            className="formButton xl:w-[27rem] lg:w-80 md:w-full"
+            type="submit"
+          >
+             Add Schedule
+          </button>
           </div>
         </form>
       </section>
