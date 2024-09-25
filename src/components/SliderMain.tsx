@@ -19,10 +19,11 @@ import {
 } from "swiper/modules";
 import { useRef } from "react";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-
+import { useNavigate } from "react-router-dom";
 const SliderMain = () => {
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
+  const navigate = useNavigate();
   return (
     <>
       <Swiper
@@ -54,7 +55,7 @@ const SliderMain = () => {
               Welcome to SCHOOLARSWAY School
             </h1>
             <p className="mt-5">Best gift for a child is a great education</p>
-            <button className="mt-10 bg-[#ff4e31] hover:bg-[#002749] px-6 py-3 text-white rounded-lg">
+            <button className="mt-10 bg-[#ff4e31] hover:bg-[#002749] px-6 py-3 text-white rounded-lg" >
               Enroll Now
             </button>
           </div>
@@ -71,7 +72,7 @@ const SliderMain = () => {
               Welcome to SCHOOLARSWAY School
             </h1>
             <p className="mt-5">Best gift for a child is a great education</p>
-            <button className="mt-10 bg-red-500 px-6 py-3 text-white rounded-lg">
+            <button className="mt-10 bg-red-500 px-6 py-3 text-white rounded-lg"  onClick={() => navigate("/contact")}>
               Enroll Now
             </button>
           </div>
