@@ -31,7 +31,7 @@ const AttendanceQRCode = () => {
       <Button outline onClick={generateQRCode} className='my-5 lg:w-72 sm:w-32 xs:w-72'>Generate QR Code for Today</Button>
       {qrData && (
         <div>
-          <QRCodeSVG value={qrData as string} />
+          <QRCodeSVG value={qrData as string} fgColor={'#ff4e31'} size={256}/>
         </div>
       )}
     </div>
