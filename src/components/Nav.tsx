@@ -10,8 +10,10 @@ import NotificationList from "./NotificationList";
 import logo from "../assets/splashLogo.png";
 import "../assets/logo.css";
 import unknownUser from '../assets/images/unknown user.jpg';
-import { RiLogoutCircleRLine } from "react-icons/ri";
-
+import { RiCalendarScheduleLine, RiLogoutCircleRLine } from "react-icons/ri";
+import { PiBooksLight, PiExam } from "react-icons/pi";
+import { RxDashboard } from "react-icons/rx";
+import { MdOndemandVideo, MdOutlinePeopleAlt } from "react-icons/md";
 function Nav() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -63,27 +65,154 @@ function Nav() {
                   aria-expanded={isDropdownOpen}
                   onClick={toggleDropdown}
                 >
+                    <div
+                  className={`profileMen absolute right-8 top-12 mt-4 text-base list-none bg-[#f4f4f4] divide-y divide-pink-100 rounded-lg  shadow ${isDropdownOpen ? "block" : "hidden"
+                    }`}
+                  style={{ zIndex: 1000 }}
+                  id="user-dropdown"
+                >
+                  <div className="px-4 py-3">
+                    <span className="block text-sm text-Orange truncate">
+                      {userInfo.email}
+                    </span>
+                  </div>
+                  <ul aria-labelledby="user-menu-button">
+                    {userInfo.role === "teacher" && (
+                      <li>
+                        <NavLink
+                          to="/teacher-table"
+                          className="profileLink"
+                        >
+                          <RiCalendarScheduleLine className="profileLinkIcon" />
+                          Teacher Schedule
+                        </NavLink>
+                      </li>
+                    )}
+
+                    {userInfo.role === "student" && (
+                      <>
+                        <li>
+                          <NavLink
+                            to="/grades"
+                            className="profileLink"
+                          >
+                            <PiExam className="profileLinkIcon" />
+                            {/* <PiExamFill className="mr-2 text-lg"/> */}
+                            My Grades
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink to="/student-table" className="profileLink">
+                            <RiCalendarScheduleLine className="profileLinkIcon" />
+                            My Schedule
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/subjects"
+                            className={'profileLink'}
+                          >
+                            <PiBooksLight className="profileLinkIcon" />
+                            My Subjects
+                          </NavLink>
+                        </li>
+                      </>
+                    )}
+
+                    {userInfo.role === "parent" && (
+                      <>
+                        <li>
+                          <NavLink
+                            to="/kids-schedule"
+                            className="profileLink"
+                          >
+                            My Kids' Schedule
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/kids-grades"
+                            className="profileLink"
+                          >
+                            My Kids' Grades
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/kids-attendance"
+                            className="profileLink"
+                          >
+                            My Kids' Attendance
+                          </NavLink>
+                        </li>
+                      </>
+                    )}
+
+                    {userInfo.role === "teacher" && (
+                      <>
+                        <li>
+                          <NavLink
+                            to="/AddQuiz"
+                            className="profileLink"
+                          >
+                            <PiExam className="profileLinkIcon" />
+                            Add Quiz
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/video"
+                            className="profileLink"
+                          >
+                            <MdOndemandVideo className="profileLinkIcon" />
+                            Add Class Materials
+                          </NavLink>
+                        </li>
+                        <li>
+                          <NavLink
+                            to="/generate-qr"
+                            className="profileLink"
+                          >
+                            <MdOutlinePeopleAlt className="profileLinkIcon" />
+                            Take Attandance
+                          </NavLink>
+                        </li>
+                      </>
+                    )}
+
+                    {userInfo.role === "admin" && (
+                      <li>
+                        <NavLink
+                          to="/add-teacher"
+                          className="profileLink"
+                        >
+                          <RxDashboard className="profileLinkIcon" />
+                          Dashboard
+                        </NavLink>
+                      </li>
+                    )}
+
+                    <li>
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-sm hover:rounded-b-lg hover:text-Orange"
+                      >
+                        <RiLogoutCircleRLine className="profileLinkIcon text-base" />
+                        Log out
+                      </button>
+                    </li>
+                  </ul>
+                </div>
                   <img className="w-8 h-8 rounded-full" src={userInfo.photoURL || unknownUser} alt="user photo" />
                 </button>
                 <div
-                  className={`profileMen absolute right-8 top-12 mt-4 text-base list-none bg-[#f4f4f4] divide-y divide-pink-100 rounded-lg shadow ${isDropdownOpen ? "block" : "hidden"}`}
+                  className={`profileMen absolute right-8 top-12 mt-4 text-base list-none bg-[#f4f4f4] divide-y divide-pink-100 rounded-lg  ${isDropdownOpen ? "block" : "hidden"}`}
                   style={{ zIndex: 1000 }}
                   id="user-dropdown"
                 >
                   <div className="px-4 py-3">
                     <span className="block text-sm text-Orange truncate">{userInfo.email}</span>
                   </div>
-                  <ul aria-labelledby="user-menu-button">
-                    <li>
-                      <button
-                        onClick={handleLogout}
-                        className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100 w-full text-sm hover:rounded-b-lg hover:text-Orange"
-                      >
-                        <RiLogoutCircleRLine className="profileLinkIcon" />
-                        Log out
-                      </button>
-                    </li>
-                  </ul>
                 </div>
               </>
             ) : (

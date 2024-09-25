@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { IoIosHome } from 'react-icons/io';
-import { FaRegBell } from 'react-icons/fa';
+import { FaRegBell, FaRegEnvelope } from 'react-icons/fa';
 import { resetUser } from '../../Redux/Slices/userSlice';
 import { Link } from 'react-router-dom';
 import { RiLogoutBoxRLine } from 'react-icons/ri';
@@ -62,17 +62,20 @@ function DashboardHeader({ pageTitle }) {
 
         {/* Notification Icon with Badge */}
 
-        <div className="relative inline-block">
-          <Link
-            to="/show-contact"
-            className="icon-button text-xl text-deepBlue hover:text-Orange"
-          >
-            <FaRegBell />
-          </Link>
-          <span className="absolute top-0 right-0 inline-flex items-center justify-center w-3 h-3 bg-red-500 rounded-full text-white text-xs font-medium">
-            {notficationNum}
-          </span>
-        </div>
+<div className="relative inline-block">
+  <Link
+    to="/show-contact"
+    className="icon-button text-xl text-deepBlue hover:text-Orange"
+  >
+    <FaRegEnvelope />
+  </Link>
+  {notficationNum > 0 && (
+    <span className="absolute top-0 -right-1 inline-flex items-center justify-center w-3 h-3 bg-red-500 rounded-full text-white text-xs font-medium">
+      {notficationNum}
+    </span>
+  )}
+</div>
+
 
 
         {/* Logout Icon */}
