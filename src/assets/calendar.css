@@ -1,9 +1,11 @@
 /* Calendar.css */
 .calendar-container {
     width: 100%;
-    max-width: 1200px; /* Set a maximum width for larger screens */
+    max-width: 800px; /* Set a maximum width for larger screens */
     margin: 5rem auto; /* Center the calendar horizontally */
     padding: 20px; /* Add some padding around the calendar */
+    background-color: #002749 !important;
+    border-radius: 8px;
   }
   
   .rbc-calendar {
@@ -12,14 +14,14 @@
   }
   
   .rbc-header {
-    background-color: #f8f9fa; /* Light background for the header */
+    background-color: #ff4e31; /* Light background for the header */
     border-bottom: 1px solid #dee2e6; /* Subtle border below the header */
-    color: #40343b; /* Dark text color for better readability */
+    color: #fbfbfd; /* Dark text color for better readability */
     font-weight: bold; /* Make header text bold */
   }
   
   .rbc-day-bg {
-    background-color: #fbfbfd; /* White background for day cells */
+    background-color: #ff4e31; /* White background for day cells */
   }
   
   .rbc-selected {
@@ -28,7 +30,7 @@
   }
   
   .rbc-event {
-    background-color: #002749; /* Event background color */
+    background-color: #002749 !important; /* Event background color */
     color: white; /* White text color for events */
     border-radius: 4px; /* Rounded corners for events */
   }
@@ -43,7 +45,20 @@
   }
   
   .rbc-toolbar button {
-    color:#ff4e31 !important;
+    color:#fbfbfd !important;
+  }
+
+  .rbc-toolbar {
+    padding-bottom: 20px !important;
+    /* background-color: #002749; */
+  }
+
+  .rbc-toolbar-label {
+    color: #fbfbfd;
+  }
+
+ .rbc-btn-group .rbc-active {
+    color: #ff4e31 !important;
   }
   /* .rbc-now {
     background-color: #002749;
