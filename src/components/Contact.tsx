@@ -1,31 +1,30 @@
 // import { Form } from 'react-router-dom';
 import './Contact.css';
-import { useForm} from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { addContact } from '../services/contactService';
-type Inputs = {
-  name: string
-  email: string
-  message: string
-}
 
-const schema= yup.object({
+// Validation schema
+const schema = yup.object({
   name: yup
     .string()
     .matches(/^[A-Za-z\s]+$/, "Name must be characters only")
     .required("Name is required")
-    .max(20, " Name cannot exceed 20 characters").min(3, "min is 3 letters"),
+    .max(20, " Name cannot exceed 20 characters")
+    .min(3, "Minimum 3 characters required"),
   email: yup
     .string()
     .required("Email is required")
     .email("Invalid email address"),
-  message: yup.string().required("Message is required")
-  .max(100, "Your message cannot exceed 100 letters")
-  .min(15, "Your message must be at least 15 letters to better understand it"),
-})
+  message: yup
+    .string()
+    .required("Message is required")
+    .max(100, "Your message cannot exceed 100 characters")
+    .min(15, "Your message must be at least 15 characters"),
+});
 
 function Contact() {
   const {
@@ -34,152 +33,96 @@ function Contact() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-  })
+  });
 
-  useEffect(()=>{
-    if(errors.name){
-      toast.error(errors.name.message)
+  useEffect(() => {
+    if (errors.name) {
+      toast.error(errors.name.message);
     }
-    if(errors.email){
-      toast.error(errors.email.message)
+    if (errors.email) {
+      toast.error(errors.email.message);
     }
-    if(errors.message){
-      toast.error(errors.message.message)
+    if (errors.message) {
+      toast.error(errors.message.message);
     }
-  },[errors])
+  }, [errors]);
 
   const sendContact = (data) => {
     const currentDate = new Date().toISOString();
     const contactData = {
       ...data,
-      date:currentDate
-    }
-    addContact(contactData)
-  }
+      date: currentDate,
+    };
+    addContact(contactData);
+  };
+
   return (
-    
-// <div className="flex justify-center items-center min-h-screen bg-white py-16">
-// <div className="contact-card">
-// <aside className=" contact-form">
-// <div className="contact-bio ">
-// <div className="hello-container text-center">
- 
-//         <h2 className="text-3xl font-bold text-purple mb-4">SAY HELLO!</h2>
-//          <p className="text-lightBlue">We would love to hear from you!</p>
-//         <hr className="underline border-orange my-3 w-20 mx-auto" />
-//       </div>
-//           <form className=" space-y-3" action="#" onSubmit={handleSubmit(sendContact)}>
-//             <div className="flex flex-col">
-//               <label htmlFor="name" className="text-darkBlue font-semibold">Name</label>
-//               <input
-//                type="text"
-//                id="name"
-//                 className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-//                 {...register('name')}
-//               />
-//             </div>
-
-//            <div className="flex flex-col">
-//               <label htmlFor="email" className="text-darkBlue font-semibold">Email *</label>
-//              <input
-//                 type="email"
-//                id="email"
-//                className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-//                {...register('email')}
-//              />
-//            </div>
-
-//            <div className="flex flex-col">
-//               <label htmlFor="subject" className="text-darkBlue font-semibold">Subject</label>
-//               <input
-//                 type="text"
-//                 id="subject"
-//                name="subject"
-//                className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-//              />
-//            </div>
-
-//            <div className="flex flex-col">
-//              <label htmlFor="message" className="text-darkBlue font-semibold">Message *</label>
-//              <textarea
-//                id="message"
-//                rows={3}
-//                 className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-//                 {...register('message')}
-//               />
-//             </div>
-
-//             <button
-//               type="submit"
-//               className="bg-purple text-white px-4 py-2 rounded-md hover:bg-darkBlue transition duration-300"
-//            >
-//              SEND MESSAGE
-//            </button>
-//          </form>
-//        </div>
-//          </aside>
-// </div>
-
-// </div>
-
-   
-    <div className="flex justify-center items-center min-h-screen bg-white py-16">
-      <div className="contact-section bg-white shadow-lg rounded-lg p-8 w-full max-w-3xl" 
-           style={{ boxShadow: '0 4px 10px rgba(0, 39, 73, 0.3), 0 6px 20px rgba(255, 78, 49, 0.2)' }}>
-        <div className="hello-container text-center">
-          <h2 className="text-3xl font-bold text-purple mb-4">SAY HELLO!</h2>
-          <p className="text-lightBlue">We would love to hear from you!</p>
-          <hr className="underline border-orange my-4 w-20 mx-auto" />
+    <div className="contact-page-container flex justify-center items-center min-h-screen bg-gray-100 py-16">
+      <div className="contact-form-wrapper bg-white shadow-lg rounded-lg p-8 w-full max-w-3xl"> {/* Increased width */}
+        <div className="contact-header mb-6">
+          <h2 className="text-3xl font-bold text-center text-[#ff4e31] animate-typing">We would love to hear from you!</h2>
         </div>
-
-        <div className="contact-wrapper grid grid-cols-1 gap-8">
-          <form className="contact-form space-y-4" action="#">
-            <div className="flex flex-col">
-              <label htmlFor="name" className="text-darkBlue font-semibold">Name *</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-              />
-            </div>
-
-            <div className="flex flex-col">
-              <label htmlFor="email" className="text-darkBlue font-semibold">Email *</label>
-              <input
-                type="email"
-               id="email"
-               className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-               {...register('email')}
-             />
-           </div>
-
-            <div className="flex flex-col">
-              <label htmlFor="message" className="text-darkBlue font-semibold">Message *</label>
-              <textarea
-                id="message"
-                name="message"
-                rows={5}
-                required
-                className="w-full border border-lightBlue p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="bg-purple text-white px-4 py-2 rounded-md hover:bg-darkBlue transition duration-300"
-            >
-              SEND MESSAGE
+        <form onSubmit={handleSubmit(sendContact)} className="space-y-6">
+          <div className="form-group">
+            <label htmlFor="name" className="block text-[#ff4e31] font-medium mb-2">Name</label>
+            <input
+              type="text"
+              id="name"
+              placeholder="Enter your name"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:border-[#002749]"
+              {...register("name")}
+            />
+            <p className="text-red-500 mt-1">{errors.name?.message}</p>
+          </div>
+          <div className="form-group">
+            <label htmlFor="email" className="block text-[#ff4e31] font-medium mb-2">Email</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:border-[#002749]"
+              {...register("email")}
+            />
+            <p className="text-red-500 mt-1">{errors.email?.message}</p>
+          </div>
+          <div className="form-group">
+            <label htmlFor="message" className="block text-[#ff4e31] font-medium mb-2">Message</label>
+            <textarea
+              id="message"
+              rows="5"
+              placeholder="Enter your message"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:border-[#002749]"
+              {...register("message")}
+            ></textarea>
+            <p className="text-red-500 mt-1">{errors.message?.message}</p>
+          </div>
+          <div className="button-container text-center">
+            <button type="submit" className="bg-[#ff4e31] text-white px-6 py-3 rounded-lg hover:bg-[#002749] focus:outline-none transition duration-300">
+              Contact Us
             </button>
-          </form>
+          </div>
+        </form>
+        {/* Start map iframe */}
+        <div className="map-container mt-6">
+          <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d252883.5586312063!2d32.84668933289582!3d23.588100097184197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14454b68a03db2f7%3A0x5e0d62f4706765e0!2z2K3YqNix2KfYqiDZhNin2YTZhNio2KfYp9mI2YzYqSDZg9in2YXYqtmI2YXYqSDZg9mK!5e0!3m2!1sen!2seg!4v1692367676813!5m2!1sen!2seg"
+            width="100%" // Made the map responsive
+            height="450"
+            style={{ border: 0 }}
+            allowFullScreen={true}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
+        {/* End map iframe */}
       </div>
     </div>
   );
 }
 
 export default Contact;
+
+
 
 
 
