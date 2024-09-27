@@ -42,7 +42,7 @@ function SubjectDetails() {
 
   return (
     <div 
-      className="p-4 flex flex-col md:flex-row"
+      className="p-4 flex flex-col md:flex-row mt-[130px]"
       style={{ 
         backgroundImage: `url(${subject.photoURL})`, 
         backgroundSize: "cover", 

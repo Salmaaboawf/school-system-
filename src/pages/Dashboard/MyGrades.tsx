@@ -4,6 +4,7 @@ import { useAppSelector } from "../../hooks/reduxHooks";
 import { fetchSubjectsGrades } from "../../services/gradeServices";
 import Loading from "../../components/Loading";
 import ParticlesComponent from "../../components/Tsparticles";
+import Nav from "../../components/Nav";
 
 function MyGrades() {
   const userInfo = useAppSelector((state) => state.user.user);
@@ -17,7 +18,6 @@ function MyGrades() {
       try {
         setLoading(true);
         const gradesArray = await fetchSubjectsGrades(userInfo.id);
-        console.log(userInfo.id)
         setGrades(gradesArray);
         console.log(grades)
       } catch (error) {
@@ -29,21 +29,25 @@ function MyGrades() {
     fetchGrades();
   }, [userInfo.id]);
 
-  console.log(grades);
+  if (loading) {
+    return <Loading />
+  }
+
 
   return (
     <div className="container flex gap-x-5">
+      <div>
+        <Nav />
+      </div>
       <div className="flex-[4]">
         <ParticlesComponent id="particles" />
-        <Header />
+        <div className="mt-20">
+
+          <Header />
+        </div>
         <div className="my-5">
           <div className="inline-block min-w-full py-2 sm:px-6 lg:px-0 text-[#002749]">
-            <h1 className="text-3xl mb-4">My Grades</h1>
-            {loading ? (
-              <Loading />
-            ) : error ? (
-              <p className="text-red-500">{error}</p>
-            ) : (
+            {
               <div className="overflow-hidden min-w-full">
                 <table className="min-w-full text-center text-sm font-light">
                   <thead className="border-b font-medium text-white bg-[#002749] border-[#002749]">
@@ -57,30 +61,58 @@ function MyGrades() {
                       <th scope="col" className="px-6 py-4 text-2xl">
                         Quiz Score
                       </th>
+                      <th scope="col" className="px-6 py-4 text-2xl">Total Grade</th>
+                      <th scope="col" className="px-6 py-4 text-2xl">Rating</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    {grades.map((item, index) => (
-                      <tr
-                        key={index}
-                        className="border-b dark:border-neutral-500"
-                      >
-                        <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
-                          {item?.subjectName}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                          {item?.grade}
-                        </td>
-                        <td className="whitespace-nowrap px-6 py-4 text-2xl">
-                          {item?.quizScore}
-                        </td>
-                      </tr>
-                    ))}
+                    {grades.map((item, index) => {
+                      const finalGrade = parseFloat(item.grade + item.quizScore)
+                      let rating = '';
+                      switch (true) {
+                        case finalGrade >= 90:
+                          rating = 'Excellent';
+                          break;
+                        case finalGrade >= 80:
+                          rating = 'Very Good';
+                          break;
+                        case finalGrade >= 70:
+                          rating = 'Good';
+                          break;
+                        case finalGrade >= 60:
+                          rating = 'Average';
+                          break;
+                        default:
+                          rating = 'Poor';
+                      }
+                      return (
+                        <tr
+                          key={index}
+                          className="border-b dark:border-neutral-500"
+                        >
+                          <td className="whitespace-nowrap px-6 py-4 font-medium text-2xl">
+                            {item?.subjectName}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4 text-2xl">
+                            {item?.grade}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4 text-2xl">
+                            {item?.quizScore}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4 text-2xl">
+                            {finalGrade}
+                          </td>
+                          <td className="whitespace-nowrap px-6 py-4 text-2xl">
+                            {rating}
+                          </td>
+                        </tr>
+                      )
+                    })}
                   </tbody>
                 </table>
               </div>
-            )}
+            }
           </div>
         </div>
       </div>

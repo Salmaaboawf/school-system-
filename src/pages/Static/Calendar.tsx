@@ -1,27 +1,39 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Calendar } from 'react-big-calendar';
 import { dateFnsLocalizer } from 'react-big-calendar';
-import { format, parse, startOfWeek, getDay } from 'date-fns';
+import { format, parse,  getDay } from 'date-fns';
 import enUS from 'date-fns/locale/en-US';  // English locale
 import '../../assets/calendar.css'
-// @import '~react-big-calendar/lib/css/react-big-calendar.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../config/firebase';
 
 
 function MyCalendar() {
-    const events = [
-        {
-          title: 'Meeting',
-          start: new Date(2024, 9, 20, 10, 0, 0), // 9 is the index of the month = october
-          end: new Date(2024, 9, 20, 12, 0, 0),
-        },
-      ];
-      
+
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+      const fetchEvents = async () => {
+        const eventsCollection = collection(db, 'events');
+        const eventSnapshot = await getDocs(eventsCollection);
+        const eventsList = eventSnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+          start: doc.data().start.toDate(),  // Convert Firestore Timestamp to Date
+          end: doc.data().end.toDate(),
+        }));
+        setEvents(eventsList);
+      };
+  
+      fetchEvents();
+    }, []);
+
     const locales = { 'en-US': enUS };
     const localizer = dateFnsLocalizer({
         format,
         parse,
-        startOfWeek: () => 6,  // Start the week on Saturday 6
+        startOfWeek: () => 6,  
         getDay,
         locales,
       });

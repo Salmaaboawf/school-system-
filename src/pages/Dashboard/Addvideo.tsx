@@ -445,7 +445,8 @@ import { fetchSubjectsByteacher_id } from "../../services/subjectServices";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { doc, updateDoc, arrayUnion, arrayRemove, onSnapshot } from "firebase/firestore";
 import { toast } from 'react-toastify';
-
+import Header from "../../components/Header/Header";
+import Nav from "../../components/Nav";
 interface Subject {
   id: string;
   name: string;

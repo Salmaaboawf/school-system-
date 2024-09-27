@@ -246,7 +246,7 @@ export default function Register() {
 {/* div for class and photo */}
 <div className="lg:flex justify-between block my-3">
           <div>
-            <Label htmlFor="class" value="class" />
+            <Label htmlFor="class" value="Class" />
             <Select {...register("class")} id="class" className="xl:w-[27rem] lg:w-80 md:w-full">
               <option value="">Select</option>
               {levels.map((lvl) => (
@@ -269,13 +269,12 @@ export default function Register() {
 
           </div>
           </div>
-          <Button
-            outline
-             className="formButton mt-10"
+          <button
+            className="formButton xl:w-[27rem] lg:w-80 md:w-full"
             type="submit"
           >
             Add Student
-          </Button>
+          </button>
           {/* <input type="submit" title="submit" /> */}
         </form>
       </section>

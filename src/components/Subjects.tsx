@@ -143,7 +143,7 @@ function Subjects() {
     <>
       <Nav />
       <section className='container'>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4 mt-[130px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 mt-[80px]">
           {filteredSubjects.map((subject) => (
             <section key={subject.id} className="card-section">
               <div className="card">
@@ -152,7 +152,7 @@ function Subjects() {
                     <p className='text-in-cover text-center'>
                       Education is the most powerful weapon you can use to change the world
                     </p>
-                    <div className="card-front">
+                    <div className="card-front rounded-b-lg">
                       <div className="card-front__tp card-front__tp--city overflow-hidden">
                         <div className="w-full h-full overflow-hidden">
                           <img src={subject.photoURL} className="w-full h-full" />

@@ -112,7 +112,7 @@ export default function Register() {
 
   return (
     <div className="flex">
-      <div className="fixed xl:w-[20%] lg:w-[25%] md:w-[30%] top-0 left-0 h-full z-50">
+      <div className="fixed xl:w-[20%] lg:w-[25%] md:w-[30%] top-0 left-0 z-50">
         <Sidebar />
       </div>
 
@@ -250,14 +250,12 @@ export default function Register() {
           </div>
 
 
-          <Button
-            outline
-            // gradientDuoTone="pinkToOrange"
-            className="formButton"
+          <button
+            className="formButton xl:w-[27rem] lg:w-80 md:w-full"
             type="submit"
           >
             submit
-          </Button>
+          </button>
         </form>
       </section>
     </div>

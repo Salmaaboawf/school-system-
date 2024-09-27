@@ -65,13 +65,12 @@ export default function AddLevels() {
               )}
             </div>
 
-            <Button
-              outline
-              className="formButton"
-              type="submit"
-            >
-              Add Level
-            </Button>
+            <button
+            className="formButton xl:w-[27rem] lg:w-80 md:w-full mx-auto"
+            type="submit"
+          >
+            submit
+          </button>
 
           </form>
           </section>
