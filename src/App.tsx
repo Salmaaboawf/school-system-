@@ -57,11 +57,11 @@ function App() {
   // console.log(!!userInfo.id);
   // console.log(userId);
 
-  // useLayoutEffect(() => {
-  //   if (userId) {
-  //     getUserById(userId, dispatch);
-  //   }
-  // }, [userId]);
+  useLayoutEffect(() => {
+    if (userId) {
+      getUserById(userId, dispatch);
+    }
+  }, [userId]);
 
 
   // useEffect(() => {

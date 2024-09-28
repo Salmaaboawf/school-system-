@@ -36,9 +36,11 @@ export const saveLoggedUser = async (
       );
       dispatch(setUser(userDocSnap.data()));
       console.log("Document data:", userDocSnap.data());
+      
       return true;
     } else {
       console.log("No such document!");
+      // toast.error('This user does not exist')
     }
   } catch (error) {
     console.log(error);
