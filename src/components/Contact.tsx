@@ -232,21 +232,21 @@ function Contact() {
           <div className="flex justify-between mt-8 mb-10">
               <div className="flex items-center bg-gray-200 p-4 rounded-lg ">
                   <MdPhoneInTalk className='text-4xl mr-3 text-deepBlue'/>
-                  <div>
+                  <div className='w-56'>
                       <h4 className="font-bold text-deepBlue">Phone</h4>
                       <p className='text-deepBlue'>123-456-7890</p>
                   </div>
               </div>
-              <div className="flex items-center bg-gray-200 p-4 rounded-lg ml-36 ">
+              <div className="flex items-center bg-gray-200 p-4 rounded-lg">
               <MdEmail className='text-4xl mr-3 text-deepBlue' />
-                  <div>
+                  <div className='w-56'>
                       <h4 className="font-bold text-deepBlue">Email</h4>
                       <p className='text-deepBlue'>schollarsway_school@gmail.com</p>
                   </div>
               </div>
               <div className="flex items-center bg-gray-200 p-4 rounded-lg">
               <MdLocationOn className='text-4xl mr-3 text-deepBlue'/>
-                  <div>
+                  <div className='w-56'>
                       <h4 className="font-bold text-deepBlue">Location</h4>
                       <p className='text-deepBlue'>123 Elm ST. Healthland</p>
                   </div>

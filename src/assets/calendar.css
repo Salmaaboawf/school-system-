@@ -1,42 +1,42 @@
 /* Calendar.css */
 .calendar-container {
     width: 100%;
-    max-width: 800px; /* Set a maximum width for larger screens */
-    margin: 5rem auto; /* Center the calendar horizontally */
-    padding: 20px; /* Add some padding around the calendar */
+    max-width: 800px; 
+    margin: 5rem auto;
+    padding: 20px; 
     background-color: #002749 !important;
-    border-radius: 8px;
-  }
+    border-radius: 8px; 
+  } 
   
   .rbc-calendar {
-    border-radius: 8px; /* Rounded corners for the calendar */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for a subtle 3D effect */
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   }
   
   .rbc-header {
-    background-color: #ff4e31; /* Light background for the header */
-    border-bottom: 1px solid #dee2e6; /* Subtle border below the header */
-    color: #fbfbfd; /* Dark text color for better readability */
-    font-weight: bold; /* Make header text bold */
+    background-color: #ff4e31; 
+    border-bottom: 1px solid #dee2e6; 
+    color: #fbfbfd; 
+    font-weight: bold; 
   }
   
   .rbc-day-bg {
-    background-color: #ff4e31; /* White background for day cells */
+    background-color: #ff4e31;
   }
   
   .rbc-selected {
-    background-color: #66ff00; /* Highlight selected date with a primary color */
-    color: white; /* White text color for better contrast */
+    background-color: #66ff00; 
+    color: white; 
   }
   
   .rbc-event {
-    background-color: #002749 !important; /* Event background color */
-    color: white; /* White text color for events */
-    border-radius: 4px; /* Rounded corners for events */
+    background-color: #002749 !important; 
+    color: white; 
+    border-radius: 4px; 
   }
   
   .rbc-event:hover {
-    background-color: #ff4e31; /* Darker color on hover */
+    background-color: #ff4e31; 
   }
   
   .rbc-today {
@@ -50,7 +50,7 @@
 
   .rbc-toolbar {
     padding-bottom: 20px !important;
-    /* background-color: #002749; */
+   
   }
 
   .rbc-toolbar-label {
@@ -60,6 +60,7 @@
  .rbc-btn-group .rbc-active {
     color: #ff4e31 !important;
   }
+  /* ---------------------------------------- */
   /* .rbc-now {
     background-color: #002749;
   } */
@@ -73,3 +74,4 @@
   .rbc-btn-group {
     color:white ;
   } */
+
