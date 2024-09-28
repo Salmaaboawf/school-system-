@@ -57,11 +57,11 @@ function App() {
   // console.log(!!userInfo.id);
   // console.log(userId);
 
-  useLayoutEffect(() => {
-    if (userId) {
-      getUserById(userId, dispatch);
-    }
-  }, [userId]);
+  // useLayoutEffect(() => {
+  //   if (userId) {
+  //     getUserById(userId, dispatch);
+  //   }
+  // }, [userId]);
 
 
   // useEffect(() => {
@@ -84,9 +84,6 @@ function App() {
   //   }, 3000);
   // }, []);
 
-  // if (loading) {
-  //   return <SplashScreen />;
-  // }
   // if (loading) {
   //   return <SplashScreen />;
   // }
