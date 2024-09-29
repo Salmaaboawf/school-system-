@@ -1,50 +1,108 @@
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useAppSelector } from "../hooks/reduxHooks";
-import { useDispatch } from "react-redux";
-import { resetUser } from "../Redux/Slices/userSlice";
-import { signOut } from "firebase/auth";
-import auth from "../config/firebase";
-import { FaRegBell } from "react-icons/fa";
-import NotificationList from "./NotificationList";
-import logo from "../assets/splashLogo.png";
-import "../assets/logo.css";
-import unknownUser from '../assets/images/unknown user.jpg';
-import { RiCalendarScheduleLine, RiLogoutCircleRLine } from "react-icons/ri";
-import { PiBooksLight, PiExam } from "react-icons/pi";
-import { RxDashboard } from "react-icons/rx";
-import { MdOndemandVideo, MdOutlinePeopleAlt } from "react-icons/md";
-function Nav() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [notificationsDropdown, setNotificationsDropdown] = useState(false);
-  const userInfo = useAppSelector((state) => state.user.user);
-  
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+import React, { useState } from 'react'
+import { useAppSelector } from '../hooks/reduxHooks';
+import { useDispatch } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import mylogo from '../assets/splashLogo.png';
+import { resetUser } from '../Redux/Slices/userSlice';
+import auth from '../config/firebase';
+import { FaRegBell } from 'react-icons/fa';
+import NotificationList from './NotificationList';
+import { RiCalendarScheduleLine, RiLogoutCircleRLine } from 'react-icons/ri';
+import { PiBooksLight, PiExam } from 'react-icons/pi';
+import { MdOndemandVideo, MdOutlinePeopleAlt } from 'react-icons/md';
+import { RxDashboard } from 'react-icons/rx';
+function Navbar2() {
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [notificationsDropdown, setNotificationsDropdown] = useState(false);
+    const userInfo = useAppSelector((state) => state.user.user);
 
-  const handleLogout = async () => {
-    try {
-      localStorage.removeItem("userId");
-      dispatch(resetUser());
-      await signOut(auth);
-      navigate("/", { replace: true });
-      setIsDropdownOpen(false);
-    } catch (error) {
-      console.error("Error logging out: ", error);
-    }
-  };
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-  return (
-    <div>
-      <nav className="absolute w-full top-0 left-0 z-10 p-4 bg-[rgba(254,242,242,0.6)] transition-shadow duration-300 shadow-md">
-        <div className="container bg-slate-200 max-w-screen-xl flex flex-row-reverse md:flex-row items-center justify-between mx-auto ">
-          <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            {userInfo.id ? (
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const handleLogout = async () => {
+        try {
+            localStorage.removeItem("userId");
+            dispatch(resetUser());
+            await signOut(auth);
+            navigate("/", { replace: true });
+            setIsDropdownOpen(false);
+        } catch (error) {
+            console.error("Error logging out: ", error);
+        }
+    };
+
+    console.log(mylogo)
+
+    return (
+        <nav className='bg-[#f5f4f4] w-full h-14'>
+            <div className='container flex justify-between items-center  py-2'>
+                <div className='mylogo w-[2.8rem]'>
+                    <img src={mylogo} alt="Logo" className="w-full" />
+                    <NavLink
+                        to="/"
+                        aria-current="page"
+                    >
+                    </NavLink>
+                </div>
+
+                <div className='pages flex gap-x-9'>
+                    <NavLink
+                        to="/"
+                        className={({ isActive }) =>
+                            `navPage ${isActive ? "text-Orange border-b border-Orange" : "text-[#083344]"}`
+                        }
+                        aria-current="page"
+                    >
+                        Home
+                    </NavLink>
+                    <NavLink
+                        to="/about"
+                        className={({ isActive }) =>
+                            `navPage ${isActive ? "text-Orange" : "text-[#083344]"}`
+                        }
+                        aria-current="page"
+                    >
+                        About
+                    </NavLink>
+                    <NavLink
+                        to="/stuff"
+                        className={({ isActive }) =>
+                            `navPage ${isActive ? "text-Orange" : "text-[#083344]"}`
+                        }
+                        aria-current="page"
+                    >
+                        Teachers
+                    </NavLink>
+                    <NavLink
+                        to="/calendar"
+                        className={({ isActive }) =>
+                            `navPage ${isActive ? "text-Orange" : "text-[#083344]"}`
+                        }
+                        aria-current="page"
+                    >
+                        Calendar
+                    </NavLink>
+                    <NavLink
+                        to="/contact"
+                        className={({ isActive }) =>
+                            `navPage ${isActive ? "text-Orange" : "text-[#083344]"}`
+                        }
+                        aria-current="page"
+                    >
+                       Contact
+                    </NavLink>
+                </div>
+
+
+                <div className='profile-section flex'>
+                {userInfo.id ? (
               <>
                 <button
                   className="flex items-center mx-4 hover:text-pink-600 transition duration-200"
@@ -225,96 +283,10 @@ function Nav() {
                 Login
               </NavLink>
             )}
-          </div>
-          <div className="max-w-screen-xl mx-auto px-4 py-2.5 relative">
-            <div className="flex justify-between items-center">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-pink-100 focus:outline-none focus:ring-2 focus:ring-pink-200 transition duration-200"
-                aria-controls="navbar-default"
-                aria-expanded={isMenuOpen}
-              >
-                <span className="sr-only">Open main menu</span>
-                <svg
-                  className="w-6 h-6"
-                  aria-hidden="true"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M3 5h14a1 1 0 110 2H3a1 1 0 110-2zm0 4h14a1 1 0 110 2H3a1 1 0 110-2zm0 4h14a1 1 0 110 2H3a1 1 0 110-2z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-              </button>
-              <div
-                className={`absolute top-10 md:top-0 right-0 z-50 ${isMenuOpen ? "block" : "hidden"} md:block md:w-auto`}
-                id="navbar-default"
-              >
-                <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-pink-100 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
-                  <li className="relative">
-                    <NavLink
-                      to="/"
-                      className={({ isActive }) =>
-                        `block  px-3 rounded md:bg-transparent md:p-0 ${isActive ? "text-[#ff4e31]" : "text-[#083344] py-3"}`
-                      }
-                      aria-current="page"
-                    >
-                      <img src={logo} alt="Logo" className="custom-logo -mt-2" />
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/"
-                      className={({ isActive }) =>
-                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${isActive ? "text-[#ff4e31]" : "text-[#083344]"} hover:text-[#ea580c] hover:translate-y-[-3px] transition-all duration-300 hover:shadow-[4px_4px_0px_#0e3251]`
-                      }
-                      aria-current="page"
-                    >
-                      Home
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/about"
-                      className={({ isActive }) =>
-                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${isActive ? "text-[#ff4e31]" : "text-[#083344]"} hover:text-[#ea580c] hover:translate-y-[-3px] transition-all duration-300 hover:shadow-[4px_4px_0px_#0e3251]`
-                      }
-                    >
-                      About
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/calendar"
-                      className={({ isActive }) =>
-                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${isActive ? "text-[#ff4e31]" : "text-[#083344]"} hover:text-[#ea580c] hover:translate-y-[-3px] transition-all duration-300 hover:shadow-[4px_4px_0px_#0e3251]`
-                      }
-                    >
-                      Calendar
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to="/contact"
-                      className={({ isActive }) =>
-                        `block py-2 px-3 rounded md:bg-transparent md:p-0 ${isActive ? "text-[#ff4e31]" : "text-[#083344]"} hover:text-[#ea580c] hover:translate-y-[-3px] transition-all duration-300 hover:shadow-[4px_4px_0px_#0e3251]`
-                      }
-                    >
-                      Contact
-                    </NavLink>
-                  </li>
-                </ul>
-              </div>
+                </div>
             </div>
-          </div>
-        </div>
-      
-      </nav>
-    </div>
-  );
+        </nav>
+    )
 }
 
-export default Nav;
+export default Navbar2

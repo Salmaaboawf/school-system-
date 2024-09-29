@@ -47,6 +47,7 @@ import AddEvent from "./pages/Dashboard/AddEvent";
 import AttendanceQRCode from "./pages/UsersPages/TakeAttendance";
 import ViewAttendance from "./pages/Dashboard/ViewAttendance";
 import KidsAttendance from "./pages/UsersPages/KidsAttendance";
+import Navbar2 from "./components/Navbar2";
 
 // import Loading from "./components/Loading";
 function App() {
@@ -91,12 +92,13 @@ function App() {
   return (
     <>
       <ScrollToTop />
-
+      {/* <Nav /> */}
+      <Navbar2 />
       <Routes>
         <Route
           element={
             <>
-              <Nav />
+              {/* <Nav /> */}
               <Outlet />
               <div>
                 <Footer />

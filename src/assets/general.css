@@ -34,6 +34,18 @@
     transform: translate(-50%, -50%) rotateZ(40deg) scale(1);
    }
 
+
+input:checked + div {
+  background-color: #ff4e31; /* Example: Change background color when checked */
+  border-color: #ff4e31; /* Example: Change border color when checked */
+}
+
+input:checked + div span {
+  color: #fff; /* Change the letter color */
+}
+
+
+
    /* video upload */
 /* From Uiverse.io by 3bdel3ziz-T */ 
 /* .container {
