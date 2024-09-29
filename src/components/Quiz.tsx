@@ -255,9 +255,26 @@ const QuizPage = () => {
   // Fetch quiz questions and handle quiz state
   useEffect(() => {
     if (subject) {
+      // Fetch quiz questions
       getQuizQuestions(subject, (questions) => {
+        // Check if student's level matches
+        if (userInfo.class_id !== level_id) {
+          Swal.fire({
+            icon: "error",
+            title: "Access Denied",
+            text: "This quiz is not for your level.",
+          }).then((res) => {
+            if (res.isConfirmed) {
+              navigate("/"); // Navigate back if level doesn't match
+            }
+          });
+          return; // Exit if levels don't match
+        }
+  
+        // Proceed if level matches
         setQuizQuestions([...questions]);
-        if (questions.length <20) {
+  
+        if (questions.length < 20) {
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -269,10 +286,11 @@ const QuizPage = () => {
           });
         }
       });
-
+  
       isVisitedQuizBefore(subject);
     }
-  }, [subject]);
+  }, [subject, userInfo.class_id]);
+  
 
   const currentQuestion = quizQuestions[currentQuestionIndex];
 

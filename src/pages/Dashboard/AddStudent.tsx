@@ -9,7 +9,6 @@ import { addStudent, fetchParents } from "../../services/userServices";
 import { useEffect, useState } from "react";
 import { fetchLevels } from "../../services/levelsServices";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-
 import { toast } from 'react-toastify';
 import DashboardHeader from "../../components/Header/DashboardHeader";
 
@@ -18,22 +17,19 @@ const schema = yup.object().shape({
     .string()
     .matches(/^[A-Za-z\s]+$/, "Name must be characters only")
     .required("required ")
-    .max(20, "Name cannot exceed 20 characters").min(3, "Name must be at least 3 letters"),
+    .max(20, "Name cannot exceed 20 characters")
+    .min(3, "Name must be at least 3 letters"),
   phoneNumber: yup
     .string()
-    .required("Age is required").matches(/^01[01259][0-9]{8}$/,
-    ),
-  age: yup.number()
-  .required("Age is required")
-  .typeError("Age must be a number") //issue
-  // .min(18, "Student must be at least 4 years old")
-  // .max(99, "Student must be younger than 19 years old"),
-  ,
+    .required("Phone number is required")
+    .matches(/^01[01259][0-9]{8}$/, "Invalid phone number format"),
+  age: yup
+    .number()
+    .required("Age is required")
+    .typeError("Age must be a number"),
   gender: yup.string().required("Gender is required"),
   class: yup.string().required("Class is required"),
-  address: yup
-    .string()
-    .required(),
+  address: yup.string().required("Address is required"),
   email: yup
     .string()
     .email("Invalid email address")
@@ -44,12 +40,14 @@ const schema = yup.object().shape({
     .max(32, "Password cannot exceed 32 characters")
     .required("Password is required"),
   parent: yup.string().default(""),
-  photofile: yup.mixed().required("Photo is required").test("fileSize", "File is too large", (value) => {
-    return !value || (value && value.size <= 2 * 1024 * 1024)
-  }),
+  religion: yup.string().required("Religion is required"), // New validation for religion
+  photofile: yup
+    .mixed()
+    .required("Photo is required")
+    .test("fileSize", "File is too large", (value) => {
+      return !value || (value && value.size <= 2 * 1024 * 1024);
+    }),
 });
-
-
 
 export default function Register() {
   const [parents, setParents] = useState<ParentType[]>([]);
@@ -66,7 +64,6 @@ export default function Register() {
     resolver: yupResolver(schema),
   });
 
-
   const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     setValue("photofile", file); // Manually set the file in form values
@@ -75,7 +72,6 @@ export default function Register() {
   const save = async (value: StudentType) => {
     try {
       const photo = value.photofile;
-      console.log("pressed");
       addStudent(value, photo);
       reset();
     } catch (error) {
@@ -86,37 +82,19 @@ export default function Register() {
   useEffect(() => {
     fetchParents(setParents);
     fetchLevels(dispatch);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
-    if (errors.name) {
-      toast.error(errors.name.message);
-    }
-    if (errors.age) {
-      toast.error(errors.age.message);
-    }
-    if (errors.email) {
-      toast.error(errors.email.message);
-    }
-    if (errors.password) {
-      toast.error(errors.password.message);
-    }
-    if (errors.phoneNumber) {
-      toast.error(errors.phoneNumber.message);
-    }
-    if (errors.photofile) {
-      toast.error(errors.photofile.message);
-    }
-    if (errors.address) {
-      toast.error(errors.address.message);
-    }
-    if (errors.gender) {
-      toast.error(errors.gender.message);
-    }
-    if (errors.class) {
-      toast.error('Class is required.');
-    }
+    if (errors.name) toast.error(errors.name.message);
+    if (errors.age) toast.error(errors.age.message);
+    if (errors.email) toast.error(errors.email.message);
+    if (errors.password) toast.error(errors.password.message);
+    if (errors.phoneNumber) toast.error(errors.phoneNumber.message);
+    if (errors.photofile) toast.error(errors.photofile.message);
+    if (errors.address) toast.error(errors.address.message);
+    if (errors.gender) toast.error(errors.gender.message);
+    if (errors.class) toast.error('Class is required.');
+    if (errors.religion) toast.error('Religion is required.');
   }, [errors]);
 
   return (
@@ -125,16 +103,13 @@ export default function Register() {
         <Sidebar />
       </div>
 
-      <section className=" text-[#002749] xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
-
-        <DashboardHeader pageTitle={'Add Student'} />
+      <section className="text-[#002749] xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
+        <DashboardHeader pageTitle="Add Student" />
         <form
           onSubmit={handleSubmit(save, (err) => console.log(err))}
           className="border sm:px-8 sm:mx-7 md:px-4 py-6 md:mx-4 rounded xl:mx-8 lg:mx-6 mx-8 lg:px-6 xs:px-4 xs:mx-3"
         >
-          {/* div for name and gender */}
           <div className="lg:flex justify-between block">
-
             <div>
               <Label htmlFor="name" value="Student Name" />
               <TextInput
@@ -149,20 +124,16 @@ export default function Register() {
             <div>
               <Label htmlFor="gender" value="Gender" />
               <Select {...register("gender")} id="gender" defaultValue="" className="xl:w-[27rem] lg:w-80 md:w-full">
-                <option value="" disabled className="w-80 border-none">
-                  Gender
+                <option value="" disabled>
+                  Select Gender
                 </option>
                 <option value="female">Female</option>
                 <option value="male">Male</option>
               </Select>
-
             </div>
-
           </div>
 
-          {/* div for address and phone */}
           <div className="lg:flex justify-between block my-3">
-
             <div>
               <Label htmlFor="address" value="Address" />
               <TextInput
@@ -175,7 +146,7 @@ export default function Register() {
             </div>
 
             <div>
-              <Label htmlFor="phoneNumber" value="Student phone number" />
+              <Label htmlFor="phoneNumber" value="Phone Number" />
               <TextInput
                 {...register("phoneNumber")}
                 id="phoneNumber"
@@ -184,12 +155,9 @@ export default function Register() {
                 className="xl:w-[27rem] lg:w-80 md:w-full"
               />
             </div>
-
           </div>
 
-          {/* div for age and parent */}
           <div className="lg:flex justify-between block my-3">
-
             <div>
               <Label htmlFor="age" value="Age" />
               <TextInput
@@ -202,80 +170,85 @@ export default function Register() {
             </div>
 
             <div>
-            <Label htmlFor="parent" value="Parent" />
-            <Select {...register("parent")} id="parent"  className="xl:w-[27rem] lg:w-80 md:w-full">
-              <option value="">Select</option>
-              {parents.map((parent) => (
-                <option key={parent.id} value={parent.id}>
-                  {parent.name}
-                </option>
-              ))}
-            </Select>
-
+              <Label htmlFor="parent" value="Parent" />
+              <Select {...register("parent")} id="parent" className="xl:w-[27rem] lg:w-80 md:w-full">
+                <option value="">Select Parent</option>
+                {parents.map((parent) => (
+                  <option key={parent.id} value={parent.id}>
+                    {parent.name}
+                  </option>
+                ))}
+              </Select>
+            </div>
           </div>
 
-          </div>
-
-{/* div for email and password */}
-<div className="lg:flex justify-between block my-3">
-
-<div>
-  <Label htmlFor="email1" value="Student Email" />
-  <TextInput
-    {...register("email")}
-    id="email1"
-    type="email"
-    placeholder="name@gmail.com"
-    className="xl:w-[27rem] lg:w-80 md:w-full"
-  />
-
-</div>
-<div>
-  <Label htmlFor="password1" value="Student Password" />
-  <TextInput
-    {...register("password")}
-    id="password1"
-    type="password"
-    placeholder="Password"
-    className="xl:w-[27rem] lg:w-80 md:w-full"
-  />
-
-</div>
-</div>
-
-{/* div for class and photo */}
-<div className="lg:flex justify-between block my-3">
-          <div>
-            <Label htmlFor="class" value="Class" />
-            <Select {...register("class")} id="class" className="xl:w-[27rem] lg:w-80 md:w-full">
-              <option value="">Select</option>
-              {levels.map((lvl) => (
-                <option key={lvl.id} value={lvl.id}>
-                  {lvl.name}
-                </option>
-              ))}
-            </Select>
-
-          </div>
-
-
-          <div>
-            <Label htmlFor="photo" value="Student Photo" />
-            <FileInput id="photo"
-              accept="image/*"
-              onChange={handlePhotoChange} 
-              className="xl:w-[27rem] lg:w-80 md:w-full "
+          <div className="lg:flex justify-between block my-3">
+            <div>
+              <Label htmlFor="email1" value="Email" />
+              <TextInput
+                {...register("email")}
+                id="email1"
+                type="email"
+                placeholder="name@gmail.com"
+                className="xl:w-[27rem] lg:w-80 md:w-full"
               />
+            </div>
 
+            <div>
+              <Label htmlFor="password1" value="Password" />
+              <TextInput
+                {...register("password")}
+                id="password1"
+                type="password"
+                placeholder="Password"
+                className="xl:w-[27rem] lg:w-80 md:w-full"
+              />
+            </div>
           </div>
+
+          <div className="lg:flex justify-between block my-3">
+            <div>
+              <Label htmlFor="class" value="Class" />
+              <Select {...register("class")} id="class" className="xl:w-[27rem] lg:w-80 md:w-full">
+                <option value="">Select Class</option>
+                {levels.map((lvl) => (
+                  <option key={lvl.id} value={lvl.id}>
+                    {lvl.name}
+                  </option>
+                ))}
+              </Select>
+            </div>
+
+            <div>
+              <Label htmlFor="religion" value="Religion" />
+              <Select {...register("religion")} id="religion" className="xl:w-[27rem] lg:w-80 md:w-full">
+                <option value="" disabled>
+                  Select Religion
+                </option>
+                <option value="muslim">Muslim</option>
+                <option value="christian">Christian</option>
+              </Select>
+            </div>
           </div>
+
+          <div className="lg:flex justify-between block my-3">
+            <div>
+              <Label htmlFor="photo" value="Student Photo" />
+              <FileInput
+                id="photo"
+                accept="image/*"
+                onChange={handlePhotoChange}
+                className="xl:w-[27rem] lg:w-80 md:w-full"
+              />
+            </div>
+          </div>
+
           <button
             className="formButton xl:w-[27rem] lg:w-80 md:w-full"
             type="submit"
           >
             Add Student
           </button>
-          {/* <input type="submit" title="submit" /> */}
         </form>
       </section>
     </div>
