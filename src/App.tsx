@@ -1,5 +1,5 @@
 // App.jsx
-import { Navigate, Outlet, Route, Routes } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import TeacherRoutine from "./pages/Dashboard/TeacherRoutine";
 import StudentRoutine from "./pages/Dashboard/StudentRoutine";
@@ -54,6 +54,7 @@ function App() {
   const dispatch = useDispatch();
   const userId = localStorage.getItem("userId");
   const userInfo = useAppSelector((state) => state.user.user);
+  const location = useLocation();
   // const [loading, setLoading] = useState(true);
   // console.log(!!userInfo.id);
   // console.log(userId);
@@ -88,12 +89,27 @@ function App() {
   // if (loading) {
   //   return <SplashScreen />;
   // }
+  const adminRoutes = [
+    "/add-parent",
+    "/add-student",
+    "/add-event",
+    "/add-teacher",
+    "/add-class",
+    "/users",
+    "/add-class-routine",
+    "/add-subject",
+    "/grad",
+    "/show-contact",
+    "/show-attendance"
+  ];
 
+  // Check if the current route is an admin dashboard route and if the user is an admin
+  const hideNavbar = userInfo.role === "admin" && adminRoutes.includes(location.pathname);
   return (
     <>
       <ScrollToTop />
       {/* <Nav /> */}
-      <Navbar2 />
+      {!hideNavbar && <Navbar2 />}
       <Routes>
         <Route
           element={

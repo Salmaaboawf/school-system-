@@ -104,12 +104,16 @@ function Navbar2() {
                 <div className='profile-section flex'>
                 {userInfo.id ? (
               <>
-                <button
-                  className="flex items-center mx-4 hover:text-pink-600 transition duration-200"
-                  onClick={() => setNotificationsDropdown(!notificationsDropdown)}
-                >
-                  <FaRegBell size={25} />
-                </button>
+               {userInfo.role == "student" && (
+                  <button
+                    className="flex items-center mx-4 hover:text-Orange text-deepBlue transition duration-200"
+                    onClick={() =>
+                      setNotificationsDropdown(!notificationsDropdown)
+                    }
+                  >
+                    <FaRegBell size={20} />
+                  </button>
+                )}
                 <div
                   className={`absolute right-12 top-10 min-h-[100px] min-w-[300px] z-50 my-4 text-base list-none bg-slate-200 divide-y divide-pink-100 rounded-lg shadow ${notificationsDropdown ? "block" : "hidden"}`}
                   id="user-dropdown"
