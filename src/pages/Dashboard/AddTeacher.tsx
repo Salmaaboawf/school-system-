@@ -304,14 +304,12 @@ export default function AddTeacher() {
 
             </div>
           </div>
-          <Button
-            outline
-            // gradientDuoTone="pinkToOrange"
-            className="w-full xl:w-[27rem] "
+          <button
+            className="formButton xl:w-[27rem] lg:w-80 md:w-full"
             type="submit"
           >
-            Submit
-          </Button>
+            Add Teacher
+          </button>
         </form>
       </section>
     </div>

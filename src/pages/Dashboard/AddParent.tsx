@@ -250,14 +250,12 @@ export default function Register() {
           </div>
 
 
-          <Button
-            outline
-            // gradientDuoTone="pinkToOrange"
-            className="formButton"
+          <button
+            className="formButton xl:w-[27rem] lg:w-80 md:w-full"
             type="submit"
           >
             submit
-          </Button>
+          </button>
         </form>
       </section>
     </div>
