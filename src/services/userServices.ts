@@ -36,7 +36,7 @@ export const saveLoggedUser = async (
       );
       dispatch(setUser(userDocSnap.data()));
       console.log("Document data:", userDocSnap.data());
-      
+
       return true;
     } else {
       console.log("No such document!");
@@ -147,6 +147,7 @@ export const addParent = async (value: ParentType, photo?: File) => {
       Children: childerenIds,
       photoURL,
       role: "parent",
+      religion: value.religion,
     });
 
     childerenIds?.forEach(async (id) => {
@@ -242,6 +243,7 @@ export const addStudent = async (value: StudentType, photo?: File) => {
       phoneNumber,
       parent,
       role = "student",
+      religion,
     }: StudentType = value;
 
     await setDoc(studentDoref, {
@@ -257,6 +259,7 @@ export const addStudent = async (value: StudentType, photo?: File) => {
       parent,
       photoURL,
       score: "0",
+      religion,
     });
     if (parent.length > 0) {
       addChildToParent(parent, user.uid);
