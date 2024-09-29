@@ -10,8 +10,10 @@ export interface BaseUserType {
 }
 
 export interface ParentType extends BaseUserType {
+  photofile: any;
   address: string;
   children?: StudentType[];
+  religion: string;
 }
 
 export interface TeacherType extends BaseUserType {
@@ -23,10 +25,12 @@ export interface TeacherType extends BaseUserType {
 }
 
 export interface StudentType extends BaseUserType {
+  photofile: any;
   class: string;
   age: number;
   address: string;
   parent: string;
+  religion: string;
 }
 
 export type SubjectType = {
