@@ -82,11 +82,11 @@ const TeacherRoutine = () => {
         <ParticlesComponent id="particles" />
       </div>
 
-      <div>
+      {/* <div>
         <Nav />
-      </div>
+      </div> */}
 
-      <div className="mt-20">
+      <div className="mt-10">
         <Header />
       </div>
 

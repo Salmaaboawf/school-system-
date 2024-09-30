@@ -20,10 +20,10 @@ function Teachers() {
   const [teachers, setTeachers] = useState([]);
 
   return (
-    <div className="mt-[130px]">
+    <div className="mt-10">
       {/* Header start */}
-      <div className="bg-gray-300 py-8 my-8 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-full text-center ">
-        <h1 className="text-3xl font-bold text-[#002749] dark:text-white">
+      <div className="bg-gray-100 py-8 my-8 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-full text-center ">
+        <h1 className="text-3xl text-deepBlue dark:text-white">
           Teachers
         </h1>
       </div>

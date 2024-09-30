@@ -81,12 +81,12 @@ const StudentRoutine = () => {
     <div className="particles-container">
       <ParticlesComponent id="particles" />
     </div>
-
+{/* 
     <div>
       <Nav />
-    </div>
+    </div> */}
 
-    <div className="mt-20">
+    <div className="mt-10">
       <Header />
     </div>
       {/* <span className="text-2xl">{levelName}</span> */}

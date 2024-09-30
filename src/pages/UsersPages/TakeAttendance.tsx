@@ -18,10 +18,10 @@ const AttendanceQRCode = () => {
   return (
 <>
 <div className='container xs:px-0 lg:px-20'>
-<div>
+{/* <div>
         <Nav />
-      </div>
-    <div className="mt-20">
+      </div> */}
+    <div className="mt-10">
  <Header />
 </div>
     <div className='my-16 mx-auto w-fit'>

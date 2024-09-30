@@ -101,7 +101,7 @@ export default function AddQuiz() {
     <div className="container xs:px-0 lg:px-20">
 
     
-       <div className="mt-20">
+       <div className="mt-10">
         <Header />
       </div>
     <div className="flex gap-x-5">

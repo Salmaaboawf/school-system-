@@ -36,12 +36,12 @@ function MyGrades() {
 
   return (
     <div className="container flex gap-x-5">
-      <div>
+      {/* <div>
         <Nav />
-      </div>
+      </div> */}
       <div className="flex-[4]">
         <ParticlesComponent id="particles" />
-        <div className="mt-20">
+        <div className="mt-10">
 
           <Header />
         </div>
