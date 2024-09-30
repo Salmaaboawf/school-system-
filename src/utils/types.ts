@@ -1,4 +1,5 @@
 export interface BaseUserType {
+  class_id: any;
   id: string;
   name: string;
   email: string;

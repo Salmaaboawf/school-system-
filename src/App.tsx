@@ -10,13 +10,13 @@ import AddTeacher from "./pages/Dashboard/AddTeacher";
 import HomeLanding from "./pages/Landing/HomeLanding";
 import About from "./components/about/About";
 import Teachers from "./pages/Landing/Teachers";
-import Nav from "./components/Nav";
+// import Nav from "./components/Nav";
 import Contact from "./components/Contact";
 import Footer from "./components/about/Footer";
 import Login from "./components/Login";
 import NotFound from "./components/NotFund";
 import Grad from "./components/Grad";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getUserById } from "./services/userServices";
 import AddClass from "./pages/Dashboard/AddLevels";
@@ -48,6 +48,7 @@ import AttendanceQRCode from "./pages/UsersPages/TakeAttendance";
 import ViewAttendance from "./pages/Dashboard/ViewAttendance";
 import KidsAttendance from "./pages/UsersPages/KidsAttendance";
 import Navbar2 from "./components/Navbar2";
+import Chat from "./components/Chat";
 
 // import Loading from "./components/Loading";
 function App() {
@@ -65,19 +66,18 @@ function App() {
     }
   }, [userId]);
 
-
   // useEffect(() => {
   //   const unsubscribe = auth.onAuthStateChanged(user => {
   //     if (user) {
-  //       setLoading(false); 
-  //     } 
+  //       setLoading(false);
+  //     }
   //   });
   //   return () => unsubscribe();  // gpt method
   // useEffect(() => {
   //   const unsubscribe = auth.onAuthStateChanged(user => {
   //     if (user) {
-  //       setLoading(false); 
-  //     } 
+  //       setLoading(false);
+  //     }
   //   });
   //   return () => unsubscribe();  // gpt method
 
@@ -100,11 +100,12 @@ function App() {
     "/add-subject",
     "/grad",
     "/show-contact",
-    "/show-attendance"
+    "/show-attendance",
   ];
 
   // Check if the current route is an admin dashboard route and if the user is an admin
-  const hideNavbar = userInfo.role === "admin" && adminRoutes.includes(location.pathname);
+  const hideNavbar =
+    userInfo.role === "admin" && adminRoutes.includes(location.pathname);
   return (
     <>
       <ScrollToTop />
@@ -116,20 +117,20 @@ function App() {
             <>
               {/* <Nav /> */}
               <Outlet />
-              <div>
-                <Footer />
-              </div>
+              <Footer />
+              
             </>
           }
         >
           <Route path="/" element={<HomeLanding />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="/about" element={<About />} />
           <Route path="/stuff" element={<Teachers />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/calendar" element={<MyCalendar />} />
           <Route path="/my-grades" element={<MyGrades />} />
           <Route path="/video" element={<AddVideo />} />
-          <Route path="/ShowVideo" element={<ShowVideo/>} />
+          <Route path="/ShowVideo" element={<ShowVideo />} />
 
           <Route path="/AddQuiz" element={<AddQuiz />} />
           <Route path="/subjectDetails" element={<SubjectDetails />} />
@@ -149,6 +150,14 @@ function App() {
         <Route
           path="/grades"
           element={<PrivateRoute element={MyGrades} role="student" />}
+        />
+        <Route
+          path="/chat"
+          element={<PrivateRoute element={Chat} role="student" />}
+        />
+        <Route
+          path="/chat"
+          element={<PrivateRoute element={Chat} role="teacher" />}
         />
 
         <Route
@@ -217,15 +226,15 @@ function App() {
           element={<PrivateRoute element={ShowVideo} role="student" />}
         />  */}
         <Route
-         path="/ShowVideo/:subjectId" 
-         element={<PrivateRoute element={ShowVideo} role="student" />}
-         />
+          path="/ShowVideo/:subjectId"
+          element={<PrivateRoute element={ShowVideo} role="student" />}
+        />
 
         <Route
           path="/add-class-routine"
           element={<PrivateRoute element={Add_Class_Routine} role="admin" />}
         />
-                <Route
+        <Route
           path="/add-subject"
           element={<PrivateRoute element={AddSubject} role="admin" />}
         />
@@ -233,7 +242,7 @@ function App() {
           path="/grad"
           element={<PrivateRoute element={Grad} role="admin" />}
         />
-         <Route
+        <Route
           path="/show-contact"
           element={<PrivateRoute element={ShowContact} role="admin" />}
         />
@@ -254,7 +263,7 @@ function App() {
           path="/show-video"
           element={<PrivateRoute element={ShowVideo} role="student" />}
         />
-     
+
         <Route
           path="/grad-two"
           element={<PrivateRoute element={Showgrad} role="student" />}
