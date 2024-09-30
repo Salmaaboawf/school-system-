@@ -83,7 +83,9 @@ const Chat = () => {
       sendMessage();
     }
   };
-
+  if (!userInfo.id || !( userInfo.role == "student" || userInfo.role == "teacher")) {
+  return
+}
   return (
     <>
       {!isChatOpen && (

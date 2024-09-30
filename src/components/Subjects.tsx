@@ -116,6 +116,7 @@ import { useAppSelector } from "../hooks/reduxHooks";
 import { useNavigate } from "react-router-dom";
 import Nav from "./Nav";
 import '../assets/subject.css';
+import Chat from "./Chat";
 
 function Subjects() {
   const [filteredSubjects, setFilteredSubjects] = useState([]);
@@ -143,6 +144,7 @@ function Subjects() {
     <>
       {/* <Nav /> */}
       <section className='container'>
+        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 mt-6">
           {filteredSubjects.map((subject) => (
             <section key={subject.id} className="card-section">

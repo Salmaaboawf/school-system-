@@ -10,6 +10,7 @@ import { getTeacherNameById } from "../../services/teacherServices";
 import ParticlesComponent from "../../components/Tsparticles";
 import Header from "../../components/Header/Header";
 import Loading from "../../components/Loading";
+import Chat from "../../components/Chat";
 
 
 const StudentRoutine = () => {
@@ -87,7 +88,8 @@ const StudentRoutine = () => {
     </div> */}
 
     <div className="mt-10">
-      <Header />
+        <Header />
+       
     </div>
       {/* <span className="text-2xl">{levelName}</span> */}
       <div className="overflow-hidden min-w-full mt-5 rounded-md bg">

@@ -9,7 +9,6 @@ import "swiper/css/effect-fade";
 import "swiper/css/effect-flip";
 import imgSliderOne from "../assets/images/slide_min_1.jpg";
 import imgSliderTwo from "../assets/images/slide_min_2.jpg";
-import headervideo from "../assets/video/header-video.mp4";
 import {
   A11y,
   Autoplay,

@@ -5,6 +5,7 @@ import { fetchSubjectsGrades } from "../../services/gradeServices";
 import Loading from "../../components/Loading";
 import ParticlesComponent from "../../components/Tsparticles";
 import Nav from "../../components/Nav";
+import Chat from "../../components/Chat";
 
 function MyGrades() {
   const userInfo = useAppSelector((state) => state.user.user);
@@ -36,6 +37,7 @@ function MyGrades() {
 
   return (
     <div className="container flex gap-x-5">
+      <Chat/>
       {/* <div>
         <Nav />
       </div> */}
