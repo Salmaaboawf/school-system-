@@ -15,7 +15,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { fetchLevels } from "../services/levelsServices";
 import { SubjectType } from "../utils/types";
 import DashboardHeader from "./Header/DashboardHeader";
-
+import { toast } from "react-toastify";
 function Gard() {
   const levels = useAppSelector((state) => state.levels.levels);
   const dispatch = useAppDispatch();
@@ -109,7 +109,7 @@ function Gard() {
         }
       }
     }
-    alert("Grades saved successfully!");
+    toast.success("Grades saved successfully!")
     setGrades({}); // Reset grades after saving
   };
 
@@ -217,6 +217,7 @@ function Gard() {
                 <button
             className="formButton xl:w-[27rem] lg:w-80 md:w-full mx-auto"
             type="submit"
+            onClick={saveGrades}
           >
             Save Grades
           </button>

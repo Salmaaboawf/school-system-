@@ -18,28 +18,11 @@ export default function Login() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [role, setRole] = useState("");
-
-  // const schema = yup.object().shape({
-  //   email: yup
-  //     .string()
-  //     .email("Invalid email address")
-  //     .required("Email is required"),
-  //   password: yup
-  //     .string()
-  //     .min(8, "Password must be at least 8 characters")
-  //     .max(32, "Password cannot exceed 32 characters")
-  //     .required("Password is required"),
-  // });
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm(
-  //   {
-  //   resolver: yupResolver(),
-  // }
-);
+  } = useForm();
   const getErrorMessage = (errorCode) => {
     switch (errorCode) {
       case "auth/invalid-credential":
@@ -111,7 +94,6 @@ export default function Login() {
               name="countries"
               value="teachers"
               onChange={check}
-              // {...register("userType")}
             />
             <Label htmlFor="teacher">Teacher</Label>
           </div>
@@ -122,19 +104,16 @@ export default function Login() {
               name="countries"
               value="students"
               onChange={check}
-              // {...register("userType")}
             />
             <Label htmlFor="student">Student</Label>
           </div>
           <div className="flex items-center gap-2">
             <Radio id="" name="countries" value="parents" onChange={check} 
-            //  {...register("userType")}
             />
             <Label htmlFor="">Parent</Label>
           </div>
           <div className="flex items-center gap-2">
             <Radio id="" name="countries" value="users" onChange={check} 
-            //  {...register("userType")}
              />
             <Label htmlFor="">Admin</Label>
           </div>

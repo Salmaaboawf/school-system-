@@ -9,7 +9,7 @@ import Sidebar from "../../components/Sidebar";
 import { addParent, fetchStudents } from "../../services/userServices";
 import { ParentType, StudentType } from "../../utils/types";
 import { useEffect, useState } from "react";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import DashboardHeader from "../../components/Header/DashboardHeader";
 
 // إضافة حقل الديانة إلى الـ schema
@@ -18,10 +18,12 @@ const schema = yup.object().shape({
     .string()
     .matches(/^[A-Za-z\s]+$/, "Name must be characters only")
     .required("required ")
-    .max(20, " Name cannot exceed 20 characters").min(3, "min is 3 letters"),
+    .max(20, " Name cannot exceed 20 characters")
+    .min(3, "min is 3 letters"),
   phoneNumber: yup
     .string()
-    .required("Phone Number is required").matches(/^01[01259][0-9]{8}$/),
+    .required("Phone Number is required")
+    .matches(/^01[01259][0-9]{8}$/),
   gender: yup.string().required("Gender is required"),
   religion: yup.string().required("Religion is required"), // حقل الديانة
   email: yup
@@ -33,13 +35,14 @@ const schema = yup.object().shape({
     .required("Password is required")
     .min(8, "Password must be at least 8 characters")
     .max(32, "Password cannot exceed 32 characters"),
-  address: yup
-    .string()
-    .required("Address is required"),
+  address: yup.string().required("Address is required"),
   children: yup.array().required(),
-  photofile: yup.mixed().required("Photo is required").test("fileSize", "File is too large", (value) => {
-    return !value || (value && value.size <= 2 * 1024 * 1024)
-  }),
+  photofile: yup
+    .mixed()
+    .required("Photo is required")
+    .test("fileSize", "File is too large", (value: any) => {
+      return !value || (value && value.size <= 2 * 1024 * 1024);
+    }),
 });
 
 const animatedComponents = makeAnimated();
@@ -104,7 +107,7 @@ export default function Register() {
       toast.error(errors.religion.message); // معالجة الأخطاء لحقل الديانة
     }
     if (errors.children) {
-      toast.error('Please select at least one child.');
+      toast.error("Please select at least one child.");
     }
   }, [errors]);
 
@@ -115,12 +118,11 @@ export default function Register() {
       </div>
 
       <section className=" text-[#002749] xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
-        <DashboardHeader pageTitle={'Add Parent'} />
+        <DashboardHeader pageTitle={"Add Parent"} />
         <form
           onSubmit={handleSubmit(save)}
           className="border sm:px-8 sm:mx-7 md:px-4 py-6 md:mx-4 rounded xl:mx-8 lg:mx-6 mx-8 lg:px-6 xs:px-4 xs:mx-3"
         >
-
           {/* div for name and gender */}
           <div className="lg:flex justify-between block">
             <div>
@@ -136,7 +138,12 @@ export default function Register() {
 
             <div>
               <Label htmlFor="gender" value="Gender" />
-              <Select {...register("gender")} id="gender" defaultValue="" className="xl:w-[27rem] lg:w-80 md:w-full">
+              <Select
+                {...register("gender")}
+                id="gender"
+                defaultValue=""
+                className="xl:w-[27rem] lg:w-80 md:w-full"
+              >
                 <option value="" disabled className="w-80 border-none">
                   Gender
                 </option>
@@ -145,8 +152,6 @@ export default function Register() {
               </Select>
             </div>
           </div>
-
-     
 
           {/* div for address and phone */}
           <div className="lg:flex justify-between block my-3">
@@ -212,8 +217,8 @@ export default function Register() {
                     components={animatedComponents}
                     placeholder="Choose Children"
                     getOptionLabel={(item: StudentType) => item.name}
-                    getOptionValue={(item: StudentType) => `${item.id}`}
-                    onChange={(selectedOptions) => {
+                    getOptionValue={(item: StudentType) => item.id}
+                    onChange={(selectedOptions: any) => {
                       field.onChange(selectedOptions);
                       console.log(selectedOptions);
                       setSelectedChildrenValues([...selectedOptions]);
@@ -223,23 +228,29 @@ export default function Register() {
                 )}
               />
             </div>
-            
+
             <div>
               <Label htmlFor="photo" value="Student Photo" />
-              <FileInput id="photo"
+              <FileInput
+                id="photo"
                 accept="image/*"
-                onChange={handlePhotoChange} 
-                className="xl:w-[27rem] lg:w-80 md:w-full"/>
+                onChange={handlePhotoChange}
+                className="xl:w-[27rem] lg:w-80 md:w-full"
+              />
             </div>
-            
           </div>
-               <div className="my-3">
+          <div className="my-3">
             <Label htmlFor="religion" value="Religion" />
-            <Select {...register("religion")} id="religion" defaultValue="" className="xl:w-[27rem] lg:w-80 md:w-full">
+            <Select
+              {...register("religion")}
+              id="religion"
+              defaultValue=""
+              className="xl:w-[27rem] lg:w-80 md:w-full"
+            >
               <option value="" disabled className="w-80 border-none">
                 Select Religion
               </option>
-              <option value="Islam">Islam</option>
+              <option value="muslim">Islam</option>
               <option value="Christianity">Christianity</option>
               <option value="Other">Other</option>
             </Select>

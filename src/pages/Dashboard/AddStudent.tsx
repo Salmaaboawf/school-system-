@@ -2,14 +2,14 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Label, TextInput, Select, Button, FileInput } from "flowbite-react";
-import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import { ParentType, StudentType } from "../../utils/types";
 import { addStudent, fetchParents } from "../../services/userServices";
 import { useEffect, useState } from "react";
 import { fetchLevels } from "../../services/levelsServices";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { toast } from 'react-toastify';
+
+import { toast } from "react-toastify";
 import DashboardHeader from "../../components/Header/DashboardHeader";
 
 const schema = yup.object().shape({
@@ -21,15 +21,17 @@ const schema = yup.object().shape({
     .min(3, "Name must be at least 3 letters"),
   phoneNumber: yup
     .string()
-    .required("Phone number is required")
-    .matches(/^01[01259][0-9]{8}$/, "Invalid phone number format"),
+    .required("Age is required")
+    .matches(/^01[01259][0-9]{8}$/),
   age: yup
     .number()
     .required("Age is required")
-    .typeError("Age must be a number"),
+    .typeError("Age must be a number"), //issue
+  // .min(18, "Student must be at least 4 years old")
+  // .max(99, "Student must be younger than 19 years old"),
   gender: yup.string().required("Gender is required"),
   class: yup.string().required("Class is required"),
-  address: yup.string().required("Address is required"),
+  address: yup.string().required(),
   email: yup
     .string()
     .email("Invalid email address")
@@ -40,13 +42,14 @@ const schema = yup.object().shape({
     .max(32, "Password cannot exceed 32 characters")
     .required("Password is required"),
   parent: yup.string().default(""),
-  religion: yup.string().required("Religion is required"), // New validation for religion
   photofile: yup
     .mixed()
     .required("Photo is required")
-    .test("fileSize", "File is too large", (value) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .test("fileSize", "File is too large", (value: any) => {
       return !value || (value && value.size <= 2 * 1024 * 1024);
     }),
+  religion: yup.string().required("Religion is required"), // حقل الديانة
 });
 
 export default function Register() {
@@ -85,16 +88,33 @@ export default function Register() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (errors.name) toast.error(errors.name.message);
-    if (errors.age) toast.error(errors.age.message);
-    if (errors.email) toast.error(errors.email.message);
-    if (errors.password) toast.error(errors.password.message);
-    if (errors.phoneNumber) toast.error(errors.phoneNumber.message);
-    if (errors.photofile) toast.error(errors.photofile.message);
-    if (errors.address) toast.error(errors.address.message);
-    if (errors.gender) toast.error(errors.gender.message);
-    if (errors.class) toast.error('Class is required.');
-    if (errors.religion) toast.error('Religion is required.');
+    if (errors.name) {
+      toast.error(errors.name.message);
+    }
+    if (errors.age) {
+      toast.error(errors.age.message);
+    }
+    if (errors.email) {
+      toast.error(errors.email.message);
+    }
+    if (errors.password) {
+      toast.error(errors.password.message);
+    }
+    if (errors.phoneNumber) {
+      toast.error(errors.phoneNumber.message);
+    }
+    if (errors.photofile) {
+      toast.error(errors.photofile.message);
+    }
+    if (errors.address) {
+      toast.error(errors.address.message);
+    }
+    if (errors.gender) {
+      toast.error(errors.gender.message);
+    }
+    if (errors.class) {
+      toast.error("Class is required.");
+    }
   }, [errors]);
 
   return (
@@ -103,8 +123,8 @@ export default function Register() {
         <Sidebar />
       </div>
 
-      <section className="text-[#002749] xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
-        <DashboardHeader pageTitle="Add Student" />
+      <section className=" text-[#002749] xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
+        <DashboardHeader pageTitle={"Add Student"} />
         <form
           onSubmit={handleSubmit(save, (err) => console.log(err))}
           className="border sm:px-8 sm:mx-7 md:px-4 py-6 md:mx-4 rounded xl:mx-8 lg:mx-6 mx-8 lg:px-6 xs:px-4 xs:mx-3"
@@ -123,14 +143,36 @@ export default function Register() {
 
             <div>
               <Label htmlFor="gender" value="Gender" />
-              <Select {...register("gender")} id="gender" defaultValue="" className="xl:w-[27rem] lg:w-80 md:w-full">
-                <option value="" disabled>
-                  Select Gender
+              <Select
+                {...register("gender")}
+                id="gender"
+                defaultValue=""
+                className="xl:w-[27rem] lg:w-80 md:w-full"
+              >
+                <option value="" disabled className="w-80 border-none">
+                  Gender
                 </option>
                 <option value="female">Female</option>
                 <option value="male">Male</option>
               </Select>
             </div>
+          </div>
+
+          <div className="my-3">
+            <Label htmlFor="religion" value="Religion" />
+            <Select
+              {...register("religion")}
+              id="religion"
+              defaultValue=""
+              className="xl:w-[27rem] lg:w-80 md:w-full"
+            >
+              <option value="" disabled className="w-80 border-none">
+                Select Religion
+              </option>
+              <option value="muslim">Islam</option>
+              <option value="Christianity">Christianity</option>
+              <option value="Other">Other</option>
+            </Select>
           </div>
 
           <div className="lg:flex justify-between block my-3">
@@ -171,8 +213,12 @@ export default function Register() {
 
             <div>
               <Label htmlFor="parent" value="Parent" />
-              <Select {...register("parent")} id="parent" className="xl:w-[27rem] lg:w-80 md:w-full">
-                <option value="">Select Parent</option>
+              <Select
+                {...register("parent")}
+                id="parent"
+                className="xl:w-[27rem] lg:w-80 md:w-full"
+              >
+                <option value="">Select</option>
                 {parents.map((parent) => (
                   <option key={parent.id} value={parent.id}>
                     {parent.name}
@@ -182,9 +228,10 @@ export default function Register() {
             </div>
           </div>
 
+          {/* div for email and password */}
           <div className="lg:flex justify-between block my-3">
             <div>
-              <Label htmlFor="email1" value="Email" />
+              <Label htmlFor="email1" value="Student Email" />
               <TextInput
                 {...register("email")}
                 id="email1"
@@ -193,9 +240,8 @@ export default function Register() {
                 className="xl:w-[27rem] lg:w-80 md:w-full"
               />
             </div>
-
             <div>
-              <Label htmlFor="password1" value="Password" />
+              <Label htmlFor="password1" value="Student Password" />
               <TextInput
                 {...register("password")}
                 id="password1"
@@ -206,11 +252,16 @@ export default function Register() {
             </div>
           </div>
 
+          {/* div for class and photo */}
           <div className="lg:flex justify-between block my-3">
             <div>
               <Label htmlFor="class" value="Class" />
-              <Select {...register("class")} id="class" className="xl:w-[27rem] lg:w-80 md:w-full">
-                <option value="">Select Class</option>
+              <Select
+                {...register("class")}
+                id="class"
+                className="xl:w-[27rem] lg:w-80 md:w-full"
+              >
+                <option value="">Select</option>
                 {levels.map((lvl) => (
                   <option key={lvl.id} value={lvl.id}>
                     {lvl.name}
@@ -220,25 +271,12 @@ export default function Register() {
             </div>
 
             <div>
-              <Label htmlFor="religion" value="Religion" />
-              <Select {...register("religion")} id="religion" className="xl:w-[27rem] lg:w-80 md:w-full">
-                <option value="" disabled>
-                  Select Religion
-                </option>
-                <option value="muslim">Muslim</option>
-                <option value="christian">Christian</option>
-              </Select>
-            </div>
-          </div>
-
-          <div className="lg:flex justify-between block my-3">
-            <div>
               <Label htmlFor="photo" value="Student Photo" />
               <FileInput
                 id="photo"
                 accept="image/*"
                 onChange={handlePhotoChange}
-                className="xl:w-[27rem] lg:w-80 md:w-full"
+                className="xl:w-[27rem] lg:w-80 md:w-full "
               />
             </div>
           </div>

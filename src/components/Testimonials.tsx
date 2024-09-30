@@ -1,9 +1,9 @@
 
 import mostafa from "../assets/images/testimonials/steptodown.com100018.jpg";
 import momen from "../assets/images/testimonials/steptodown.com374246.jpg";
-import salma from "../assets/images/testimonials/steptodown.com731439.jpg";
+import salma from "../assets/images/testimonials/steptodown.com906069.jpg";
 import salah from "../assets/images/testimonials/steptodown.com789803.jpg";
-import esraa from "../assets/images/testimonials/steptodown.com840566.jpg";
+import esraa from "../assets/images/testimonials/steptodown.com902032.jpg";
 import hadeer from "../assets/images/testimonials/steptodown.com972047.jpg";
 import "../assets/homelanding.css";
 import TestimonialBox from "./TestimonialBox ";
@@ -20,7 +20,7 @@ const Testimonials = () => {
         "As a civil engineer, I appreciate the structured and professional environment this school offers. My child is excelling academically, and I am thoroughly impressed with the dedication of the staff.",
     },
     {
-      image: momen,
+      image: salah,
       name: "Salah Bestawy",
       title: "Business Consultant",
       rating: 4,
@@ -28,7 +28,7 @@ const Testimonials = () => {
         "The school's approach to education fosters both academic growth and personal development. My child has shown remarkable improvement, and I feel confident in the education being provided here.",
     },
     {
-      image: salma,
+      image: momen,
       name: "Moumen Mostafa",
       title: "Architect",
       rating: 5,
@@ -36,7 +36,7 @@ const Testimonials = () => {
         "This school has exceeded my expectations in every way. The attention to detail in the curriculum and the commitment to student well-being is incredible. My child has grown both academically and socially.",
     },
     {
-      image: salah,
+      image: esraa,
       name: "Esraa Mohamed",
       title: "Project Manager",
       rating: 3,
@@ -44,7 +44,7 @@ const Testimonials = () => {
         "The school's strong emphasis on learning is admirable, and my child enjoys the collaborative environment. However, there is still some room for improvement in extracurricular activities.",
     },
     {
-      image: esraa,
+      image: salma,
       name: "Salma Aboouf",
       title: "Marketing Specialist",
       rating: 3,

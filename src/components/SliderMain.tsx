@@ -17,13 +17,23 @@ import {
   Navigation,
   Pagination,
 } from "swiper/modules";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 const SliderMain = () => {
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const swiperInstance = document.querySelector('.swiper').swiper;
+    if (swiperInstance) {
+      swiperInstance.params.navigation.prevEl = navigationPrevRef.current;
+      swiperInstance.params.navigation.nextEl = navigationNextRef.current;
+      swiperInstance.navigation.init();
+      swiperInstance.navigation.update();
+    }
+  }, []);
   return (
     <>
       <Swiper
@@ -39,10 +49,8 @@ const SliderMain = () => {
         modules={[Navigation, Pagination, Autoplay, A11y, EffectFade]}
         slidesPerView={1}
       >
-        <SwiperSlide className="relative h-screen w-full">
+        {/* <SwiperSlide className="relative h-screen w-full">
           <div className="absolute inset-0 bg-black opacity-50"></div>{" "}
-          {/* Dark overlay */}
-          {/* Video Background */}
           <video
             src={headervideo}
             autoPlay
@@ -59,7 +67,7 @@ const SliderMain = () => {
               Enroll Now
             </button>
           </div>
-        </SwiperSlide>
+        </SwiperSlide> */}
         <SwiperSlide className="relative h-screen w-full">
           <div className="absolute "></div> {/* Dark overlay */}
           <img
@@ -71,7 +79,7 @@ const SliderMain = () => {
             <h1 className="text-5xl text-white">
               Welcome to SCHOOLARSWAY School
             </h1>
-            <p className="mt-5">Best gift for a child is a great education</p>
+            <p className="mt-5 text-4xl">Empowering Scholars, Leading the Way</p>
             <button className="mt-10 bg-red-500 px-6 py-3 text-white rounded-lg"  onClick={() => navigate("/contact")}>
               Enroll Now
             </button>
@@ -87,10 +95,10 @@ const SliderMain = () => {
           />
           <div className="relative z-10 text-center text-white mt-[230px]">
             <h1 className="text-5xl text-white">
-              Welcome to Enfant Primary School
+            Welcome to SCHOOLARSWAY School
             </h1>
-            <p className="mt-5">Best gift for a child is a great education</p>
-            <button className="mt-10 bg-red-500 px-6 py-3 text-white rounded-lg">
+            <p className="mt-5 text-4xl">Best gift for a child is a great education</p>
+            <button className="mt-10 bg-red-500 px-6 py-3 text-white rounded-lg" onClick={() => navigate("/contact")}>
               Enroll Now
             </button>
           </div>

@@ -8,14 +8,30 @@ import { CiTrash } from "react-icons/ci";
 import Swal from 'sweetalert2'
 function ShowContact() {
     const [contactList, setContactList] = useState([]);
+    // useEffect(() => {
+    //     const fetchContacts = async () => {
+    //         const contacts = await displayContact();
+    //         setContactList(contacts);
+    //     };
+
+    //     fetchContacts();
+    // }, [])
+
     useEffect(() => {
         const fetchContacts = async () => {
             const contacts = await displayContact();
-            setContactList(contacts);
+    
+            // Assuming each contact has a 'createdAt' or 'timestamp' field
+            const sortedContacts = contacts.sort((a, b) => {
+                return new Date(b) - new Date(a); // Sort newest to oldest
+            });
+    
+            setContactList(sortedContacts);
         };
-
+    
         fetchContacts();
-    }, [])
+    }, []);
+    
 
     const checkMessage = async (id) => {
         const success = await markAsRead(id);

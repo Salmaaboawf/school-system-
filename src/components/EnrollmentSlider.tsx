@@ -15,7 +15,7 @@ import {
   Navigation,
   Pagination,
 } from "swiper/modules";
-import { useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import SectionTitle from "./SectionTitle";
 
 const enrollArr = [
@@ -44,7 +44,15 @@ const enrollArr = [
 const EnrollmentSlider = () => {
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
-
+  useEffect(() => {
+    const swiperInstance = document.querySelector('.swiper').swiper;
+    if (swiperInstance) {
+      swiperInstance.params.navigation.prevEl = navigationPrevRef.current;
+      swiperInstance.params.navigation.nextEl = navigationNextRef.current;
+      swiperInstance.navigation.init();
+      swiperInstance.navigation.update();
+    }
+  }, []);
   return (
     <div>
       <SectionTitle
@@ -77,7 +85,7 @@ const EnrollmentSlider = () => {
             key={item.title}
           >
             <p
-              className={`relative z-40 w-14 h-14 flex items-center justify-center font-bold rounded-full ${
+              className={`relative z-40 w-20 h-20 flex items-center justify-center font-bold rounded-full ${
                 index % 2 == 0 ? "bg-[#FF4E31]" : "bg-[#002749]"
               } shadow-lg text-white text-xl mb-4`}
             >
@@ -87,7 +95,7 @@ const EnrollmentSlider = () => {
             <p className="text-center">{item.desc}</p>
           </SwiperSlide>
         ))}
-        <span className="w-full h-1 border-dashed border-b-gray-950 border-2 top-[60px] z-[0] left-0 absolute"></span>
+        <span className="w-full h-1 border-dashed border-b-gray-950 border-2 top-[70px] z-[0] left-0 absolute"></span>
         <div className="flex justify-center my-5 gap-x-4 z-30">
           <div
             ref={navigationPrevRef}
