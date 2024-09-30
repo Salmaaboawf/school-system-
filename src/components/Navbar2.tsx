@@ -180,13 +180,7 @@ function Navbar2() {
                             My Grades
                           </NavLink>
                         </li>
-                        <li>
-                          <NavLink to="/chat" className="profileLink">
-                            <PiExam className="profileLinkIcon" />
-                            {/* <PiExamFill className="mr-2 text-lg"/> */}
-                            chat
-                          </NavLink>
-                        </li>
+                     
                         <li>
                           <NavLink to="/student-table" className="profileLink">
                             <RiCalendarScheduleLine className="profileLinkIcon" />
@@ -245,12 +239,7 @@ function Navbar2() {
                             Take Attandance
                           </NavLink>
                         </li>
-                        <li>
-                          <NavLink to="/chat" className="profileLink">
-                            <PiExam className="profileLinkIcon" />
-                            chat
-                          </NavLink>
-                        </li>
+                      
                       </>
                     )}
 

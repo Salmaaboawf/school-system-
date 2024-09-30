@@ -109,6 +109,9 @@ function App() {
   return (
     <>
       <ScrollToTop />
+      <div className="fixed bottom-0 right-5 z-50">
+        <Chat />
+      </div>
       {/* <Nav /> */}
       {!hideNavbar && <Navbar2 />}
       <Routes>
@@ -118,7 +121,6 @@ function App() {
               {/* <Nav /> */}
               <Outlet />
               <Footer />
-              
             </>
           }
         >
@@ -150,14 +152,6 @@ function App() {
         <Route
           path="/grades"
           element={<PrivateRoute element={MyGrades} role="student" />}
-        />
-        <Route
-          path="/chat"
-          element={<PrivateRoute element={Chat} role="student" />}
-        />
-        <Route
-          path="/chat"
-          element={<PrivateRoute element={Chat} role="teacher" />}
         />
 
         <Route

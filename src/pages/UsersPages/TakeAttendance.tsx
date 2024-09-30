@@ -16,23 +16,34 @@ const AttendanceQRCode = () => {
   };
 
   return (
-<>
-<div className='container xs:px-0 lg:px-20'>
-{/* <div>
+    <>
+     
+      <div className="container xs:px-0 lg:px-20">
+        {/* <div>
         <Nav />
       </div> */}
-    <div className="mt-10">
- <Header />
-</div>
-    <div className='my-16 mx-auto w-fit'>
-      <Button outline onClick={generateQRCode} className='my-5 lg:w-72 sm:w-32 xs:w-72'>Generate QR Code for Today</Button>
-      {qrData && (
-        <div className="qr-container">
-          <QRCodeSVG value={qrData as string} fgColor={'#ff4e31'} size={256}/>
+        <div className="mt-10">
+          <Header />
         </div>
-      )}
-    </div>
-    </div>
+        <div className="my-16 mx-auto w-fit">
+          <Button
+            outline
+            onClick={generateQRCode}
+            className="my-5 lg:w-72 sm:w-32 xs:w-72"
+          >
+            Generate QR Code for Today
+          </Button>
+          {qrData && (
+            <div className="qr-container">
+              <QRCodeSVG
+                value={qrData as string}
+                fgColor={"#ff4e31"}
+                size={256}
+              />
+            </div>
+          )}
+        </div>
+      </div>
     </>
   );
 };
