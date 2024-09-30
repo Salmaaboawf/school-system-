@@ -13,8 +13,8 @@ export default function About() {
   return (
     <>
       
-      <div className="bg-gray-100  text-center py-10 text-3xl mb-5 about-parent mt-[130px]">
-        <h2> About us </h2>
+      <div className="bg-gray-100  text-center py-10 text-3xl mb-5 about-parent mt-10">
+        <h2 className="text-deepBlue"> About us </h2>
       </div>
       <div className="counter bg-slideOne">
         <Counter />

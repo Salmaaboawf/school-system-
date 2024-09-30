@@ -141,9 +141,9 @@ function Subjects() {
 
   return (
     <>
-      <Nav />
+      {/* <Nav /> */}
       <section className='container'>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 mt-[80px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4 mt-6">
           {filteredSubjects.map((subject) => (
             <section key={subject.id} className="card-section">
               <div className="card">

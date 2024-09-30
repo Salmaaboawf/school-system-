@@ -13,6 +13,7 @@ import { PiBooksLight, PiExam } from 'react-icons/pi';
 import { MdMenu, MdOndemandVideo, MdOutlinePeopleAlt } from 'react-icons/md';
 import { RxDashboard } from 'react-icons/rx';
 import { IoMdHome } from 'react-icons/io';
+import unknownUser from "../assets/images/unknown user.jpg";
 function Navbar2() {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -55,7 +56,7 @@ function Navbar2() {
         </div>
 
         {/* pages section on large screens hidden on small screens*/}
-        <div className='pages md:flex gap-x-9 sm:hidden'>
+        <div className='pages md:flex gap-x-9 sm:hidden xs:hidden'>
           <NavLink
             to="/"
             className={({ isActive }) =>
@@ -68,7 +69,7 @@ function Navbar2() {
           <NavLink
             to="/about"
             className={({ isActive }) =>
-              `navPage ${isActive ? "text-Orange" : "text-deepBlue"}`
+              `navPage ${isActive ? "text-Orange border-b border-Orange" : "text-deepBlue"}`
             }
             aria-current="page"
           >
@@ -77,7 +78,7 @@ function Navbar2() {
           <NavLink
             to="/stuff"
             className={({ isActive }) =>
-              `navPage ${isActive ? "text-Orange" : "text-deepBlue"}`
+              `navPage ${isActive ? "text-Orange border-b border-Orange" : "text-deepBlue"}`
             }
             aria-current="page"
           >
@@ -86,7 +87,7 @@ function Navbar2() {
           <NavLink
             to="/calendar"
             className={({ isActive }) =>
-              `navPage ${isActive ? "text-Orange" : "text-deepBlue"}`
+              `navPage ${isActive ? "text-Orange border-b border-Orange" : "text-deepBlue"}`
             }
             aria-current="page"
           >
@@ -95,7 +96,7 @@ function Navbar2() {
           <NavLink
             to="/contact"
             className={({ isActive }) =>
-              `navPage ${isActive ? "text-Orange" : "text-deepBlue"}`
+              `navPage ${isActive ? "text-Orange border-b border-Orange" : "text-deepBlue"}`
             }
             aria-current="page"
           >
@@ -104,7 +105,7 @@ function Navbar2() {
         </div>
 
         {/* profile section on large screens hidden on small screens*/}
-        <div className='profile-section md:flex sm:hidden'>
+        <div className='profile-section flex '>
           {userInfo.id ? (
             <>
               {userInfo.role == "student" && (
@@ -284,7 +285,7 @@ function Navbar2() {
             <NavLink
               to="/login"
               className={({ isActive }) =>
-                `block py-2 px-3 rounded md:bg-transparent md:p-0 ${isActive ? "text-[#ff4e31]" : ""}`
+                `sm:hidden xs:hidden navPage ${isActive ? "text-Orange border-b border-Orange" : "text-deepBlue"}`
               }
             >
               Login
