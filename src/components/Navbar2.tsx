@@ -285,7 +285,7 @@ function Navbar2() {
             <NavLink
               to="/login"
               className={({ isActive }) =>
-                `sm:hidden xs:hidden navPage ${isActive ? "text-Orange border-b border-Orange" : "text-deepBlue"}`
+                `sm:hidden xs:hidden md:block navPage ${isActive ? "text-Orange border-b border-Orange" : "text-deepBlue"}`
               }
             >
               Login
