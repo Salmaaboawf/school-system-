@@ -49,6 +49,7 @@ import ViewAttendance from "./pages/Dashboard/ViewAttendance";
 import KidsAttendance from "./pages/UsersPages/KidsAttendance";
 import Navbar2 from "./components/Navbar2";
 import Chat from "./components/Chat";
+import ScrollToTopButton from "./components/ScrollTopButton";
 
 // import Loading from "./components/Loading";
 function App() {
@@ -121,6 +122,7 @@ function App() {
               {/* <Nav /> */}
               <Outlet />
               <Footer />
+              <ScrollToTopButton/>
             </>
           }
         >

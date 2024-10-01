@@ -183,7 +183,7 @@ const Chat = () => {
                 </div>
               </div>
             ))}
-            {/* Reference for auto-scrolling to the last message */}
+            
             <div ref={scrollRef}></div>
           </div>
 
