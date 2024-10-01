@@ -107,7 +107,7 @@ const Chat = () => {
     <>
       {!isChatOpen && (
         <div
-          className="fixed bottom-5 right-5 bg-blue-600 p-4 rounded-full shadow-lg cursor-pointer hover:bg-blue-700 transition z-1000"
+          className="fixed bottom-5 right-5 bg-[#002749] p-4 rounded-full shadow-lg cursor-pointer hover:bg-blue-700 transition z-1000"
           onClick={() => setIsChatOpen(true)}
         >
           <FiMessageCircle className="text-white text-2xl" />
@@ -183,7 +183,7 @@ const Chat = () => {
                 </div>
               </div>
             ))}
-            
+
             <div ref={scrollRef}></div>
           </div>
 
