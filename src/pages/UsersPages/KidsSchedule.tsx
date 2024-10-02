@@ -60,9 +60,7 @@ function KidsSchedule() {
   }
   return (
     <>
-      <div>
-        <Nav />
-      </div>
+ 
       <div className='container'>
         <div className="forms rounded-lg ">
           <div className="form max-w-full mt-20 p-6 bg-white rounded-lg shadow-lg">

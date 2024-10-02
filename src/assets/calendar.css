@@ -2,26 +2,28 @@
 .calendar-container {
     width: 100%;
     max-width: 800px; 
-    margin: 5rem auto;
-    padding: 20px; 
-    background-color: #002749 !important;
-    border-radius: 8px; 
+    margin: 2rem auto;
+    /* padding: 20px; 
+    background-color: transparent !important;
+    border-radius: 8px;  */
   } 
   
   .rbc-calendar {
     border-radius: 8px; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  */
+    /* background-image: url(./images/unknown-user-2.jpg); */
+    background-color: #0f3b61;
   }
   
   .rbc-header {
-    background-color: #ff4e31; 
+    background-color: transparent !important; 
     border-bottom: 1px solid #dee2e6; 
     color: #fbfbfd; 
     font-weight: bold; 
   }
   
   .rbc-day-bg {
-    background-color: #ff4e31;
+    background-color: #cacdcf;
   }
   
   .rbc-selected {
@@ -30,7 +32,7 @@
   }
   
   .rbc-event {
-    background-color: #002749 !important; 
+    background-color: #0f3b61 !important; 
     color: white; 
     border-radius: 4px; 
   }
@@ -50,25 +52,36 @@
 
   .rbc-toolbar {
     padding-bottom: 20px !important;
+    height: 3.5rem;
    
   }
 
   .rbc-toolbar-label {
     color: #fbfbfd;
+    font-size: 1.7rem;
+    /* position: absolute;
+    top: 35px;
+    font-size: 2rem;
+    padding: 2rem 0;
+    display: inline; */
   }
 
  .rbc-btn-group .rbc-active {
     color: #ff4e31 !important;
   }
+
+  /* .rbc-btn-group {
+    margin: 0 2rem;
+  } */
   /* ---------------------------------------- */
   /* .rbc-now {
-    background-color: #002749;
+    background-color: transparent !important;
   } */
   /* .rbc-current {
-    background-color: #002749;
+    background-color: transparent !important;
   } */
   /* .rbc-toolbar {
-    background-color: #002749;
+    background-color: transparent !important;
   }
 
   .rbc-btn-group {

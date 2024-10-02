@@ -48,9 +48,7 @@ function KidsGrades() {
 
   return (
     <>
-       <div>
-      <Nav />
-    </div>
+
     <div className='container'> 
 
       <div className="forms rounded-lg ">
@@ -102,7 +100,14 @@ function KidsGrades() {
 
 {grades.map((item) => {
   // Calculate final grade by adding grade and quiz score for each item
-  const finalGrade = parseFloat(item.grade+item.quizScore)
+  // const finalGrade = parseFloat(item.grade) + parseFloat(item.quizScore) || 0;
+  const grade = parseFloat(item.grade) || 0;
+  const quizScore = parseFloat(item.quizScore) || 0;
+
+  // If either `item.grade` or `item.quizScore` is empty, use the one that has a value
+  const finalGrade = (item.grade && item.quizScore) 
+  ? grade + quizScore  // If both are provided, sum them
+  : (item.grade ? grade : quizScore);  
   let rating = '';
   switch (true) {
     case finalGrade >= 90:

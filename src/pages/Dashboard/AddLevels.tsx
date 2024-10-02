@@ -60,9 +60,7 @@ export default function AddLevels() {
                 onChange={(e) => setLevelName(e.target.value)}
                 className="mt-1 block w-full border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#002749] transition duration-300 ease-in-out"
               />
-              {errors.levelName && (
-                <p className="text-red-500 text-sm mt-1">{errors.levelName}</p>
-              )}
+             
             </div>
 
             <button

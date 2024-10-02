@@ -37,7 +37,7 @@ function MyGrades() {
 
   return (
     <div className="container flex gap-x-5">
-      <Chat/>
+      <Chat />
       {/* <div>
         <Nav />
       </div> */}
@@ -70,7 +70,11 @@ function MyGrades() {
 
                   <tbody>
                     {grades.map((item, index) => {
-                      const finalGrade = parseFloat(item.grade + item.quizScore)
+                      const grade = parseFloat(item.grade) || 0;
+                      const quizScore = parseFloat(item.quizScore) || 0;
+                      const finalGrade = (item.grade && item.quizScore)
+                        ? grade + quizScore  // If both are provided, sum them
+                        : (item.grade ? grade : quizScore);
                       let rating = '';
                       switch (true) {
                         case finalGrade >= 90:

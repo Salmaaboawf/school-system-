@@ -52,7 +52,7 @@ body {
 }
 
 .profileLinkIcon{
-  @apply  mr-2 text-lg hover:text-deepBlue
+  @apply  mr-2 text-lg
 }
 
 .profileMen::before {
@@ -77,4 +77,24 @@ body {
 
 .dayName{
   @apply whitespace-nowrap px-6 py-4 font-medium text-lg bg-deepBlue text-white
+}
+
+table {
+  width: 100%;
+  table-layout: fixed; /* Force cells to not exceed their width */
+}
+
+td {
+  max-width: 100%; /* Prevent content from overflowing */
+  overflow: auto; /* Hide overflowed content */
+}
+
+
+td::-webkit-scrollbar {
+  display: none; /* Hide scrollbar */
+}
+
+/* Hide scrollbar for other browsers (Firefox) */
+td {
+  scrollbar-width: none; /* For Firefox */
 }
