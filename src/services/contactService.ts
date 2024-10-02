@@ -18,34 +18,24 @@ export const addContact = async (data) => {
     }
 }
 
-export const displayContact = async() => {
-try {
-    const contactCol = collection(db,'contact') 
-    const getContact = await getDocs(contactCol)
-    const contactList = getContact.docs.map(doc => ({
-        id: doc.id,  
-        ...doc.data() 
-      }));
-    return contactList
-} catch (error) {
-    console.log(`display contact error: ${error}`)
-}
-}
 
-// export const getUnreadContact = async() => {
-//     try {
-//         const contactCol = collection(db,'contact') 
-//         const Query = query(contactCol,where('isRead','==',false))
-//         const getUnread = await getDocs(Query)
-//         const listUnread = getUnread.docs.map(doc => ({
-//         id: doc.id,  
-//         ...doc.data() 
-//       }));
-//     return listUnread
-//     } catch (error) {
-//         console.log(`display unread error: ${error}`)
-//     }
-// }
+export const displayContact = (callback) => {
+    try {
+      const contactCol = collection(db, "contact");
+      
+      // Use onSnapshot for real-time updates
+      return onSnapshot(contactCol, (snapshot) => {
+        const contactList = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        callback(contactList); // Pass the updated contact list to the callback
+      });
+    } catch (error) {
+      console.log(`display contact error: ${error}`);
+    }
+  };
+
 
 export const getUnreadContact = (callback) => {
     try {

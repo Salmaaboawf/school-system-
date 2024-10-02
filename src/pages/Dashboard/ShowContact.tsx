@@ -8,29 +8,18 @@ import { CiTrash } from "react-icons/ci";
 import Swal from 'sweetalert2'
 function ShowContact() {
     const [contactList, setContactList] = useState([]);
-    // useEffect(() => {
-    //     const fetchContacts = async () => {
-    //         const contacts = await displayContact();
-    //         setContactList(contacts);
-    //     };
-
-    //     fetchContacts();
-    // }, [])
 
     useEffect(() => {
-        const fetchContacts = async () => {
-            const contacts = await displayContact();
+        // Define a callback to update the contact list when onSnapshot fires
+        const unsubscribe = displayContact((contacts) => {
+          const sortedContacts = contacts.sort((a, b) => new Date(b.date) - new Date(a.date)); // Ensure date sorting
+          setContactList(sortedContacts);
+        });
     
-            // Assuming each contact has a 'createdAt' or 'timestamp' field
-            const sortedContacts = contacts.sort((a, b) => {
-                return new Date(b) - new Date(a); // Sort newest to oldest
-            });
+        // Clean up the subscription when the component unmounts
+        return () => unsubscribe();
+      }, []);
     
-            setContactList(sortedContacts);
-        };
-    
-        fetchContacts();
-    }, []);
     
 
     const checkMessage = async (id) => {
@@ -104,9 +93,9 @@ function ShowContact() {
 
                 <DashboardHeader pageTitle={'Contact List'} />
                 <div className="w-full overflow-x-auto">
-                    <table className="w-full table-auto border-collapse shadow-lg">
-                        <thead>
-                            <tr className="bg-gray-200 text-left">
+                    <table className="w-[95%] mx-auto table-auto border-collapse shadow-lg">
+                        <thead className='rounded-lg'>
+                            <tr className="bg-gray-200 text-left rounded-lg">
                                 <th className="p-4 border-b">Name</th>
                                 <th className="p-4 border-b">Email</th>
                                 <th className="p-4 border-b">Message</th>
@@ -121,7 +110,7 @@ function ShowContact() {
                                     <tr key={contact.id} className="bg-white border-b hover:bg-gray-50">
                                         <td className="p-4 border-b">{contact.name}</td>
                                         <td className="p-4 border-b">{contact.email}</td>
-                                        <td className="p-4 border-b overflow-auto">{contact.message}</td>
+                                        <td className="p-4 border-b max-w-xs break-words">{contact.message}</td>
                                         <td className="p-4 border-b">{new Date(contact.date).toLocaleDateString('en-US', {
                                             weekday: 'long',
                                             year: 'numeric',

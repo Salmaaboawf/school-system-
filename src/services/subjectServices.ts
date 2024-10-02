@@ -87,6 +87,7 @@ export const fetchSubjects = async (dispatch: Dispatch) => {
 
 export const fetchSubjectsByLevel = async (levelId: string) => {
   try {
+    console.log(levelId)
     const subjectCollection = collection(db, "subjects");
 
     const q = query(subjectCollection, where("level_id", "==", levelId));

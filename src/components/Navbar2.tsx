@@ -6,7 +6,7 @@ import { signOut } from 'firebase/auth';
 import mylogo from '../assets/splashLogo.png';
 import { resetUser } from '../Redux/Slices/userSlice';
 import auth from '../config/firebase';
-import { FaRegBell } from 'react-icons/fa';
+import { FaRegBell, FaRegCalendarCheck } from 'react-icons/fa';
 import NotificationList from './NotificationList';
 import { RiCalendarScheduleLine, RiLogoutCircleRLine } from 'react-icons/ri';
 import { PiBooksLight, PiExam } from 'react-icons/pi';
@@ -126,7 +126,7 @@ function Navbar2() {
               </div>
               <button
                 type="button"
-                className="flex rounded-full md:me-0 focus:ring-2 focus:ring-Orange hover:ring-2 transition duration-200"
+                className="flex rounded-full md:me-0 focus:ring-2 focus:ring-Orange hover:ring-2 hover:ring-Orange transition duration-200"
                 id="user-menu-button"
                 aria-expanded={isDropdownOpen}
                 onClick={toggleDropdown}
@@ -137,12 +137,10 @@ function Navbar2() {
                   style={{ zIndex: 1000 }}
                   id="user-dropdown"
                 >
-                  <div className="px-4 py-3">
-                    <span className="block text-sm text-Orange truncate">
-                      {userInfo.email}
-                    </span>
-                  </div>
                   <ul aria-labelledby="user-menu-button">
+                   <li className='text-Orange text-base px-4 py-2 border-b w-full'>
+                   {userInfo.email} 
+                      </li>
                     {userInfo.role === "teacher" && (
                       <li>
                         <NavLink
@@ -192,6 +190,7 @@ function Navbar2() {
                             to="/kids-schedule"
                             className="profileLink"
                           >
+                            <RiCalendarScheduleLine className="profileLinkIcon" />
                             My Kids' Schedule
                           </NavLink>
                         </li>
@@ -200,6 +199,7 @@ function Navbar2() {
                             to="/kids-grades"
                             className="profileLink"
                           >
+                            <PiExam className="profileLinkIcon" />
                             My Kids' Grades
                           </NavLink>
                         </li>
@@ -208,6 +208,7 @@ function Navbar2() {
                             to="/kids-attendance"
                             className="profileLink"
                           >
+                            <FaRegCalendarCheck className="profileLinkIcon" />
                             My Kids' Attendance
                           </NavLink>
                         </li>
@@ -276,9 +277,6 @@ function Navbar2() {
                 style={{ zIndex: 1000 }}
                 id="user-dropdown"
               >
-                <div className="px-4 py-3">
-                  <span className="block text-sm text-Orange truncate">{userInfo.email}</span>
-                </div>
               </div>
             </>
           ) : (

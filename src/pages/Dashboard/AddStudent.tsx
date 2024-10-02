@@ -161,7 +161,18 @@ export default function Register() {
             </div>
           </div>
 
-          <div className="my-3">
+          <div className="lg:flex justify-between block my-3">
+          <div>
+              <Label htmlFor="age" value="Age" />
+              <TextInput
+                {...register("age")}
+                id="age"
+                type="number"
+                placeholder="Age"
+                className="xl:w-[27rem] lg:w-80 md:w-full"
+              />
+            </div>
+            <div>
             <Label htmlFor="religion" value="Religion" />
             <Select
               {...register("religion")}
@@ -176,6 +187,7 @@ export default function Register() {
               <option value="Christianity">Christianity</option>
               <option value="Other">Other</option>
             </Select>
+            </div>
           </div>
 
           {/* div for address and phone */}
@@ -203,19 +215,8 @@ export default function Register() {
             </div>
           </div>
 
-          {/* div for age and parent */}
+          {/* div for class and parent */}
           <div className="lg:flex justify-between block my-3">
-            <div>
-              <Label htmlFor="age" value="Age" />
-              <TextInput
-                {...register("age")}
-                id="age"
-                type="number"
-                placeholder="Age"
-                className="xl:w-[27rem] lg:w-80 md:w-full"
-              />
-            </div>
-
             <div>
               <Label htmlFor="parent" value="Parent" />
               <Select
@@ -231,6 +232,23 @@ export default function Register() {
                 ))}
               </Select>
             </div>
+
+            <div>
+              <Label htmlFor="class" value="Class" />
+              <Select
+                {...register("class")}
+                id="class"
+                className="xl:w-[27rem] lg:w-80 md:w-full"
+              >
+                <option value="">Select</option>
+                {levels.map((lvl) => (
+                  <option key={lvl.id} value={lvl.id}>
+                    {lvl.name}
+                  </option>
+                ))}
+              </Select>
+            </div>
+
           </div>
 
           {/* div for email and password */}
@@ -257,23 +275,9 @@ export default function Register() {
             </div>
           </div>
 
-          {/* div for class and photo */}
+          {/* div for photo and button*/}
           <div className="lg:flex justify-between block my-3">
-            <div>
-              <Label htmlFor="class" value="Class" />
-              <Select
-                {...register("class")}
-                id="class"
-                className="xl:w-[27rem] lg:w-80 md:w-full"
-              >
-                <option value="">Select</option>
-                {levels.map((lvl) => (
-                  <option key={lvl.id} value={lvl.id}>
-                    {lvl.name}
-                  </option>
-                ))}
-              </Select>
-            </div>
+            
 
             <div>
               <Label htmlFor="photo" value="Student Photo" />
@@ -284,13 +288,13 @@ export default function Register() {
                 className="xl:w-[27rem] lg:w-80 md:w-full "
               />
             </div>
-          </div>
           <button
-            className="formButton xl:w-[27rem] lg:w-80 md:w-full"
+            className="formButton xl:w-[27rem] lg:w-80 md:w-full lg:mt-7"
             type="submit"
           >
             Add Student
           </button>
+          </div>
           {/* <input type="submit" title="submit" /> */}
         </form>
       </section>

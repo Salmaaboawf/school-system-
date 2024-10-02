@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { fetchSubjects } from "../../services/subjectServices";
 import { Button } from "flowbite-react";
 import { SubjectType, TeacherType } from "../../utils/types";
+import { toast } from "react-toastify";
 import {
   arrayUnion,
   collection,
@@ -48,6 +49,9 @@ const schema = yup.object().shape({
   thrFour: yup.object().required().nullable(),
 });
 
+
+
+
 const animatedComponents = makeAnimated();
 
 // Define the type for individual level
@@ -68,9 +72,9 @@ const Add_Class_Routine = () => {
 
   const {
     handleSubmit,
-    // formState: { errors },
     control,
     reset,
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
   });
@@ -218,7 +222,7 @@ const Add_Class_Routine = () => {
           }
         }
       }
-      console.log("Finished adding");
+      toast.success(`Schedule added successfully to class ${currentLevel.name}`)
     } catch (error) {
       console.error("Error adding schedule: ", error);
     }
@@ -275,6 +279,14 @@ const Add_Class_Routine = () => {
     }
   }, [currentLevel, subjects]);
 
+
+  // useEffect(() => {
+  //   Object.keys(errors).forEach((key) => {
+  //     toast.error(errors[key]?.message);
+  //   });
+  // }, []);
+
+
   return (
     <div className="flex">
       <div className="fixed xl:w-[20%] lg:w-[25%] md:w-[30%] top-0 left-0 h-full z-50">
@@ -302,6 +314,7 @@ const Add_Class_Routine = () => {
                   onChange={(selectedOption) => {
                     field.onChange(selectedOption);
                     setCurrentLevel(selectedOption);
+
                     reset({
                       levels: selectedOption,
                       sunOne: null,
@@ -347,7 +360,7 @@ const Add_Class_Routine = () => {
             </thead>
             <tbody>
               <tr className="border-b border-[#00274991]">
-                <td className="whitespace-nowrap px-6  font-medium text-2xl text-[#002749]">
+                <td className="whitespace-nowrap px-6  font-medium text-2xl text-deepBlue">
                   Sun
                 </td>
                 {/* td for period 7-9 sunday*/}
@@ -438,7 +451,7 @@ const Add_Class_Routine = () => {
                 </td>
               </tr>
               <tr className="border-b border-[#00274991]">
-                <td className="whitespace-nowrap px-6 font-medium text-2xl text-[#002749]">
+                <td className="whitespace-nowrap px-6 font-medium text-2xl text-deepBlue">
                   Mon
                 </td>
                 {/* td for period 7-9 monday*/}
@@ -529,7 +542,7 @@ const Add_Class_Routine = () => {
                 </td>
               </tr>
               <tr className="border-b border-[#00274991]">
-                <td className="whitespace-nowrap px-6  font-medium text-2xl text-[#002749]">
+                <td className="whitespace-nowrap px-6  font-medium text-2xl text-deepBlue">
                   Tue
                 </td>
                 {/* td for period 7-9 tuesday*/}
@@ -622,7 +635,7 @@ const Add_Class_Routine = () => {
                 </td>
               </tr>
               <tr className="border-b border-[#00274991]">
-                <td className="whitespace-nowrap px-6  font-medium text-2xl text-[#002749]">
+                <td className="whitespace-nowrap px-6  font-medium text-2xl text-deepBlue">
                   Wed
                 </td>
                 {/* td for period 7-9 wednesday*/}
@@ -711,7 +724,7 @@ const Add_Class_Routine = () => {
                 </td>
               </tr>
               <tr className="border-b border-[#00274991]">
-                <td className="whitespace-nowrap px-6  font-medium text-2xl text-[#002749]">
+                <td className="whitespace-nowrap px-6  font-medium text-2xl text-deepBlue">
                   Thr
                 </td>
 
