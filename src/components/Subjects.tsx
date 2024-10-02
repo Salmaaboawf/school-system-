@@ -116,6 +116,7 @@ import { useAppSelector } from "../hooks/reduxHooks";
 import { useNavigate } from "react-router-dom";
 import Nav from "./Nav";
 import '../assets/subject.css';
+import Chat from "./Chat";
 
 function Subjects() {
   const [filteredSubjects, setFilteredSubjects] = useState([]);

@@ -54,10 +54,9 @@ export default function AddQuiz() {
     const selectedSubject = e.target.value;
     setSubject(selectedSubject);
 
-    // Fetch questions and update state using the callback
     getQuizQuestions(selectedSubject, (questionsData) => {
-      setQuizQuestions([...questionsData]); // Update the state with the fetched questions
-      console.log(questionsData); // Log the questions
+      setQuizQuestions([...questionsData]);
+      console.log(questionsData);
     });
   };
 
@@ -85,13 +84,13 @@ export default function AddQuiz() {
         question: data.question,
         options: data.options.map((option) => option.value),
         correctAnswer: data.correctOption,
-        subjectId: subject, // استخدم معرف المادة
+        subjectId: subject,
       };
 
       console.log(quizData);
 
       await addQuestion(quizData);
-      reset(); // إعادة ضبط النموذج بعد الإضافة الناجحة
+      reset();
     } catch (error) {
       console.error("Error adding quiz: ", error);
     }
@@ -99,122 +98,128 @@ export default function AddQuiz() {
 
   return (
     <div className="container xs:px-0 lg:px-20">
+      {/* Ensuring the Chat component is always on top */}
+   
 
-    
-       <div className="mt-10">
+      <div className="mt-10">
         <Header />
       </div>
-    <div className="flex gap-x-5">
-      <div className="my-5 w-full">
-        <section className="shadow-md text-deepBlue">
-          <h3 className="bg-[#002749] text-white font-bold py-4 pl-4 text-lg rounded-t-lg">
-            Add Quiz Question
-          </h3>
-          <form onSubmit={handleSubmit(save)} className="py-4 w-full sm:px-10 xs:px-5 rounded-b-lg">
-            <div className="mb-4">
-              <div className="flex justify-between mb-4 pr-1">
-                <Label
-                  htmlFor="subject"
-                  value="Subject Name"
-                  className="text-xl"
-                />
+      <div className="flex gap-x-5">
+        <div className="my-5 w-full">
+          <section className="shadow-md text-deepBlue">
+            <h3 className="bg-[#002749] text-white font-bold py-4 pl-4 text-lg rounded-t-lg">
+              Add Quiz Question
+            </h3>
+            <form
+              onSubmit={handleSubmit(save)}
+              className="py-4 w-full sm:px-10 xs:px-5 rounded-b-lg"
+            >
+              <div className="mb-4">
+                <div className="flex justify-between mb-4 pr-1">
+                  <Label
+                    htmlFor="subject"
+                    value="Subject Name"
+                    className="text-xl"
+                  />
 
-                <Label
-                  htmlFor="subject"
-                  value={`Current Questions ${quizQuestions.length}`}
-                  className="text-xl"
-                />
+                  <Label
+                    htmlFor="subject"
+                    value={`Current Questions ${quizQuestions.length}`}
+                    className="text-xl"
+                  />
+                </div>
+                <Select
+                  id="subject"
+                  required
+                  value={subject}
+                  onChange={handleInputChange}
+                >
+                  <option value="">Select subject</option>
+                  {filteredSubjects.map((subject) => (
+                    <option key={subject.id} value={subject.id}>
+                      {subject.name}
+                    </option>
+                  ))}
+                </Select>
               </div>
-              <Select
-                id="subject"
-                required
-                value={subject}
-                onChange={handleInputChange}
-              >
-                <option value="">Select subject</option>
-                {filteredSubjects.map((subject) => (
-                  <option key={subject.id} value={subject.id}>
-                    {subject.name}
-                  </option>
-                ))}
-              </Select>
-            </div>
 
-            <div className="mb-4">
-              <label htmlFor="question">Question</label>
-              <input
-                type="text"
-                className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded"
-                id="question"
-                placeholder="Question"
-                {...register("question")}
-              />
-              <p className="text-red-500">{errors.question?.message}</p>
-            </div>
-
-            {fields.map((field, index) => (
-              <div key={field.id} className="mb-4">
-                <label htmlFor={`option${index + 1}`}>Option {index + 1}</label>
+              <div className="mb-4">
+                <label htmlFor="question">Question</label>
                 <input
                   type="text"
                   className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded"
-                  id={`option${index + 1}`}
-                  placeholder={`Option ${index + 1}`}
-                  {...register(`options.${index}.value`)}
+                  id="question"
+                  placeholder="Question"
+                  {...register("question")}
                 />
-                <p className="text-red-500">
-                  {errors.options?.[index]?.value?.message}
-                </p>
+                <p className="text-red-500">{errors.question?.message}</p>
               </div>
-            ))}
 
-            <div className="mb-4">
-              <Label htmlFor="correctOption" value="Correct Option" />
-              <Select id="correctOption" {...register("correctOption")}>
-                <option value="">Select Correct Option</option>
-                {fields.map((_, index) => (
-                  <option key={index} value={index.toString()}>
+              {fields.map((field, index) => (
+                <div key={field.id} className="mb-4">
+                  <label htmlFor={`option${index + 1}`}>
                     Option {index + 1}
-                  </option>
-                ))}
-              </Select>
-              <p className="text-red-500">{errors.correctOption?.message}</p>
-            </div>
+                  </label>
+                  <input
+                    type="text"
+                    className="block border pl-2 w-full mt-2 py-1 border-gray-300 rounded"
+                    id={`option${index + 1}`}
+                    placeholder={`Option ${index + 1}`}
+                    {...register(`options.${index}.value`)}
+                  />
+                  <p className="text-red-500">
+                    {errors.options?.[index]?.value?.message}
+                  </p>
+                </div>
+              ))}
 
-            <div className="sm:flex-row sm:flex sm:gap-x-4 mx-auto w-fit xs:flex-col xs:gap-x-1">
-              <Button
-                outline
-                className="my-5 lg:w-72 sm:w-32 xs:w-72"
-                type="submit"
-              >
-                Add Quiz
-              </Button>
-              <Button
-                outline
-                className="my-5 lg:w-72 sm:w-32 xs:w-72"
-                type="button"
-                onClick={() => {
-                  clearQuizQuestions(subject);
-                }}
-              >
-                Clear Quiz
-              </Button>
+              <div className="mb-4">
+                <Label htmlFor="correctOption" value="Correct Option" />
+                <Select id="correctOption" {...register("correctOption")}>
+                  <option value="">Select Correct Option</option>
+                  {fields.map((_, index) => (
+                    <option key={index} value={index.toString()}>
+                      Option {index + 1}
+                    </option>
+                  ))}
+                </Select>
+                <p className="text-red-500">{errors.correctOption?.message}</p>
+              </div>
 
-              <Button
-                outline
-                className="my-5 lg:w-72 sm:w-32 xs:w-72"
-                type="button"
-                onClick={() => {
-                  addSubjectQuizes();
-                }}
-              >
-                add loop
-              </Button>
-            </div>
-          </form>
-        </section>
+              <div className="sm:flex-row sm:flex sm:gap-x-4 mx-auto w-fit xs:flex-col xs:gap-x-1">
+                <Button
+                  outline
+                  className="my-5 lg:w-72 sm:w-32 xs:w-72"
+                  type="submit"
+                >
+                  Add Quiz
+                </Button>
+                <Button
+                  outline
+                  className="my-5 lg:w-72 sm:w-32 xs:w-72"
+                  type="button"
+                  onClick={() => {
+                    clearQuizQuestions(subject);
+                  }}
+                >
+                  Clear Quiz
+                </Button>
+
+                <Button
+                  outline
+                  className="my-5 lg:w-72 sm:w-32 xs:w-72"
+                  type="button"
+                  onClick={() => {
+                    addSubjectQuizes();
+                  }}
+                >
+                  add loop
+                </Button>
+              </div>
+            </form>
+          </section>
+        </div>
       </div>
-    </div>
     </div>
   );
 }

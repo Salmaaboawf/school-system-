@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import Nav from "../../components/Nav";
 import { getTeacherSchedule } from "../../services/teacherServices";
-import { Schedule, Day, SubjectType } from "../../utils/types";
+import { Schedule, SubjectType } from "../../utils/types";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import Loading from "../../components/Loading";
 import Header from "../../components/Header/Header";
-import { MdLunchDining } from "react-icons/md";
 import ParticlesComponent from "../../components/Tsparticles";
 import '../../assets/stars.css'
 const TeacherRoutine = () => {
@@ -77,7 +75,7 @@ const TeacherRoutine = () => {
 
   return (
     <div className="container">
-
+     
       <div className="particles-container">
         <ParticlesComponent id="particles" />
       </div>
@@ -115,7 +113,10 @@ const TeacherRoutine = () => {
               </thead>
               <tbody>
                 {Object.keys(dayMap).map((dayName, index) => (
-                  <tr key={index} className="border-b dark:border-neutral-500 bg-slate-50 hover:bg-lightBlue hover:text-white">
+                  <tr
+                    key={index}
+                    className="border-b dark:border-neutral-500 bg-slate-50 hover:bg-lightBlue hover:text-white"
+                  >
                     <td className="whitespace-nowrap px-2 py-4 font-medium text-lg bg-deepBlue text-white">
                       {dayName}
                     </td>
