@@ -65,6 +65,7 @@ const buttonStyle: CSSProperties = {
   fontSize: "30px",
   boxShadow: "0 2px 5px rgba(0, 0, 0, 0.3)",
   transition: "background-color 0.3s, opacity 0.3s", 
+  zIndex:"1000",
 };
 
 export default ScrollToTopButton;
