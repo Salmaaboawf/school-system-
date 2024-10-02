@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { fetchLevels } from "../../services/levelsServices";
 import { toast } from "react-toastify";
 
-// import { fetchTeachers } from "../../services/teacherServices";
+import { fetchTeachers } from "../../services/teacherServices";
 import DashboardHeader from "../../components/Header/DashboardHeader";
 const schema = yup.object().shape({
   name: yup
@@ -53,7 +53,7 @@ export default function AddSubject() {
   const levels = useAppSelector((state) => state.levels.levels);
   const dispatch = useAppDispatch();
   const [imagePreview, setImagePreview] = useState(null);
-  // const [teachers, setTeachers] = useState([]);
+  const [teachers, setTeachers] = useState([]);
 
   const save = async (data) => {
     try {
@@ -74,10 +74,10 @@ export default function AddSubject() {
     }
   };
 
-  // useEffect(() => {
-  //   fetchLevels(dispatch);
-  //   fetchTeachers().then((fetchedTeachers) => setTeachers(fetchedTeachers));
-  // }, [dispatch]);
+  useEffect(() => {
+    fetchLevels(dispatch);
+    fetchTeachers().then((fetchedTeachers) => setTeachers(fetchedTeachers));
+  }, [dispatch]);
 
   useEffect(() => {
     if (errors.name) {
@@ -152,7 +152,7 @@ export default function AddSubject() {
 
           </div>
 
-          {/* <div>
+          <div>
               <Label htmlFor="teacher" value="Select Teacher" />
               <Select
                 id="teacher"
@@ -166,10 +166,10 @@ export default function AddSubject() {
                   </option>
                 ))}
               </Select>
-              <p className="text-red-500 text-sm mt-1">
+              {/* <p className="text-red-500 text-sm mt-1">
                 {errors.teacher?.message}
-              </p>
-            </div> */}
+              </p> */}
+            </div>
 
           <div>
             <Label htmlFor="description" value="Course Description" />

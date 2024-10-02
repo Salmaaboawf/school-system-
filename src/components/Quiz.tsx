@@ -277,7 +277,7 @@ const QuizPage = () => {
 
   const currentQuestion = quizQuestions[currentQuestionIndex];
 
-  // Handle next question
+  // Handle next question momen
   const handleNextQuestion = () => {
     if (answer) {
       if (currentQuestionIndex < quizQuestions.length) {
@@ -305,20 +305,21 @@ const QuizPage = () => {
     }
   };
 
+
   const handleOptionChange = (e) => {
     setAnswer(e.target.value);
   };
 
   return (
     <>
-    <div className="flex justify-center items-center min-h-screen">
-      <div className="bg-lightBlue w-[50%] p-8 m-auto rounded-xl flex justify-center items-center">
-        <div className="bg-white p-8 rounded-2xl border-gray-600 border-2 shadow-lg text-center w-full">
-          {!quizCompleted ? (
-            <>
-              <h2 className="text-2xl font-bold mb-4 text-center px-3 text-wrap">{`${currentQuestion?.question}`}</h2>
-
-              {/* <div className="mb-4">
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="bg-lightBlue w-[50%] p-8 m-auto rounded-xl flex justify-center items-center">
+          <div className="bg-white p-8 rounded-2xl border-gray-600 border-2 shadow-lg text-center w-full">
+            {!quizCompleted ? (
+              <>
+                <h2 className="text-2xl font-bold mb-4 text-center px-3 text-wrap">{`${currentQuestion?.question}`}</h2>
+                {/* 
+              <div className="mb-4">
                 {currentQuestion?.options.map((option, index) => (
                   
                   <div key={index} className="flex items-center my-6 border rounded-2xl px-7 py-2 border-gray-700 bg-[#f9f9f9]">
@@ -336,100 +337,78 @@ const QuizPage = () => {
                   </div>
                 ))}
               </div> */}
-              <div className="mb-4">
-                {/* Create an array of letters */}
-                {/* {currentQuestion?.options.map((option, index) => {
-                  const letters = ['A', 'B', 'C', 'D']; 
-                  return (
-                    <div key={index} className="flex items-center my-6 border rounded-2xl px-7 py-2 border-gray-700 bg-[#f9f9f9]">
-                      <div className="relative mr-4">
-                        <input
-                          type="radio"
-                          id={`option${index}`}
-                          name="quizOption"
-                          value={option}
-                          onChange={handleOptionChange}
-                          className="absolute opacity-0 question"
-                        />
-                        <div className="w-8 h-8 border-2 border-gray-700 rounded-full flex items-center justify-center relative cursor-pointer">
-                          <span className="absolute text-gray-700 font-bold">{letters[index]}</span>
+                <div className="mb-4">
+
+
+                  {currentQuestion?.options.map((option, index) => {
+                    const letters = ['A', 'B', 'C', 'D']; // Add more if needed based on options length
+                    return (
+                      <div
+                        key={index}
+                        className="flex items-center my-6 border rounded-2xl px-7 py-2 border-gray-700 bg-[#f9f9f9]"
+                      >
+                        {/* Wrap the input and div together */}
+                        <div className="relative mr-4">
+                          <input
+                            type="radio"
+                            id={`option${index}`}
+                            name="quizOption"
+                            value={option}
+                            onChange={handleOptionChange}
+                            className="absolute opacity-0 peer"
+                          // checked={answer === option}
+                          />
+                          {/* Custom radio button */}
+                          <div className="w-8 h-8 border-2 border-gray-700 rounded-full flex items-center justify-center cursor-pointer peer-checked:bg-orange-500 peer-checked:border-orange-500">
+                            <span className="text-gray-700 font-bold peer-checked:text-white">
+                              {letters[index]}
+                            </span>
+                          </div>
                         </div>
+                        <label htmlFor={`option${index}`} className="text-lg">
+                          {option}
+                        </label>
                       </div>
-                      <label htmlFor={`option${index}`} className="text-lg">
-                        {option}
-                      </label>
-                    </div>
-                  );
-                })} */}
+                    );
+                  })}
 
-                {currentQuestion?.options.map((option, index) => {
-  const letters = ['A', 'B', 'C', 'D']; // Add more if needed based on options length
-  return (
-    <div
-      key={index}
-      className="flex items-center my-6 border rounded-2xl px-7 py-2 border-gray-700 bg-[#f9f9f9]"
-    >
-      {/* Wrap the input and div together */}
-      <div className="relative mr-4">
-        <input
-          type="radio"
-          id={`option${index}`}
-          name="quizOption"
-          value={option}
-          onChange={handleOptionChange}
-          className="absolute opacity-0 peer"
-        />
-        {/* Custom radio button */}
-        <div className="w-8 h-8 border-2 border-gray-700 rounded-full flex items-center justify-center cursor-pointer peer-checked:bg-orange-500 peer-checked:border-orange-500">
-          <span className="text-gray-700 font-bold peer-checked:text-white">
-            {letters[index]}
-          </span>
-        </div>
-      </div>
-      <label htmlFor={`option${index}`} className="text-lg">
-        {option}
-      </label>
-    </div>
-  );
-})}
-
+                </div>
+                <div className="flex justify-between mt-4">
+                  <button
+                    onClick={handleNextQuestion}
+                    className="bg-Orange w-full mx-auto text-white px-4 py-2 rounded-2xl"
+                  >
+                    Next
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div>
+                <h1 className="text-2xl font-bold mb-4 text-center">
+                  Quiz Completed!
+                </h1>
+                <h1 className="text-2xl font-bold mb-4 text-center">
+                  Your Score is {score} from {quizQuestions.length}
+                </h1>
+                <p className="text-lg text-center">
+                  Thank you for completing the quiz. Your answers have been
+                  recorded.
+                </p>
+                <div className="flex justify-center mt-4">
+                  <button
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                    className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                  >
+                    Go Home
+                  </button>
+                </div>
               </div>
-              <div className="flex justify-between mt-4">
-                <button
-                  onClick={handleNextQuestion}
-                  className="bg-Orange w-full mx-auto text-white px-4 py-2 rounded-2xl"
-                >
-                  Next
-                </button>
-              </div>
-            </>
-          ) : (
-            <div>
-              <h1 className="text-2xl font-bold mb-4 text-center">
-                Quiz Completed!
-              </h1>
-              <h1 className="text-2xl font-bold mb-4 text-center">
-                Your Score is {score} from {quizQuestions.length}
-              </h1>
-              <p className="text-lg text-center">
-                Thank you for completing the quiz. Your answers have been
-                recorded.
-              </p>
-              <div className="flex justify-center mt-4">
-                <button
-                  onClick={() => {
-                    navigate("/");
-                  }}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-                >
-                  Go Home
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-        {/* Add the video element for camera feed */}
-        {/* <video
+            )}
+          </div>
+          {/* Add the video element for camera feed */}
+          {/* <video
           ref={videoRef}
           id="cameraFeed"
           autoPlay
@@ -443,8 +422,8 @@ const QuizPage = () => {
             borderRadius: "8px",
           }}
         ></video> */}
+        </div>
       </div>
-</div>
     </>
   );
 };

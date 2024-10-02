@@ -192,7 +192,7 @@ export default function AddQuiz() {
                   className="my-5 lg:w-72 sm:w-32 xs:w-72"
                   type="submit"
                 >
-                  Add Quiz
+                  Add Question to the Quiz
                 </Button>
                 <Button
                   outline
@@ -213,7 +213,7 @@ export default function AddQuiz() {
                     addSubjectQuizes();
                   }}
                 >
-                  add loop
+                  Add loop
                 </Button>
               </div>
             </form>
