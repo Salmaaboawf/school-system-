@@ -88,7 +88,7 @@ function DashboardHeader({ pageTitle }) {
         </Link>
 
         {/* Profile Picture */}
-        <div className="w-[35px] h-[35px] bg-black rounded-full overflow-hidden border-2 border-[#bf5517]">
+        <div className="w-[35px] h-[35px] bg-black rounded-full overflow-hidden border-2">
           <img
             src={userInfo.photoURL}
             alt="profile"

@@ -109,7 +109,7 @@ const Sidebar = () => {
                 }}
               >
                 <FaChartLine className="text-2xl text-gray-300 sidebarIcon" />
-                <span>Add Levels</span>
+                <span>Add Class</span>
               </NavLink>
             </li>
             <li className="mb-3">

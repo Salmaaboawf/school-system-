@@ -24,6 +24,7 @@ const StudentRoutine = () => {
     try {
       setLoading(true);
       const schedule = await fetchSchedule(userInfo.class_id);
+      console.log(userInfo.class_id)
       const levelName = await getLevelNameById(schedule.level_id);
       setLevelName(levelName);
 
@@ -66,9 +67,8 @@ const StudentRoutine = () => {
   };
 
   useEffect(() => {
-    getSchedule();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    getSchedule();   
+}, []);
 
   if (loading) {
     return (

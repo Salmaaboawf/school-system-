@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   collection,
   addDoc,
@@ -31,6 +31,8 @@ const Chat = () => {
   const userInfo = useAppSelector((state) => state.user.user);
   const senderId = userInfo.id;
 
+  const scrollRef = useRef<HTMLDivElement>(null); // Use ref for scrolling
+
   useEffect(() => {
     if (isChatOpen) {
       const q = query(
@@ -47,6 +49,11 @@ const Chat = () => {
           })
         );
         setMessages(msgList);
+
+        // Scroll to the last message after messages are loaded
+        if (scrollRef.current) {
+          scrollRef.current.scrollIntoView({ behavior: "smooth" });
+        }
       });
 
       return () => unsubscribe();
@@ -63,6 +70,11 @@ const Chat = () => {
       });
       setText("");
       setReplyToMessage(null);
+
+      // Scroll to the last message after sending a new one
+      if (scrollRef.current) {
+        scrollRef.current.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
@@ -83,14 +95,19 @@ const Chat = () => {
       sendMessage();
     }
   };
-  if (!userInfo.id || !( userInfo.role == "student" || userInfo.role == "teacher")) {
-  return
-}
+
+  if (
+    !userInfo.id ||
+    !(userInfo.role == "student" || userInfo.role == "teacher")
+  ) {
+    return null;
+  }
+
   return (
     <>
       {!isChatOpen && (
         <div
-          className="fixed bottom-5 right-5 bg-blue-600 p-4 rounded-full shadow-lg cursor-pointer hover:bg-blue-700 transition z-1000"
+          className="fixed bottom-5 right-5 bg-[#002749] p-4 rounded-full shadow-lg cursor-pointer hover:bg-blue-700 transition z-1000"
           onClick={() => setIsChatOpen(true)}
         >
           <FiMessageCircle className="text-white text-2xl" />
@@ -109,54 +126,71 @@ const Chat = () => {
           </div>
 
           {/* Messages container */}
-          <div className="flex-1 overflow-y-auto p-4 bg-gray-100">
+          <div className="flex-1 overflow-y-auto p-4 bg-gray-100 flex flex-col">
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={`my-2 p-3 rounded-lg ${
+                className={`my-2 p-3 rounded-lg max-w-max inline-block ${
                   message.senderId === senderId
-                    ? "bg-blue-300 ml-auto text-right"
-                    : "bg-red-200 mr-auto text-left"
-                } max-w-xs`}
+                    ? "bg-blue-300 text-right"
+                    : "bg-red-200 text-left"
+                }`}
+                style={{
+                  alignSelf:
+                    message.senderId === senderId ? "flex-end" : "flex-start",
+                }}
               >
-                <span className="font-bold">
-                  {message.senderId === senderId ? "You" : message.senderName}:
-                </span>
+                {/* Show sender's name only for other users' messages */}
+                {message.senderId !== senderId && (
+                  <span className="font-bold">{message.senderName}</span>
+                )}
+
+                {/* Display reply message if it exists */}
                 {message.replyTo && (
                   <div className="bg-gray-200 p-2 rounded-lg text-sm mb-2">
-                    <span className="font-bold">reply to: </span>
+                    <span className="font-bold">Reply to: </span>
                     <p>
                       {messages.find((msg) => msg.id === message.replyTo)
                         ?.text || "deleted message"}
                     </p>
                   </div>
                 )}
+
+                {/* Message text */}
                 <p className="text-sm">{message.text}</p>
+
+                {/* Timestamp */}
                 <span className="text-xs text-gray-500">
                   {formatTimestamp(message.timestamp)}
                 </span>
-                <button
-                  className="text-xs bg-blue-500 mt-2 ml-2 rounded-[20%] p-1"
-                  onClick={() => setReplyToMessage(message)}
-                >
-                  reply
-                </button>
-                {message.senderId === senderId && (
+
+                {/* Reply and delete buttons */}
+                <div className="mt-2">
                   <button
-                    className="text-xs bg-red-500 mt-2 ml-2 rounded-[20%] p-1"
-                    onClick={() => deleteMessage(message.id)}
+                    className="text-xs bg-blue-500 mt-1 ml-2 rounded-full p-1"
+                    onClick={() => setReplyToMessage(message)}
                   >
-                    delete
+                    Reply
                   </button>
-                )}
+                  {message.senderId === senderId && (
+                    <button
+                      className="text-xs bg-red-500 mt-1 ml-2 rounded-full p-1"
+                      onClick={() => deleteMessage(message.id)}
+                    >
+                      Delete
+                    </button>
+                  )}
+                </div>
               </div>
             ))}
+
+            <div ref={scrollRef}></div>
           </div>
 
           {replyToMessage && (
             <div className="p-2 border-t bg-gray-200 text-sm">
               <span className="font-bold">
-                reply to:{" "}
+                Reply to:{" "}
                 {replyToMessage.senderId === senderId
                   ? "You"
                   : replyToMessage.senderName}
@@ -166,7 +200,7 @@ const Chat = () => {
                 className="text-xs text-red-500"
                 onClick={() => setReplyToMessage(null)}
               >
-                cancel
+                Cancel
               </button>
             </div>
           )}
@@ -177,7 +211,7 @@ const Chat = () => {
               value={text}
               onChange={(e) => setText(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder=" type your message here"
+              placeholder="Type your message here"
               className="flex-1 border border-gray-300 rounded-lg p-2 mr-2 focus:outline-none focus:ring focus:ring-blue-300"
             />
             <button

@@ -70,7 +70,7 @@ function MyGrades() {
 
                   <tbody>
                     {grades.map((item, index) => {
-                      const finalGrade = parseFloat(item.grade + item.quizScore)
+                      const finalGrade = parseFloat(item.grade) + parseFloat(item.quizScore);
                       let rating = '';
                       switch (true) {
                         case finalGrade >= 90:

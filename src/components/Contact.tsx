@@ -126,7 +126,7 @@ function Contact() {
       {/* Map Section */}
       <div className="container mx-auto my-12 mb-10 text-deepBlue px-10">
           <h2 className="text-4xl font-bold text-deepBlue">Find Us Here</h2>
-          <div className="flex justify-between mt-8 mb-10">
+          <div className="flex justify-between mt-8 mb-10 xs:flex-col lg:flex-row xs:gap-y-4 lg:gap-y-0">
               <div className="flex items-center bg-gray-200 p-4 rounded-lg ">
                   <MdPhoneInTalk className='text-4xl mr-3 text-deepBlue'/>
                   <div className='w-56'>

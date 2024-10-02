@@ -14,12 +14,13 @@ import {
 import Sidebar from "../../components/Sidebar";
 import { addTeacher } from "../../services/teacherServices";
 import { TeacherType } from "../../utils/types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchLevels } from "../../services/levelsServices";
 import { fetchSubjects } from "../../services/subjectServices";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { toast } from 'react-toastify';
 import DashboardHeader from "../../components/Header/DashboardHeader";
+
 export default function AddTeacher() {
   const schema = yup.object().shape({
     name: yup
@@ -28,10 +29,10 @@ export default function AddTeacher() {
       .matches(/^[A-Za-z\s]+$/, "Name must be characters only")
       .max(20, " Name cannot exceed 20 characters")
       .min(3, "Name must be at least 3 letters"),
-
-    age: yup.string().required("Age is required"),
-    gender: yup.string().required("Gender is required"),
-    email: yup
+      
+      age: yup.string().required("Age is required"),
+      gender: yup.string().required("Gender is required"),
+      email: yup
       .string()
       .email("Invalid email address")
       .required("Email is required"),
@@ -81,7 +82,7 @@ export default function AddTeacher() {
     fetchSubjects(dispatch);
     // console.log("Fetched subjects:", subjects);
   }, [dispatch]);
-
+  
   useEffect(() => {
     if (errors.name) {
       toast.error(errors.name.message);
@@ -115,6 +116,8 @@ export default function AddTeacher() {
     }
   }, [errors]);
 
+ 
+  const [uploadProgress, setUploadProgress] = useState<number>(0); // Progress as a percentage
   const save = async (value: TeacherType) => {
     try {
       const photo = value.photofile; // handle the file separately
@@ -122,8 +125,8 @@ export default function AddTeacher() {
       reset();
     } catch (error) {
       console.error("Error adding teacher: ", error);
-    }
-  };
+}
+};
 
   const handlePhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

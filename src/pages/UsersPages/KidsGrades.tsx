@@ -48,9 +48,7 @@ function KidsGrades() {
 
   return (
     <>
-       <div>
-      <Nav />
-    </div>
+
     <div className='container'> 
 
       <div className="forms rounded-lg ">
