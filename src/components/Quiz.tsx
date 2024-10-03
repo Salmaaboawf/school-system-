@@ -181,7 +181,7 @@ const QuizPage = () => {
                             value={option}
                             onChange={handleOptionChange}
                             className="absolute opacity-0 peer"
-                            // checked={answer === option}
+                            checked={answer === option}
                           />
                           {/* Custom radio button */}
                           <div className="w-8 h-8 border-2 border-gray-700 rounded-full flex items-center justify-center cursor-pointer peer-checked:bg-orange-500 peer-checked:border-orange-500">
