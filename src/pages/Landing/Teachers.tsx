@@ -51,7 +51,7 @@ function Teachers() {
                   <p>{teacher.description}</p>
 
                   {/* Profile Button */}
-                  <a href="#">View Profile</a>
+                  {/* <a href="#">View Profile</a> */}
                 </div>
               </div>
             </div>

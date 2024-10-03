@@ -28,7 +28,7 @@ const NotificationList = () => {
           const quizRef = collection(db, "subjects", subjectDoc.id, "quiz");
           const quizSnapshot = await getDocs(quizRef);
 
-          if (quizSnapshot.size >= 20) {
+          if (quizSnapshot.size >=5) {
             notificationSubjects.push({
               id: subjectDoc.id,
               name: name || "Unnamed Subject",
