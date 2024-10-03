@@ -10,7 +10,6 @@ import ParticlesComponent from "../../components/Tsparticles";
 import Header from "../../components/Header/Header";
 import Loading from "../../components/Loading";
 
-
 const StudentRoutine = () => {
   const [scheduleTable, setScheduleTable] = useState<Schedule | null>(null);
   const [levelName, setLevelName] = useState<string>("");
@@ -22,7 +21,8 @@ const StudentRoutine = () => {
     try {
       setLoading(true);
       const schedule = await fetchSchedule(userInfo.class_id);
-      console.log(userInfo.class_id)
+      console.log(userInfo.class_id);
+
       const levelName = await getLevelNameById(schedule.level_id);
       setLevelName(levelName);
 
@@ -50,7 +50,7 @@ const StudentRoutine = () => {
             ...day,
             subjects: updatedSubjects,
           };
-        })  
+        })
       );
 
       setScheduleTable({
@@ -65,30 +65,26 @@ const StudentRoutine = () => {
   };
 
   useEffect(() => {
-    getSchedule();   
-}, []);
+    getSchedule();
+  }, []);
 
   if (loading) {
-    return (
-      <Loading />
-    );
+    return <Loading />;
   }
 
   return (
     <div className="container">
-
-    <div className="particles-container">
-      <ParticlesComponent id="particles" />
-    </div>
-{/* 
+      <div className="particles-container">
+        <ParticlesComponent id="particles" />
+      </div>
+      {/* 
     <div>
       <Nav />
     </div> */}
 
-    <div className="mt-10">
+      <div className="mt-10">
         <Header />
-       
-    </div>
+      </div>
       {/* <span className="text-2xl">{levelName}</span> */}
       <div className="overflow-hidden min-w-full mt-5 rounded-md bg">
         <table className="min-w-full text-center text-sm font-light ">
@@ -113,10 +109,11 @@ const StudentRoutine = () => {
           </thead>
           <tbody>
             {scheduleTable.days.map((day, dayIndex) => (
-              <tr key={dayIndex} className="border-b dark:border-neutral-500 bg-slate-50  text-Orange hover:bg-lightBlue hover:text-white">
-                <td className="dayName">
-                  {day.dayName}
-                </td>
+              <tr
+                key={dayIndex}
+                className="border-b dark:border-neutral-500 bg-slate-50  text-Orange hover:bg-lightBlue hover:text-white"
+              >
+                <td className="dayName">{day.dayName}</td>
                 {day.subjects.map((subject, subjectIndex) => (
                   <td
                     key={subjectIndex}

@@ -49,9 +49,7 @@ const animatedComponents = makeAnimated();
 
 export default function Register() {
   const [students, setStudents] = useState<StudentType[]>([]);
-  const [chidlrenValues, setSelectedChildrenValues] = useState<StudentType[]>(
-    []
-  );
+  const [chidlrenValues, setSelectedChildrenValues] = useState<StudentType[]>([]);
   const {
     register,
     handleSubmit,

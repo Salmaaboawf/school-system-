@@ -75,7 +75,6 @@ export default function Register() {
   const save = async (value: StudentType) => {
     try {
       const photo = value.photofile;
-      console.log("pressed");
       addStudent(value, photo);
       reset();
     } catch (error) {
@@ -86,8 +85,7 @@ export default function Register() {
   useEffect(() => {
     fetchParents(setParents);
     fetchLevels(dispatch);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (errors.name) {
@@ -131,7 +129,6 @@ export default function Register() {
           onSubmit={handleSubmit(save, (err) => console.log(err))}
           className="border sm:px-8 sm:mx-7 md:px-4 py-6 md:mx-4 rounded xl:mx-8 lg:mx-6 mx-8 lg:px-6 xs:px-4 xs:mx-3"
         >
-          {/* div for name and gender */}
           <div className="lg:flex justify-between block">
             <div>
               <Label htmlFor="name" value="Student Name" />
@@ -190,7 +187,6 @@ export default function Register() {
             </div>
           </div>
 
-          {/* div for address and phone */}
           <div className="lg:flex justify-between block my-3">
             <div>
               <Label htmlFor="address" value="Address" />
@@ -204,7 +200,7 @@ export default function Register() {
             </div>
 
             <div>
-              <Label htmlFor="phoneNumber" value="Student phone number" />
+              <Label htmlFor="phoneNumber" value="Phone Number" />
               <TextInput
                 {...register("phoneNumber")}
                 id="phoneNumber"

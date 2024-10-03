@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs, doc, deleteDoc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  doc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../config/firebase";
 import Sidebar from "./Sidebar";
 import { Button } from "flowbite-react";
 import { FaRegEdit, FaTrashAlt } from "react-icons/fa";
 import DashboardHeader from "./Header/DashboardHeader";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
+
 function AllUsers() {
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
@@ -17,10 +24,12 @@ function AllUsers() {
     gender: "",
     address: "",
     phone: "",
+    class_id: "", // إضافة class_id هنا
   });
-  const [formError, setFormError] = useState(""); // New state for error message
+  const [formError, setFormError] = useState("");
   const [searchVal, setSearchVal] = useState("");
-  const collections = ["students", "teachers", "parents"]; // Firebase collections
+  const collections = ["students", "teachers", "parents"];
+  const [classes, setClasses] = useState([]);
 
   useEffect(() => {
     const fetchAllUsers = async () => {
@@ -30,7 +39,7 @@ function AllUsers() {
           return querySnapshot.docs.map((doc) => ({
             ...doc.data(),
             id: doc.id,
-            role: collectionName.slice(0, -1), // Assuming role is collection name without 's'
+            role: collectionName.slice(0, -1),
           }));
         });
 
@@ -43,6 +52,24 @@ function AllUsers() {
     };
 
     fetchAllUsers();
+  }, []);
+
+  useEffect(() => {
+    const fetchClassData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "levels"));
+        const classData = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        console.log("Fetched classes:", classData);
+        setClasses(classData);
+      } catch (error) {
+        console.error("Error fetching classes:", error);
+      }
+    };
+
+    fetchClassData();
   }, []);
 
   const handleRoleChange = (e) => {
@@ -59,73 +86,65 @@ function AllUsers() {
       gender: user.gender,
       address: user.address,
       phone: user.phone,
+      class_id: user.class_id || "", // إعداد قيمة class_id
     });
-    setFormError(""); // Clear any previous error
+    setFormError("");
   };
 
-  // const handleDeleteClick = async (userId) => {
-  //   try {
-  //     await deleteDoc(doc(db, selectedRole + "s", userId)); // Delete from the appropriate collection
-  //     setFilteredUsers(filteredUsers.filter((user) => user.id !== userId));
-  //   } catch (error) {
-  //     console.error("Error deleting user:", error);
-  //   }
-  // };
+  const handleDeleteClick = async (userId) => {
+    Swal.fire({
+      title: "Are you sure you want to remove this user?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deleteDoc(doc(db, selectedRole + "s", userId));
+          setFilteredUsers(filteredUsers.filter((user) => user.id !== userId));
 
+          Swal.fire({
+            title: "Deleted!",
+            text: "The user has been deleted.",
+            icon: "success",
+          });
+        } catch (error) {
+          console.error("Error deleting user:", error);
 
-const handleDeleteClick = async (userId) => {
-  Swal.fire({
-    title: "Are you sure you want to remove this user?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!"
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      try {
-        // Delete from the appropriate collection
-        await deleteDoc(doc(db, selectedRole + "s", userId)); 
-        setFilteredUsers(filteredUsers.filter((user) => user.id !== userId));
-
-        // Show success message
-        Swal.fire({
-          title: "Deleted!",
-          text: "The user has been deleted.",
-          icon: "success"
-        });
-      } catch (error) {
-        console.error("Error deleting user:", error);
-
-        // Optionally, show an error alert
-        Swal.fire({
-          title: "Error!",
-          text: "There was a problem deleting the user.",
-          icon: "error"
-        });
+          Swal.fire({
+            title: "Error!",
+            text: "There was a problem deleting the user.",
+            icon: "error",
+          });
+        }
       }
-    }
-  });
-};
-
+    });
+  };
 
   const handleSaveEdit = async () => {
-    // Check if all fields are filled
-    if (!formData.name || !formData.email || !formData.gender || !formData.address || !formData.phone) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.gender ||
+      !formData.address ||
+      !formData.phone
+    ) {
       setFormError("Please fill in all fields.");
-      return; // Don't proceed if there's an error
+      return;
     }
 
     try {
-      await updateDoc(doc(db, selectedRole + "s", editingUser.id), formData); // Update user in the appropriate collection
+      await updateDoc(doc(db, selectedRole + "s", editingUser.id), formData);
       setFilteredUsers(
         filteredUsers.map((user) =>
           user.id === editingUser.id ? { ...user, ...formData } : user
         )
       );
       setEditingUser(null);
-      setFormError(""); // Clear the error on successful save
+      setFormError("");
     } catch (error) {
       console.error("Error updating user:", error);
     }
@@ -139,15 +158,13 @@ const handleDeleteClick = async (userId) => {
   const filterUsers = (role, search) => {
     let filtered = users;
 
-    // Filter by selected role
     if (role) {
       filtered = users.filter((user) => user.role === role);
     }
 
-    // Filter by search value
     if (search) {
       filtered = filtered.filter((user) =>
-        user.name.toLowerCase().includes(search.toLowerCase()) // Search by name
+        user.name.toLowerCase().includes(search.toLowerCase())
       );
     }
 
@@ -157,10 +174,8 @@ const handleDeleteClick = async (userId) => {
   const handleSearchChange = (e) => {
     const search = e.target.value;
     setSearchVal(search);
-    filterUsers(selectedRole, search); 
-  }
-
-
+    filterUsers(selectedRole, search);
+  };
 
   return (
     <div className="flex">
@@ -168,26 +183,26 @@ const handleDeleteClick = async (userId) => {
         <Sidebar />
       </div>
 
-      <section className=" text-[#002749] xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
-        <DashboardHeader pageTitle={'Show All Users'} />
+      <section className="text-[#002749] xl:w-[80%] xl:ml-[20%] lg:w-[75%] lg:ml-[25%] md:w-[70%] md:ml-[30%] sm:m-auto w-full">
+        <DashboardHeader pageTitle={"Show All Users"} />
         <div className="mx-4 pt-4 border border-gray-300 rounded-md">
-
           <div className="flex">
-          <select
-            value={selectedRole}
-            onChange={handleRoleChange}
-            className="bg-white border border-gray-300 rounded-lg shadow-sm px-4 py-2 text-gray-700 mb-6 ml-3 focus:ring-0 focus:border-Orange focus:outline-none"
-          >
-            <option value="">Select Role</option>
-            <option value="student">Student</option>
-            <option value="teacher">Teacher</option>
-            <option value="parent">Parent</option>
-          </select>
-          <input type='text'
-           className="bg-white border border-gray-300 rounded-lg shadow-sm px-4 py-2 text-gray-700 mb-6 ml-3 w-72 focus:ring-0 focus:border-Orange focus:outline-none"
-           onChange={handleSearchChange}
-           placeholder="Search users by name..."
-           />
+            <select
+              value={selectedRole}
+              onChange={handleRoleChange}
+              className="bg-white border border-gray-300 rounded-lg shadow-sm px-4 py-2 text-gray-700 mb-6 ml-3 focus:ring-0 focus:border-Orange focus:outline-none"
+            >
+              <option value="">Select Role</option>
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
+              <option value="parent">Parent</option>
+            </select>
+            <input
+              type="text"
+              className="bg-white border border-gray-300 rounded-lg shadow-sm px-4 py-2 text-gray-700 mb-6 ml-3 w-72 focus:ring-0 focus:border-Orange focus:outline-none"
+              onChange={handleSearchChange}
+              placeholder="Search users by name..."
+            />
           </div>
           <table className="min-w-full text-center text-sm font-light">
             <thead className="border-b text-white border-[#002749] bg-[#002749] h-10">
@@ -203,7 +218,10 @@ const handleDeleteClick = async (userId) => {
             </thead>
             <tbody>
               {filteredUsers.map((user, index) => (
-                <tr key={user.id} className="border-b text-base hover:bg-gray-50 bg-white">
+                <tr
+                  key={user.id}
+                  className="border-b text-base hover:bg-gray-50 bg-white"
+                >
                   <td className="p-4 hover:bg-gray-50">{index + 1}</td>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
@@ -230,8 +248,8 @@ const handleDeleteClick = async (userId) => {
           </table>
 
           {editingUser && (
-            <div className="edit-form">
-              <h2>Edit User</h2>
+            <div className="edit-form p-4 border border-gray-300 rounded-lg shadow-md mt-4">
+              <h2 className="text-xl font-semibold mb-4">Edit User</h2>
               <form>
                 <input
                   type="text"
@@ -240,6 +258,7 @@ const handleDeleteClick = async (userId) => {
                   onChange={handleInputChange}
                   placeholder="Name"
                   required
+                  className="border rounded p-2 mb-2 w-full"
                 />
                 <input
                   type="email"
@@ -248,6 +267,7 @@ const handleDeleteClick = async (userId) => {
                   onChange={handleInputChange}
                   placeholder="Email"
                   required
+                  className="border rounded p-2 mb-2 w-full"
                 />
                 <input
                   type="text"
@@ -256,6 +276,7 @@ const handleDeleteClick = async (userId) => {
                   onChange={handleInputChange}
                   placeholder="Gender"
                   required
+                  className="border rounded p-2 mb-2 w-full"
                 />
                 <input
                   type="text"
@@ -264,6 +285,7 @@ const handleDeleteClick = async (userId) => {
                   onChange={handleInputChange}
                   placeholder="Address"
                   required
+                  className="border rounded p-2 mb-2 w-full"
                 />
                 <input
                   type="text"
@@ -272,18 +294,45 @@ const handleDeleteClick = async (userId) => {
                   onChange={handleInputChange}
                   placeholder="Phone"
                   required
+                  className="border rounded p-2 mb-2 w-full"
                 />
-                <Button onClick={handleSaveEdit}>
-                  Save
-                </Button>
-                {formError && <p className="text-red-500 mt-2">{formError}</p>} {/* Display error message */}
+                {editingUser.role === "student" && ( // يظهر خانة class_id فقط عند تعديل الطالب
+                  <select
+                    name="class_id"
+                    value={formData.class_id}
+                    onChange={handleInputChange}
+                    className="border rounded p-2 mb-2 w-full"
+                    required
+                  >
+                    <option value="">Select Class</option>
+                    {classes.map((classItem) => (
+                      <option key={classItem.id} value={classItem.id}>
+                        {classItem.name}
+                      </option>
+                    ))}
+                  </select>
+                )}
+                {formError && <p className="text-red-600">{formError}</p>}
+                <div className="flex space-x-4">
+                  <Button
+                    onClick={handleSaveEdit}
+                    className="bg-[#002749] text-white"
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    onClick={() => setEditingUser(null)}
+                    className="bg-red-500 text-white"
+                  >
+                    Cancel
+                  </Button>
+                </div>{" "}
               </form>
             </div>
           )}
         </div>
       </section>
     </div>
-
   );
 }
 
