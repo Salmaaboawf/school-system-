@@ -36,7 +36,7 @@ function Teachers() {
                 "--bg-image": `url(${teacher.photoURL})`, // Set the CSS variable
               }}
             >
-              <div className="profile-wrapper">
+              <div className="profile-wrapper ">
                 <div className="profile-card">
                   <div className="fav-icon"></div>
                   {/* Profile Information */}
