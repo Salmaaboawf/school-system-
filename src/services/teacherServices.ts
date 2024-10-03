@@ -10,7 +10,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { toast} from 'react-toastify';
+import { toast } from "react-toastify";
 export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
   try {
     let photoURL = "";
@@ -64,7 +64,7 @@ export const addTeacher = async (teacherInfo: TeacherType, photo?: File) => {
         teacher: user.uid, // Update subject with teacher ID
       });
     }
-    toast.success(`${name} added successfully as a teacher`)
+    toast.success(`${name} added successfully as a teacher`);
   } catch (error: any) {
     if (error.code === "auth/email-already-in-use") {
       toast.error("This user already exists");
@@ -83,25 +83,25 @@ export const fetchTeachers = async () => {
     // Fetch all subjects at once
     const subjectsCollection = collection(db, "subjects");
     const subjectsSnapshot = await getDocs(subjectsCollection);
+
     const subjectsList = subjectsSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
 
-    // Create a map for quick lookup of subject names by ID
-    const subjectMap = subjectsList.reduce((map, subject) => {
-      map[subject.id] = subject;
-      return map;
-    }, {} as SubjectType);
-
     // Process teachers and add subject names
     const teachersList = teachersSnapshot.docs.map((doc) => {
       const teacherData = doc.data() as TeacherType;
-      const subject = subjectMap[teacherData.subject]; // Get the subject details
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const subject: any[] = subjectsList.filter(
+        (item: SubjectType) => item.teacher == teacherData.id
+      ); // Get the subject details
+
       return {
         id: doc.id,
         ...teacherData,
-        subjectName: subject ? subject.name : "Unknown", // Add subject name or fallback
+        subjectName: subject.length > 0 ? subject[0].name : "Unknown", // Add subject name or fallback
       };
     });
 
