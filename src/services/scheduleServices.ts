@@ -1,7 +1,6 @@
 // import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 // import { db } from "../config/firebase";
 
-
 // // Define interfaces for the subject and teacher data
 // interface Subject {
 //   id: string;
@@ -96,10 +95,8 @@
 //   return scheduleData;
 // };
 
-
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
-
 
 // Define interfaces for the subject and teacher data
 interface Subject {
@@ -141,7 +138,7 @@ export const fetchSchedule = async (levelId: string): Promise<ScheduleData> => {
       scheduleData.days = [];
 
       // Fetch each day subcollection
-      const days = ["sunday", "monday", "tuesday", "wednesday", "thursday"];
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"];
       for (const day of days) {
         const dayRef = collection(
           db,

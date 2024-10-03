@@ -344,7 +344,7 @@ const ShowVideo: React.FC = () => {
   return (
     <div className="container mx-auto mt-10 grid grid-cols-12 gap-4">
       {/* Left section - Lessons List */}
-      <div className="col-span-4 p-4 bg-white rounded-lg shadow-lg">
+      <div className="col-span-4 p-4 bg-gray-200 rounded-lg shadow-lg">
         <h3 className="text-2xl font-semibold mb-4 text-center">Lessons List</h3>
         <input
           type="text"
@@ -357,20 +357,24 @@ const ShowVideo: React.FC = () => {
           {filteredVideos.map((video, index) => (
             <li key={index} className="flex items-center justify-between bg-white rounded-lg shadow p-4 hover:shadow-lg transition-shadow">
               <div>
-                <p className="font-semibold">{video.lessonName}</p>
+                <p className="font-semibold text-[#ff4e31]">{video.lessonName}</p>
                 <div className="flex space-x-2">
-                  <button
-                    onClick={() => handleSelectItem(video.videoUrl, 'video', video.lessonName)}
-                    className={`text-blue-600 hover:underline ${selectedVideo?.url === video.videoUrl ? 'font-bold' : ''}`}
-                  >
-                    Video
-                  </button>
-                  <button
-                    onClick={() => handleSelectItem(video.pdfUrl, 'pdf', video.lessonName)}
-                    className={`text-green-600 hover:underline ${selectedVideo?.url === video.pdfUrl ? 'font-bold' : ''}`}
-                  >
-                    PDF
-                  </button>
+                <button
+  onClick={() => handleSelectItem(video.videoUrl, 'video', video.lessonName)}
+  className={`text-[#002749] hover:underline ${selectedVideo?.url === video.videoUrl ? 'font-bold' : ''}`}
+>
+<svg xmlns="http://www.w3.org/2000/svg"fill="#002749" width="18" height="18" viewBox="0 0 24 24"><path d="M16 18c0 1.104-.896 2-2 2h-12c-1.105 0-2-.896-2-2v-12c0-1.104.895-2 2-2h12c1.104 0 2 .896 2 2v12zm8-14l-6 6.223v3.554l6 6.223v-16z"/></svg>
+</button>
+
+<button
+  onClick={() => handleSelectItem(video.pdfUrl, 'pdf', video.lessonName)}
+  className={`text-[#002749] hover:underline ${selectedVideo?.url === video.pdfUrl ? 'font-bold' : ''}`}
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#002749">
+    <path d="M11.363 2c4.155 0 2.637 6 2.637 6s6-1.65 6 2.457v11.543h-16v-20h7.363zm.826-2h-10.189v24h20v-14.386c0-2.391-6.648-9.614-9.811-9.614zm4.811 13h-2.628v3.686h.907v-1.472h1.49v-.732h-1.49v-.698h1.721v-.784zm-4.9 0h-1.599v3.686h1.599c.537 0 .961-.181 1.262-.535.555-.658.587-2.034-.062-2.692-.298-.3-.712-.459-1.2-.459zm-.692.783h.496c.473 0 .802.173.915.644.064.267.077.679-.021.948-.128.351-.381.528-.754.528h-.637v-2.12zm-2.74-.783h-1.668v3.686h.907v-1.277h.761c.619 0 1.064-.277 1.224-.763.095-.291.095-.597 0-.885-.16-.484-.606-.761-1.224-.761zm-.761.732h.546c.235 0 .467.028.576.228.067.123.067.366 0 .489-.109.199-.341.227-.576.227h-.546v-.944z"/>
+  </svg>
+</button>
+
                 </div>
               </div>
               {selectedVideo?.url === video.videoUrl || selectedVideo?.url === video.pdfUrl ? (
@@ -392,7 +396,7 @@ const ShowVideo: React.FC = () => {
             >
               <HiX className="w-6 h-6" />
             </button>
-            <h4 className="text-xl font-semibold mb-4">{selectedVideo.lessonName}</h4>
+            <h4 className="text-xl font-semibold mb-4 text-[#ff4e31]">{selectedVideo.lessonName}</h4>
             {selectedVideo.type === 'video' ? (
               <video controls className="w-full h-96 object-cover rounded-lg shadow-md">
                 <source src={selectedVideo.url} type="video/mp4" />

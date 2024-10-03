@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../hooks/reduxHooks";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +13,11 @@ const NotificationList = () => {
     const fetchQuizNotifications = async () => {
       try {
         const subjectsRef = collection(db, "subjects");
-        const subjectsSnapshot = await getDocs(subjectsRef);
+        const gradeQuery = query(
+          subjectsRef,
+          where("level_id", "==", studentInfo.class_id)
+        );
+        const subjectsSnapshot = await getDocs(gradeQuery);
 
         const notificationSubjects = [];
 
@@ -21,6 +25,7 @@ const NotificationList = () => {
           const subjectData = subjectDoc.data();
           const { visitedExam = [], name } = subjectData;
 
+          console.log(subjectData);
           if (visitedExam.includes(studentInfo.id)) {
             continue;
           }
@@ -28,7 +33,7 @@ const NotificationList = () => {
           const quizRef = collection(db, "subjects", subjectDoc.id, "quiz");
           const quizSnapshot = await getDocs(quizRef);
 
-          if (quizSnapshot.size >=5) {
+          if (quizSnapshot.size >= 5) {
             notificationSubjects.push({
               id: subjectDoc.id,
               name: name || "Unnamed Subject",
@@ -60,7 +65,8 @@ const NotificationList = () => {
                 navigate("/quiz", { state: { subjectId: subject.id } });
               }}
             >
-              Subject: {subject.name} - Quizzes Available: {subject.totalQuizzes}
+              Subject: {subject.name} - Quizzes Available:{" "}
+              {subject.totalQuizzes}
             </button>
           </li>
         ))
