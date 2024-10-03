@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CounterPlus from "./CounterPlus";
 import CountUp from "react-countup";
 // import ScrollTrigger from "react-scroll-trigger";
@@ -6,10 +6,25 @@ import { IoAmericanFootballOutline } from "react-icons/io5";
 import { TfiPencilAlt2 } from "react-icons/tfi";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { GiSoapExperiment } from "react-icons/gi";
-import ScrollTrigger from 'react-scroll-trigger';
+import ScrollTrigger from "react-scroll-trigger";
+import { fetchSubjects, getSubjectById } from "../services/subjectServices";
+import { useAppSelector } from "../hooks/reduxHooks";
+import { fetchTeachers } from "../services/teacherServices";
 
 export default function Counter() {
   const [counterOn, setCounterOn] = useState(false);
+  const subjects = useAppSelector((state) => state.subject.subject);
+  const [teachersCount, setTeachersCount] = useState(0);
+
+  const getTeachers = async () => {
+    const teachers = await fetchTeachers();
+    console.log(teachers.length);
+    setTeachersCount(teachers.length);
+  };
+
+  useEffect(() => {
+    getTeachers();
+  }, []);
   return (
     <div className=" ">
       <ScrollTrigger
@@ -24,7 +39,7 @@ export default function Counter() {
               <CountUp
                 className=" text-[5rem] text-white"
                 start={0}
-                end={76}
+                end={teachersCount}
                 duration={4}
                 delay={0}
               />
@@ -34,7 +49,7 @@ export default function Counter() {
               <CountUp
                 className=" text-[5rem] text-white"
                 start={0}
-                end={135}
+                end={subjects.length}
                 duration={4}
                 delay={0}
               />

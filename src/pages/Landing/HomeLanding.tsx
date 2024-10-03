@@ -1,11 +1,5 @@
 import EnrollmentSlider from "../../components/EnrollmentSlider";
-import SchoolStatus from "../../components/SchoolStatus";
 import SliderMain from "../../components/SliderMain";
-import { LuTrees } from "react-icons/lu";
-import { GiTeacher } from "react-icons/gi";
-import { TbMathMaxMin } from "react-icons/tb";
-import { FaTree } from "react-icons/fa6";
-import StatusCard from "../../components/StatusCard";
 import Service_Section from "../../components/ServiceSection";
 import "../../assets/homelanding.css";
 import Testimonials from "../../components/Testimonials";
@@ -15,7 +9,6 @@ import Activities from "../../components/Activities";
 const HomeLanding = () => {
   return (
     <main className=" ">
-      
       <section>
         <SliderMain />
       </section>
@@ -23,7 +16,7 @@ const HomeLanding = () => {
         <EnrollmentSlider />
       </section>
       <Service_Section />
-      <SchoolStatus>
+      {/* <SchoolStatus>
         <>
           <StatusCard
             title="Outdoor Activities"
@@ -46,7 +39,7 @@ const HomeLanding = () => {
             icon={<FaTree size={30} color="white" />}
           />
         </>
-      </SchoolStatus>
+      </SchoolStatus> */}
       <Activities />
       <ScrollImages />
       <Testimonials />
