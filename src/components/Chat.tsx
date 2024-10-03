@@ -116,7 +116,7 @@ const Chat = () => {
     await deleteDoc(doc(db, `classChats/${activeClassId}/messages`, id));
   };
 
-  const formatTimestamp = (timestamp: any) => {
+  const formatTimestamp = (timestamp) => {
     const date =
       timestamp instanceof Date
         ? timestamp
