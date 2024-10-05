@@ -197,6 +197,7 @@ export const fetchStudents = (
   try {
     const studentsCollection = collection(db, "students");
     const q = query(studentsCollection, where("parent", "==", ""));
+    // const q = query(studentsCollection, where("parent", "!=", ""));
 
     // Listen for real-time updates
     const unsubscribe = onSnapshot(q, (studentsSnapshot) => {
@@ -214,6 +215,34 @@ export const fetchStudents = (
     console.error("Error fetching students: ", error);
   }
 };
+
+export const fetchStudentss = (
+  setStudents: (studentsList: StudentType[]) => void
+) => {
+  try {
+    const studentsCollection = collection(db, "students");
+
+    // الاستماع للتحديثات بدون فلترة
+    const unsubscribe = onSnapshot(studentsCollection, (studentsSnapshot) => {
+      const studentsList = studentsSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...(doc.data() as StudentType),
+      }));
+
+      setStudents([...studentsList]);
+    });
+    return () => unsubscribe();
+  } catch (error) {
+    console.error("Error fetching students:", error);
+  }
+};
+
+
+
+
+
+
+
 
 export const addStudent = async (value: StudentType, photo?: File) => {
   try {

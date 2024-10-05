@@ -64,7 +64,7 @@ export const addSubject = async (subjectData: {
   }
 };
 
-export const fetchSubjects = async (dispatch: Dispatch) => {
+export const fetchSubjects = async (): Promise<{ id: string }[]> => {
   try {
     // Reference to the subjects collection
     const subjectCollection = collection(db, "subjects");
@@ -79,7 +79,8 @@ export const fetchSubjects = async (dispatch: Dispatch) => {
     }));
 
     // Update state with the fetched subjects
-    dispatch(setSubject([...subjectList]));
+    // dispatch(setSubject([...subjectList]));
+    return subjectList;
   } catch (error) {
     console.error("Error fetching subjects: ", error);
   }

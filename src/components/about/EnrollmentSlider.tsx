@@ -17,23 +17,23 @@ import { useEffect, useRef } from "react";
 const enrollArr = [
   {
     title: "Contact",
-    desc: "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque la udantium, totam rem aperiam.",
+    desc: "For any inquiries about our school programs, feel free to reach out to us.",
   },
   {
     title: "Application",
-    desc: "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque la udantium, totam rem aperiam.",
+    desc: "Learn about our application process and how to apply for admission.",
   },
   {
     title: "Counseling",
-    desc: "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque la udantium, totam rem aperiam.",
+    desc: "We offer counseling services to help students succeed academically and emotionally.",
   },
   {
     title: "Admission",
-    desc: "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque la udantium, totam rem aperiam.",
+    desc: "Find out more about our admission requirements and deadlines.",
   },
   {
     title: "Registration",
-    desc: "Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque la udantium, totam rem aperiam.",
+    desc: "Get information on how to register for classes and extracurricular activities.",
   },
 ];
 
@@ -42,17 +42,27 @@ const EnrollmentSlider = () => {
   const navigationNextRef = useRef(null);
 
   useEffect(() => {
+    // Update Swiper navigation refs
+    const swiperInstance = {
+      el: navigationPrevRef.current,
+      // Ensure that the Swiper instance is set up correctly
+      swiper: {
+        navigation: {
+          prevEl: navigationPrevRef.current,
+          nextEl: navigationNextRef.current,
+        },
+      },
+    };
     if (navigationPrevRef.current && navigationNextRef.current) {
-      // Update Swiper navigation refs
-      navigationPrevRef.current.swiper = { el: navigationPrevRef.current };
-      navigationNextRef.current.swiper = { el: navigationNextRef.current };
+      navigationPrevRef.current.swiper = swiperInstance.swiper;
+      navigationNextRef.current.swiper = swiperInstance.swiper;
     }
   }, []);
 
   return (
     <div>
       <Swiper
-        className=" w-[70%] relative py-5"
+        className="w-[70%] relative py-5"
         navigation={{
           prevEl: navigationPrevRef.current,
           nextEl: navigationNextRef.current,
