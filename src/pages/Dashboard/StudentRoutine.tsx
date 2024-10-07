@@ -111,13 +111,13 @@ const StudentRoutine = () => {
             {scheduleTable.days.map((day, dayIndex) => (
               <tr
                 key={dayIndex}
-                className="border-b dark:border-neutral-500 bg-slate-50  text-Orange hover:bg-lightBlue hover:text-white"
+                className="border-b border-r dark:border-neutral-500 bg-slate-50  text-Orange hover:bg-lightBlue hover:text-white"
               >
                 <td className="dayName">{day.dayName}</td>
                 {day.subjects.map((subject, subjectIndex) => (
                   <td
                     key={subjectIndex}
-                    className="whitespace-nowrap px-6 py-4 text-xl"
+                    className="whitespace-nowrap px-6 py-4 text-xl border-r"
                   >
                     {subject.subject_name} {console.log(subject.subject_name)}
                     <br></br>

@@ -81,17 +81,17 @@ body {
 
 table {
   width: 100%;
-  table-layout: fixed; /* Force cells to not exceed their width */
+  table-layout: fixed; 
 }
 
 td {
-  max-width: 100%; /* Prevent content from overflowing */
-  overflow: auto; /* Hide overflowed content */
+  /* max-width: 100%;  */
+  /* overflow: auto;  */
 }
 
 
 td::-webkit-scrollbar {
-  display: none; /* Hide scrollbar */
+  display: none; 
 }
 
 /* Hide scrollbar for other browsers (Firefox) */
