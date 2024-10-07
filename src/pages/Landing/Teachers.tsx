@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { fetchTeachers } from "../../services/teacherServices";
 import "../../assets/teacher.css";
 
-
 function Teachers() {
   useEffect(() => {
     const loadTeachers = async () => {
@@ -23,9 +22,7 @@ function Teachers() {
     <div className="mt-10">
       {/* Header start */}
       <div className="bg-gray-100 py-8 my-8 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 w-full text-center ">
-        <h1 className="text-3xl text-deepBlue dark:text-white">
-          Teachers
-        </h1>
+        <h1 className="text-3xl text-deepBlue dark:text-white">Teachers</h1>
       </div>
       {/* Header end */}
 
@@ -39,7 +36,7 @@ function Teachers() {
                 "--bg-image": `url(${teacher.photoURL})`, // Set the CSS variable
               }}
             >
-              <div className="profile-wrapper">
+              <div className="profile-wrapper ">
                 <div className="profile-card">
                   <div className="fav-icon"></div>
                   {/* Profile Information */}
@@ -49,9 +46,6 @@ function Teachers() {
                   <h4>{teacher.subjectName}</h4>
 
                   <p>{teacher.description}</p>
-
-                  {/* Profile Button */}
-                  {/* <a href="#">View Profile</a> */}
                 </div>
               </div>
             </div>

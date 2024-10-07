@@ -1,15 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CounterPlus from "./CounterPlus";
 import CountUp from "react-countup";
-// import ScrollTrigger from "react-scroll-trigger";
-import { IoAmericanFootballOutline } from "react-icons/io5";
 import { TfiPencilAlt2 } from "react-icons/tfi";
 import { IoPersonAddSharp } from "react-icons/io5";
-import { GiSoapExperiment } from "react-icons/gi";
-import ScrollTrigger from 'react-scroll-trigger';
+import { SiLevelsdotfyi } from "react-icons/si";
+import ScrollTrigger from "react-scroll-trigger";
+import { fetchTeachers } from "../services/teacherServices";
+import {  fetchStudentss } from "../services/userServices";
+import { fetchSubjects } from "../services/subjectServices";
+import { PiStudentDuotone } from "react-icons/pi";
+import {  fetchLevelss } from "../services/levelsServices";
 
 export default function Counter() {
   const [counterOn, setCounterOn] = useState(false);
+  const [teachersCount, setTeachersCount] = useState(0);
+  const [studentsCount, setStudentsCount] = useState(0);
+  const [subjectsCount, setSubjectCount] = useState(0);
+  const [levels, setLevels] = useState(0);
+
+  const getTeachers = async () => {
+    const teachers = await fetchTeachers();
+    setTeachersCount(teachers.length);
+  };
+
+  const getStudents = () => {
+    fetchStudentss((studentsList) => {
+      setStudentsCount(studentsList.length);
+    });
+  };
+  const getSubjects = async () => {
+    const subjectsList = await fetchSubjects();
+    setSubjectCount(subjectsList.length);
+  };
+const getLevels = async () => {
+  const levelsList = await fetchLevelss();
+  setLevels(levelsList.length);
+};
+
+  useEffect(() => {
+    getTeachers();
+    getStudents();
+    getSubjects();
+    getLevels();
+  }, []);
   return (
     <div className=" ">
       <ScrollTrigger
@@ -24,40 +57,37 @@ export default function Counter() {
               <CountUp
                 className=" text-[5rem] text-white"
                 start={0}
-                end={76}
+                end={teachersCount}
                 duration={4}
                 delay={0}
               />
             </CounterPlus>
-            <CounterPlus title="English Lessons">
+            <CounterPlus title="subjects">
               <TfiPencilAlt2 style={{ color: "white", fontSize: "4em" }} />
               <CountUp
                 className=" text-[5rem] text-white"
                 start={0}
-                end={135}
+                end={subjectsCount}
                 duration={4}
                 delay={0}
               />
             </CounterPlus>
-            <CounterPlus title="Outdoor Activities">
-              <IoAmericanFootballOutline
-                style={{ color: "white", fontSize: "4em" }}
-              />
+            <CounterPlus title="Students">
+              <PiStudentDuotone style={{ color: "white", fontSize: "4em" }} />
               <CountUp
                 className=" text-[5rem] text-white"
                 start={0}
-                end={332}
+                end={studentsCount}
                 duration={4}
                 delay={0}
               />
             </CounterPlus>
-            <CounterPlus title="Fun Experiments ">
-              <GiSoapExperiment style={{ color: "white", fontSize: "4em" }} />
-
+            <CounterPlus title="our Classes ">
+              <SiLevelsdotfyi style={{ color: "white", fontSize: "4em" }} />
               <CountUp
                 className=" text-[5rem] text-white"
                 start={0}
-                end={278}
+                end={levels}
                 duration={4}
                 suffix=""
                 delay={0}

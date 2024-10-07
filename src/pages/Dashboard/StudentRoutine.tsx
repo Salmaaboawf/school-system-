@@ -1,5 +1,4 @@
-import { CSSProperties, useEffect, useState } from "react";
-import Nav from "../../components/Nav";
+import {  useEffect, useState } from "react";
 import Footer from "../../components/about/Footer";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { fetchSchedule } from "../../services/scheduleServices";
@@ -10,7 +9,6 @@ import { getTeacherNameById } from "../../services/teacherServices";
 import ParticlesComponent from "../../components/Tsparticles";
 import Header from "../../components/Header/Header";
 import Loading from "../../components/Loading";
-import Chat from "../../components/Chat";
 
 const StudentRoutine = () => {
   const [scheduleTable, setScheduleTable] = useState<Schedule | null>(null);

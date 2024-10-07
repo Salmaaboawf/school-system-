@@ -34,6 +34,31 @@ export const fetchLevels = async (dispatch: Dispatch) => {
   }
 };
 
+export const fetchLevelss = async (): Promise<
+  { id: string /* أي حقول أخرى تحتاجها */ }[]
+> => {
+  try {
+    // Reference to the levels collection
+    const levelsCollection = collection(db, "levels");
+
+    // Fetch all documents from the collection
+    const levelsSnapshot = await getDocs(levelsCollection);
+
+    // Extract the data from each document
+    const levelsList = levelsSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    // Return the fetched levels
+    return levelsList;
+  } catch (error) {
+    console.error("Error fetching levels: ", error);
+    return []; // إرجاع مصفوفة فارغة في حال حدوث خطأ
+  }
+};
+
+
 export const getLevelNameById = async (levelId: string): Promise<string> => {
   const levelRef = doc(db, "levels", levelId);
   const levelSnap = await getDoc(levelRef);

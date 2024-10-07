@@ -1,8 +1,9 @@
 import { HiOutlineArrowTrendingUp } from "react-icons/hi2";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 function Contact() {
   return (
-    <div className=" flex flex-col md:flex-row justify-between items-center mt-5 bg-[#002749] py-10">
+    <div className="flex flex-col md:flex-row justify-between items-center mt-5 bg-[#002749] py-10">
       <div className="flex flex-col md:flex-row items-center md:pl-[10rem] mb-6 md:mb-0">
         <div className="p-4 bg-white rounded-full mr-0 md:mr-3 ml-0 md:ml-3 mb-4 md:mb-0">
           <HiOutlineArrowTrendingUp className="text-5xl" color="#ff4e31" />
@@ -14,8 +15,10 @@ function Contact() {
           </p>
         </div>
       </div>
-      <div className=" flex justify-center md:justify-end md:pr-[10rem]">
-        <button className="contact_button">Contact us</button>
+      <div className="flex justify-center md:justify-end md:pr-[10rem]">
+        <Link to="/contact">
+          <button className="contact_button">Contact us</button>
+        </Link>
       </div>
     </div>
   );
