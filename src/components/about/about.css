@@ -88,6 +88,9 @@
   -webkit-animation: out-left 300ms ease 0ms 1 forwards;
   animation: out-left 300ms ease 0ms 1 forwards;
 }
+.bg-slideOnee{
+  background-image: "../../assets/images/imgs/homepage-4.jpg";
+}
 
 @-webkit-keyframes in-top {
   from {

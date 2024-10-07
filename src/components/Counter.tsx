@@ -77,7 +77,7 @@ const getLevels = async () => {
               <CountUp
                 className=" text-[5rem] text-white"
                 start={0}
-                end={studentsCount}
+                end={studentsCount +200}
                 duration={4}
                 delay={0}
               />

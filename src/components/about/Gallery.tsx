@@ -1,17 +1,18 @@
 import { useEffect } from "react";
 import "./about.css";
-import image1 from "../../assets/images/student/student (1).jpg";
-import image2 from "../../assets/images/student/student (2).jpg";
-import image3 from "../../assets/images/student/student (3).jpg";
-import image4 from "../../assets/images/student/student (4).jpg";
-import image5 from "../../assets/images/student/student (5).jpg";
-import image6 from "../../assets/images/student/student (6).jpg";
-import image7 from "../../assets/images/student/student (7).jpg";
-import image8 from "../../assets/images/student/student(8).jpg";
-import image9 from "../../assets/images/student/student(9).jpg";
-import image10 from "../../assets/images/student/student(10).jpg";
-import image11 from "../../assets/images/student/student(11).jpg";
-import image12 from "../../assets/images/student/student(12).jpg";
+import image1 from "../../assets/images/imgs/EISZayed-12.jpg";
+import image2 from "../../assets/images/imgs/homepage-3.jpg";
+import image3 from "../../assets/images/imgs/homepage-5.jpg";
+import image4 from "../../assets/images/imgs/homepage-6.jpg";
+import image5 from "../../assets/images/imgs/portfolio-1.jpg";
+import image6 from "../../assets/images/imgs/homepage-7.jpg";
+import image7 from "../../assets/images/imgs/NES-Mission.png";
+import image8 from "../../assets/images/imgs/NOR_9699.jpg";
+import image9 from "../../assets/images/imgs/NOR_9751.jpg";
+import image10 from "../../assets/images/imgs/portfolio-3.jpg";
+import image11 from "../../assets/images/imgs/portfolio-5.jpg";
+import image12 from "../../assets/images/imgs/NOR_9498.jpg";
+
 
 function Gallery() {
   useEffect(() => {

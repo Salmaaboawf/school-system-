@@ -9,6 +9,7 @@ import "swiper/css/effect-fade";
 import "swiper/css/effect-flip";
 import imgSliderOne from "../assets/images/slide_min_1.jpg";
 import imgSliderTwo from "../assets/images/slide_min_2.jpg";
+import heroVideo from "../assets/video/1007.mp4"
 import {
   A11y,
   Autoplay,
@@ -48,28 +49,27 @@ const SliderMain = () => {
         modules={[Navigation, Pagination, Autoplay, A11y, EffectFade]}
         slidesPerView={1}
       >
-        {/* <SwiperSlide className="relative h-screen w-full">
+        <SwiperSlide className="relative h-screen w-full">
           <div className="absolute inset-0 bg-black opacity-50"></div>{" "}
           <video
-            src={headervideo}
+            src={heroVideo}
             autoPlay
             loop
             muted
             className="absolute inset-0 w-full h-full object-cover"
           ></video>
-          <div className="relative z-10 text-center text-white mt-[230px]">
-            <h1 className="text-5xl text-white">
+          <div className="relative z-10 text-center text-deepBlue mt-[230px]">
+            <h1 className="text-5xl">
               Welcome to SCHOOLARSWAY School
             </h1>
             <p className="mt-5">Best gift for a child is a great education</p>
-            <button className="mt-10 bg-[#ff4e31] hover:bg-[#002749] px-6 py-3 text-white rounded-lg" >
+            <button className="mt-10 bg-[#ff4e31] hover:bg-[#002749] px-6 py-3 text-white rounded-lg">
               Enroll Now
             </button>
           </div>
-        </SwiperSlide> */}
-        <SwiperSlide className="relative h-screen w-full">
-          <div className="absolute "></div> {/* Dark overlay */}
-          <img
+        </SwiperSlide>
+        {/* <SwiperSlide className="relative h-screen w-full">
+          <div className="absolute "></div> 
             src={imgSliderOne}
             alt="Slider Image"
             className="absolute inset-0 w-full h-full object-cover"
@@ -78,15 +78,21 @@ const SliderMain = () => {
             <h1 className="text-5xl text-white">
               Welcome to SCHOOLARSWAY School
             </h1>
-            <p className="mt-5 text-4xl">Empowering Scholars, Leading the Way</p>
-            <button className="mt-10 bg-red-500 px-6 py-3 text-white rounded-lg"  onClick={() => navigate("/contact")}>
+            <p className="mt-5 text-4xl">
+              Empowering Scholars, Leading the Way
+            </p>
+            <button
+              className="mt-10 bg-red-500 px-6 py-3 text-white rounded-lg"
+              onClick={() => navigate("/contact")}
+            >
               Enroll Now
             </button>
           </div>
-        </SwiperSlide>
+        </SwiperSlide> */}
+          {/*
         <SwiperSlide className="relative h-screen w-full">
-          <div className="absolute inset-0 bg-black opacity-50"></div>{" "}
-          {/* Dark overlay */}
+          <div className="absolute inset-0 bg-black opacity-50"></div>
+          
           <img
             src={imgSliderTwo}
             alt="Slider Image"
@@ -94,16 +100,21 @@ const SliderMain = () => {
           />
           <div className="relative z-10 text-center text-white mt-[230px]">
             <h1 className="text-5xl text-white">
-            Welcome to SCHOOLARSWAY School
+              Welcome to SCHOOLARSWAY School
             </h1>
-            <p className="mt-5 text-4xl">Best gift for a child is a great education</p>
-            <button className="mt-10 bg-red-500 px-6 py-3 text-white rounded-lg" onClick={() => navigate("/contact")}>
+            <p className="mt-5 text-4xl">
+              Best gift for a child is a great education
+            </p>
+            <button
+              className="mt-10 bg-red-500 px-6 py-3 text-white rounded-lg"
+              onClick={() => navigate("/contact")}
+            >
               Enroll Now
             </button>
           </div>
         </SwiperSlide>
-
-        <div
+          */}
+        {/* <div
           ref={navigationPrevRef}
           className="bg-[#00000071] z-30  cursor-pointer absolute flex items-center justify-center rounded-full p-2 bottom-5 right-10"
         >
@@ -114,7 +125,7 @@ const SliderMain = () => {
           className="bg-[#00000071] z-30 cursor-pointer absolute flex items-center justify-center rounded-full p-2 bottom-5 left-10"
         >
           <IoIosArrowBack color="white" size={30} />
-        </div>
+        </div> */}
       </Swiper>
     </>
   );

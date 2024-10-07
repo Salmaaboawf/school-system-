@@ -1,9 +1,9 @@
 import  { useRef } from 'react'
 import { motion, useScroll, useTransform } from "framer-motion";
-import image1 from "../assets/images/student/student(13).jpg";
-import image2 from "../assets/images/student/student(14).jpg";
-import image3 from "../assets/images/student/student(15).jpg";
-import image4 from "../assets/images/student/student(10).jpg";
+import image1 from "../assets/images/imgs/portfolio-2.jpg";
+import image2 from "../assets/images/imgs/portfolio-7.jpg";
+import image3 from "../assets/images/imgs/portfolio-8.jpg";
+import image4 from "../assets/images/imgs/homepage-2.jpg";
 
 function ScrollImages() {
      const ref = useRef(null);
