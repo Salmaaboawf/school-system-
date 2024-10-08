@@ -185,7 +185,7 @@ function Gard() {
                   </th>
                   <th scope="col" className="px-6 py-4">
                     {" "}
-                    Lab1{" "}
+                    Final Grade{" "}
                   </th>
                 </tr>
               </thead>

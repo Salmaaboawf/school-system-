@@ -258,7 +258,7 @@ export default function AddTeacher() {
 
             </div>
             <div className="xl:w-[27rem] lg:w-80 md:w-full">
-              <Label htmlFor="levels" value="Teacher Levels" />
+              <Label htmlFor="levels" value="Teacher Classes" />
               <Controller
                 name="levels"
                 control={control}

@@ -205,7 +205,7 @@ export default function AddQuiz() {
                   Clear Quiz
                 </Button>
 
-                <Button
+                {/* <Button
                   outline
                   className="my-5 lg:w-72 sm:w-32 xs:w-72"
                   type="button"
@@ -214,7 +214,7 @@ export default function AddQuiz() {
                   }}
                 >
                   Add loop
-                </Button>
+                </Button> */}
               </div>
             </form>
           </section>
