@@ -196,4 +196,3 @@ function ViewAttendance() {
 }
 
 export default ViewAttendance;
-
