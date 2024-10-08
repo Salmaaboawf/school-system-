@@ -18,7 +18,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 export const addSubject = async (subjectData: {
   name: string;
-   teacher: string; // The selected teacher's ID
+  teacher: string; // The selected teacher's ID
   description: string;
   level_id: string;
   total_grade: number;
@@ -26,14 +26,8 @@ export const addSubject = async (subjectData: {
 }) => {
   try {
     console.log(subjectData);
-    const {
-      description,
-      level_id,
-      name,
-      photoURL,
-       teacher,
-      total_grade,
-    } = subjectData;
+    const { description, level_id, name, photoURL, teacher, total_grade } =
+      subjectData;
     // 1. Add a new document to the "subjects" collection
     const subCollectionRef = collection(db, "subjects");
     const docRef = await addDoc(subCollectionRef, {
@@ -52,10 +46,10 @@ export const addSubject = async (subjectData: {
     await updateDoc(docRef, { id: docId });
 
     // 4. Update the selected teacher's document with the new subject
-      const teacherRef = doc(db, "teachers", subjectData.teacher);
-       await updateDoc(teacherRef, {
-        subjects: arrayUnion(docId), // Add the new subject ID to the teacher's subjects array using arrayUnion
-      });
+    const teacherRef = doc(db, "teachers", subjectData.teacher);
+    await updateDoc(teacherRef, {
+      subjects: arrayUnion(docId), // Add the new subject ID to the teacher's subjects array using arrayUnion
+    });
     toast.success(`${name} added successfully`);
     // console.log("Subject added and teacher updated with the new subject");
   } catch (error) {
@@ -88,7 +82,7 @@ export const fetchSubjects = async (): Promise<{ id: string }[]> => {
 
 export const fetchSubjectsByLevel = async (levelId: string) => {
   try {
-    console.log(levelId)
+    console.log(levelId);
     const subjectCollection = collection(db, "subjects");
 
     const q = query(subjectCollection, where("level_id", "==", levelId));
