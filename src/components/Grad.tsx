@@ -107,9 +107,9 @@ function Gard() {
             subject_id: selectedSubject,
           });
         }
-        toast.success("Grades saved successfully!")
       }
     }
+    toast.success("Grades saved successfully!")
     setGrades({}); // Reset grades after saving
   };
 

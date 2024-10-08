@@ -217,7 +217,7 @@ function AddVideo() {
   };
 
   return (
-    <div className="container mx-auto mt-20 p-6 bg-white shadow-lg rounded-lg max-w-3xl">
+    <div className="container mx-auto p-6 bg-white shadow-lg rounded-lg max-w-3xl">
 
      
       <h3 className="text-4xl font-semibold text-center text-gray-800 mb-8">
