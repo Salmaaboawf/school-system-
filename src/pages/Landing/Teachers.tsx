@@ -45,7 +45,7 @@ function Teachers() {
                   <h2>{teacher.name}</h2>
                   <h4>{teacher.subjectName}</h4>
 
-                  <p>{teacher.description}</p>
+                  <p className=" min-h-32">{teacher.description}</p>
                 </div>
               </div>
             </div>

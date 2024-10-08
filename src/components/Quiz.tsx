@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import img from "../assets/images/Blue Playful Space Landscape Blank Page Border.png";
 import { useAppSelector } from "../hooks/reduxHooks";
 import {
   addGradeToStudent,
@@ -11,18 +10,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import "../assets/general.css";
 const QuizPage = () => {
-  // const divStyle = {
-  //   backgroundImage: `url(${img})`,
-  //   backgroundSize: "contain",
-  //   backgroundRepeat: "no-repeat",
-  //   backgroundPosition: "center",
-  //   minHeight: "100vh",
-  //   display: "flex",
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   padding: "20px",
-  // };
-
   const userInfo = useAppSelector((state) => state.user.user);
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
