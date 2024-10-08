@@ -58,11 +58,15 @@ const SliderMain = () => {
             muted
             className="absolute inset-0 w-full h-full object-cover"
           ></video>
-          <div className="relative z-10 text-center text-deepBlue mt-[230px]">
-            <h1 className="text-5xl">
-              Welcome to SCHOOLARSWAY School
-            </h1>
-            <p className="mt-5">Best gift for a child is a great education</p>
+          <div className="relative z-10 text-center text-[#ff4e31] mt-[230px]">
+            <div className="block bg-white bg-opacity-70 px-8 py-6 rounded-lg ">
+              <h1 className="text-5xl text-[#ff4e31]">
+                Welcome to SCHOOLARSWAY School
+              </h1>
+              <p className="mt-5 text-[#002749] text-lg font-normal">
+                Best gift for a child is a great education
+              </p>
+            </div>
             <button className="mt-10 bg-[#ff4e31] hover:bg-[#002749] px-6 py-3 text-white rounded-lg">
               Enroll Now
             </button>
@@ -89,7 +93,7 @@ const SliderMain = () => {
             </button>
           </div>
         </SwiperSlide> */}
-          {/*
+        {/*
         <SwiperSlide className="relative h-screen w-full">
           <div className="absolute inset-0 bg-black opacity-50"></div>
           

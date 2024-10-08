@@ -27,10 +27,10 @@ export default function Activities() {
         </div>
         {/* Third Activity */}
         <div className="activities">
-          <div className="activities_child bg-[#FF4E31]"> Music</div>
+          <div className="activities_child bg-[#FF4E31]"> Quran</div>
           <div className="w-2/4 py-3 text-[#545454]">
-            <h3 className="text-xl font-semibold mb-2">Music Classes</h3>
-            <p>Learn and practice musical instruments and theory.</p>
+            <h3 className="text-xl font-semibold mb-2">Religion classes</h3>
+            <p> learn how to read the Holy Qur’an with rules and intonation.</p>
           </div>
         </div>
         {/* Fourth Activity */}

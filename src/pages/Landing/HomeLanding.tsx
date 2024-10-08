@@ -14,39 +14,18 @@ const HomeLanding = () => {
         <SliderMain />
       </section>
       <section className="px-10 ">
-         <Heading
-        h2="ENROLLMENT"
-        p="Steps done with heart, soul, mind & strength"
-      />
+        <Heading
+          h2="ENROLLMENT"
+          p="Steps done with heart, soul, mind & strength"
+        />
         <EnrollmentSlider />
       </section>
       <Service_Section />
-      {/* <SchoolStatus>
-        <>
-          <StatusCard
-            title="Outdoor Activities"
-            number="75"
-            icon={<LuTrees size={30} color="white" />}
-          />
-          <StatusCard
-            title="Math Lessons"
-            number="237"
-            icon={<TbMathMaxMin size={30} color="white" />}
-          />
-          <StatusCard
-            title="Loving Teachers"
-            number="32"
-            icon={<GiTeacher size={30} color="white" />}
-          />
-          <StatusCard
-            title="Pencils Wood"
-            number="457"
-            icon={<FaTree size={30} color="white" />}
-          />
-        </>
-      </SchoolStatus> */}
+     
       <Activities />
-      <ScrollImages />
+      <div className="mt-10">
+        <ScrollImages />
+      </div>
       <Testimonials />
     </main>
   );
