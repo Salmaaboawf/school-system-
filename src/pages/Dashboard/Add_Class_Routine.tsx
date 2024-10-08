@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar";
 import ReactSelect from "react-select";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
@@ -9,7 +8,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import makeAnimated from "react-select/animated";
 import { useEffect, useState } from "react";
 import { fetchSubjects } from "../../services/subjectServices";
-import { Button } from "flowbite-react";
 import { SubjectType, TeacherType } from "../../utils/types";
 import { toast } from "react-toastify";
 import {
@@ -23,6 +21,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import DashboardHeader from "../../components/Header/DashboardHeader";
+import { setSubject } from "../../Redux/Slices/subjectSlice";
 
 const schema = yup.object().shape({
   levels: yup.object().required().nullable(),
@@ -48,9 +47,6 @@ const schema = yup.object().shape({
   thrThree: yup.object().required().nullable(),
   thrFour: yup.object().required().nullable(),
 });
-
-
-
 
 const animatedComponents = makeAnimated();
 
@@ -222,7 +218,9 @@ const Add_Class_Routine = () => {
           }
         }
       }
-      toast.success(`Schedule added successfully to class ${currentLevel.name}`)
+      toast.success(
+        `Schedule added successfully to class ${currentLevel.name}`
+      );
     } catch (error) {
       console.error("Error adding schedule: ", error);
     }
@@ -261,8 +259,13 @@ const Add_Class_Routine = () => {
     }
   };
 
+  const getTheSubjects = async () => {
+    const subjectsAll = await fetchSubjects();
+    dispatch(setSubject([...subjectsAll]));
+  };
+
   useEffect(() => {
-    fetchSubjects(dispatch);
+    getTheSubjects();
     // const getTeachers = async () => {
     //   const teachersList = await fetchTeachers();
     // };
@@ -279,13 +282,11 @@ const Add_Class_Routine = () => {
     }
   }, [currentLevel, subjects]);
 
-
   // useEffect(() => {
   //   Object.keys(errors).forEach((key) => {
   //     toast.error(errors[key]?.message);
   //   });
   // }, []);
-
 
   return (
     <div className="flex">
@@ -818,12 +819,12 @@ const Add_Class_Routine = () => {
             </tbody>
           </table>
           <div className="w-full flex items-center justify-center mt-3">
-          <button
-            className="formButton xl:w-[27rem] lg:w-80 md:w-full"
-            type="submit"
-          >
-             Add Schedule
-          </button>
+            <button
+              className="formButton xl:w-[27rem] lg:w-80 md:w-full"
+              type="submit"
+            >
+              Add Schedule
+            </button>
           </div>
         </form>
       </section>

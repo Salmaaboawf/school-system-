@@ -18,7 +18,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 export const addSubject = async (subjectData: {
   name: string;
-   teacher: string; // The selected teacher's ID
+  teacher: string; // The selected teacher's ID
   description: string;
   level_id: string;
   total_grade: number;
@@ -87,7 +87,7 @@ export const fetchSubjects = async (): Promise<{ id: string }[]> => {
 
 export const fetchSubjectsByLevel = async (levelId: string) => {
   try {
-    console.log(levelId)
+    console.log(levelId);
     const subjectCollection = collection(db, "subjects");
 
     const q = query(subjectCollection, where("level_id", "==", levelId));
