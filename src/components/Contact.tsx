@@ -29,7 +29,7 @@ const schema = yup.object({
   message: yup
     .string()
     .required("Message is required")
-    .max(100, "Your message cannot exceed 100 characters")
+    .max(200, "Your message cannot exceed 200 characters")
     .min(15, "Your message must be at least 15 characters"),
 });
 
@@ -75,7 +75,7 @@ function Contact() {
       <div className="bg-cover bg-center h-96" style={{ backgroundImage: `url(${header})` }}>
         <div className="container mx-auto pt-40 flex items-center">
           <p className="text-3xl text-deepBlue font-bold pl-16">
-            We welcome your questions and concerns <br /> please contact us for a swift response
+            We welcome your questions and concerns <div className='my-2'></div> please contact us for a swift response
           </p>
         </div>
       </div>

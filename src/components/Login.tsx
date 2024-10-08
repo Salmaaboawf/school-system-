@@ -75,7 +75,7 @@ export default function Login() {
 
 
   return (
-    <section className="bg-orange-50 p-8 rounded-lg shadow-lg text-gray-800">
+    <section className="bg-[#f5f4f4] p-8 rounded-lg  text-gray-800">
       
       {/* Add the image above the form */}
       <div className="flex justify-center mb-6">
@@ -120,7 +120,7 @@ export default function Login() {
         </fieldset>
       </div>
       <form
-        onSubmit={handleSubmit(save, (err) => console.log(err))}
+        onSubmit={handleSubmit(save)}
         className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md space-y-6 my-10"
       >
         <div>

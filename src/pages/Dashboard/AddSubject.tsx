@@ -152,7 +152,7 @@ export default function AddSubject() {
 
           </div>
 
-          <div>
+          {/* <div>
               <Label htmlFor="teacher" value="Select Teacher" />
               <Select
                 id="teacher"
@@ -166,10 +166,7 @@ export default function AddSubject() {
                   </option>
                 ))}
               </Select>
-              {/* <p className="text-red-500 text-sm mt-1">
-                {errors.teacher?.message}
-              </p> */}
-            </div>
+            </div> */}
 
           <div>
             <Label htmlFor="description" value="Course Description" />

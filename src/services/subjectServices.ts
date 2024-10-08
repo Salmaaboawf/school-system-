@@ -25,7 +25,6 @@ export const addSubject = async (subjectData: {
   photoURL: string;
 }) => {
   try {
-    console.log(subjectData);
     const {
       description,
       level_id,
@@ -41,7 +40,7 @@ export const addSubject = async (subjectData: {
       level_id,
       name,
       photoURL,
-      teacher,
+      teacher:'',
       total_grade,
     });
 
@@ -52,10 +51,10 @@ export const addSubject = async (subjectData: {
     await updateDoc(docRef, { id: docId });
 
     // 4. Update the selected teacher's document with the new subject
-      const teacherRef = doc(db, "teachers", subjectData.teacher);
-       await updateDoc(teacherRef, {
-        subjects: arrayUnion(docId), // Add the new subject ID to the teacher's subjects array using arrayUnion
-      });
+      // const teacherRef = doc(db, "teachers", subjectData.teacher);
+      //  await updateDoc(teacherRef, {
+      //   subjects: arrayUnion(docId),
+      // });
     toast.success(`${name} added successfully`);
     // console.log("Subject added and teacher updated with the new subject");
   } catch (error) {
